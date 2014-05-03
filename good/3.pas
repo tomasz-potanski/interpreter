@@ -1,5 +1,5 @@
 var
-	Liczba: integer;
+	Liczba: Integer;
 	Wart_log: Boolean;
 
 begin
