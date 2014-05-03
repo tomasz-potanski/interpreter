@@ -31,9 +31,9 @@ transVariableDeclaration x = case x of
   VBDoesntExists  -> failure x
 
 
-transDeclarationLines :: DeclarationLines -> Result
-transDeclarationLines x = case x of
-  DLList  -> failure x
+transDeclarationLine :: DeclarationLine -> Result
+transDeclarationLine x = case x of
+  DLList id type'  -> failure x
 
 
 transStmt :: Stmt -> Result

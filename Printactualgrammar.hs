@@ -100,10 +100,13 @@ instance Print VariableDeclaration where
    VBDoesntExists  -> prPrec i 0 (concatD [])
 
 
-instance Print DeclarationLines where
+instance Print DeclarationLine where
   prt i e = case e of
-   DLList  -> prPrec i 0 (concatD [doc (showString "AAA")])
+   DLList id type' -> prPrec i 0 (concatD [prt 0 id , doc (showString ":") , prt 0 type'])
 
+  prtList es = case es of
+   [x] -> (concatD [prt 0 x])
+   x:xs -> (concatD [prt 0 x , prt 0 xs])
 
 instance Print Stmt where
   prt i e = case e of

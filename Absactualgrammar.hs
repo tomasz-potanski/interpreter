@@ -14,12 +14,12 @@ data Block =
   deriving (Eq,Ord,Show)
 
 data VariableDeclaration =
-   VBExists DeclarationLines
+   VBExists [DeclarationLine]
  | VBDoesntExists
   deriving (Eq,Ord,Show)
 
-data DeclarationLines =
-   DLList
+data DeclarationLine =
+   DLList Ident Type
   deriving (Eq,Ord,Show)
 
 data Stmt =

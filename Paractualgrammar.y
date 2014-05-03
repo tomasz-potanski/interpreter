@@ -16,8 +16,8 @@ import ErrM
 
 %token 
  '.' { PT _ (TS _ 1) }
- '=' { PT _ (TS _ 2) }
- 'AAA' { PT _ (TS _ 3) }
+ ':' { PT _ (TS _ 2) }
+ '=' { PT _ (TS _ 3) }
  'begin' { PT _ (TS _ 4) }
  'boolean' { PT _ (TS _ 5) }
  'end' { PT _ (TS _ 6) }
@@ -45,12 +45,17 @@ Block2 : 'begin' ListStmt 'end' { Blockk2 (reverse $2) }
 
 
 VariableDeclaration :: { VariableDeclaration }
-VariableDeclaration : 'var' DeclarationLines { VBExists $2 } 
+VariableDeclaration : 'var' ListDeclarationLine { VBExists $2 } 
   | {- empty -} { VBDoesntExists }
 
 
-DeclarationLines :: { DeclarationLines }
-DeclarationLines : 'AAA' { DLList } 
+DeclarationLine :: { DeclarationLine }
+DeclarationLine : Ident ':' Type { DLList $1 $3 } 
+
+
+ListDeclarationLine :: { [DeclarationLine] }
+ListDeclarationLine : DeclarationLine { (:[]) $1 } 
+  | DeclarationLine ListDeclarationLine { (:) $1 $2 }
 
 
 ListStmt :: { [Stmt] }

@@ -21,15 +21,11 @@ Blockk.			Block	::= VariableDeclaration Block2 ;
 Blockk2.		Block2	::= "begin" [Stmt] "end" ;
 
 -------------(Variables Declaration)---------------
-VBExists.		VariableDeclaration ::=	"var" DeclarationLines ;
+VBExists.		VariableDeclaration ::=	"var" [DeclarationLine] ;
 VBDoesntExists.		VariableDeclaration ::=	;
---DLList.			DeclarationLines    ::= Ident ":" Type ;
-DLList.			DeclarationLines    ::= "AAA" ;
+DLList.			DeclarationLine    ::= Ident ":" Type ;
 
---IdenLP.			[Ident]	::=	Ident ;
---IdenLD.			[Ident]	::=	Ident "," [Ident] ;
-
---separator nonempty Ident "," ;
+separator nonempty DeclarationLine "" ;
 
 ------------(statements)-------
 

@@ -23,11 +23,11 @@ reserved words excluded.
 The set of reserved words is the set of terminals appearing in the grammar. Those reserved words that consist of non-letter characters are called symbols, and they are treated in a different way from those that are similar to identifiers. The lexer follows rules familiar from languages like Haskell, C, and Java, including longest match and spacing conventions.
 
 The reserved words used in actualgrammar are the following:
-  | ``AAA`` | ``begin`` | ``boolean`` | ``end``
-  | ``int`` | ``var`` |  | 
+  | ``begin`` | ``boolean`` | ``end`` | ``int``
+  | ``var`` |  |  | 
 
 The symbols used in actualgrammar are the following:
-  | . | = |  | 
+  | . | : | = | 
 
 ===Comments===
 Single-line comments begin with //.Multiple-line comments are  enclosed with /* and */, { and }, {* and *}.
@@ -41,9 +41,11 @@ All other symbols are terminals.
   | //Program// | -> | //Block// ``.`` 
   | //Block// | -> | //VariableDeclaration// //Block2// 
   | //Block2// | -> | ``begin`` //[Stmt]// ``end`` 
-  | //VariableDeclaration// | -> | ``var`` //DeclarationLines// 
+  | //VariableDeclaration// | -> | ``var`` //[DeclarationLine]// 
   |  |  **|**  | **eps**
-  | //DeclarationLines// | -> | ``AAA`` 
+  | //DeclarationLine// | -> | //Ident// ``:`` //Type// 
+  | //[DeclarationLine]// | -> | //DeclarationLine// 
+  |  |  **|**  | //DeclarationLine// //[DeclarationLine]// 
   | //[Stmt]// | -> | **eps**
   |  |  **|**  | //Stmt// //[Stmt]// 
   | //Stmt// | -> | //Exp// 
