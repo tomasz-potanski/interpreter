@@ -24,6 +24,7 @@ sed -i '4s/-o .*$/-o interpreter/' Makefile
 make 2>&1 | ack-grep --passthru --color -i "unused|conflicts|shaft"
 echo "$bldred \r<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<$reset"
 
+git update-index -q --refresh
 if ! git diff-index --quiet HEAD --
 then
 	DATA=`date`
