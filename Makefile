@@ -9,3 +9,5 @@ clean:
 distclean: clean
 	-rm -f Docactualgrammar.* Lexactualgrammar.* Paractualgrammar.* Layoutactualgrammar.* Skelactualgrammar.* Printactualgrammar.* Testactualgrammar.* Absactualgrammar.* Testactualgrammar ErrM.* SharedString.* actualgrammar.dtd XMLactualgrammar.* Makefile*
 
+
+
