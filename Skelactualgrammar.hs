@@ -27,9 +27,7 @@ transProgramNameHeader x = case x of
 
 transBlock :: Block -> Result
 transBlock x = case x of
-  Blockk constantdeclaration block  -> failure x
-  Blockk2 variabledeclaration block  -> failure x
-  Blockk3 stmts  -> failure x
+  Blockk constantdeclaration variabledeclaration stmts  -> failure x
 
 
 transVariableDeclaration :: VariableDeclaration -> Result

@@ -45,9 +45,9 @@ All other symbols are terminals.
   | //Program// | -> | //ProgramNameHeader// //Block// ``.`` 
   | //ProgramNameHeader// | -> | ``program`` //Ident// ``;`` 
   |  |  **|**  | **eps**
-  | //Block// | -> | //ConstantDeclaration// //Block2// 
-  | //Block2// | -> | //VariableDeclaration// //Block3// 
-  | //Block3// | -> | ``begin`` //[Stmt]// ``end`` 
+  | //Block// | -> | //ConstantDeclaration// //VariableDeclaration// ``begin`` //[Stmt]// ``end`` 
+  | //[Stmt]// | -> | **eps**
+  |  |  **|**  | //Stmt// //[Stmt]// 
   | //VariableDeclaration// | -> | ``var`` //[VarDeclarationLine]// 
   |  |  **|**  | **eps**
   | //VarDeclarationLine// | -> | //[Ident]// ``:`` //Type// ``;`` 
@@ -61,8 +61,6 @@ All other symbols are terminals.
   | //LiteralValue// | -> | //Integer// 
   | //[ConstDeclLine]// | -> | //ConstDeclLine// 
   |  |  **|**  | //ConstDeclLine// //[ConstDeclLine]// 
-  | //[Stmt]// | -> | **eps**
-  |  |  **|**  | //Stmt// //[Stmt]// 
   | //Stmt// | -> | //Exp// 
   | //Exp// | -> | //Ident// ``=`` //Exp// 
   | //Type// | -> | ``Integer`` 

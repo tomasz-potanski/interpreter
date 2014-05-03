@@ -48,15 +48,12 @@ ProgramNameHeader : 'program' Ident ';' { ProgNameHeaderNotBlank $2 }
 
 
 Block :: { Block }
-Block : ConstantDeclaration Block2 { Blockk $1 $2 } 
+Block : ConstantDeclaration VariableDeclaration 'begin' ListStmt 'end' { Blockk $1 $2 (reverse $4) } 
 
 
-Block2 :: { Block }
-Block2 : VariableDeclaration Block3 { Blockk2 $1 $2 } 
-
-
-Block3 :: { Block }
-Block3 : 'begin' ListStmt 'end' { Blockk3 (reverse $2) } 
+ListStmt :: { [Stmt] }
+ListStmt : {- empty -} { [] } 
+  | ListStmt Stmt { flip (:) $1 $2 }
 
 
 VariableDeclaration :: { VariableDeclaration }
@@ -94,11 +91,6 @@ LiteralValue : Integer { LiteralValInt $1 }
 ListConstDeclLine :: { [ConstDeclLine] }
 ListConstDeclLine : ConstDeclLine { (:[]) $1 } 
   | ConstDeclLine ListConstDeclLine { (:) $1 $2 }
-
-
-ListStmt :: { [Stmt] }
-ListStmt : {- empty -} { [] } 
-  | ListStmt Stmt { flip (:) $1 $2 }
 
 
 Stmt :: { Stmt }

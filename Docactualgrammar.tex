@@ -71,15 +71,12 @@ All other symbols are terminals.\\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{Block}} & {\arrow}  &{\nonterminal{ConstantDeclaration}} {\nonterminal{Block2}}  \\
+{\nonterminal{Block}} & {\arrow}  &{\nonterminal{ConstantDeclaration}} {\nonterminal{VariableDeclaration}} {\terminal{begin}} {\nonterminal{ListStmt}} {\terminal{end}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{Block2}} & {\arrow}  &{\nonterminal{VariableDeclaration}} {\nonterminal{Block3}}  \\
-\end{tabular}\\
-
-\begin{tabular}{lll}
-{\nonterminal{Block3}} & {\arrow}  &{\terminal{begin}} {\nonterminal{ListStmt}} {\terminal{end}}  \\
+{\nonterminal{ListStmt}} & {\arrow}  &{\emptyP} \\
+ & {\delimit}  &{\nonterminal{Stmt}} {\nonterminal{ListStmt}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
@@ -117,11 +114,6 @@ All other symbols are terminals.\\
 \begin{tabular}{lll}
 {\nonterminal{ListConstDeclLine}} & {\arrow}  &{\nonterminal{ConstDeclLine}}  \\
  & {\delimit}  &{\nonterminal{ConstDeclLine}} {\nonterminal{ListConstDeclLine}}  \\
-\end{tabular}\\
-
-\begin{tabular}{lll}
-{\nonterminal{ListStmt}} & {\arrow}  &{\emptyP} \\
- & {\delimit}  &{\nonterminal{Stmt}} {\nonterminal{ListStmt}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}

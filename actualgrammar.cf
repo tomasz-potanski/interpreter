@@ -20,7 +20,9 @@ Blockk5.		Block5	::= 	"begin" [Stmt] "end" ;
 coercions Block 5 ;
 -}
 
-Blockk.		Block	::= ConstantDeclaration VariableDeclaration begin" [Stmt] "end" ;
+Blockk.		Block	::= ConstantDeclaration VariableDeclaration "begin" [Stmt] "end" ;
+
+terminator Stmt "" ;
 
 -------------(Variables Declaration)---------------
 VBExists.		VariableDeclaration ::=	"var" [VarDeclarationLine] ;
@@ -44,7 +46,6 @@ separator nonempty ConstDeclLine "" ;
 
 ------------(statements)-------
 
-terminator Stmt "" ;
 
 Stmtt.		Stmt 	::=	Exp ;
 
