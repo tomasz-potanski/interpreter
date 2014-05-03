@@ -28,6 +28,7 @@ git update-index -q --refresh
 if ! git diff-index --quiet HEAD --
 then
 	DATA=`date`
+	echo "Aktualizuje repozytorium..."
 	git commit -a -m "$1 ($(date))"
 	git push origin master 2> /dev/null &
 fi
