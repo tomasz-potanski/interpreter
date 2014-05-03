@@ -1,5 +1,5 @@
 var
-Liczba : integer;
+Liczba : int;
 Wart_log : boolean;
 
 begin
