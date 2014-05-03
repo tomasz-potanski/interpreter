@@ -28,7 +28,7 @@ git update-index -q --refresh
 if ! git diff-index --quiet HEAD --
 then
 	DATA=`date`
-	echo "I am updating repo"
+	echo "I am updating repo..."
 	git commit -a -m "$1 ($(date))"
 	git push origin master --quiet &
 fi
