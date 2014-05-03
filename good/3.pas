@@ -1,7 +1,7 @@
 var
-//Liczba : int;
+Liczba : int;
 //Wart_log : boolean;
-AAA
+
 
 begin
 end.
