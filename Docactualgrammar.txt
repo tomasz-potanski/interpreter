@@ -48,7 +48,6 @@ All other symbols are terminals.
   |  |  **|**  | //Ident// ``:`` //Type// 
   | //[Ident]// | -> | //Ident// ``;`` 
   |  |  **|**  | //Ident// ``;`` //[Ident]// 
-  |  |  **|**  | **eps**
   |  |  **|**  | //Ident// 
   |  |  **|**  | //Ident// ``,`` //[Ident]// 
   | //[Stmt]// | -> | **eps**

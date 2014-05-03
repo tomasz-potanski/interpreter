@@ -27,7 +27,7 @@ DLList.			DeclarationLines    ::= [Ident] ":" Type ;
 DLSingle.		DeclarationLines    ::= Ident ":" Type ;
 
 terminator nonempty Ident ";" ;
-separator Ident "," ;
+separator nonempty Ident "," ;
 
 ------------(statements)-------
 

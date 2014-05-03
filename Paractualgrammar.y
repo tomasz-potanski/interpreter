@@ -59,7 +59,6 @@ DeclarationLines : ListIdent ':' Type { DLList $1 $3 }
 ListIdent :: { [Ident] }
 ListIdent : Ident ';' { (:[]) $1 } 
   | Ident ';' ListIdent { (:) $1 $3 }
-  | {- empty -} { [] }
   | Ident { (:[]) $1 }
   | Ident ',' ListIdent { (:) $1 $3 }
 

@@ -81,7 +81,6 @@ instance Print Double where
 instance Print Ident where
   prt _ (Ident i) = doc (showString ( i))
   prtList es = case es of
-   [] -> (concatD [])
    [x] -> (concatD [prt 0 x , doc (showString ";")])
    [x] -> (concatD [prt 0 x])
    x:xs -> (concatD [prt 0 x , doc (showString ";") , prt 0 xs])
