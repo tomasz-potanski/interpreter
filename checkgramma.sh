@@ -26,8 +26,8 @@ echo "$bldred \r<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<$reset"
 
 echo "  "
 
-git add 'good/*.pas'
-git add 'bad/*.pas'
+git add --ignore-removal 'good/*.pas'
+git add --ignore-removal 'bad/*.pas'
 git update-index -q --refresh
 if ! git diff-index --quiet HEAD --
 then
