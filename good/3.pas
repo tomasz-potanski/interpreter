@@ -1,3 +1,6 @@
 Var
-	Liczba: Integer;
+	Liczba: integer;
 	Wart_log: Boolean;
+
+begin
+end.

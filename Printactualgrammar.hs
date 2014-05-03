@@ -80,6 +80,12 @@ instance Print Double where
 
 instance Print Ident where
   prt _ (Ident i) = doc (showString ( i))
+  prtList es = case es of
+   [] -> (concatD [])
+   [x] -> (concatD [prt 0 x , doc (showString ";")])
+   [x] -> (concatD [prt 0 x])
+   x:xs -> (concatD [prt 0 x , doc (showString ";") , prt 0 xs])
+   x:xs -> (concatD [prt 0 x , doc (showString ",") , prt 0 xs])
 
 
 
@@ -90,7 +96,20 @@ instance Print Program where
 
 instance Print Block where
   prt i e = case e of
-   Blockk stmts -> prPrec i 0 (concatD [doc (showString "begin") , prt 0 stmts , doc (showString "end")])
+   Blockk variabledeclaration block -> prPrec i 0 (concatD [prt 0 variabledeclaration , prt 2 block])
+   Blockk2 stmts -> prPrec i 2 (concatD [doc (showString "begin") , prt 0 stmts , doc (showString "end")])
+
+
+instance Print VariableDeclaration where
+  prt i e = case e of
+   VBExists declarationlines -> prPrec i 0 (concatD [doc (showString "Var") , prt 0 declarationlines])
+   VBDoesntExists  -> prPrec i 0 (concatD [])
+
+
+instance Print DeclarationLines where
+  prt i e = case e of
+   DLList ids type' -> prPrec i 0 (concatD [prt 0 ids , doc (showString ":") , prt 0 type'])
+   DLSingle id type' -> prPrec i 0 (concatD [prt 0 id , doc (showString ":") , prt 0 type'])
 
 
 instance Print Stmt where
@@ -104,6 +123,12 @@ instance Print Stmt where
 instance Print Exp where
   prt i e = case e of
    EAss id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "=") , prt 0 exp])
+
+
+instance Print Type where
+  prt i e = case e of
+   TInt  -> prPrec i 0 (concatD [doc (showString "Integer")])
+   TBool  -> prPrec i 0 (concatD [doc (showString "Boolean")])
 
 
 

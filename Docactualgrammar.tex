@@ -37,13 +37,15 @@ The set of reserved words is the set of terminals appearing in the grammar. Thos
 The reserved words used in actualgrammar are the following: \\
 
 \begin{tabular}{lll}
+{\reserved{Boolean}} &{\reserved{Integer}} &{\reserved{Var}} \\
 {\reserved{begin}} &{\reserved{end}} & \\
 \end{tabular}\\
 
 The symbols used in actualgrammar are the following: \\
 
 \begin{tabular}{lll}
-{\symb{.}} &{\symb{{$=$}}} & \\
+{\symb{.}} &{\symb{:}} &{\symb{;}} \\
+{\symb{,}} &{\symb{{$=$}}} & \\
 \end{tabular}\\
 
 \subsection*{Comments}
@@ -60,7 +62,29 @@ All other symbols are terminals.\\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{Block}} & {\arrow}  &{\terminal{begin}} {\nonterminal{ListStmt}} {\terminal{end}}  \\
+{\nonterminal{Block}} & {\arrow}  &{\nonterminal{VariableDeclaration}} {\nonterminal{Block2}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{Block2}} & {\arrow}  &{\terminal{begin}} {\nonterminal{ListStmt}} {\terminal{end}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{VariableDeclaration}} & {\arrow}  &{\terminal{Var}} {\nonterminal{DeclarationLines}}  \\
+ & {\delimit}  &{\emptyP} \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{DeclarationLines}} & {\arrow}  &{\nonterminal{ListIdent}} {\terminal{:}} {\nonterminal{Type}}  \\
+ & {\delimit}  &{\nonterminal{Ident}} {\terminal{:}} {\nonterminal{Type}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{ListIdent}} & {\arrow}  &{\nonterminal{Ident}} {\terminal{;}}  \\
+ & {\delimit}  &{\nonterminal{Ident}} {\terminal{;}} {\nonterminal{ListIdent}}  \\
+ & {\delimit}  &{\emptyP} \\
+ & {\delimit}  &{\nonterminal{Ident}}  \\
+ & {\delimit}  &{\nonterminal{Ident}} {\terminal{,}} {\nonterminal{ListIdent}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
@@ -74,7 +98,11 @@ All other symbols are terminals.\\
 
 \begin{tabular}{lll}
 {\nonterminal{Exp}} & {\arrow}  &{\nonterminal{Ident}} {\terminal{{$=$}}} {\nonterminal{Exp}}  \\
- & {\delimit}  &{\nonterminal{Ident}} {\terminal{{$=$}}} {\nonterminal{Exp}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{Type}} & {\arrow}  &{\terminal{Integer}}  \\
+ & {\delimit}  &{\terminal{Boolean}}  \\
 \end{tabular}\\
 
 

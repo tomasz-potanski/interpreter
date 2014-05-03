@@ -9,7 +9,18 @@ data Program =
   deriving (Eq,Ord,Show)
 
 data Block =
-   Blockk [Stmt]
+   Blockk VariableDeclaration Block
+ | Blockk2 [Stmt]
+  deriving (Eq,Ord,Show)
+
+data VariableDeclaration =
+   VBExists DeclarationLines
+ | VBDoesntExists
+  deriving (Eq,Ord,Show)
+
+data DeclarationLines =
+   DLList [Ident] Type
+ | DLSingle Ident Type
   deriving (Eq,Ord,Show)
 
 data Stmt =
@@ -18,5 +29,10 @@ data Stmt =
 
 data Exp =
    EAss Ident Exp
+  deriving (Eq,Ord,Show)
+
+data Type =
+   TInt
+ | TBool
   deriving (Eq,Ord,Show)
 

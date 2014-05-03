@@ -23,10 +23,12 @@ reserved words excluded.
 The set of reserved words is the set of terminals appearing in the grammar. Those reserved words that consist of non-letter characters are called symbols, and they are treated in a different way from those that are similar to identifiers. The lexer follows rules familiar from languages like Haskell, C, and Java, including longest match and spacing conventions.
 
 The reserved words used in actualgrammar are the following:
-  | ``begin`` | ``end`` |  | 
+  | ``Boolean`` | ``Integer`` | ``Var`` | ``begin``
+  | ``end`` |  |  | 
 
 The symbols used in actualgrammar are the following:
-  | . | = |  | 
+  | . | : | ; | ,
+  | = |  |  | 
 
 ===Comments===
 Single-line comments begin with //.Multiple-line comments are  enclosed with /* and */, { and }, {* and *}.
@@ -38,11 +40,22 @@ and **eps** (empty rule) belong to the BNF notation.
 All other symbols are terminals.
 
   | //Program// | -> | //Block// ``.`` 
-  | //Block// | -> | ``begin`` //[Stmt]// ``end`` 
+  | //Block// | -> | //VariableDeclaration// //Block2// 
+  | //Block2// | -> | ``begin`` //[Stmt]// ``end`` 
+  | //VariableDeclaration// | -> | ``Var`` //DeclarationLines// 
+  |  |  **|**  | **eps**
+  | //DeclarationLines// | -> | //[Ident]// ``:`` //Type// 
+  |  |  **|**  | //Ident// ``:`` //Type// 
+  | //[Ident]// | -> | //Ident// ``;`` 
+  |  |  **|**  | //Ident// ``;`` //[Ident]// 
+  |  |  **|**  | **eps**
+  |  |  **|**  | //Ident// 
+  |  |  **|**  | //Ident// ``,`` //[Ident]// 
   | //[Stmt]// | -> | **eps**
   |  |  **|**  | //Stmt// //[Stmt]// 
   | //Stmt// | -> | //Exp// 
   | //Exp// | -> | //Ident// ``=`` //Exp// 
-  |  |  **|**  | //Ident// ``=`` //Exp// 
+  | //Type// | -> | ``Integer`` 
+  |  |  **|**  | ``Boolean`` 
 
 

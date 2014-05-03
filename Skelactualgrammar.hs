@@ -21,7 +21,20 @@ transProgram x = case x of
 
 transBlock :: Block -> Result
 transBlock x = case x of
-  Blockk stmts  -> failure x
+  Blockk variabledeclaration block  -> failure x
+  Blockk2 stmts  -> failure x
+
+
+transVariableDeclaration :: VariableDeclaration -> Result
+transVariableDeclaration x = case x of
+  VBExists declarationlines  -> failure x
+  VBDoesntExists  -> failure x
+
+
+transDeclarationLines :: DeclarationLines -> Result
+transDeclarationLines x = case x of
+  DLList ids type'  -> failure x
+  DLSingle id type'  -> failure x
 
 
 transStmt :: Stmt -> Result
@@ -32,6 +45,12 @@ transStmt x = case x of
 transExp :: Exp -> Result
 transExp x = case x of
   EAss id exp  -> failure x
+
+
+transType :: Type -> Result
+transType x = case x of
+  TInt  -> failure x
+  TBool  -> failure x
 
 
 

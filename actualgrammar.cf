@@ -20,7 +20,16 @@ coercions Block 5 ;
 Blockk.			Block	::= VariableDeclaration Block2 ;
 Blockk2.		Block2	::= "begin" [Stmt] "end" ;
 
-VB.			VariableDeclaration ::=	"aa" | "bb"
+-------------(Variables Declaration)---------------
+VBExists.		VariableDeclaration ::=	"Var" DeclarationLines ;
+VBDoesntExists.		VariableDeclaration ::=	;
+DLList.			DeclarationLines    ::= [Ident] ":" Type ;
+DLSingle.		DeclarationLines    ::= Ident ":" Type ;
+
+terminator nonempty Ident ";" ;
+separator Ident "," ;
+
+------------(statements)-------
 
 terminator Stmt "" ;
 
@@ -28,3 +37,7 @@ Stmtt.		Stmt 	::=	Exp ;
 
 EAss.		Exp 	::=	Ident "=" Exp ;
 
+---------(types)-----------
+
+TInt.	Type	::=	"Integer" ;
+TBool.	Type 	::=	"Boolean" ;
