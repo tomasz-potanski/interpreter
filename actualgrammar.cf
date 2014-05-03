@@ -1,0 +1,18 @@
+comment "//" ;
+comment "/*" "*/" ;
+comment "{" "}" ;
+comment "{*" "*}" ;
+  
+entrypoints Program ;
+
+Programm.	Program	::=	Block "." ;
+
+Blockk.		Block	::= 	"begin" [Stmt] "end" ;
+
+terminator Stmt "" ;
+
+Stmtt.		Stmt 	::=	Exp ;
+
+
+EAss.		Exp 	::=	Ident "=" Exp ;
+EAss.		Exp 	::=	Ident "=" Exp ;
