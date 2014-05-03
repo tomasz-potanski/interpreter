@@ -16,8 +16,8 @@ import ErrM
 
 %token 
  '.' { PT _ (TS _ 1) }
- ':' { PT _ (TS _ 2) }
- '=' { PT _ (TS _ 3) }
+ '=' { PT _ (TS _ 2) }
+ 'AAA' { PT _ (TS _ 3) }
  'begin' { PT _ (TS _ 4) }
  'boolean' { PT _ (TS _ 5) }
  'end' { PT _ (TS _ 6) }
@@ -50,7 +50,7 @@ VariableDeclaration : 'var' DeclarationLines { VBExists $2 }
 
 
 DeclarationLines :: { DeclarationLines }
-DeclarationLines : Ident ':' Type { DLList $1 $3 } 
+DeclarationLines : 'AAA' { DLList } 
 
 
 ListStmt :: { [Stmt] }

@@ -102,7 +102,7 @@ instance Print VariableDeclaration where
 
 instance Print DeclarationLines where
   prt i e = case e of
-   DLList id type' -> prPrec i 0 (concatD [prt 0 id , doc (showString ":") , prt 0 type'])
+   DLList  -> prPrec i 0 (concatD [doc (showString "AAA")])
 
 
 instance Print Stmt where
