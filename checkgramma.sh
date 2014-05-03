@@ -26,6 +26,7 @@ echo "$bldred \r<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<$reset"
 
 DATA=`date`
 git commit -a -m "$1 ($(date))"
+git push origin master 2> /dev/null
 
 echo "Do you want to run tests? [Y/n]"
 read yn
