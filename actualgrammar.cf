@@ -25,8 +25,8 @@ VBExists.		VariableDeclaration ::=	"Var" DeclarationLines ;
 --VBDoesntExists.		VariableDeclaration ::=	;
 DLList.			DeclarationLines    ::= [Ident] ":" Type ;
 
-UnfoldOfIdentListSingle.	[Ident]	::=	Ident ;
-UnfoldOfIdentListProduction.	[Ident]	::=	Ident "," [Ident] ;
+IdenLP.			[Ident]	::=	Ident ;
+IdenLD.			[Ident]	::=	Ident "," [Ident] ;
 
 ------------(statements)-------
 
