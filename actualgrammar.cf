@@ -38,5 +38,5 @@ EAss.		Exp 	::=	Ident "=" Exp ;
 
 ---------(types)-----------
 
-TInt.	Type	::=	"integer" ;
+TInt.	Type	::=	"Integer" ;
 TBool.	Type 	::=	"boolean" ;

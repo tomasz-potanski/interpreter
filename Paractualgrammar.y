@@ -20,10 +20,10 @@ import ErrM
  ':' { PT _ (TS _ 3) }
  ';' { PT _ (TS _ 4) }
  '=' { PT _ (TS _ 5) }
- 'begin' { PT _ (TS _ 6) }
- 'boolean' { PT _ (TS _ 7) }
- 'end' { PT _ (TS _ 8) }
- 'integer' { PT _ (TS _ 9) }
+ 'Integer' { PT _ (TS _ 6) }
+ 'begin' { PT _ (TS _ 7) }
+ 'boolean' { PT _ (TS _ 8) }
+ 'end' { PT _ (TS _ 9) }
  'var' { PT _ (TS _ 10) }
 
 L_ident  { PT _ (TV $$) }
@@ -79,7 +79,7 @@ Exp : Ident '=' Exp { EAss $1 $3 }
 
 
 Type :: { Type }
-Type : 'integer' { TInt } 
+Type : 'Integer' { TInt } 
   | 'boolean' { TBool }
 
 
