@@ -1,6 +1,6 @@
 var
-Liczba : int;
-//Wart_log : boolean;
+	Liczba : int;
+	Wart_log : boolean;
 
 
 begin
