@@ -23,7 +23,7 @@ import ErrM
  'begin' { PT _ (TS _ 6) }
  'boolean' { PT _ (TS _ 7) }
  'end' { PT _ (TS _ 8) }
- 'int' { PT _ (TS _ 9) }
+ 'integer' { PT _ (TS _ 9) }
  'var' { PT _ (TS _ 10) }
 
 L_ident  { PT _ (TV $$) }
@@ -79,7 +79,7 @@ Exp : Ident '=' Exp { EAss $1 $3 }
 
 
 Type :: { Type }
-Type : 'int' { TInt } 
+Type : 'integer' { TInt } 
   | 'boolean' { TBool }
 
 
