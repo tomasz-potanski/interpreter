@@ -102,7 +102,6 @@ instance Print Block where
 instance Print VariableDeclaration where
   prt i e = case e of
    VBExists declarationlines -> prPrec i 0 (concatD [doc (showString "Var") , prt 0 declarationlines])
-   VBDoesntExists  -> prPrec i 0 (concatD [])
 
 
 instance Print DeclarationLines where

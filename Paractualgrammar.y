@@ -48,7 +48,6 @@ Block2 : 'begin' ListStmt 'end' { Blockk2 (reverse $2) }
 
 VariableDeclaration :: { VariableDeclaration }
 VariableDeclaration : 'Var' DeclarationLines { VBExists $2 } 
-  | {- empty -} { VBDoesntExists }
 
 
 DeclarationLines :: { DeclarationLines }

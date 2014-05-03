@@ -22,7 +22,7 @@ Blockk2.		Block2	::= "begin" [Stmt] "end" ;
 
 -------------(Variables Declaration)---------------
 VBExists.		VariableDeclaration ::=	"Var" DeclarationLines ;
-VBDoesntExists.		VariableDeclaration ::=	;
+--VBDoesntExists.		VariableDeclaration ::=	;
 DLList.			DeclarationLines    ::= [Ident] ":" Type ;
 DLSingle.		DeclarationLines    ::= Ident ":" Type ;
 

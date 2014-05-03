@@ -15,7 +15,6 @@ data Block =
 
 data VariableDeclaration =
    VBExists DeclarationLines
- | VBDoesntExists
   deriving (Eq,Ord,Show)
 
 data DeclarationLines =
