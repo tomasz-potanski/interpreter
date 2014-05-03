@@ -19,7 +19,7 @@ data VariableDeclaration =
   deriving (Eq,Ord,Show)
 
 data DeclarationLine =
-   DLList Ident Type
+   DLList [Ident] Type
   deriving (Eq,Ord,Show)
 
 data Stmt =

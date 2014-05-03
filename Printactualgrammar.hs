@@ -80,6 +80,9 @@ instance Print Double where
 
 instance Print Ident where
   prt _ (Ident i) = doc (showString ( i))
+  prtList es = case es of
+   [x] -> (concatD [prt 0 x])
+   x:xs -> (concatD [prt 0 x , doc (showString ",") , prt 0 xs])
 
 
 
@@ -102,7 +105,7 @@ instance Print VariableDeclaration where
 
 instance Print DeclarationLine where
   prt i e = case e of
-   DLList id type' -> prPrec i 0 (concatD [prt 0 id , doc (showString ":") , prt 0 type' , doc (showString ";")])
+   DLList ids type' -> prPrec i 0 (concatD [prt 0 ids , doc (showString ":") , prt 0 type' , doc (showString ";")])
 
   prtList es = case es of
    [x] -> (concatD [prt 0 x])
