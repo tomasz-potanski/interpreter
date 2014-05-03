@@ -24,6 +24,7 @@ sed -i '4s/-o .*$/-o interpreter/' Makefile
 make 2>&1 | ack-grep --passthru --color -i "unused|conflicts|shaft"
 echo "$bldred \r<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<$reset"
 
+DATA=`date`
 git commit -a -m "$1 ($(date))"
 
 echo "Do you want to run tests? [Y/n]"
