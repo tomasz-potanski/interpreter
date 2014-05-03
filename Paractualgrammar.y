@@ -17,12 +17,13 @@ import ErrM
 %token 
  '.' { PT _ (TS _ 1) }
  ':' { PT _ (TS _ 2) }
- '=' { PT _ (TS _ 3) }
- 'begin' { PT _ (TS _ 4) }
- 'boolean' { PT _ (TS _ 5) }
- 'end' { PT _ (TS _ 6) }
- 'int' { PT _ (TS _ 7) }
- 'var' { PT _ (TS _ 8) }
+ ';' { PT _ (TS _ 3) }
+ '=' { PT _ (TS _ 4) }
+ 'begin' { PT _ (TS _ 5) }
+ 'boolean' { PT _ (TS _ 6) }
+ 'end' { PT _ (TS _ 7) }
+ 'int' { PT _ (TS _ 8) }
+ 'var' { PT _ (TS _ 9) }
 
 L_ident  { PT _ (TV $$) }
 L_err    { _ }
@@ -50,7 +51,7 @@ VariableDeclaration : 'var' ListDeclarationLine { VBExists $2 }
 
 
 DeclarationLine :: { DeclarationLine }
-DeclarationLine : Ident ':' Type ':' { DLList $1 $3 } 
+DeclarationLine : Ident ':' Type ';' { DLList $1 $3 } 
 
 
 ListDeclarationLine :: { [DeclarationLine] }
