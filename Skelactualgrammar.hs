@@ -33,7 +33,7 @@ transVariableDeclaration x = case x of
 
 transDeclarationLines :: DeclarationLines -> Result
 transDeclarationLines x = case x of
-  DLList ids type'  -> failure x
+  DLList id type'  -> failure x
 
 
 transStmt :: Stmt -> Result

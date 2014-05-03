@@ -44,8 +44,7 @@ The reserved words used in actualgrammar are the following: \\
 The symbols used in actualgrammar are the following: \\
 
 \begin{tabular}{lll}
-{\symb{.}} &{\symb{:}} &{\symb{,}} \\
-{\symb{{$=$}}} & & \\
+{\symb{.}} &{\symb{:}} &{\symb{{$=$}}} \\
 \end{tabular}\\
 
 \subsection*{Comments}
@@ -75,12 +74,7 @@ All other symbols are terminals.\\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{DeclarationLines}} & {\arrow}  &{\nonterminal{ListIdent}} {\terminal{:}} {\nonterminal{Type}}  \\
-\end{tabular}\\
-
-\begin{tabular}{lll}
-{\nonterminal{ListIdent}} & {\arrow}  &{\nonterminal{Ident}}  \\
- & {\delimit}  &{\nonterminal{Ident}} {\terminal{,}} {\nonterminal{ListIdent}}  \\
+{\nonterminal{DeclarationLines}} & {\arrow}  &{\nonterminal{Ident}} {\terminal{:}} {\nonterminal{Type}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
