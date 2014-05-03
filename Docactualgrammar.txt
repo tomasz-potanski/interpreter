@@ -27,8 +27,7 @@ The reserved words used in actualgrammar are the following:
   | ``end`` |  |  | 
 
 The symbols used in actualgrammar are the following:
-  | . | : | ; | ,
-  | = |  |  | 
+  | . | : | , | =
 
 ===Comments===
 Single-line comments begin with //.Multiple-line comments are  enclosed with /* and */, { and }, {* and *}.
@@ -44,10 +43,7 @@ All other symbols are terminals.
   | //Block2// | -> | ``begin`` //[Stmt]// ``end`` 
   | //VariableDeclaration// | -> | ``Var`` //DeclarationLines// 
   | //DeclarationLines// | -> | //[Ident]// ``:`` //Type// 
-  |  |  **|**  | //Ident// ``:`` //Type// 
-  | //[Ident]// | -> | //Ident// ``;`` 
-  |  |  **|**  | //Ident// ``;`` //[Ident]// 
-  |  |  **|**  | //Ident// 
+  | //[Ident]// | -> | //Ident// 
   |  |  **|**  | //Ident// ``,`` //[Ident]// 
   | //[Stmt]// | -> | **eps**
   |  |  **|**  | //Stmt// //[Stmt]// 

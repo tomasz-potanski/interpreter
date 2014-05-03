@@ -18,13 +18,12 @@ import ErrM
  ',' { PT _ (TS _ 1) }
  '.' { PT _ (TS _ 2) }
  ':' { PT _ (TS _ 3) }
- ';' { PT _ (TS _ 4) }
- '=' { PT _ (TS _ 5) }
- 'Boolean' { PT _ (TS _ 6) }
- 'Integer' { PT _ (TS _ 7) }
- 'Var' { PT _ (TS _ 8) }
- 'begin' { PT _ (TS _ 9) }
- 'end' { PT _ (TS _ 10) }
+ '=' { PT _ (TS _ 4) }
+ 'Boolean' { PT _ (TS _ 5) }
+ 'Integer' { PT _ (TS _ 6) }
+ 'Var' { PT _ (TS _ 7) }
+ 'begin' { PT _ (TS _ 8) }
+ 'end' { PT _ (TS _ 9) }
 
 L_ident  { PT _ (TV $$) }
 L_err    { _ }
@@ -52,13 +51,10 @@ VariableDeclaration : 'Var' DeclarationLines { VBExists $2 }
 
 DeclarationLines :: { DeclarationLines }
 DeclarationLines : ListIdent ':' Type { DLList $1 $3 } 
-  | Ident ':' Type { DLSingle $1 $3 }
 
 
 ListIdent :: { [Ident] }
-ListIdent : Ident ';' { (:[]) $1 } 
-  | Ident ';' ListIdent { (:) $1 $3 }
-  | Ident { (:[]) $1 }
+ListIdent : Ident { (:[]) $1 } 
   | Ident ',' ListIdent { (:) $1 $3 }
 
 

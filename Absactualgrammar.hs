@@ -19,7 +19,6 @@ data VariableDeclaration =
 
 data DeclarationLines =
    DLList [Ident] Type
- | DLSingle Ident Type
   deriving (Eq,Ord,Show)
 
 data Stmt =
