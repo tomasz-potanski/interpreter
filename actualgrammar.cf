@@ -21,7 +21,7 @@ Blockk.			Block	::= VariableDeclaration Block2 ;
 Blockk2.		Block2	::= "begin" [Stmt] "end" ;
 
 -------------(Variables Declaration)---------------
-VBExists.		VariableDeclaration ::=	"Var" DeclarationLines ;
+VBExists.		VariableDeclaration ::=	"var" DeclarationLines ;
 VBDoesntExists.		VariableDeclaration ::=	;
 DLList.			DeclarationLines    ::= [Ident] ":" Type ;
 

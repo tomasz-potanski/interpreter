@@ -86,7 +86,7 @@ eitherResIdent tv s = treeFind resWords
                               | s > a  = treeFind right
                               | s == a = t
 
-resWords = b "Boolean" 5 (b ":" 3 (b "." 2 (b "," 1 N N) N) (b "=" 4 N N)) (b "begin" 8 (b "Var" 7 (b "Integer" 6 N N) N) (b "end" 9 N N))
+resWords = b "Boolean" 5 (b ":" 3 (b "." 2 (b "," 1 N N) N) (b "=" 4 N N)) (b "end" 8 (b "begin" 7 (b "Integer" 6 N N) N) (b "var" 9 N N))
    where b s n = let bs = id s
                   in B bs (TS bs n)
 

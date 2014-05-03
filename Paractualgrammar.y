@@ -21,9 +21,9 @@ import ErrM
  '=' { PT _ (TS _ 4) }
  'Boolean' { PT _ (TS _ 5) }
  'Integer' { PT _ (TS _ 6) }
- 'Var' { PT _ (TS _ 7) }
- 'begin' { PT _ (TS _ 8) }
- 'end' { PT _ (TS _ 9) }
+ 'begin' { PT _ (TS _ 7) }
+ 'end' { PT _ (TS _ 8) }
+ 'var' { PT _ (TS _ 9) }
 
 L_ident  { PT _ (TV $$) }
 L_err    { _ }
@@ -46,7 +46,7 @@ Block2 : 'begin' ListStmt 'end' { Blockk2 (reverse $2) }
 
 
 VariableDeclaration :: { VariableDeclaration }
-VariableDeclaration : 'Var' DeclarationLines { VBExists $2 } 
+VariableDeclaration : 'var' DeclarationLines { VBExists $2 } 
   | {- empty -} { VBDoesntExists }
 
 

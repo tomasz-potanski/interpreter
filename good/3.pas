@@ -1,4 +1,4 @@
-Var
+var
 	Liczba: integer;
 	Wart_log: Boolean;
 
