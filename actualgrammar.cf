@@ -7,12 +7,24 @@ entrypoints Program ;
 
 Programm.	Program	::=	Block "." ;
 
-Blockk.		Block	::= 	"begin" [Stmt] "end" ;
+{-
+Blockk.			Block	::= 	;	
+Blockk1.		Block1	::= 	ConstantDeclaration ";" Block2 ;
+Blockk2.		Block2	::= 	TypeDeclaration ";" Block3 ;
+Blockk3.		Block3	::= 	VariableDeclaration ";" Block4 ;
+Blockk4.		Block4	::= 	ProcAndFuncDeclaration ";" Block5 ;
+Blockk5.		Block5	::= 	"begin" [Stmt] "end" ;
+coercions Block 5 ;
+-}
+
+Blockk.			Block	::= VariableDeclaration Block2 ;
+Blockk2.		Block2	::= "begin" [Stmt] "end" ;
+
+VB.			VariableDeclaration ::=	"aa" | "bb"
 
 terminator Stmt "" ;
 
 Stmtt.		Stmt 	::=	Exp ;
 
+EAss.		Exp 	::=	Ident "=" Exp ;
 
-EAss.		Exp 	::=	Ident "=" Exp ;
-EAss.		Exp 	::=	Ident "=" Exp ;
