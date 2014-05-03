@@ -1,5 +1,5 @@
 const
-PI = 3.1415926;
+PI = 3;
 
 var
 	Liczba12, Liczba13 : Integer;
