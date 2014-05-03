@@ -24,9 +24,13 @@ sed -i '4s/-o .*$/-o interpreter/' Makefile
 make 2>&1 | ack-grep --passthru --color -i "unused|conflicts|shaft"
 echo "$bldred \r<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<$reset"
 
-DATA=`date`
-git commit -a -m "$1 ($(date))"
-git push origin master 2> /dev/null
+if ! git diff-index --quiet HEAD --
+then
+	DATA=`date`
+	git commit -a -m "$1 ($(date))"
+	git push origin master &
+fi
+
 
 echo "Do you want to run tests? [Y/n]"
 read yn
