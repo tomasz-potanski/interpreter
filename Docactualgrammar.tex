@@ -29,6 +29,9 @@ reserved words excluded.
 
 
 \subsection*{Literals}
+Integer literals \nonterminal{Int}\ are nonempty sequences of digits.
+
+
 
 
 \subsection*{Reserved words and symbols}
@@ -38,13 +41,14 @@ The reserved words used in actualgrammar are the following: \\
 
 \begin{tabular}{lll}
 {\reserved{Boolean}} &{\reserved{Integer}} &{\reserved{begin}} \\
-{\reserved{end}} &{\reserved{var}} & \\
+{\reserved{const}} &{\reserved{end}} &{\reserved{program}} \\
+{\reserved{var}} & & \\
 \end{tabular}\\
 
 The symbols used in actualgrammar are the following: \\
 
 \begin{tabular}{lll}
-{\symb{.}} &{\symb{:}} &{\symb{;}} \\
+{\symb{.}} &{\symb{;}} &{\symb{:}} \\
 {\symb{,}} &{\symb{{$=$}}} & \\
 \end{tabular}\\
 
@@ -58,34 +62,61 @@ and {\emptyP} (empty rule) belong to the BNF notation.
 All other symbols are terminals.\\
 
 \begin{tabular}{lll}
-{\nonterminal{Program}} & {\arrow}  &{\nonterminal{Block}} {\terminal{.}}  \\
+{\nonterminal{Program}} & {\arrow}  &{\nonterminal{ProgramNameHeader}} {\nonterminal{Block}} {\terminal{.}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{Block}} & {\arrow}  &{\nonterminal{VariableDeclaration}} {\nonterminal{Block2}}  \\
-\end{tabular}\\
-
-\begin{tabular}{lll}
-{\nonterminal{Block2}} & {\arrow}  &{\terminal{begin}} {\nonterminal{ListStmt}} {\terminal{end}}  \\
-\end{tabular}\\
-
-\begin{tabular}{lll}
-{\nonterminal{VariableDeclaration}} & {\arrow}  &{\terminal{var}} {\nonterminal{ListDeclarationLine}}  \\
+{\nonterminal{ProgramNameHeader}} & {\arrow}  &{\terminal{program}} {\nonterminal{Ident}} {\terminal{;}}  \\
  & {\delimit}  &{\emptyP} \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{DeclarationLine}} & {\arrow}  &{\nonterminal{ListIdent}} {\terminal{:}} {\nonterminal{Type}} {\terminal{;}}  \\
+{\nonterminal{Block}} & {\arrow}  &{\nonterminal{ConstantDeclaration}} {\nonterminal{Block2}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{ListDeclarationLine}} & {\arrow}  &{\nonterminal{DeclarationLine}}  \\
- & {\delimit}  &{\nonterminal{DeclarationLine}} {\nonterminal{ListDeclarationLine}}  \\
+{\nonterminal{Block2}} & {\arrow}  &{\nonterminal{VariableDeclaration}} {\nonterminal{Block3}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{Block3}} & {\arrow}  &{\terminal{begin}} {\nonterminal{ListStmt}} {\terminal{end}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{VariableDeclaration}} & {\arrow}  &{\terminal{var}} {\nonterminal{ListVarDeclarationLine}}  \\
+ & {\delimit}  &{\emptyP} \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{VarDeclarationLine}} & {\arrow}  &{\nonterminal{ListIdent}} {\terminal{:}} {\nonterminal{Type}} {\terminal{;}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{ListVarDeclarationLine}} & {\arrow}  &{\nonterminal{VarDeclarationLine}}  \\
+ & {\delimit}  &{\nonterminal{VarDeclarationLine}} {\nonterminal{ListVarDeclarationLine}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
 {\nonterminal{ListIdent}} & {\arrow}  &{\nonterminal{Ident}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{,}} {\nonterminal{ListIdent}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{ConstantDeclaration}} & {\arrow}  &{\emptyP} \\
+ & {\delimit}  &{\terminal{const}} {\nonterminal{ListConstDeclLine}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{ConstDeclLine}} & {\arrow}  &{\nonterminal{Ident}} {\terminal{{$=$}}} {\nonterminal{LiteralValue}} {\terminal{;}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{LiteralValue}} & {\arrow}  &{\nonterminal{Integer}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{ListConstDeclLine}} & {\arrow}  &{\nonterminal{ConstDeclLine}}  \\
+ & {\delimit}  &{\nonterminal{ConstDeclLine}} {\nonterminal{ListConstDeclLine}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}

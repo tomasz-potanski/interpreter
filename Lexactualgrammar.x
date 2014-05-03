@@ -19,7 +19,7 @@ $i = [$l $d _ ']          -- identifier character
 $u = [\0-\255]          -- universal: any character
 
 @rsyms =    -- symbols and non-identifier-like reserved words
-   \. | \: | \; | \, | \=
+   \. | \; | \: | \, | \=
 
 :-
 "//" [.]* ; -- Toss single line comments
@@ -32,7 +32,7 @@ $white+ ;
 $l $i*   { tok (\p s -> PT p (eitherResIdent (TV . share) s)) }
 
 
-
+$d+      { tok (\p s -> PT p (TI $ share s))    }
 
 
 {
@@ -86,7 +86,7 @@ eitherResIdent tv s = treeFind resWords
                               | s > a  = treeFind right
                               | s == a = t
 
-resWords = b "Boolean" 6 (b ":" 3 (b "." 2 (b "," 1 N N) N) (b "=" 5 (b ";" 4 N N) N)) (b "end" 9 (b "begin" 8 (b "Integer" 7 N N) N) (b "var" 10 N N))
+resWords = b "Integer" 7 (b ";" 4 (b "." 2 (b "," 1 N N) (b ":" 3 N N)) (b "Boolean" 6 (b "=" 5 N N) N)) (b "end" 10 (b "const" 9 (b "begin" 8 N N) N) (b "var" 12 (b "program" 11 N N) N))
    where b s n = let bs = id s
                   in B bs (TS bs n)
 

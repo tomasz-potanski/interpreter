@@ -17,17 +17,20 @@ reserved words excluded.
 
 
 ===Literals===
+Integer literals //Integer// are nonempty sequences of digits.
+
+
 
 
 ===Reserved words and symbols===
 The set of reserved words is the set of terminals appearing in the grammar. Those reserved words that consist of non-letter characters are called symbols, and they are treated in a different way from those that are similar to identifiers. The lexer follows rules familiar from languages like Haskell, C, and Java, including longest match and spacing conventions.
 
 The reserved words used in actualgrammar are the following:
-  | ``Boolean`` | ``Integer`` | ``begin`` | ``end``
-  | ``var`` |  |  | 
+  | ``Boolean`` | ``Integer`` | ``begin`` | ``const``
+  | ``end`` | ``program`` | ``var`` | 
 
 The symbols used in actualgrammar are the following:
-  | . | : | ; | ,
+  | . | ; | : | ,
   | = |  |  | 
 
 ===Comments===
@@ -39,16 +42,25 @@ The symbols -> (production),  **|**  (union)
 and **eps** (empty rule) belong to the BNF notation. 
 All other symbols are terminals.
 
-  | //Program// | -> | //Block// ``.`` 
-  | //Block// | -> | //VariableDeclaration// //Block2// 
-  | //Block2// | -> | ``begin`` //[Stmt]// ``end`` 
-  | //VariableDeclaration// | -> | ``var`` //[DeclarationLine]// 
+  | //Program// | -> | //ProgramNameHeader// //Block// ``.`` 
+  | //ProgramNameHeader// | -> | ``program`` //Ident// ``;`` 
   |  |  **|**  | **eps**
-  | //DeclarationLine// | -> | //[Ident]// ``:`` //Type// ``;`` 
-  | //[DeclarationLine]// | -> | //DeclarationLine// 
-  |  |  **|**  | //DeclarationLine// //[DeclarationLine]// 
+  | //Block// | -> | //ConstantDeclaration// //Block2// 
+  | //Block2// | -> | //VariableDeclaration// //Block3// 
+  | //Block3// | -> | ``begin`` //[Stmt]// ``end`` 
+  | //VariableDeclaration// | -> | ``var`` //[VarDeclarationLine]// 
+  |  |  **|**  | **eps**
+  | //VarDeclarationLine// | -> | //[Ident]// ``:`` //Type// ``;`` 
+  | //[VarDeclarationLine]// | -> | //VarDeclarationLine// 
+  |  |  **|**  | //VarDeclarationLine// //[VarDeclarationLine]// 
   | //[Ident]// | -> | //Ident// 
   |  |  **|**  | //Ident// ``,`` //[Ident]// 
+  | //ConstantDeclaration// | -> | **eps**
+  |  |  **|**  | ``const`` //[ConstDeclLine]// 
+  | //ConstDeclLine// | -> | //Ident// ``=`` //LiteralValue// ``;`` 
+  | //LiteralValue// | -> | //Integer// 
+  | //[ConstDeclLine]// | -> | //ConstDeclLine// 
+  |  |  **|**  | //ConstDeclLine// //[ConstDeclLine]// 
   | //[Stmt]// | -> | **eps**
   |  |  **|**  | //Stmt// //[Stmt]// 
   | //Stmt// | -> | //Exp// 

@@ -5,21 +5,40 @@ module Absactualgrammar where
 
 newtype Ident = Ident String deriving (Eq,Ord,Show)
 data Program =
-   Programm Block
+   Programm ProgramNameHeader Block
+  deriving (Eq,Ord,Show)
+
+data ProgramNameHeader =
+   ProgNameHeaderNotBlank Ident
+ | ProgNameHeaderBlank
   deriving (Eq,Ord,Show)
 
 data Block =
-   Blockk VariableDeclaration Block
- | Blockk2 [Stmt]
+   Blockk ConstantDeclaration Block
+ | Blockk2 VariableDeclaration Block
+ | Blockk3 [Stmt]
   deriving (Eq,Ord,Show)
 
 data VariableDeclaration =
-   VBExists [DeclarationLine]
+   VBExists [VarDeclarationLine]
  | VBDoesntExists
   deriving (Eq,Ord,Show)
 
-data DeclarationLine =
+data VarDeclarationLine =
    DLList [Ident] Type
+  deriving (Eq,Ord,Show)
+
+data ConstantDeclaration =
+   ConstDeclBlank
+ | ConstDeclNotBlank [ConstDeclLine]
+  deriving (Eq,Ord,Show)
+
+data ConstDeclLine =
+   ConsDeclLine Ident LiteralValue
+  deriving (Eq,Ord,Show)
+
+data LiteralValue =
+   LiteralValInt Integer
   deriving (Eq,Ord,Show)
 
 data Stmt =

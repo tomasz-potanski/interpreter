@@ -29,7 +29,7 @@ VBExists.		VariableDeclaration ::=	"var" [VarDeclarationLine] ;
 VBDoesntExists.		VariableDeclaration ::=	;
 DLList.			VarDeclarationLine    ::= [Ident] ":" Type ";" ;
 
-separator nonempty DeclarationLine "" ;
+separator nonempty VarDeclarationLine "" ;
 separator nonempty Ident "," ;
 
 --------------(Constant Declaration)-------------

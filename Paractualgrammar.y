@@ -23,46 +23,77 @@ import ErrM
  'Boolean' { PT _ (TS _ 6) }
  'Integer' { PT _ (TS _ 7) }
  'begin' { PT _ (TS _ 8) }
- 'end' { PT _ (TS _ 9) }
- 'var' { PT _ (TS _ 10) }
+ 'const' { PT _ (TS _ 9) }
+ 'end' { PT _ (TS _ 10) }
+ 'program' { PT _ (TS _ 11) }
+ 'var' { PT _ (TS _ 12) }
 
 L_ident  { PT _ (TV $$) }
+L_integ  { PT _ (TI $$) }
 L_err    { _ }
 
 
 %%
 
 Ident   :: { Ident }   : L_ident  { Ident $1 }
+Integer :: { Integer } : L_integ  { (read ( $1)) :: Integer }
 
 Program :: { Program }
-Program : Block '.' { Programm $1 } 
+Program : ProgramNameHeader Block '.' { Programm $1 $2 } 
+
+
+ProgramNameHeader :: { ProgramNameHeader }
+ProgramNameHeader : 'program' Ident ';' { ProgNameHeaderNotBlank $2 } 
+  | {- empty -} { ProgNameHeaderBlank }
 
 
 Block :: { Block }
-Block : VariableDeclaration Block2 { Blockk $1 $2 } 
+Block : ConstantDeclaration Block2 { Blockk $1 $2 } 
 
 
 Block2 :: { Block }
-Block2 : 'begin' ListStmt 'end' { Blockk2 (reverse $2) } 
+Block2 : VariableDeclaration Block3 { Blockk2 $1 $2 } 
+
+
+Block3 :: { Block }
+Block3 : 'begin' ListStmt 'end' { Blockk3 (reverse $2) } 
 
 
 VariableDeclaration :: { VariableDeclaration }
-VariableDeclaration : 'var' ListDeclarationLine { VBExists $2 } 
+VariableDeclaration : 'var' ListVarDeclarationLine { VBExists $2 } 
   | {- empty -} { VBDoesntExists }
 
 
-DeclarationLine :: { DeclarationLine }
-DeclarationLine : ListIdent ':' Type ';' { DLList $1 $3 } 
+VarDeclarationLine :: { VarDeclarationLine }
+VarDeclarationLine : ListIdent ':' Type ';' { DLList $1 $3 } 
 
 
-ListDeclarationLine :: { [DeclarationLine] }
-ListDeclarationLine : DeclarationLine { (:[]) $1 } 
-  | DeclarationLine ListDeclarationLine { (:) $1 $2 }
+ListVarDeclarationLine :: { [VarDeclarationLine] }
+ListVarDeclarationLine : VarDeclarationLine { (:[]) $1 } 
+  | VarDeclarationLine ListVarDeclarationLine { (:) $1 $2 }
 
 
 ListIdent :: { [Ident] }
 ListIdent : Ident { (:[]) $1 } 
   | Ident ',' ListIdent { (:) $1 $3 }
+
+
+ConstantDeclaration :: { ConstantDeclaration }
+ConstantDeclaration : {- empty -} { ConstDeclBlank } 
+  | 'const' ListConstDeclLine { ConstDeclNotBlank $2 }
+
+
+ConstDeclLine :: { ConstDeclLine }
+ConstDeclLine : Ident '=' LiteralValue ';' { ConsDeclLine $1 $3 } 
+
+
+LiteralValue :: { LiteralValue }
+LiteralValue : Integer { LiteralValInt $1 } 
+
+
+ListConstDeclLine :: { [ConstDeclLine] }
+ListConstDeclLine : ConstDeclLine { (:[]) $1 } 
+  | ConstDeclLine ListConstDeclLine { (:) $1 $2 }
 
 
 ListStmt :: { [Stmt] }

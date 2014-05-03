@@ -16,24 +16,47 @@ transIdent x = case x of
 
 transProgram :: Program -> Result
 transProgram x = case x of
-  Programm block  -> failure x
+  Programm programnameheader block  -> failure x
+
+
+transProgramNameHeader :: ProgramNameHeader -> Result
+transProgramNameHeader x = case x of
+  ProgNameHeaderNotBlank id  -> failure x
+  ProgNameHeaderBlank  -> failure x
 
 
 transBlock :: Block -> Result
 transBlock x = case x of
-  Blockk variabledeclaration block  -> failure x
-  Blockk2 stmts  -> failure x
+  Blockk constantdeclaration block  -> failure x
+  Blockk2 variabledeclaration block  -> failure x
+  Blockk3 stmts  -> failure x
 
 
 transVariableDeclaration :: VariableDeclaration -> Result
 transVariableDeclaration x = case x of
-  VBExists declarationlines  -> failure x
+  VBExists vardeclarationlines  -> failure x
   VBDoesntExists  -> failure x
 
 
-transDeclarationLine :: DeclarationLine -> Result
-transDeclarationLine x = case x of
+transVarDeclarationLine :: VarDeclarationLine -> Result
+transVarDeclarationLine x = case x of
   DLList ids type'  -> failure x
+
+
+transConstantDeclaration :: ConstantDeclaration -> Result
+transConstantDeclaration x = case x of
+  ConstDeclBlank  -> failure x
+  ConstDeclNotBlank constdecllines  -> failure x
+
+
+transConstDeclLine :: ConstDeclLine -> Result
+transConstDeclLine x = case x of
+  ConsDeclLine id literalvalue  -> failure x
+
+
+transLiteralValue :: LiteralValue -> Result
+transLiteralValue x = case x of
+  LiteralValInt n  -> failure x
 
 
 transStmt :: Stmt -> Result

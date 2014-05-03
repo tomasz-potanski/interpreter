@@ -88,28 +88,54 @@ instance Print Ident where
 
 instance Print Program where
   prt i e = case e of
-   Programm block -> prPrec i 0 (concatD [prt 0 block , doc (showString ".")])
+   Programm programnameheader block -> prPrec i 0 (concatD [prt 0 programnameheader , prt 0 block , doc (showString ".")])
+
+
+instance Print ProgramNameHeader where
+  prt i e = case e of
+   ProgNameHeaderNotBlank id -> prPrec i 0 (concatD [doc (showString "program") , prt 0 id , doc (showString ";")])
+   ProgNameHeaderBlank  -> prPrec i 0 (concatD [])
 
 
 instance Print Block where
   prt i e = case e of
-   Blockk variabledeclaration block -> prPrec i 0 (concatD [prt 0 variabledeclaration , prt 2 block])
-   Blockk2 stmts -> prPrec i 2 (concatD [doc (showString "begin") , prt 0 stmts , doc (showString "end")])
+   Blockk constantdeclaration block -> prPrec i 0 (concatD [prt 0 constantdeclaration , prt 2 block])
+   Blockk2 variabledeclaration block -> prPrec i 2 (concatD [prt 0 variabledeclaration , prt 3 block])
+   Blockk3 stmts -> prPrec i 3 (concatD [doc (showString "begin") , prt 0 stmts , doc (showString "end")])
 
 
 instance Print VariableDeclaration where
   prt i e = case e of
-   VBExists declarationlines -> prPrec i 0 (concatD [doc (showString "var") , prt 0 declarationlines])
+   VBExists vardeclarationlines -> prPrec i 0 (concatD [doc (showString "var") , prt 0 vardeclarationlines])
    VBDoesntExists  -> prPrec i 0 (concatD [])
 
 
-instance Print DeclarationLine where
+instance Print VarDeclarationLine where
   prt i e = case e of
    DLList ids type' -> prPrec i 0 (concatD [prt 0 ids , doc (showString ":") , prt 0 type' , doc (showString ";")])
 
   prtList es = case es of
    [x] -> (concatD [prt 0 x])
    x:xs -> (concatD [prt 0 x , prt 0 xs])
+
+instance Print ConstantDeclaration where
+  prt i e = case e of
+   ConstDeclBlank  -> prPrec i 0 (concatD [])
+   ConstDeclNotBlank constdecllines -> prPrec i 0 (concatD [doc (showString "const") , prt 0 constdecllines])
+
+
+instance Print ConstDeclLine where
+  prt i e = case e of
+   ConsDeclLine id literalvalue -> prPrec i 0 (concatD [prt 0 id , doc (showString "=") , prt 0 literalvalue , doc (showString ";")])
+
+  prtList es = case es of
+   [x] -> (concatD [prt 0 x])
+   x:xs -> (concatD [prt 0 x , prt 0 xs])
+
+instance Print LiteralValue where
+  prt i e = case e of
+   LiteralValInt n -> prPrec i 0 (concatD [prt 0 n])
+
 
 instance Print Stmt where
   prt i e = case e of
