@@ -28,6 +28,7 @@ transBlock x = case x of
 transVariableDeclaration :: VariableDeclaration -> Result
 transVariableDeclaration x = case x of
   VBExists declarationlines  -> failure x
+  VBDoesntExists  -> failure x
 
 
 transDeclarationLines :: DeclarationLines -> Result

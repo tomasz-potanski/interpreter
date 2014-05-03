@@ -42,6 +42,7 @@ All other symbols are terminals.
   | //Block// | -> | //VariableDeclaration// //Block2// 
   | //Block2// | -> | ``begin`` //[Stmt]// ``end`` 
   | //VariableDeclaration// | -> | ``Var`` //DeclarationLines// 
+  |  |  **|**  | **eps**
   | //DeclarationLines// | -> | //[Ident]// ``:`` //Type// 
   | //[Ident]// | -> | //Ident// 
   |  |  **|**  | //Ident// ``,`` //[Ident]// 
