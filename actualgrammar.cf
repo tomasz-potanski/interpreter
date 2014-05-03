@@ -24,10 +24,9 @@ Blockk2.		Block2	::= "begin" [Stmt] "end" ;
 VBExists.		VariableDeclaration ::=	"Var" DeclarationLines ;
 --VBDoesntExists.		VariableDeclaration ::=	;
 DLList.			DeclarationLines    ::= [Ident] ":" Type ;
-DLSingle.		DeclarationLines    ::= Ident ":" Type ;
 
-terminator nonempty Ident ";" ;
-separator nonempty Ident "," ;
+UnfoldOfIdentListSingle.	[Ident]	::=	Ident ;
+UnfoldOfIdentListProduction.	[Ident]	::=	Ident "," [Ident] ;
 
 ------------(statements)-------
 
