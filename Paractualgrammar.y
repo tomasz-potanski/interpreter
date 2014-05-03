@@ -18,10 +18,10 @@ import ErrM
  '.' { PT _ (TS _ 1) }
  ':' { PT _ (TS _ 2) }
  '=' { PT _ (TS _ 3) }
- 'Boolean' { PT _ (TS _ 4) }
- 'Integer' { PT _ (TS _ 5) }
- 'begin' { PT _ (TS _ 6) }
- 'end' { PT _ (TS _ 7) }
+ 'begin' { PT _ (TS _ 4) }
+ 'boolean' { PT _ (TS _ 5) }
+ 'end' { PT _ (TS _ 6) }
+ 'integer' { PT _ (TS _ 7) }
  'var' { PT _ (TS _ 8) }
 
 L_ident  { PT _ (TV $$) }
@@ -67,8 +67,8 @@ Exp : Ident '=' Exp { EAss $1 $3 }
 
 
 Type :: { Type }
-Type : 'Integer' { TInt } 
-  | 'Boolean' { TBool }
+Type : 'integer' { TInt } 
+  | 'boolean' { TBool }
 
 
 

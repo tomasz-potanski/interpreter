@@ -120,8 +120,8 @@ instance Print Exp where
 
 instance Print Type where
   prt i e = case e of
-   TInt  -> prPrec i 0 (concatD [doc (showString "Integer")])
-   TBool  -> prPrec i 0 (concatD [doc (showString "Boolean")])
+   TInt  -> prPrec i 0 (concatD [doc (showString "integer")])
+   TBool  -> prPrec i 0 (concatD [doc (showString "boolean")])
 
 
 
