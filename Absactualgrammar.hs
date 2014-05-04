@@ -4,41 +4,6 @@ module Absactualgrammar where
 
 
 newtype Ident = Ident String deriving (Eq,Ord,Show)
-data Program =
-   Programm ProgramNameHeader Block
-  deriving (Eq,Ord,Show)
-
-data ProgramNameHeader =
-   ProgNameHeaderNotBlank Ident
- | ProgNameHeaderBlank
-  deriving (Eq,Ord,Show)
-
-data Block =
-   Blockk ConstantDeclaration VariableDeclaration [Stmt]
-  deriving (Eq,Ord,Show)
-
-data VariableDeclaration =
-   VBExists [VarDeclarationLine]
- | VBDoesntExists
-  deriving (Eq,Ord,Show)
-
-data VarDeclarationLine =
-   DLList [Ident] Type
-  deriving (Eq,Ord,Show)
-
-data ConstantDeclaration =
-   ConstDeclBlank
- | ConstDeclNotBlank [ConstDeclLine]
-  deriving (Eq,Ord,Show)
-
-data ConstDeclLine =
-   ConsDeclLine Ident LiteralValue
-  deriving (Eq,Ord,Show)
-
-data LiteralValue =
-   LiteralValInt Integer
-  deriving (Eq,Ord,Show)
-
 data Stmt =
    SBlock [Stmt]
  | SAss Ident Exp
@@ -58,31 +23,5 @@ data Exp =
 data BExp =
    BOr BExp BExp
  | BAnd BExp BExp
- | BRel Exp RelOp Exp
-  deriving (Eq,Ord,Show)
-
-data RelOp =
-   LTH
- | LE
- | GTH
- | GE
- | EQU
- | NE
-  deriving (Eq,Ord,Show)
-
-data Type =
-   TInt
- | TBool
- | TString
- | TChar
-  deriving (Eq,Ord,Show)
-
-data LitVal =
-   LiteralValueInteger Integer
- | LiteralValueString String
- | LiteralValueDouble Double
- | LiteralValueChar Char
- | LiteralValueTrue
- | LiteralValueFalse
   deriving (Eq,Ord,Show)
 

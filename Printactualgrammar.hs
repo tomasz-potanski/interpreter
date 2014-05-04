@@ -80,65 +80,13 @@ instance Print Double where
 
 instance Print Ident where
   prt _ (Ident i) = doc (showString ( i))
-  prtList es = case es of
-   [x] -> (concatD [prt 0 x])
-   x:xs -> (concatD [prt 0 x , doc (showString ",") , prt 0 xs])
 
-
-
-instance Print Program where
-  prt i e = case e of
-   Programm programnameheader block -> prPrec i 0 (concatD [prt 0 programnameheader , prt 0 block , doc (showString ".")])
-
-
-instance Print ProgramNameHeader where
-  prt i e = case e of
-   ProgNameHeaderNotBlank id -> prPrec i 0 (concatD [doc (showString "program") , prt 0 id , doc (showString ";")])
-   ProgNameHeaderBlank  -> prPrec i 0 (concatD [])
-
-
-instance Print Block where
-  prt i e = case e of
-   Blockk constantdeclaration variabledeclaration stmts -> prPrec i 0 (concatD [prt 0 constantdeclaration , prt 0 variabledeclaration , doc (showString "begin") , prt 0 stmts , doc (showString "end")])
-
-
-instance Print VariableDeclaration where
-  prt i e = case e of
-   VBExists vardeclarationlines -> prPrec i 0 (concatD [doc (showString "var") , prt 0 vardeclarationlines])
-   VBDoesntExists  -> prPrec i 0 (concatD [])
-
-
-instance Print VarDeclarationLine where
-  prt i e = case e of
-   DLList ids type' -> prPrec i 0 (concatD [prt 0 ids , doc (showString ":") , prt 0 type' , doc (showString ";")])
-
-  prtList es = case es of
-   [x] -> (concatD [prt 0 x])
-   x:xs -> (concatD [prt 0 x , prt 0 xs])
-
-instance Print ConstantDeclaration where
-  prt i e = case e of
-   ConstDeclBlank  -> prPrec i 0 (concatD [])
-   ConstDeclNotBlank constdecllines -> prPrec i 0 (concatD [doc (showString "const") , prt 0 constdecllines])
-
-
-instance Print ConstDeclLine where
-  prt i e = case e of
-   ConsDeclLine id literalvalue -> prPrec i 0 (concatD [prt 0 id , doc (showString "=") , prt 0 literalvalue , doc (showString ";")])
-
-  prtList es = case es of
-   [x] -> (concatD [prt 0 x])
-   x:xs -> (concatD [prt 0 x , prt 0 xs])
-
-instance Print LiteralValue where
-  prt i e = case e of
-   LiteralValInt n -> prPrec i 0 (concatD [prt 0 n])
 
 
 instance Print Stmt where
   prt i e = case e of
    SBlock stmts -> prPrec i 0 (concatD [doc (showString "begin") , prt 0 stmts , doc (showString "end")])
-   SAss id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 exp , doc (showString ";")])
+   SAss id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "=") , prt 0 exp , doc (showString ";")])
    SIf bexp stmt -> prPrec i 0 (concatD [doc (showString "if") , prt 0 bexp , doc (showString "then") , prt 0 stmt])
    SWhile bexp stmt -> prPrec i 0 (concatD [doc (showString "while") , prt 0 bexp , doc (showString "do") , prt 0 stmt])
 
@@ -160,35 +108,6 @@ instance Print BExp where
   prt i e = case e of
    BOr bexp0 bexp -> prPrec i 0 (concatD [prt 0 bexp0 , doc (showString "||") , prt 1 bexp])
    BAnd bexp0 bexp -> prPrec i 1 (concatD [prt 1 bexp0 , doc (showString "&&") , prt 2 bexp])
-   BRel exp0 relop exp -> prPrec i 2 (concatD [prt 0 exp0 , prt 0 relop , prt 0 exp])
-
-
-instance Print RelOp where
-  prt i e = case e of
-   LTH  -> prPrec i 0 (concatD [doc (showString "<")])
-   LE  -> prPrec i 0 (concatD [doc (showString "<=")])
-   GTH  -> prPrec i 0 (concatD [doc (showString ">")])
-   GE  -> prPrec i 0 (concatD [doc (showString ">=")])
-   EQU  -> prPrec i 0 (concatD [doc (showString "==")])
-   NE  -> prPrec i 0 (concatD [doc (showString "!=")])
-
-
-instance Print Type where
-  prt i e = case e of
-   TInt  -> prPrec i 0 (concatD [doc (showString "Integer")])
-   TBool  -> prPrec i 0 (concatD [doc (showString "Boolean")])
-   TString  -> prPrec i 0 (concatD [doc (showString "String")])
-   TChar  -> prPrec i 0 (concatD [doc (showString "Char")])
-
-
-instance Print LitVal where
-  prt i e = case e of
-   LiteralValueInteger n -> prPrec i 0 (concatD [prt 0 n])
-   LiteralValueString str -> prPrec i 0 (concatD [prt 0 str])
-   LiteralValueDouble d -> prPrec i 0 (concatD [prt 0 d])
-   LiteralValueChar c -> prPrec i 0 (concatD [prt 0 c])
-   LiteralValueTrue  -> prPrec i 0 (concatD [doc (showString "true")])
-   LiteralValueFalse  -> prPrec i 0 (concatD [doc (showString "false")])
 
 
 
