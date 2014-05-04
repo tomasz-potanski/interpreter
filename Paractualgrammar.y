@@ -85,7 +85,7 @@ ProgramNameHeader : 'program' Ident ';' { ProgNameHeaderNotBlank $2 }
 
 
 Block :: { Block }
-Block : VariableDeclaration 'begin' ListStmt 'end' { Blockk $1 (reverse $3) } 
+Block : VariableDeclaration Stmt2 { Blockk $1 $2 } 
 
 
 ListStmt :: { [Stmt] }
@@ -135,9 +135,13 @@ BoolLit : 'True' { BoolLitTrue }
   | 'False' { BoolLitFalse }
 
 
+Stmt2 :: { Stmt }
+Stmt2 : 'begin' ListStmt 'end' { SBlock (reverse $2) } 
+  | '(' Stmt ')' { $2 }
+
+
 Stmt :: { Stmt }
-Stmt : 'begin' ListStmt 'end' { SBlock (reverse $2) } 
-  | Ident ':=' Exp ';' { SAss $1 $3 }
+Stmt : Ident ':=' Exp ';' { SAss $1 $3 } 
   | Ident ':=' BExp ';' { SAssBool $1 $3 }
   | Ident ':=' BoolLit ';' { SAssBoolLit $1 $3 }
   | Ident '*=' Exp ';' { SAssMult $1 $3 }
@@ -154,7 +158,7 @@ Stmt : 'begin' ListStmt 'end' { SBlock (reverse $2) }
 Stmt1 :: { Stmt }
 Stmt1 : '++' Ident ';' { SPreIncr $2 } 
   | '--' Ident ';' { SPreDecr $2 }
-  | '(' Stmt ')' { $2 }
+  | Stmt2 { $1 }
 
 
 Exp :: { Exp }

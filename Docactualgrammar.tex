@@ -96,7 +96,7 @@ All other symbols are terminals.\\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{Block}} & {\arrow}  &{\nonterminal{VariableDeclaration}} {\terminal{begin}} {\nonterminal{ListStmt}} {\terminal{end}}  \\
+{\nonterminal{Block}} & {\arrow}  &{\nonterminal{VariableDeclaration}} {\nonterminal{Stmt2}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
@@ -147,8 +147,12 @@ All other symbols are terminals.\\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{Stmt}} & {\arrow}  &{\terminal{begin}} {\nonterminal{ListStmt}} {\terminal{end}}  \\
- & {\delimit}  &{\nonterminal{Ident}} {\terminal{:{$=$}}} {\nonterminal{Exp}} {\terminal{;}}  \\
+{\nonterminal{Stmt2}} & {\arrow}  &{\terminal{begin}} {\nonterminal{ListStmt}} {\terminal{end}}  \\
+ & {\delimit}  &{\terminal{(}} {\nonterminal{Stmt}} {\terminal{)}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{Stmt}} & {\arrow}  &{\nonterminal{Ident}} {\terminal{:{$=$}}} {\nonterminal{Exp}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{:{$=$}}} {\nonterminal{BExp}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{:{$=$}}} {\nonterminal{BoolLit}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{*{$=$}}} {\nonterminal{Exp}} {\terminal{;}}  \\
@@ -165,7 +169,7 @@ All other symbols are terminals.\\
 \begin{tabular}{lll}
 {\nonterminal{Stmt1}} & {\arrow}  &{\terminal{{$+$}{$+$}}} {\nonterminal{Ident}} {\terminal{;}}  \\
  & {\delimit}  &{\terminal{{$-$}{$-$}}} {\nonterminal{Ident}} {\terminal{;}}  \\
- & {\delimit}  &{\terminal{(}} {\nonterminal{Stmt}} {\terminal{)}}  \\
+ & {\delimit}  &{\nonterminal{Stmt2}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}

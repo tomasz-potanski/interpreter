@@ -21,7 +21,7 @@ import Debug.Trace
 data TTypes = TTInt Integer | TTBoolean Bool deriving (Eq, Show)
 -- nazwa zmiennej -> wartosc
 type TState = M.Map String TTypes
-type ProcMap = Data.Map.Map String ([Instr], [Arg])
+--type ProcMap = M.Map String ([Stmts], [Arg])
 
 extractInt :: TTypes -> Integer
 extractInt (TTInt a) = a
@@ -170,5 +170,5 @@ interpretStmt stmt s = case stmt of
 
 -------------INTERPRET FILE------------
 interpretFile :: Program -> TState
-interpretFile (ProgramNameHeader (VariableDeclaration stmts)) = interpretStmt stmts M.empty
+interpretFile (Programm programNameHeader (Blockk variableDeclaration stmts)) = interpretStmt stmts M.empty
 --interpretFile :: Program -> TState

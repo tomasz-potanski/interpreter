@@ -99,7 +99,7 @@ instance Print ProgramNameHeader where
 
 instance Print Block where
   prt i e = case e of
-   Blockk variabledeclaration stmts -> prPrec i 0 (concatD [prt 0 variabledeclaration , doc (showString "begin") , prt 0 stmts , doc (showString "end")])
+   Blockk variabledeclaration stmt -> prPrec i 0 (concatD [prt 0 variabledeclaration , prt 2 stmt])
 
 
 instance Print VariableDeclaration where
@@ -143,7 +143,7 @@ instance Print BoolLit where
 
 instance Print Stmt where
   prt i e = case e of
-   SBlock stmts -> prPrec i 0 (concatD [doc (showString "begin") , prt 0 stmts , doc (showString "end")])
+   SBlock stmts -> prPrec i 2 (concatD [doc (showString "begin") , prt 0 stmts , doc (showString "end")])
    SAss id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 exp , doc (showString ";")])
    SAssBool id bexp -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 bexp , doc (showString ";")])
    SAssBoolLit id boollit -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 boollit , doc (showString ";")])

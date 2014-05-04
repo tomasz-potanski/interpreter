@@ -68,7 +68,7 @@ All other symbols are terminals.
   | //Program// | -> | //ProgramNameHeader// //Block// ``.`` 
   | //ProgramNameHeader// | -> | ``program`` //Ident// ``;`` 
   |  |  **|**  | **eps**
-  | //Block// | -> | //VariableDeclaration// ``begin`` //[Stmt]// ``end`` 
+  | //Block// | -> | //VariableDeclaration// //Stmt2// 
   | //[Stmt]// | -> | **eps**
   |  |  **|**  | //Stmt// //[Stmt]// 
   | //VariableDeclaration// | -> | ``var`` //[VarDeclarationLine]// 
@@ -86,8 +86,9 @@ All other symbols are terminals.
   |  |  **|**  | //ConstDeclLine// //[ConstDeclLine]// 
   | //BoolLit// | -> | ``True`` 
   |  |  **|**  | ``False`` 
-  | //Stmt// | -> | ``begin`` //[Stmt]// ``end`` 
-  |  |  **|**  | //Ident// ``:=`` //Exp// ``;`` 
+  | //Stmt2// | -> | ``begin`` //[Stmt]// ``end`` 
+  |  |  **|**  | ``(`` //Stmt// ``)`` 
+  | //Stmt// | -> | //Ident// ``:=`` //Exp// ``;`` 
   |  |  **|**  | //Ident// ``:=`` //BExp// ``;`` 
   |  |  **|**  | //Ident// ``:=`` //BoolLit// ``;`` 
   |  |  **|**  | //Ident// ``*=`` //Exp// ``;`` 
@@ -101,7 +102,7 @@ All other symbols are terminals.
   |  |  **|**  | //Stmt1// 
   | //Stmt1// | -> | ``++`` //Ident// ``;`` 
   |  |  **|**  | ``--`` //Ident// ``;`` 
-  |  |  **|**  | ``(`` //Stmt// ``)`` 
+  |  |  **|**  | //Stmt2// 
   | //Exp// | -> | //Exp// ``+`` //Exp1// 
   |  |  **|**  | //Exp// ``-`` //Exp1// 
   |  |  **|**  | //Exp1// 

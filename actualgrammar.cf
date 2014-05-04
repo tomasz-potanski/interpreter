@@ -16,7 +16,7 @@ ProgNameHeaderBlank.	ProgramNameHeader 	::=  ;
 
 
 --Blockk.		Block	::= ConstantDeclaration VariableDeclaration "begin" [Stmt] "end" ;
-Blockk.		Block	::= VariableDeclaration "begin" [Stmt] "end" ;
+Blockk.		Block	::= VariableDeclaration Stmt2 ;
 
 terminator Stmt "" ;
 
@@ -46,7 +46,7 @@ BoolLitFalse.	BoolLit	::=	"False" ;
 
 ------------(statements)-------
 
-SBlock.		Stmt	::=	"begin" [Stmt] "end" ;
+SBlock.		Stmt2	::=	"begin" [Stmt] "end" ;
 
 SAss.		Stmt	::=	Ident ":=" Exp ";" ;
 SAssBool.	Stmt	::=	Ident ":=" BExp ";" ;
@@ -71,7 +71,7 @@ SPrint.		Stmt	::=	"print" LitVal ";" ;
 --SPrintChar.	Stmt	::=	"print" Char ";" ;
 --SPrintDouble.	Stmt	::=	"print" Double ";" ;
 
-coercions Stmt 1;
+coercions Stmt 2;
 
 ------------(print args)--------
 
