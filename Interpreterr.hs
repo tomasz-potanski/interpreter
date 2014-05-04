@@ -120,6 +120,10 @@ interpretStmt stmt s = case stmt of
 	case bLit of
 		BoolLitTrue -> M.insert x (TTBoolean True) s
 		BoolLitFalse -> M.insert x (TTBoolean False) s
+    SAssBool (Ident x) b ->
+	case b of 
+		True -> M.insert x (TTBoolean True) s
+		True -> M.insert x (TTBoolean False) s
     SAssMult (Ident x) exp ->
 	let valR = (interpretExp exp s)
 	in let valL = (variableValueInt (Ident x) s)

@@ -138,6 +138,7 @@ BoolLit : 'True' { BoolLitTrue }
 Stmt :: { Stmt }
 Stmt : 'begin' ListStmt 'end' { SBlock (reverse $2) } 
   | Ident ':=' Exp ';' { SAss $1 $3 }
+  | Ident ':=' BExp ';' { SAssBool $1 $3 }
   | Ident ':=' BoolLit ';' { SAssBoolLit $1 $3 }
   | Ident '*=' Exp ';' { SAssMult $1 $3 }
   | Ident '/=' Exp ';' { SAssDiv $1 $3 }

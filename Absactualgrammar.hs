@@ -47,6 +47,7 @@ data BoolLit =
 data Stmt =
    SBlock [Stmt]
  | SAss Ident Exp
+ | SAssBool Ident BExp
  | SAssBoolLit Ident BoolLit
  | SAssMult Ident Exp
  | SAssDiv Ident Exp

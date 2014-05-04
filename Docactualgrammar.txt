@@ -88,6 +88,7 @@ All other symbols are terminals.
   |  |  **|**  | ``False`` 
   | //Stmt// | -> | ``begin`` //[Stmt]// ``end`` 
   |  |  **|**  | //Ident// ``:=`` //Exp// ``;`` 
+  |  |  **|**  | //Ident// ``:=`` //BExp// ``;`` 
   |  |  **|**  | //Ident// ``:=`` //BoolLit// ``;`` 
   |  |  **|**  | //Ident// ``*=`` //Exp// ``;`` 
   |  |  **|**  | //Ident// ``/=`` //Exp// ``;`` 
