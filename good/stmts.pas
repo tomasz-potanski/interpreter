@@ -1,3 +1,15 @@
+var
+	x : Integer;
+	y : Integer;
+	z : Integer;
+	n : Integer;
+	counter : Integer;
+	dwa : Integer;
+	trzy : Integer;
+	cztery : Integer;
+	dziesiec : Integer;
+	i : Integer;
+
 begin
 	x := 3 + 2 ;
 	x := x + 1 ;

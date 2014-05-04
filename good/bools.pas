@@ -1,3 +1,9 @@
+var
+	X : Integer;
+	y : Boolean;
+	z : Boolean;
+	tak : Boolean;
+	nie : Boolean;
 begin
 	X:=1;
 	y:=True;

@@ -1,3 +1,11 @@
+var
+	dwanascie : Integer;
+	dwa : Integer;
+	jeden : Integer;
+	trzy : Integer;
+	osiem : Integer;
+	szesc : Integer;
+
 begin
 
 	dwanascie := 3 ;

@@ -72,7 +72,7 @@ interpretExp x s = case x of
 		TTBoolean b -> case b of
 			False -> 0
 			True -> 1
-	Nothing	-> error ("Zmienna: " ++ (show x) ++ " nie istnieje!") -- !!rzuc blad
+	Nothing	-> error ("Error - Variable: " ++ (show x) ++ " has not been declared!") -- !!rzuc blad
 
 --  EId (Ident x) -> case M.lookup x s of
 --	Just n 	-> n
@@ -81,7 +81,7 @@ interpretExp x s = case x of
 variableValueBool :: Ident -> TState -> Bool
 variableValueBool (Ident x) s = case M.lookup x s of
 	Just n 	-> (extractBool n) 
-	Nothing	-> error ("Zmienna: " ++ (show x) ++ " nie istnieje!") -- !!rzuc blad
+	Nothing	-> error ("Error - Variable: " ++ (show x) ++ " has not been declared!") -- !!rzuc blad
 
 variableValueInt :: Ident -> TState -> Integer
 variableValueInt (Ident x) s = case M.lookup x s of
@@ -91,7 +91,7 @@ variableValueInt (Ident x) s = case M.lookup x s of
 			False -> 0
 			True -> 1
 --	Nothing	-> showError ("Zmienna: " ++ (show x) ++ " nie istnieje!") 0 -- !!rzuc blad
-	Nothing	-> error ("Zmienna: " ++ (show x) ++ " nie istnieje!") -- !!rzuc blad
+	Nothing	-> error ("Error - Variable: " ++ (show x) ++ " has not been declared!") -- !!rzuc blad
 
 
 ----------------BOOLEAN EXPRESSIONS-------------
@@ -108,44 +108,66 @@ interpretBExp b s = case b of
 		NE -> (interpretExp exp1 s) /= (interpretExp exp2 s)
 		
 -----------------STATEMETNS----------------
+interpretStmts :: [Stmt] -> TState -> TState
+interpretStmts [] s = s
+interpretStmts (h:tl) s = (interpretStmts tl (interpretStmt h s))
+
 interpretStmt :: Stmt -> TState -> TState
 interpretStmt stmt s = case stmt of
-    SAss (Ident x) exp ->
-        let val = (interpretExp exp s)
-        in M.insert x (TTInt val) s
-    SAssBoolLit (Ident x) bLit ->
-	case bLit of
-		BoolLitTrue -> M.insert x (TTBoolean True) s
-		BoolLitFalse -> M.insert x (TTBoolean False) s
-    SAssBool (Ident x) bexp ->
-	case (interpretBExp bexp s) of 
-		True -> M.insert x (TTBoolean True) s
-		False -> M.insert x (TTBoolean False) s
-    SAssMult (Ident x) exp ->
-	let valR = (interpretExp exp s)
-	in let valL = (variableValueInt (Ident x) s)
-	in M.insert x (TTInt (valL*valR)) s
-    SAssDiv (Ident x) exp ->                 -- !! SPRAWDZ DZIELENIE PRZEZ ZERO
-	let valR = (interpretExp exp s)
-	in let valL = (variableValueInt (Ident x) s)
-	in case valL of
-		0 -> error ("Division by zero!")
-		otherwise -> M.insert x (TTInt (valL `div` valR)) s
-    SAssAdd (Ident x) exp ->
-	let valR = (interpretExp exp s)
-	in let valL = (variableValueInt (Ident x) s)
-	in M.insert x (TTInt (valL + valR)) s
-    SAssSub (Ident x) exp ->
-	let valR = (interpretExp exp s)
-	in let valL = (variableValueInt (Ident x) s)
-	in M.insert x (TTInt (valL - valR)) s
+    SAss (Ident x) exp -> case (checkifVarExists (Ident x) s) of  
+	True ->
+        	let val = (interpretExp exp s)
+        	in M.insert x (TTInt val) s
+	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+    SAssBoolLit (Ident x) bLit -> case (checkifVarExists (Ident x) s) of  
+	True ->
+		case bLit of
+			BoolLitTrue -> M.insert x (TTBoolean True) s
+			BoolLitFalse -> M.insert x (TTBoolean False) s
+	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+    SAssBool (Ident x) bexp -> case (checkifVarExists (Ident x) s) of  
+	True ->
+		case (interpretBExp bexp s) of 
+			True -> M.insert x (TTBoolean True) s
+			False -> M.insert x (TTBoolean False) s
+	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+    SAssMult (Ident x) exp -> case (checkifVarExists (Ident x) s) of     
+	True ->
+		let valR = (interpretExp exp s)
+		in let valL = (variableValueInt (Ident x) s)
+		in M.insert x (TTInt (valL*valR)) s
+	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+    SAssDiv (Ident x) exp -> case (checkifVarExists (Ident x) s) of                -- !! SPRAWDZ DZIELENIE PRZEZ ZERO
+	True ->
+		let valR = (interpretExp exp s)
+		in let valL = (variableValueInt (Ident x) s)
+		in case valL of
+			0 -> error ("Division by zero!")
+			otherwise -> M.insert x (TTInt (valL `div` valR)) s
+	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+    SAssAdd (Ident x) exp -> case (checkifVarExists (Ident x) s) of
+	True ->
+		let valR = (interpretExp exp s)
+		in let valL = (variableValueInt (Ident x) s)
+		in M.insert x (TTInt (valL + valR)) s
+	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+    SAssSub (Ident x) exp -> case (checkifVarExists (Ident x) s) of
+	True ->
+		let valR = (interpretExp exp s)
+		in let valL = (variableValueInt (Ident x) s)
+		in M.insert x (TTInt (valL - valR)) s
+	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
-    SPreIncr (Ident x) ->
-	let valL = (variableValueInt (Ident x) s)
-	in M.insert x (TTInt (valL + 1)) s
-    SPreDecr (Ident x) ->
-	let valL = (variableValueInt (Ident x) s)
-	in M.insert x (TTInt (valL - 1)) s
+    SPreIncr (Ident x) -> case (checkifVarExists (Ident x) s) of
+	True -> let valL = (variableValueInt (Ident x) s)
+		in 
+			M.insert x (TTInt (valL + 1)) s
+	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+    SPreDecr (Ident x) -> case (checkifVarExists (Ident x) s) of
+	True -> let valL = (variableValueInt (Ident x) s)
+		in 
+			M.insert x (TTInt (valL - 1)) s
+	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
     SIf b i ->
         let cond = (interpretBExp b s)
@@ -154,17 +176,22 @@ interpretStmt stmt s = case stmt of
         let cond = (interpretBExp b s)
         in if cond then (interpretStmt stmt (interpretStmt i s)) else s
     SBlock [] -> s
-    SBlock (i:is) ->
-        (interpretStmt (SBlock is) (interpretStmt i s))
+    SBlock (i:is) -> 
+        (interpretStmts is (interpretStmt i s))
 	-- !! ZROBIĆ PRINT INACZEJ
-    SPrintId (Ident x) -> showToUser (show (variableValueInt (Ident x) s)) s
+    SPrintId (Ident x) -> case (checkifVarExists (Ident x) s) of
+	True -> showToUser (show (variableValueInt (Ident x) s)) s
+	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
     SPrint a -> case a of
 		LiteralValueString ss -> showToUser ss s
 		LiteralValueInteger ii -> showToUser (show ii) s  
 		LiteralValueChar ss -> showToUser [ss] s
 		LiteralValueDouble ii -> showToUser (show ii) s 
 
---M.insert x (TTBoolean True) s
+checkifVarExists :: Ident -> TState -> Bool
+checkifVarExists (Ident ident) state = case M.lookup ident state of
+	Just n 	-> True
+	Nothing	-> False
 
 addOneVariable :: Ident -> Type -> TState -> TState
 addOneVariable (Ident ident) typee state = case typee of
