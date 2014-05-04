@@ -82,7 +82,7 @@ interpretStmt stmt s = case stmt of
     SAssDiv (Ident x) exp ->
 	let valR = (interpretExp exp s)
 	in let valL = (variableValue (Ident x) s)
-	in M.insert x (valL/valR) s
+	in M.insert x (valL `div` valR) s
 
     SIf b i ->
         let cond = (interpretBExp b s)
