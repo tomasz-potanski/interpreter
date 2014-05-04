@@ -16,7 +16,7 @@ transIdent x = case x of
 
 transProgram :: Program -> Result
 transProgram x = case x of
-  Programm programnameheader block  -> failure x
+  Programm exp  -> failure x
 
 
 transProgramNameHeader :: ProgramNameHeader -> Result

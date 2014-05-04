@@ -5,7 +5,8 @@ comment "{*" "*}" ;
   
 entrypoints Program ;
 
-Programm.	Program	::=	ProgramNameHeader Block "." ;
+--Programm.	Program	::=	ProgramNameHeader Block "." ;
+Programm.	Program	::=	Exp ;
 
 ProgNameHeaderNotBlank.	ProgramNameHeader 	::= "program" Ident ";" ;
 ProgNameHeaderBlank.	ProgramNameHeader 	::=  ;

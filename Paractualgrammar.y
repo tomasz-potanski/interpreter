@@ -21,18 +21,17 @@ import ErrM
  '+' { PT _ (TS _ 4) }
  ',' { PT _ (TS _ 5) }
  '-' { PT _ (TS _ 6) }
- '.' { PT _ (TS _ 7) }
- '/' { PT _ (TS _ 8) }
- ':' { PT _ (TS _ 9) }
- ';' { PT _ (TS _ 10) }
- '=' { PT _ (TS _ 11) }
- 'Boolean' { PT _ (TS _ 12) }
- 'Integer' { PT _ (TS _ 13) }
- 'begin' { PT _ (TS _ 14) }
- 'const' { PT _ (TS _ 15) }
- 'end' { PT _ (TS _ 16) }
- 'program' { PT _ (TS _ 17) }
- 'var' { PT _ (TS _ 18) }
+ '/' { PT _ (TS _ 7) }
+ ':' { PT _ (TS _ 8) }
+ ';' { PT _ (TS _ 9) }
+ '=' { PT _ (TS _ 10) }
+ 'Boolean' { PT _ (TS _ 11) }
+ 'Integer' { PT _ (TS _ 12) }
+ 'begin' { PT _ (TS _ 13) }
+ 'const' { PT _ (TS _ 14) }
+ 'end' { PT _ (TS _ 15) }
+ 'program' { PT _ (TS _ 16) }
+ 'var' { PT _ (TS _ 17) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -45,7 +44,7 @@ Ident   :: { Ident }   : L_ident  { Ident $1 }
 Integer :: { Integer } : L_integ  { (read ( $1)) :: Integer }
 
 Program :: { Program }
-Program : ProgramNameHeader Block '.' { Programm $1 $2 } 
+Program : Exp { Programm $1 } 
 
 
 ProgramNameHeader :: { ProgramNameHeader }
