@@ -70,7 +70,13 @@ interpretExp x s = case x of
   EMul exp0 exp  -> (interpretExp exp0 s) * (interpretExp exp s)
   EDiv exp0 exp  -> (interpretExp exp0 s) `div` (interpretExp exp s) -- !! SPRAWDZ DZIELENIE PRZEZ ZERO
   EInt n  -> n
-  EId (Ident x) -> variableValueInt (Ident x) s
+  EId (Ident x) -> case M.lookup x s of
+	Just n 	-> case n of
+		TTInt a -> a
+		TTBoolean b -> case b of
+			False -> 0
+			True -> 1
+	Nothing	-> 0 -- !!rzuc blad
 
 --  EId (Ident x) -> case M.lookup x s of
 --	Just n 	-> n
@@ -79,11 +85,15 @@ interpretExp x s = case x of
 variableValueBool :: Ident -> TState -> Bool
 variableValueBool (Ident x) s = case M.lookup x s of
 	Just n 	-> (extractBool n) 
-	Nothing	-> showError ("Zmienna: " ++ (show x) ++ " nie istnieje!") 0 -- !!rzuc blad
+	Nothing	-> showError ("Zmienna: " ++ (show x) ++ " nie istnieje!") False -- !!rzuc blad
 
 variableValueInt :: Ident -> TState -> Integer
 variableValueInt (Ident x) s = case M.lookup x s of
-	Just n 	-> (extractInt n)
+	Just n 	-> case n of
+		TTInt a -> a
+		TTBoolean b -> case b of
+			False -> 0
+			True -> 1
 	Nothing	-> showError ("Zmienna: " ++ (show x) ++ " nie istnieje!") 0 -- !!rzuc blad
 
 
