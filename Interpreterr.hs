@@ -12,6 +12,7 @@ import qualified Data.Map as M
 --------------------------------
 
 import System.IO
+import System.IO.Unsafe
 import Debug.Trace
 
 type TState = M.Map String Integer
@@ -19,6 +20,15 @@ type TState = M.Map String Integer
 
 --import Control.Monad.TState
 --import Control.Monad.Error
+
+putIO :: String -> IO ()
+putIO msg = do
+	putStrLn msg
+
+showToUser :: String -> a -> a
+showToUser string expr = unsafePerformIO $ do
+	putIO string
+	return expr
 
 interpretExp :: Exp -> TState -> Integer
 interpretExp x s = case x of
@@ -57,7 +67,7 @@ interpretStmt stmt s = case stmt of
     SBlock [] -> s
     SBlock (i:is) ->
         (interpretStmt (SBlock is) (interpretStmt i s))
-    SPrint a -> trace a s -- !! ZROBIĆ TO INACZEJ
+    SPrint a -> showToUser a s -- !! ZROBIĆ TO INACZEJ
 
 
 interpretFile :: Stmt -> TState
