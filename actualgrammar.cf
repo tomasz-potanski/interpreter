@@ -101,6 +101,7 @@ TInt.		Type	::=	"Integer" ;
 TBool.		Type 	::=	"Boolean" ;
 TString.	Type	::=	"String" ;
 TChar.		Type	::=	"Char" ;
+TDouble.	Type 	::=	"Double" ;
 
 ------(Literals)-----------
 LiteralValueInteger.			LitVal	::=	Integer ;

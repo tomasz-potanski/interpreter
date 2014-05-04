@@ -83,6 +83,7 @@ data Type =
  | TBool
  | TString
  | TChar
+ | TDouble
   deriving (Eq,Ord,Show)
 
 data LitVal =

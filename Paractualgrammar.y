@@ -42,19 +42,20 @@ import ErrM
  '>=' { PT _ (TS _ 25) }
  'Boolean' { PT _ (TS _ 26) }
  'Char' { PT _ (TS _ 27) }
- 'Integer' { PT _ (TS _ 28) }
- 'String' { PT _ (TS _ 29) }
- 'begin' { PT _ (TS _ 30) }
- 'const' { PT _ (TS _ 31) }
- 'do' { PT _ (TS _ 32) }
- 'end' { PT _ (TS _ 33) }
- 'if' { PT _ (TS _ 34) }
- 'print' { PT _ (TS _ 35) }
- 'program' { PT _ (TS _ 36) }
- 'then' { PT _ (TS _ 37) }
- 'var' { PT _ (TS _ 38) }
- 'while' { PT _ (TS _ 39) }
- '||' { PT _ (TS _ 40) }
+ 'Double' { PT _ (TS _ 28) }
+ 'Integer' { PT _ (TS _ 29) }
+ 'String' { PT _ (TS _ 30) }
+ 'begin' { PT _ (TS _ 31) }
+ 'const' { PT _ (TS _ 32) }
+ 'do' { PT _ (TS _ 33) }
+ 'end' { PT _ (TS _ 34) }
+ 'if' { PT _ (TS _ 35) }
+ 'print' { PT _ (TS _ 36) }
+ 'program' { PT _ (TS _ 37) }
+ 'then' { PT _ (TS _ 38) }
+ 'var' { PT _ (TS _ 39) }
+ 'while' { PT _ (TS _ 40) }
+ '||' { PT _ (TS _ 41) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -194,6 +195,7 @@ Type : 'Integer' { TInt }
   | 'Boolean' { TBool }
   | 'String' { TString }
   | 'Char' { TChar }
+  | 'Double' { TDouble }
 
 
 LitVal :: { LitVal }

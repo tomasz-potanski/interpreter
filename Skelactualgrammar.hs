@@ -106,6 +106,7 @@ transType x = case x of
   TBool  -> failure x
   TString  -> failure x
   TChar  -> failure x
+  TDouble  -> failure x
 
 
 transLitVal :: LitVal -> Result

@@ -187,6 +187,7 @@ instance Print Type where
    TBool  -> prPrec i 0 (concatD [doc (showString "Boolean")])
    TString  -> prPrec i 0 (concatD [doc (showString "String")])
    TChar  -> prPrec i 0 (concatD [doc (showString "Char")])
+   TDouble  -> prPrec i 0 (concatD [doc (showString "Double")])
 
 
 instance Print LitVal where
