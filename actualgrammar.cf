@@ -3,10 +3,11 @@ comment "/*" "*/" ;
 comment "{" "}" ;
 comment "{*" "*}" ;
   
-entrypoints Program ;
+--entrypoints Program ;
+entrypoints Exp ;
 
---Programm.	Program	::=	ProgramNameHeader Block "." ;
-Programm.	Program	::=	Exp ;
+Programm.	Program	::=	ProgramNameHeader Block "." ;
+--Programm.	Program	::=	Exp ;
 
 ProgNameHeaderNotBlank.	ProgramNameHeader 	::= "program" Ident ";" ;
 ProgNameHeaderBlank.	ProgramNameHeader 	::=  ;

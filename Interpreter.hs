@@ -11,7 +11,7 @@ import Absactualgrammar
 --------------------------------
 
 
-interpret :: Exp -> Integer
+interpret :: Program -> Integer
 interpret x = case x of
   EAdd exp0 exp  -> interpret exp0 + interpret exp
   ESub exp0 exp  -> interpret exp0 - interpret exp

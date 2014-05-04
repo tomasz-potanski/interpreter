@@ -5,7 +5,7 @@ module Absactualgrammar where
 
 newtype Ident = Ident String deriving (Eq,Ord,Show)
 data Program =
-   Programm Exp
+   Programm ProgramNameHeader Block
   deriving (Eq,Ord,Show)
 
 data ProgramNameHeader =

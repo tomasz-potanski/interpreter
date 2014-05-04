@@ -1,8 +1,8 @@
 module Main where
 
-import LexCalc
-import ParCalc
-import AbsCalc
+import Lexactualgrammar
+import Paractualgrammar
+import Absactualgrammar
 import Interpreter
 
 import ErrM
@@ -12,5 +12,5 @@ main = do
   putStrLn ""
 
 calc s = 
-  let Ok e = pExp (myLexer s) 
+  let Ok e = pProgram (myLexer s) 
   in show (interpret e)
