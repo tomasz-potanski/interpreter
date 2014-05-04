@@ -85,8 +85,8 @@ All other symbols are terminals.
   |  |  **|**  | //Ident// ``:=`` //Exp// ``;`` 
   |  |  **|**  | ``if`` //BExp// ``then`` //Stmt// 
   |  |  **|**  | ``while`` //BExp// ``do`` //Stmt// 
-  |  |  **|**  | ``print`` //String// ``;`` 
   |  |  **|**  | ``print`` //Ident// ``;`` 
+  |  |  **|**  | ``print`` //LitVal// ``;`` 
   | //Exp// | -> | //Exp// ``+`` //Exp1// 
   |  |  **|**  | //Exp// ``-`` //Exp1// 
   |  |  **|**  | //Exp1// 

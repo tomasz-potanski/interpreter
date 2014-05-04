@@ -63,8 +63,8 @@ transStmt x = case x of
   SAss id exp  -> failure x
   SIf bexp stmt  -> failure x
   SWhile bexp stmt  -> failure x
-  SPrint str  -> failure x
   SPrintId id  -> failure x
+  SPrint litval  -> failure x
 
 
 transExp :: Exp -> Result

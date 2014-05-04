@@ -44,8 +44,8 @@ data Stmt =
  | SAss Ident Exp
  | SIf BExp Stmt
  | SWhile BExp Stmt
- | SPrint String
  | SPrintId Ident
+ | SPrint LitVal
   deriving (Eq,Ord,Show)
 
 data Exp =

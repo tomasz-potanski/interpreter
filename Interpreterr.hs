@@ -46,14 +46,14 @@ interpretExp x s = case x of
   EMul exp0 exp  -> (interpretExp exp0 s) * (interpretExp exp s)
   EDiv exp0 exp  -> (interpretExp exp0 s) `div` (interpretExp exp s)
   EInt n  -> n
-  EId (Ident x) -> variableValue x s
+  EId (Ident x) -> variableValue (Ident x) s
 
 --  EId (Ident x) -> case M.lookup x s of
 --	Just n 	-> n
 --	Nothing	-> 0 -- !!rzuc blad
 
 variableValue :: Ident -> TState -> Integer
-variableValue x s = case M.lookup x s of
+variableValue (Ident x) s = case M.lookup x s of
 	Just n 	-> n
 	Nothing	-> showError ("Zmienna: " ++ (show x) ++ " nie istnieje!") 0 -- !!rzuc blad
 
@@ -83,8 +83,13 @@ interpretStmt stmt s = case stmt of
     SBlock [] -> s
     SBlock (i:is) ->
         (interpretStmt (SBlock is) (interpretStmt i s))
-    SPrint a -> showToUser a s -- !! ZROBIĆ TO INACZEJ
-    SPrintId x -> showToUser (show variableValue x s) s
+	-- !! ZROBIĆ PRINT INACZEJ
+    SPrintId (Ident x) -> showToUser (show (variableValue (Ident x) s)) s
+    SPrint a -> case a of
+		LiteralValueString ss -> showToUser a s
+		LiteralValueInteger ii -> showToUser (show ii) s  
+
+
 
 
 interpretFile :: Stmt -> TState
