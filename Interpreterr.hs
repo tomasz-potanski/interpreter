@@ -11,7 +11,7 @@ import qualified Data.Map as M
 --------------------------------
 --------------------------------
 
-type TState = Map.M String Integer
+type TState = M.Map String Integer
 -- nazwa zmiennej -> wartosc
 
 --import Control.Monad.TState
@@ -38,18 +38,18 @@ interpretBExp b s = case b of
 
 interpretStmt :: Stmt -> TState -> TState
 interpretStmt stmt s = case stmt of
-    IAss (Ident x) exp ->
+    SAss (Ident x) exp ->
         let val = (interpretExp exp s)
         in M.insert x val s
-    IIf b i ->
-        let cond = (interpretBexp b s)
+    SIf b i ->
+        let cond = (interpretBExp b s)
         in if cond then (interpretStmt i s) else s
-    IWhl b i ->
-        let cond = (interpretBexp b s)
-        in if cond then (interpretStmt instr (interpretStmt i s)) else s
-    IBlk [] -> s
-    IBlk (i:is) ->
-        (interpretStmt (IBlk is) (interpretStmt i s))
+    SWhile b i ->
+        let cond = (interpretBExp b s)
+        in if cond then (interpretStmt stmt (interpretStmt i s)) else s
+    SBlock [] -> s
+    SBlock (i:is) ->
+        (interpretStmt (SBlock is) (interpretStmt i s))
 
 interpretFile :: Stmt -> TState
 interpretFile i = interpretStmt i M.empty

@@ -19,9 +19,9 @@ import qualified Data.Map as M
 --  interact calc
 --  putStrLn ""
 
-calc s = 
-  let Ok e = pExp (myLexer s) 
-  in show (interpretFile e)
+--calc s = 
+--  let Ok e = pExp (myLexer s) 
+--  in show (interpretFile e)
 
 
 
@@ -31,6 +31,6 @@ main = do
     (filePath:_) <- getArgs
     fileHandler <- openFile filePath ReadMode
     fileContent <- hGetContents fileHandler
-    case pInstr (myLexer fileContent) of
+    case pStmt (myLexer fileContent) of
         Bad s -> putStrLn fileContent
         Ok i -> putStrLn (show (M.toList (interpretFile i)))
