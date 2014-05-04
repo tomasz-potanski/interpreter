@@ -45,6 +45,7 @@ data Stmt =
  | SIf BExp Stmt
  | SWhile BExp Stmt
  | SPrint String
+ | SPrintId Ident
   deriving (Eq,Ord,Show)
 
 data Exp =

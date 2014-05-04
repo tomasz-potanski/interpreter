@@ -64,6 +64,7 @@ transStmt x = case x of
   SIf bexp stmt  -> failure x
   SWhile bexp stmt  -> failure x
   SPrint str  -> failure x
+  SPrintId id  -> failure x
 
 
 transExp :: Exp -> Result

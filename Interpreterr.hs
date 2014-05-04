@@ -25,9 +25,18 @@ putIO :: String -> IO ()
 putIO msg = do
 	putStrLn msg
 
+putError :: String -> IO ()
+putError msg = do
+	hPutStrLn stderr msg
+
 showToUser :: String -> a -> a
 showToUser string expr = unsafePerformIO $ do
 	putIO string
+	return expr
+
+showError :: String -> a -> a
+showError string expr = unsafePerformIO $ do
+	putError string
 	return expr
 
 interpretExp :: Exp -> TState -> Integer
@@ -37,9 +46,16 @@ interpretExp x s = case x of
   EMul exp0 exp  -> (interpretExp exp0 s) * (interpretExp exp s)
   EDiv exp0 exp  -> (interpretExp exp0 s) `div` (interpretExp exp s)
   EInt n  -> n
-  EId (Ident x) -> case M.lookup x s of
+  EId (Ident x) -> variableValue x s
+
+--  EId (Ident x) -> case M.lookup x s of
+--	Just n 	-> n
+--	Nothing	-> 0 -- !!rzuc blad
+
+variableValue :: Ident -> TState -> Integer
+variableValue x s = case M.lookup x s of
 	Just n 	-> n
-	Nothing	-> 0 -- !!rzuc blad
+	Nothing	-> showError ("Zmienna: " ++ (show x) ++ " nie istnieje!") 0 -- !!rzuc blad
 
 interpretBExp :: BExp -> TState -> Bool
 interpretBExp b s = case b of
@@ -68,6 +84,7 @@ interpretStmt stmt s = case stmt of
     SBlock (i:is) ->
         (interpretStmt (SBlock is) (interpretStmt i s))
     SPrint a -> showToUser a s -- !! ZROBIĆ TO INACZEJ
+    SPrintId x -> showToUser (show variableValue x s) s
 
 
 interpretFile :: Stmt -> TState

@@ -127,6 +127,7 @@ Stmt : 'begin' ListStmt 'end' { SBlock (reverse $2) }
   | 'if' BExp 'then' Stmt { SIf $2 $4 }
   | 'while' BExp 'do' Stmt { SWhile $2 $4 }
   | 'print' String ';' { SPrint $2 }
+  | 'print' Ident ';' { SPrintId $2 }
 
 
 Exp :: { Exp }

@@ -47,6 +47,7 @@ SAss.		Stmt	::=	Ident ":=" Exp ";" ;
 SIf.		Stmt	::=	"if" BExp "then" Stmt ;
 SWhile.		Stmt	::=	"while" BExp "do" Stmt ; 
 SPrint.		Stmt	::=	"print" String ";" ;
+SPrintId.	Stmt	::=	"print" Ident ";" ;
 
 ------------(print args)--------
 
