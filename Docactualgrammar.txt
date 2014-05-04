@@ -73,7 +73,7 @@ All other symbols are terminals.
   |  |  **|**  | //Stmt// //[Stmt]// 
   | //VariableDeclaration// | -> | ``var`` //[VarDeclarationLine]// 
   |  |  **|**  | **eps**
-  | //VarDeclarationLine// | -> | //[Ident]// ``:`` //Type// ``;`` 
+  | //VarDeclarationLine// | -> | //Ident// ``:`` //Type// ``;`` 
   | //[VarDeclarationLine]// | -> | //VarDeclarationLine// 
   |  |  **|**  | //VarDeclarationLine// //[VarDeclarationLine]// 
   | //[Ident]// | -> | //Ident// 

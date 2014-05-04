@@ -166,17 +166,17 @@ interpretStmt stmt s = case stmt of
 
 --M.insert x (TTBoolean True) s
 
-addOneVariable :: String -> Type -> TState -> TState
-addOneVariable ident type state = case type of
+addOneVariable :: Ident -> Type -> TState -> TState
+addOneVariable (Ident ident) typee state = case typee of
 		TInt -> M.insert ident (TTInt 0) state
 		TBool -> M.insert ident (TTBoolean False) state
 
 declareNewVariables :: VariableDeclaration -> TState -> TState
 declareNewVariables vars state = case vars of
-	VBDoesnotExists -> state
+	VBDoesntExists -> state
 	VBExists [] -> state
-	VBExists listOfVarDecl@((DLList ident type):tl) -> 
-		let s = addOneVariable ident type state
+	VBExists listOfVarDecl@((DLList (Ident ident) typee):tl) -> 
+		let s = addOneVariable (Ident ident) typee state
 		in
 			declareNewVariables (VBExists tl) s
 

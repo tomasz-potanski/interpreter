@@ -23,7 +23,7 @@ data VariableDeclaration =
   deriving (Eq,Ord,Show)
 
 data VarDeclarationLine =
-   DLList [Ident] Type
+   DLList Ident Type
   deriving (Eq,Ord,Show)
 
 data ConstantDeclaration =
