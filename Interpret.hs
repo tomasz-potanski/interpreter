@@ -3,9 +3,9 @@
 module Main where
 
 
-import LexCalc
-import ParCalc
-import AbsCalc
+import Lexactualgrammar
+import Paractualgrammar
+import Absactualgrammar
 import Interpreter
 
 import ErrM
