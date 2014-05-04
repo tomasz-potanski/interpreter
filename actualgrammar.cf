@@ -43,7 +43,7 @@ separator nonempty ConstDeclLine "" ;
 
 SBlock.		Stmt	::=	"begin" [Stmt] "end" ;
 SAss.		Stmt	::=	Ident ":=" Exp ";" ;
-SExp.		Stmt 	::=	Exp ";" ;
+--SExp.		Stmt 	::=	Exp ";" ;
 SIf.		Stmt	::=	"if" BExp "then" Stmt ;
 SWhile.		Stmt	::=	"while" BExp "do" Stmt ; 
 

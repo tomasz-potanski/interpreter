@@ -42,7 +42,6 @@ data LiteralValue =
 data Stmt =
    SBlock [Stmt]
  | SAss Ident Exp
- | SExp Exp
  | SIf BExp Stmt
  | SWhile BExp Stmt
   deriving (Eq,Ord,Show)

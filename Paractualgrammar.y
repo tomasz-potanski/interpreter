@@ -125,7 +125,6 @@ ListConstDeclLine : ConstDeclLine { (:[]) $1 }
 Stmt :: { Stmt }
 Stmt : 'begin' ListStmt 'end' { SBlock (reverse $2) } 
   | Ident ':=' Exp ';' { SAss $1 $3 }
-  | Exp ';' { SExp $1 }
   | 'if' BExp 'then' Stmt { SIf $2 $4 }
   | 'while' BExp 'do' Stmt { SWhile $2 $4 }
 
