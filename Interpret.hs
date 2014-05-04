@@ -1,19 +1,16 @@
 module Main where
 
-import Lexactualgrammar
-import Paractualgrammar
-import Absactualgrammar
+import LexCalc
+import ParCalc
+import AbsCalc
 import Interpreter
 
 import ErrM
-
-
--- downloaded from: http://bnfc.digitalgrammars.com/tutorial.html
 
 main = do
   interact calc
   putStrLn ""
 
 calc s = 
-  let Ok e = pProgram (myLexer s) 
-  in show (runProg e)
+  let Ok e = pExp (myLexer s) 
+  in show (interpret e)
