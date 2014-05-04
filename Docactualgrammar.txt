@@ -68,7 +68,7 @@ All other symbols are terminals.
   | //Program// | -> | //ProgramNameHeader// //Block// ``.`` 
   | //ProgramNameHeader// | -> | ``program`` //Ident// ``;`` 
   |  |  **|**  | **eps**
-  | //Block// | -> | //ConstantDeclaration// //VariableDeclaration// ``begin`` //[Stmt]// ``end`` 
+  | //Block// | -> | //VariableDeclaration// ``begin`` //[Stmt]// ``end`` 
   | //[Stmt]// | -> | **eps**
   |  |  **|**  | //Stmt// //[Stmt]// 
   | //VariableDeclaration// | -> | ``var`` //[VarDeclarationLine]// 

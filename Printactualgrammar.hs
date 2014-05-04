@@ -99,7 +99,7 @@ instance Print ProgramNameHeader where
 
 instance Print Block where
   prt i e = case e of
-   Blockk constantdeclaration variabledeclaration stmts -> prPrec i 0 (concatD [prt 0 constantdeclaration , prt 0 variabledeclaration , doc (showString "begin") , prt 0 stmts , doc (showString "end")])
+   Blockk variabledeclaration stmts -> prPrec i 0 (concatD [prt 0 variabledeclaration , doc (showString "begin") , prt 0 stmts , doc (showString "end")])
 
 
 instance Print VariableDeclaration where

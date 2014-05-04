@@ -14,7 +14,7 @@ data ProgramNameHeader =
   deriving (Eq,Ord,Show)
 
 data Block =
-   Blockk ConstantDeclaration VariableDeclaration [Stmt]
+   Blockk VariableDeclaration [Stmt]
   deriving (Eq,Ord,Show)
 
 data VariableDeclaration =

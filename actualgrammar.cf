@@ -4,8 +4,8 @@ comment "/*" "*/" ;
 comment "{" "}" ;
 comment "{*" "*}" ;
   
-entrypoints Stmt;
---entrypoints Program ;
+--entrypoints Stmt;
+entrypoints Program ;
 --entrypoints Exp ;
 
 Programm.	Program	::=	ProgramNameHeader Block "." ;
@@ -15,7 +15,8 @@ ProgNameHeaderNotBlank.	ProgramNameHeader 	::= "program" Ident ";" ;
 ProgNameHeaderBlank.	ProgramNameHeader 	::=  ;
 
 
-Blockk.		Block	::= ConstantDeclaration VariableDeclaration "begin" [Stmt] "end" ;
+--Blockk.		Block	::= ConstantDeclaration VariableDeclaration "begin" [Stmt] "end" ;
+Blockk.		Block	::= VariableDeclaration "begin" [Stmt] "end" ;
 
 terminator Stmt "" ;
 

@@ -21,6 +21,7 @@ import Debug.Trace
 data TTypes = TTInt Integer | TTBoolean Bool deriving (Eq, Show)
 -- nazwa zmiennej -> wartosc
 type TState = M.Map String TTypes
+type ProcMap = Data.Map.Map String ([Instr], [Arg])
 
 extractInt :: TTypes -> Integer
 extractInt (TTInt a) = a
@@ -120,10 +121,10 @@ interpretStmt stmt s = case stmt of
 	case bLit of
 		BoolLitTrue -> M.insert x (TTBoolean True) s
 		BoolLitFalse -> M.insert x (TTBoolean False) s
-    SAssBool (Ident x) b ->
-	case b of 
+    SAssBool (Ident x) bexp ->
+	case (interpretBExp bexp s) of 
 		True -> M.insert x (TTBoolean True) s
-		True -> M.insert x (TTBoolean False) s
+		False -> M.insert x (TTBoolean False) s
     SAssMult (Ident x) exp ->
 	let valR = (interpretExp exp s)
 	in let valL = (variableValueInt (Ident x) s)

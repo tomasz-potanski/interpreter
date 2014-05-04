@@ -8,7 +8,7 @@ import ErrM
 
 }
 
-%name pStmt Stmt
+%name pProgram Program
 
 -- no lexer declaration
 %monad { Err } { thenM } { returnM }
@@ -85,7 +85,7 @@ ProgramNameHeader : 'program' Ident ';' { ProgNameHeaderNotBlank $2 }
 
 
 Block :: { Block }
-Block : ConstantDeclaration VariableDeclaration 'begin' ListStmt 'end' { Blockk $1 $2 (reverse $4) } 
+Block : VariableDeclaration 'begin' ListStmt 'end' { Blockk $1 (reverse $3) } 
 
 
 ListStmt :: { [Stmt] }
