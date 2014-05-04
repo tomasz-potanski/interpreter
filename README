@@ -3,3 +3,82 @@ Zad 2 (lab), interpreter
 ---------
 
 Tomasz Potanski, 321 150
+tomasz@potanski.pl
+------------
+
+Interpretuje język imperatywny bazujący na pascalu.
+
+Rozwiązanie celuje w 16 punktów
+
+-----------------------------------------------
+Funkcjonalności zrealizowane (część pierwsza)
+
+./good/	- zawiera przykłady poprawnych programów
+./bad/	- zawiera przykłady niepoprawnych programów
+Wszystki programy są opisane.
+Dopuszczalne komentarze w języku:
+-Jednoliniowe: //, #
+-Wieloliniowe: /* */, { }, {* *}
+
+---------------------------------------------
+PONIŻEJ WYPISUJĘ FUNKCJONALNOŚCI, KTÓRE SĄ ZREALIZOWANE:
+
+Cały komplet na 8 punktów:
+1. Jeden typ wartości: Integer				OK (jest nawet więcej typów)
+2. Zmienne, operacja przypisania			OK 
+	+ operacje znane z c++ np. ++zmienna, --zmienna, +=, -=, /=, *=
+	+ można deklarować wiele zmiennych o tym samym typie w jednej linii: x, y : Integer;
+3. If							OK
+4. While						OK
+5. Wyrażenia z arytmetyką + - * / ( )			OK
+6. Porównania						OK
+
+-----------------------------------------
+Na 12 pkt:
+7. Funkcje lub procedury z				Brak 			
+   parametrami przez wartość, rekurencja
+
+----------------------------
+
+Funkcjonalności zrealizowane (w częsci drugiej):
+
+Wymaganie na 16 pkt.
+1. Dwa typy wartości: Integer i Boolean			OK
+2. Arytmetyka, porównania				OK
+3. While, if (if _ elif _ else _ endif)			Brak (tylko podstawowe)
+4. Funkcje/procedury bez zagnieżdżania, rekurencja	Brak
+5. Jawne wypisywanie wartości na wyjście: print/write	OK
+
+Dwa sposór następujących
+6. Operatory preinkrementacji, +=, -=, /= itp.		OK 	
+7. Pętla for						Brak
+8. String, literały napisowe, rzutowanie napis <> int	Brak
+9. Dwa sposoby przekazywa param (zmienna/wartosc)	Brak
+
+-----------------------
+Wymagania na 20 puntków:
+1. Przesłanianie identyfikatorów ze statycznym 		Brak
+   ich wiązaniem
+2. Statyczne typowanie					Brak
+3. Jawne obsłużenie dynamicznych błędów wykonania	OK
+4. Funkcje zwracające wartość				Brak
+
+Dwie dodatkowe rzeczy z listy:
+1. rekordy						Brak
+2. tablice indeksowane int lub listy			Brak
+3. tablice/slowniki indeksowane dowolnymi		Brak
+   porównywalnymi wartościami; typ klucza
+   należy uwzględnić w typie słownika
+4. krotki z przypisanie jak w Pythonie			Brak
+5. Funkcje jako parametry				Brak
+6. Zwracanie funkcji w wyniku; domkniecie		Brak
+   jak w JS
+7. Funkcje anonimowe					Brak
+
+------------------------
+Wymagania na 24 pkty:
+1. Dowolnie zagieżdżone definicje funkcji/procedur	Brak
+   z zachowanie poprawności statycznego wiązania
+   identyfikatorów (jak w Pascalu)
+2. Dodatko jedna lub dwie funkcjonalnosci z		Brak
+   listy na 20 pktów

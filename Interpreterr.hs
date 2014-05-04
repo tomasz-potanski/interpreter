@@ -201,15 +201,15 @@ addOneVariable (Ident ident) typee state = case typee of
 addManyVariables :: [Ident] -> Type -> TState -> TState
 addManyVariables [] typee state = state 
 addManyVariables ((Ident ident):tl) typee state = 
-	addManyVariables tl type (addOneVariable (Ident ident) typee state)
+	addManyVariables tl typee (addOneVariable (Ident ident) typee state)
 
 declareNewVariables :: VariableDeclaration -> TState -> TState
 declareNewVariables vars state = case vars of
 	VBDoesntExists -> state
 	VBExists [] -> state
-	VBExists listOfVarDecl@((DLList ([Ident] idents) typee):tl) -> 
+	VBExists listOfVarDecl@((DLList idents typee):tl) -> 
 --		let s = addOneVariable (Ident ident) typee state
-		let s = addManyVariable ([Ident] idents) typee state
+		let s = addManyVariables idents typee state
 		in
 			declareNewVariables (VBExists tl) s
 

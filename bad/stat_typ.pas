@@ -1,3 +1,5 @@
+/* Prezentajca rzutowania Boolean na Integer
+*/
 var 
 	i : Integer;
 	b : Boolean ;

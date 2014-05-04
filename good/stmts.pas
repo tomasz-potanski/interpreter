@@ -1,3 +1,14 @@
+/*
+	Program prezentuje podstawowe funkcjonalnosci na 8 punktów np.
+	+ instrukcje warunkowe: if
+	+ petla while
+	+ zmienne i operacje na zmiennych
+
+	Dodatkowo:
+	+ drukowanie na ekran
+	
+*/
+
 var
 	x : Integer;
 	y : Integer;
@@ -18,7 +29,6 @@ begin
 	if z < 2 then print "OK" ;
 	if z < 3 then print z ;
 	print 'a';
-	print 3.1415;
 	
 	n := 10 ;
 	counter := 0 ;

@@ -1,3 +1,7 @@
+/* Prezentacja:
+	+ instrukcji znany z języka c++ np. --zmienna, ++zmienna, +=, -=, /=, *=
+*/
+
 var
 	dwanascie : Integer;
 	dwa : Integer;

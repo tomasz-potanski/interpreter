@@ -1,3 +1,4 @@
+//Prezentacja prostej instrukcji asercji
 var
 	x : Boolean;
 begin

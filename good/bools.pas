@@ -1,3 +1,6 @@
+/*
+	Rozwiązanie dowodzi obecności typu: Boolean w języku
+*/
 var
 	X : Integer;
 	y : Boolean;
