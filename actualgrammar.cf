@@ -41,7 +41,7 @@ separator nonempty ConstDeclLine "" ;
 
 ------------(statements)-------
 
-SBlock		Stmt	::=	"begin" [Stmt] "end"
+SBlock		Stmt	::=	"begin" [Stmt] "end" ;
 SAss.		Stmt	::=	Ident ":=" Exp ";" ;
 SExp.		Stmt 	::=	Exp ";" ;
 SIf.		Stmt	::=	"if" BExp "then" Stmt ;
