@@ -33,9 +33,8 @@ main = do
     fileContent <- hGetContents fileHandler
     case pStmt (myLexer fileContent) of
 		-- ogarnac wypisywanie bledow na stdErr
---        Bad s -> putStrLn "Error"
         Bad s -> do 
 		 putStrLn "Error"
-		 putStrLn fileContent
+		 putStrLn s
         Ok i -> putStrLn (show (M.toList (interpretFile i)))
 --        Ok i -> return()

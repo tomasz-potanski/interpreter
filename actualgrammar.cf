@@ -1,24 +1,89 @@
+comment "//" ;
+comment "#" ;
+comment "/*" "*/" ;
+comment "{" "}" ;
+comment "{*" "*}" ;
+  
+entrypoints Stmt, Exp;
+--entrypoints Program ;
+--entrypoints Exp ;
 
-entrypoints Stmt, Exp ;
+Programm.	Program	::=	ProgramNameHeader Block "." ;
+--Programm.	Program	::=	Exp ;
+
+ProgNameHeaderNotBlank.	ProgramNameHeader 	::= "program" Ident ";" ;
+ProgNameHeaderBlank.	ProgramNameHeader 	::=  ;
+
+
+Blockk.		Block	::= ConstantDeclaration VariableDeclaration "begin" [Stmt] "end" ;
 
 terminator Stmt "" ;
 
+-------------(Variables Declaration)---------------
+VBExists.		VariableDeclaration ::=	"var" [VarDeclarationLine] ;
+VBDoesntExists.		VariableDeclaration ::=	;
+DLList.			VarDeclarationLine    ::= [Ident] ":" Type ";" ;
 
-SBlock. Stmt ::= "begin" [Stmt] "end" ;
-SAss. Stmt ::= Ident "=" Exp ";" ;
-SIf.  Stmt ::= "if" BExp "then" Stmt ;
-SWhile. Stmt ::= "while" BExp "do" Stmt ;
+separator nonempty VarDeclarationLine "" ;
+separator nonempty Ident "," ;
 
-EAdd. Exp  ::= Exp  "+" Exp1 ;
-ESub. Exp  ::= Exp  "-" Exp1 ;
-EMul. Exp1 ::= Exp1 "*" Exp2 ;
-EDiv. Exp1 ::= Exp1 "/" Exp2 ;
-EInt. Exp2 ::= Integer ;
-EId. Exp2 ::= Ident ;
+--------------(Constant Declaration)-------------
+ConstDeclBlank.		ConstantDeclaration	::=	;
+ConstDeclNotBlank.	ConstantDeclaration	::=	"const" [ConstDeclLine];
 
-coercions Exp 2 ;
+ConsDeclLine.		ConstDeclLine	::=	Ident "=" LiteralValue ";" ;
+--LiteralValStr.	LiteralValue	::=	String ;
+--LiteralValDouble.	LiteralValue	::=	Double ;
+--LiteralValChar.	LiteralValue	::=	Char ;
+LiteralValInt.		LiteralValue	::=	Integer ;
 
-BOr.  BExp   ::= BExp "||" BExp1 ;
-BAnd. BExp1  ::= BExp1 "&&" BExp2 ;
+separator nonempty ConstDeclLine "" ;
+
+------------(statements)-------
+
+SBlock.		Stmt	::=	"begin" [Stmt] "end" ;
+SAss.		Stmt	::=	Ident ":=" Exp ";" ;
+--SExp.		Stmt 	::=	Exp ";" ;
+SIf.		Stmt	::=	"if" BExp "then" Stmt ;
+SWhile.		Stmt	::=	"while" BExp "do" Stmt ; 
+
+-------------(expressions)--------
+EAdd. 	Exp 	::= 	Exp 	"+" 	Exp1 	;
+ESub. 	Exp 	::= 	Exp 	"-" 	Exp1 	;
+EMul. 	Exp1 	::= 	Exp1 	"*" 	Exp2 	;
+EDiv. 	Exp1 	::= 	Exp1 	"/" 	Exp2 	;
+EInt. 	Exp2 	::= 	Integer 	;
+EId.	Exp2	::=	Ident	;
+coercions 	Exp 	2 	;
+--EAss.		Exp 	::=	Ident "=" Exp ;
+
+----------------(Bool Expressions)----------
+BOr.  	BExp   	::= BExp "||" BExp1 ;
+BAnd. 	BExp1  	::= BExp1 "&&" BExp2 ;
+BRel.  BExp2  	::= Exp RelOp Exp ;
+--BTExp.	BExp	::= Exp ;	
 
 coercions BExp 2 ;
+
+----------(operators)-------
+LTH.       RelOp ::= "<" ;
+LE.        RelOp ::= "<=" ;
+GTH.       RelOp ::= ">" ;
+GE.        RelOp ::= ">=" ;
+EQU.       RelOp ::= "==" ;
+NE.        RelOp ::= "!=" ;
+
+---------(types)-----------
+
+TInt.		Type	::=	"Integer" ;
+TBool.		Type 	::=	"Boolean" ;
+TString.	Type	::=	"String" ;
+TChar.		Type	::=	"Char" ;
+
+------(Literals)-----------
+LiteralValueInteger.			LitVal	::=	Integer ;
+LiteralValueString.			LitVal	::=	String ;
+LiteralValueDouble.			LitVal	::=	Double ;
+LiteralValueChar.			LitVal	::=	Char ;
+LiteralValueTrue.			LitVal	::=	"true" ;
+LiteralValueFalse.			LitVal	::=	"false" ;

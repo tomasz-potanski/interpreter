@@ -16,25 +16,47 @@ import ErrM
 %tokentype { Token }
 
 %token 
- '&&' { PT _ (TS _ 1) }
- '(' { PT _ (TS _ 2) }
- ')' { PT _ (TS _ 3) }
- '*' { PT _ (TS _ 4) }
- '+' { PT _ (TS _ 5) }
- '-' { PT _ (TS _ 6) }
- '/' { PT _ (TS _ 7) }
- ';' { PT _ (TS _ 8) }
- '=' { PT _ (TS _ 9) }
- 'begin' { PT _ (TS _ 10) }
- 'do' { PT _ (TS _ 11) }
- 'end' { PT _ (TS _ 12) }
- 'if' { PT _ (TS _ 13) }
- 'then' { PT _ (TS _ 14) }
- 'while' { PT _ (TS _ 15) }
- '||' { PT _ (TS _ 16) }
+ '!=' { PT _ (TS _ 1) }
+ '&&' { PT _ (TS _ 2) }
+ '(' { PT _ (TS _ 3) }
+ ')' { PT _ (TS _ 4) }
+ '*' { PT _ (TS _ 5) }
+ '+' { PT _ (TS _ 6) }
+ ',' { PT _ (TS _ 7) }
+ '-' { PT _ (TS _ 8) }
+ '.' { PT _ (TS _ 9) }
+ '/' { PT _ (TS _ 10) }
+ ':' { PT _ (TS _ 11) }
+ ':=' { PT _ (TS _ 12) }
+ ';' { PT _ (TS _ 13) }
+ '<' { PT _ (TS _ 14) }
+ '<=' { PT _ (TS _ 15) }
+ '=' { PT _ (TS _ 16) }
+ '==' { PT _ (TS _ 17) }
+ '>' { PT _ (TS _ 18) }
+ '>=' { PT _ (TS _ 19) }
+ 'Boolean' { PT _ (TS _ 20) }
+ 'Char' { PT _ (TS _ 21) }
+ 'Integer' { PT _ (TS _ 22) }
+ 'String' { PT _ (TS _ 23) }
+ 'begin' { PT _ (TS _ 24) }
+ 'const' { PT _ (TS _ 25) }
+ 'do' { PT _ (TS _ 26) }
+ 'end' { PT _ (TS _ 27) }
+ 'false' { PT _ (TS _ 28) }
+ 'if' { PT _ (TS _ 29) }
+ 'program' { PT _ (TS _ 30) }
+ 'then' { PT _ (TS _ 31) }
+ 'true' { PT _ (TS _ 32) }
+ 'var' { PT _ (TS _ 33) }
+ 'while' { PT _ (TS _ 34) }
+ '||' { PT _ (TS _ 35) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
+L_quoted { PT _ (TL $$) }
+L_doubl  { PT _ (TD $$) }
+L_charac { PT _ (TC $$) }
 L_err    { _ }
 
 
@@ -42,15 +64,68 @@ L_err    { _ }
 
 Ident   :: { Ident }   : L_ident  { Ident $1 }
 Integer :: { Integer } : L_integ  { (read ( $1)) :: Integer }
+String  :: { String }  : L_quoted {  $1 }
+Double  :: { Double }  : L_doubl  { (read ( $1)) :: Double }
+Char    :: { Char }    : L_charac { (read ( $1)) :: Char }
+
+Program :: { Program }
+Program : ProgramNameHeader Block '.' { Programm $1 $2 } 
+
+
+ProgramNameHeader :: { ProgramNameHeader }
+ProgramNameHeader : 'program' Ident ';' { ProgNameHeaderNotBlank $2 } 
+  | {- empty -} { ProgNameHeaderBlank }
+
+
+Block :: { Block }
+Block : ConstantDeclaration VariableDeclaration 'begin' ListStmt 'end' { Blockk $1 $2 (reverse $4) } 
+
 
 ListStmt :: { [Stmt] }
 ListStmt : {- empty -} { [] } 
   | ListStmt Stmt { flip (:) $1 $2 }
 
 
+VariableDeclaration :: { VariableDeclaration }
+VariableDeclaration : 'var' ListVarDeclarationLine { VBExists $2 } 
+  | {- empty -} { VBDoesntExists }
+
+
+VarDeclarationLine :: { VarDeclarationLine }
+VarDeclarationLine : ListIdent ':' Type ';' { DLList $1 $3 } 
+
+
+ListVarDeclarationLine :: { [VarDeclarationLine] }
+ListVarDeclarationLine : VarDeclarationLine { (:[]) $1 } 
+  | VarDeclarationLine ListVarDeclarationLine { (:) $1 $2 }
+
+
+ListIdent :: { [Ident] }
+ListIdent : Ident { (:[]) $1 } 
+  | Ident ',' ListIdent { (:) $1 $3 }
+
+
+ConstantDeclaration :: { ConstantDeclaration }
+ConstantDeclaration : {- empty -} { ConstDeclBlank } 
+  | 'const' ListConstDeclLine { ConstDeclNotBlank $2 }
+
+
+ConstDeclLine :: { ConstDeclLine }
+ConstDeclLine : Ident '=' LiteralValue ';' { ConsDeclLine $1 $3 } 
+
+
+LiteralValue :: { LiteralValue }
+LiteralValue : Integer { LiteralValInt $1 } 
+
+
+ListConstDeclLine :: { [ConstDeclLine] }
+ListConstDeclLine : ConstDeclLine { (:[]) $1 } 
+  | ConstDeclLine ListConstDeclLine { (:) $1 $2 }
+
+
 Stmt :: { Stmt }
 Stmt : 'begin' ListStmt 'end' { SBlock (reverse $2) } 
-  | Ident '=' Exp ';' { SAss $1 $3 }
+  | Ident ':=' Exp ';' { SAss $1 $3 }
   | 'if' BExp 'then' Stmt { SIf $2 $4 }
   | 'while' BExp 'do' Stmt { SWhile $2 $4 }
 
@@ -84,7 +159,33 @@ BExp1 : BExp1 '&&' BExp2 { BAnd $1 $3 }
 
 
 BExp2 :: { BExp }
-BExp2 : '(' BExp ')' { $2 } 
+BExp2 : Exp RelOp Exp { BRel $1 $2 $3 } 
+  | '(' BExp ')' { $2 }
+
+
+RelOp :: { RelOp }
+RelOp : '<' { LTH } 
+  | '<=' { LE }
+  | '>' { GTH }
+  | '>=' { GE }
+  | '==' { EQU }
+  | '!=' { NE }
+
+
+Type :: { Type }
+Type : 'Integer' { TInt } 
+  | 'Boolean' { TBool }
+  | 'String' { TString }
+  | 'Char' { TChar }
+
+
+LitVal :: { LitVal }
+LitVal : Integer { LiteralValueInteger $1 } 
+  | String { LiteralValueString $1 }
+  | Double { LiteralValueDouble $1 }
+  | Char { LiteralValueChar $1 }
+  | 'true' { LiteralValueTrue }
+  | 'false' { LiteralValueFalse }
 
 
 

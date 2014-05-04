@@ -20,22 +20,41 @@ reserved words excluded.
 Integer literals //Integer// are nonempty sequences of digits.
 
 
+String literals //String// have the form
+``"``//x//``"``}, where //x// is any sequence of any characters
+except ``"`` unless preceded by ``\``.
+
+
+Double-precision float literals //Double// have the structure
+indicated by the regular expression ``digit+ '.' digit+ ('e' ('-')? digit+)?`` i.e.\
+two sequences of digits separated by a decimal point, optionally
+followed by an unsigned or negative exponent.
+
+
+Character literals //Char// have the form
+``'``//c//``'``, where //c// is any single character.
+
+
 
 
 ===Reserved words and symbols===
 The set of reserved words is the set of terminals appearing in the grammar. Those reserved words that consist of non-letter characters are called symbols, and they are treated in a different way from those that are similar to identifiers. The lexer follows rules familiar from languages like Haskell, C, and Java, including longest match and spacing conventions.
 
 The reserved words used in actualgrammar are the following:
-  | ``begin`` | ``do`` | ``end`` | ``if``
-  | ``then`` | ``while`` |  | 
+  | ``Boolean`` | ``Char`` | ``Integer`` | ``String``
+  | ``begin`` | ``const`` | ``do`` | ``end``
+  | ``false`` | ``if`` | ``program`` | ``then``
+  | ``true`` | ``var`` | ``while`` | 
 
 The symbols used in actualgrammar are the following:
-  | = | ; | + | -
+  | . | ; | : | ,
+  | = | := | + | -
   | * | / | ( | )
-  | || | && |  | 
+  | || | && | < | <=
+  | > | >= | == | !=
 
 ===Comments===
-There are no single-line comments in the grammar.There are no multiple-line comments in the grammar.
+Single-line comments begin with //, #.Multiple-line comments are  enclosed with /* and */, { and }, {* and *}.
 
 ==The syntactic structure of actualgrammar==
 Non-terminals are enclosed between < and >. 
@@ -43,10 +62,27 @@ The symbols -> (production),  **|**  (union)
 and **eps** (empty rule) belong to the BNF notation. 
 All other symbols are terminals.
 
+  | //Program// | -> | //ProgramNameHeader// //Block// ``.`` 
+  | //ProgramNameHeader// | -> | ``program`` //Ident// ``;`` 
+  |  |  **|**  | **eps**
+  | //Block// | -> | //ConstantDeclaration// //VariableDeclaration// ``begin`` //[Stmt]// ``end`` 
   | //[Stmt]// | -> | **eps**
   |  |  **|**  | //Stmt// //[Stmt]// 
+  | //VariableDeclaration// | -> | ``var`` //[VarDeclarationLine]// 
+  |  |  **|**  | **eps**
+  | //VarDeclarationLine// | -> | //[Ident]// ``:`` //Type// ``;`` 
+  | //[VarDeclarationLine]// | -> | //VarDeclarationLine// 
+  |  |  **|**  | //VarDeclarationLine// //[VarDeclarationLine]// 
+  | //[Ident]// | -> | //Ident// 
+  |  |  **|**  | //Ident// ``,`` //[Ident]// 
+  | //ConstantDeclaration// | -> | **eps**
+  |  |  **|**  | ``const`` //[ConstDeclLine]// 
+  | //ConstDeclLine// | -> | //Ident// ``=`` //LiteralValue// ``;`` 
+  | //LiteralValue// | -> | //Integer// 
+  | //[ConstDeclLine]// | -> | //ConstDeclLine// 
+  |  |  **|**  | //ConstDeclLine// //[ConstDeclLine]// 
   | //Stmt// | -> | ``begin`` //[Stmt]// ``end`` 
-  |  |  **|**  | //Ident// ``=`` //Exp// ``;`` 
+  |  |  **|**  | //Ident// ``:=`` //Exp// ``;`` 
   |  |  **|**  | ``if`` //BExp// ``then`` //Stmt// 
   |  |  **|**  | ``while`` //BExp// ``do`` //Stmt// 
   | //Exp// | -> | //Exp// ``+`` //Exp1// 
@@ -62,6 +98,23 @@ All other symbols are terminals.
   |  |  **|**  | //BExp1// 
   | //BExp1// | -> | //BExp1// ``&&`` //BExp2// 
   |  |  **|**  | //BExp2// 
-  | //BExp2// | -> | ``(`` //BExp// ``)`` 
+  | //BExp2// | -> | //Exp// //RelOp// //Exp// 
+  |  |  **|**  | ``(`` //BExp// ``)`` 
+  | //RelOp// | -> | ``<`` 
+  |  |  **|**  | ``<=`` 
+  |  |  **|**  | ``>`` 
+  |  |  **|**  | ``>=`` 
+  |  |  **|**  | ``==`` 
+  |  |  **|**  | ``!=`` 
+  | //Type// | -> | ``Integer`` 
+  |  |  **|**  | ``Boolean`` 
+  |  |  **|**  | ``String`` 
+  |  |  **|**  | ``Char`` 
+  | //LitVal// | -> | //Integer// 
+  |  |  **|**  | //String// 
+  |  |  **|**  | //Double// 
+  |  |  **|**  | //Char// 
+  |  |  **|**  | ``true`` 
+  |  |  **|**  | ``false`` 
 
 
