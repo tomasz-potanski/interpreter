@@ -15,7 +15,10 @@ import System.IO
 import System.IO.Unsafe
 import Debug.Trace
 
-data TTypes = TTInt Integer | TTBool Bool | TTString String | TTChar Char | TTDouble Double deriving (Eq, Show)
+
+----types-------------
+--data TTypes = TTInt Integer | TTBoolean Bool | TTString String | TTChar Char | TTDouble Double deriving (Eq, Show)
+data TTypes = TTInt Integer | TTBoolean Bool deriving (Eq, Show)
 -- nazwa zmiennej -> wartosc
 type TState = M.Map String TTypes
 
@@ -25,19 +28,20 @@ extractInt (TTInt a) = a
 extractBool :: TTypes -> Bool
 extractBool (TTBool a) = a
 
-extractString :: TTypes -> String
-extractString (TTString a) = a
+--extractString :: TTypes -> String
+--extractString (TTString a) = a
 
-extractChar :: TTypes -> Char
-extractChar (TTChar a) = a
+--extractChar :: TTypes -> Char
+--extractChar (TTChar a) = a
 
-extractDouble :: TTypes -> Double
-extractDouble (TTDouble a) = a
+--extractDouble :: TTypes -> Double
+--extractDouble (TTDouble a) = a
 
 
 --import Control.Monad.State
 --import Control.Monad.Error
 
+-------------additional io--------
 putIO :: String -> IO ()
 putIO msg = do
 	putStrLn msg
@@ -48,8 +52,8 @@ putError msg = do
 
 showToUser :: String -> a -> a
 showToUser string expr = unsafePerformIO $ do
---	putIO string
-	putStrLn string
+	putIO string
+--	putStrLn string
 	return expr
 
 showError :: String -> a -> a
@@ -57,6 +61,8 @@ showError string expr = unsafePerformIO $ do
 	putError string
 	return expr
 
+
+-----------------EXPRESSIONS--------------------
 interpretExp :: Exp -> TState -> Integer
 interpretExp x s = case x of
   EAdd exp0 exp  -> (interpretExp exp0 s) + (interpretExp exp s)
@@ -70,10 +76,10 @@ interpretExp x s = case x of
 --	Just n 	-> n
 --	Nothing	-> 0 -- !!rzuc blad
 
---variableValue :: Ident -> TState -> TTypes
---variableValue (Ident x) s = case M.lookup x s of
---	Just n 	-> n
---	Nothing	-> showError ("Zmienna: " ++ (show x) ++ " nie istnieje!") 0 -- !!rzuc blad
+variableValueBool :: Ident -> TState -> Bool
+variableValueBool (Ident x) s = case M.lookup x s of
+	Just n 	-> (extractBool n) 
+	Nothing	-> showError ("Zmienna: " ++ (show x) ++ " nie istnieje!") 0 -- !!rzuc blad
 
 variableValueInt :: Ident -> TState -> Integer
 variableValueInt (Ident x) s = case M.lookup x s of
@@ -81,6 +87,7 @@ variableValueInt (Ident x) s = case M.lookup x s of
 	Nothing	-> showError ("Zmienna: " ++ (show x) ++ " nie istnieje!") 0 -- !!rzuc blad
 
 
+----------------BOOLEAN EXPRESSIONS-------------
 interpretBExp :: BExp -> TState -> Bool
 interpretBExp b s = case b of
 	BOr bexp1 bexp2 -> (interpretBExp bexp1 s) || (interpretBExp bexp2 s) 
@@ -93,6 +100,7 @@ interpretBExp b s = case b of
 		EQU -> (interpretExp exp1 s) == (interpretExp exp2 s)
 		NE -> (interpretExp exp1 s) /= (interpretExp exp2 s)
 		
+-----------------STATEMETNS----------------
 interpretStmt :: Stmt -> TState -> TState
 interpretStmt stmt s = case stmt of
     SAss (Ident x) exp ->
@@ -140,6 +148,8 @@ interpretStmt stmt s = case stmt of
 		LiteralValueDouble ii -> showToUser (show ii) s 
 
 
+
+-------------INTERPRET FILE------------
 interpretFile :: Stmt -> TState
 interpretFile i = interpretStmt i M.empty
 --interpretFile :: Program -> TState
