@@ -16,7 +16,7 @@ ques=${bldblu}?${txtrst}
 
 errors=0
 
-
+clear
 echo "\n"
 echo "|||--------------------------------"
 echo "||| Those files should be vaild:"
@@ -24,13 +24,25 @@ for file in ./good/*pas
 do
 
 #echo "$file"
+	echo "||| $file:"
 	if [ `./verifier $file 2>&1 | grep "Parse Successful!" | wc -l` = 1 ]
 	then
-		echo "||| $green$file: OK$reset"
+		echo "|||    $green \bparser: OK$reset"
 	else 
-		echo "||| $bldred$file: Error$(tput sgr0)" 
+		echo "|||    $bldred \bparser: Error$(tput sgr0)" 
 		echo "  "
 		./verifier $file
+		echo "  "
+		errors=$((errors + 1))
+	fi
+
+	if [ `./interpreter $file 2>&1 | grep "Error" | wc -l` = 0 ]
+	then
+		echo "|||    $green \binterpreter: OK$reset"
+	else 
+		echo "|||    $bldred \binterpreter: Error$(tput sgr0)" 
+		echo "  "
+		./interpreter $file
 		echo "  "
 		errors=$((errors + 1))
 	fi
@@ -47,12 +59,21 @@ for file in ./bad/*pas
 do
 
 #echo "$file"
+	echo "||| $file:"
 	if [ `./verifier $file | grep "Parse Successful!" | wc -l` = 1 ]
 	then
-		echo "||| $bldred-$file: OK$reset"
+		echo "|||    $bldred \bparser: OK$reset"
 		errors=$((errors + 1))
 	else 
-		echo "||| $green$file: Error$(tput sgr0)"
+		echo "|||    $green \bparser: Error$(tput sgr0)"
+	fi
+
+	if [ `./interpreter 2>&1 $file | grep "Error" | wc -l` = 0 ]
+	then
+		echo "|||    $bldred \binterpreter: OK$reset"
+		errors=$((errors + 1))
+	else 
+		echo "|||    $green \binterpreter: Error$(tput sgr0)"
 	fi
 
 done

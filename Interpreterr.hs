@@ -47,20 +47,12 @@ putIO :: String -> IO ()
 putIO msg = do
 	putStrLn msg
 
-putError :: String -> IO ()
-putError msg = do
-	hPutStrLn stderr msg
-
 showToUser :: String -> a -> a
 showToUser string expr = unsafePerformIO $ do
 	putIO string
 --	putStrLn string
 	return expr
 
-showError :: String -> a -> a
-showError string expr = unsafePerformIO $ do
-	putError string
-	return expr
 
 
 -----------------EXPRESSIONS--------------------
@@ -69,7 +61,10 @@ interpretExp x s = case x of
   EAdd exp0 exp  -> (interpretExp exp0 s) + (interpretExp exp s)
   ESub exp0 exp  -> (interpretExp exp0 s) - (interpretExp exp s)
   EMul exp0 exp  -> (interpretExp exp0 s) * (interpretExp exp s)
-  EDiv exp0 exp  -> (interpretExp exp0 s) `div` (interpretExp exp s) -- !! SPRAWDZ DZIELENIE PRZEZ ZERO
+  EDiv exp0 exp  -> let r = (interpretExp exp s) in
+			case r of
+				0 -> error("Division by zero!")
+				otherwise -> (interpretExp exp0 s) `div` r -- !! SPRAWDZ DZIELENIE PRZEZ ZERO
   EInt n  -> n
   EId (Ident x) -> case M.lookup x s of
 	Just n 	-> case n of
@@ -77,7 +72,7 @@ interpretExp x s = case x of
 		TTBoolean b -> case b of
 			False -> 0
 			True -> 1
-	Nothing	-> 0 -- !!rzuc blad
+	Nothing	-> error ("Zmienna: " ++ (show x) ++ " nie istnieje!") -- !!rzuc blad
 
 --  EId (Ident x) -> case M.lookup x s of
 --	Just n 	-> n
@@ -86,7 +81,7 @@ interpretExp x s = case x of
 variableValueBool :: Ident -> TState -> Bool
 variableValueBool (Ident x) s = case M.lookup x s of
 	Just n 	-> (extractBool n) 
-	Nothing	-> showError ("Zmienna: " ++ (show x) ++ " nie istnieje!") False -- !!rzuc blad
+	Nothing	-> error ("Zmienna: " ++ (show x) ++ " nie istnieje!") -- !!rzuc blad
 
 variableValueInt :: Ident -> TState -> Integer
 variableValueInt (Ident x) s = case M.lookup x s of
@@ -95,7 +90,8 @@ variableValueInt (Ident x) s = case M.lookup x s of
 		TTBoolean b -> case b of
 			False -> 0
 			True -> 1
-	Nothing	-> showError ("Zmienna: " ++ (show x) ++ " nie istnieje!") 0 -- !!rzuc blad
+--	Nothing	-> showError ("Zmienna: " ++ (show x) ++ " nie istnieje!") 0 -- !!rzuc blad
+	Nothing	-> error ("Zmienna: " ++ (show x) ++ " nie istnieje!") -- !!rzuc blad
 
 
 ----------------BOOLEAN EXPRESSIONS-------------
@@ -132,7 +128,9 @@ interpretStmt stmt s = case stmt of
     SAssDiv (Ident x) exp ->                 -- !! SPRAWDZ DZIELENIE PRZEZ ZERO
 	let valR = (interpretExp exp s)
 	in let valL = (variableValueInt (Ident x) s)
-	in M.insert x (TTInt (valL `div` valR)) s
+	in case valL of
+		0 -> error ("Division by zero!")
+		otherwise -> M.insert x (TTInt (valL `div` valR)) s
     SAssAdd (Ident x) exp ->
 	let valR = (interpretExp exp s)
 	in let valL = (variableValueInt (Ident x) s)
@@ -166,9 +164,23 @@ interpretStmt stmt s = case stmt of
 		LiteralValueChar ss -> showToUser [ss] s
 		LiteralValueDouble ii -> showToUser (show ii) s 
 
+--M.insert x (TTBoolean True) s
 
+addOneVariable :: String -> Type -> TState -> TState
+addOneVariable ident type state = case type of
+		TInt -> M.insert ident (TTInt 0) state
+		TBool -> M.insert ident (TTBoolean False) state
+
+declareNewVariables :: VariableDeclaration -> TState -> TState
+declareNewVariables vars state = case vars of
+	VBDoesnotExists -> state
+	VBExists [] -> state
+	VBExists listOfVarDecl@((DLList ident type):tl) -> 
+		let s = addOneVariable ident type state
+		in
+			declareNewVariables (VBExists tl) s
 
 -------------INTERPRET FILE------------
 interpretFile :: Program -> TState
-interpretFile (Programm programNameHeader (Blockk variableDeclaration stmts)) = interpretStmt stmts M.empty
+interpretFile (Programm programNameHeader (Blockk variableDeclaration stmts)) = interpretStmt stmts (declareNewVariables variableDeclaration M.empty)
 --interpretFile :: Program -> TState
