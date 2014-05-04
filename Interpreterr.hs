@@ -86,8 +86,11 @@ interpretStmt stmt s = case stmt of
 	-- !! ZROBIĆ PRINT INACZEJ
     SPrintId (Ident x) -> showToUser (show (variableValue (Ident x) s)) s
     SPrint a -> case a of
-		LiteralValueString ss -> showToUser a s
+		LiteralValueString ss -> showToUser ss s
 		LiteralValueInteger ii -> showToUser (show ii) s  
+		LiteralValueChar ss -> showToUser [ss] s
+		LiteralValueDouble ii -> showToUser (show ii) s 
+		LiteralValueBool bb -> showToUser (show bb) s
 
 
 
