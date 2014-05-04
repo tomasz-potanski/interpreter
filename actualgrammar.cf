@@ -44,7 +44,7 @@ separator nonempty ConstDeclLine "" ;
 SBlock.		Stmt	::=	"begin" [Stmt] "end" ;
 
 SAss.		Stmt	::=	Ident ":=" Exp ";" ;
-SAssMul.    	Stmt 	::= 	Ident "*=" Exp ";" ; 
+SAssMult.    	Stmt 	::= 	Ident "*=" Exp ";" ; 
 --SAssDiv.    	Stmt 	::= 	Ident "/=" Exp ";" ; 
 --SAssAdd.    	Stmt 	::= 	Ident "+=" Exp ";" ; 
 --SAssSub.    	Stmt 	::= 	Ident "-=" Exp ";" ; 

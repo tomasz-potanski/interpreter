@@ -42,7 +42,7 @@ data LiteralValue =
 data Stmt =
    SBlock [Stmt]
  | SAss Ident Exp
- | SAssMul Ident Exp
+ | SAssMult Ident Exp
  | SIf BExp Stmt
  | SWhile BExp Stmt
  | SPrintId Ident
