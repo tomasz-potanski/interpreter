@@ -143,12 +143,7 @@ All other symbols are terminals.\\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{:{$=$}}} {\nonterminal{Exp}} {\terminal{;}}  \\
  & {\delimit}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}}  \\
  & {\delimit}  &{\terminal{while}} {\nonterminal{BExp}} {\terminal{do}} {\nonterminal{Stmt}}  \\
- & {\delimit}  &{\terminal{print}} {\nonterminal{PrintArg}} {\terminal{;}}  \\
-\end{tabular}\\
-
-\begin{tabular}{lll}
-{\nonterminal{PrintArg}} & {\arrow}  &{\nonterminal{Ident}}  \\
- & {\delimit}  &{\nonterminal{LitVal}}  \\
+ & {\delimit}  &{\terminal{print}} {\nonterminal{String}} {\terminal{;}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}

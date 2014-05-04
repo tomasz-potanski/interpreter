@@ -11,6 +11,9 @@ import qualified Data.Map as M
 --------------------------------
 --------------------------------
 
+import System.IO
+import Debug.Trace
+
 type TState = M.Map String Integer
 -- nazwa zmiennej -> wartosc
 
@@ -38,7 +41,7 @@ interpretBExp b s = case b of
 		GTH -> (interpretExp exp1 s) > (interpretExp exp2 s)
 		GE -> (interpretExp exp1 s) >= (interpretExp exp2 s)
 		EQU -> (interpretExp exp1 s) == (interpretExp exp2 s)
-		NE. -> (interpretExp exp1 s) != (interpretExp exp2 s)
+		NE -> (interpretExp exp1 s) /= (interpretExp exp2 s)
 		
 interpretStmt :: Stmt -> TState -> TState
 interpretStmt stmt s = case stmt of
@@ -54,9 +57,8 @@ interpretStmt stmt s = case stmt of
     SBlock [] -> s
     SBlock (i:is) ->
         (interpretStmt (SBlock is) (interpretStmt i s))
-    SPrint a -> case a of
-	PAId	->	PutStrLn a
-	PALitVal ->	PutStrLn a
+    SPrint a -> trace a s -- !! ZROBIĆ TO INACZEJ
+
 
 interpretFile :: Stmt -> TState
 interpretFile i = interpretStmt i M.empty

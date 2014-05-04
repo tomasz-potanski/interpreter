@@ -46,12 +46,12 @@ SAss.		Stmt	::=	Ident ":=" Exp ";" ;
 --SExp.		Stmt 	::=	Exp ";" ;
 SIf.		Stmt	::=	"if" BExp "then" Stmt ;
 SWhile.		Stmt	::=	"while" BExp "do" Stmt ; 
-SPrint.		Stmt	::=	"print" PrintArg ";" ;
+SPrint.		Stmt	::=	"print" String ";" ;
 
 ------------(print args)--------
 
-PAId.		PrintArg	::=	Ident ;
-PALitVal.	PrintArg	::=	LitVal ;
+--PAId.		PrintArg	::=	Ident ;
+--PALitVal.	PrintArg	::=	LitVal ;
 
 
 -------------(expressions)--------

@@ -44,12 +44,7 @@ data Stmt =
  | SAss Ident Exp
  | SIf BExp Stmt
  | SWhile BExp Stmt
- | SPrint PrintArg
-  deriving (Eq,Ord,Show)
-
-data PrintArg =
-   PAId Ident
- | PALitVal LitVal
+ | SPrint String
   deriving (Eq,Ord,Show)
 
 data Exp =

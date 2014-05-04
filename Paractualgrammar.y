@@ -126,12 +126,7 @@ Stmt : 'begin' ListStmt 'end' { SBlock (reverse $2) }
   | Ident ':=' Exp ';' { SAss $1 $3 }
   | 'if' BExp 'then' Stmt { SIf $2 $4 }
   | 'while' BExp 'do' Stmt { SWhile $2 $4 }
-  | 'print' PrintArg ';' { SPrint $2 }
-
-
-PrintArg :: { PrintArg }
-PrintArg : Ident { PAId $1 } 
-  | LitVal { PALitVal $1 }
+  | 'print' String ';' { SPrint $2 }
 
 
 Exp :: { Exp }

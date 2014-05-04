@@ -43,5 +43,5 @@ echo "Do you want to run tests? [Y/n]"
 read yn
     case "$yn" in
         "n") exit;;
-	*) sh checker.sh; break;;
+	*) clear; sh checker.sh; break;;
     esac

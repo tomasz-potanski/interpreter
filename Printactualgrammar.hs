@@ -141,17 +141,11 @@ instance Print Stmt where
    SAss id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 exp , doc (showString ";")])
    SIf bexp stmt -> prPrec i 0 (concatD [doc (showString "if") , prt 0 bexp , doc (showString "then") , prt 0 stmt])
    SWhile bexp stmt -> prPrec i 0 (concatD [doc (showString "while") , prt 0 bexp , doc (showString "do") , prt 0 stmt])
-   SPrint printarg -> prPrec i 0 (concatD [doc (showString "print") , prt 0 printarg , doc (showString ";")])
+   SPrint str -> prPrec i 0 (concatD [doc (showString "print") , prt 0 str , doc (showString ";")])
 
   prtList es = case es of
    [] -> (concatD [])
    x:xs -> (concatD [prt 0 x , prt 0 xs])
-
-instance Print PrintArg where
-  prt i e = case e of
-   PAId id -> prPrec i 0 (concatD [prt 0 id])
-   PALitVal litval -> prPrec i 0 (concatD [prt 0 litval])
-
 
 instance Print Exp where
   prt i e = case e of
