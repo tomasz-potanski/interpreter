@@ -11,7 +11,7 @@ import qualified Data.Map as M
 --------------------------------
 --------------------------------
 
-type TState = Map.Map String Integer
+type TState = Map.M String Integer
 -- nazwa zmiennej -> wartosc
 
 --import Control.Monad.TState
