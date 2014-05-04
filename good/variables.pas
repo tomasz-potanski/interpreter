@@ -1,6 +1,6 @@
-/*
-	Prezentacja możliwości deklaracji zminnych;
-*/
+//
+//	Prezentacja możliwości deklaracji zminnych;
+//
 
 var
 	Liczba12, Liczba13 : Integer;

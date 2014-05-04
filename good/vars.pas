@@ -1,8 +1,8 @@
-/*
-	Rozwiązanie prezentuje operacje na zmiennych, 
-	a w szczególności możliwość deklaracji wielu zmiennych
-	w jednej linii np. z, zz : Integer;
-*/
+//
+//	Rozwiązanie prezentuje operacje na zmiennych, 
+//	a w szczególności możliwość deklaracji wielu zmiennych
+//	w jednej linii np. z, zz : Integer;
+//
 
 var
 x : Integer;

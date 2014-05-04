@@ -1,5 +1,5 @@
-/*	Program prezentuje działanie przesłaniania zmiennych przy blokach
-*/
+//	Program prezentuje działanie przesłaniania zmiennych przy blokach
+//
 
 var 
 	x : Integer;

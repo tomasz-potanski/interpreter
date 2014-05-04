@@ -28,9 +28,10 @@ import qualified Data.Map as M
 -- !! WCZYTYWANIE Z WEJSCIA PRZY BRAKU PARAM.
 main :: IO()
 main = do
-    (filePath:_) <- getArgs
-    fileHandler <- openFile filePath ReadMode
-    fileContent <- hGetContents fileHandler
+--    (filePath:_) <- getArgs
+--    fileHandler <- openFile filePath ReadMode
+--   fileContent <- hGetContents fileHandler
+    fileContents <- getContents	
     case pProgram (myLexer fileContent) of
 		-- ogarnac wypisywanie bledow na stdErr
         Bad s -> do 

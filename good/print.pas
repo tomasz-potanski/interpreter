@@ -1,6 +1,6 @@
-/*
-	Prezentacja działania instrukcji wypisywania
-*/
+//
+//	Prezentacja działania instrukcji wypisywania
+//
 
 var
 	x : Integer ;
