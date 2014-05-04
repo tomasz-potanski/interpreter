@@ -45,7 +45,7 @@ SBlock.		Stmt	::=	"begin" [Stmt] "end" ;
 
 SAss.		Stmt	::=	Ident ":=" Exp ";" ;
 SAssMult.    	Stmt 	::= 	Ident "*=" Exp ";" ; 
---SAssDiv.    	Stmt 	::= 	Ident "/=" Exp ";" ; 
+SAssDiv.    	Stmt 	::= 	Ident "/=" Exp ";" ; 
 --SAssAdd.    	Stmt 	::= 	Ident "+=" Exp ";" ; 
 --SAssSub.    	Stmt 	::= 	Ident "-=" Exp ";" ; 
 --SPreIncr.    	Stmt1 	::= 	"++" Ident ";" ;

@@ -43,6 +43,7 @@ data Stmt =
    SBlock [Stmt]
  | SAss Ident Exp
  | SAssMult Ident Exp
+ | SAssDiv Ident Exp
  | SIf BExp Stmt
  | SWhile BExp Stmt
  | SPrintId Ident

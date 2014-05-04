@@ -79,6 +79,10 @@ interpretStmt stmt s = case stmt of
 	let valR = (interpretExp exp s)
 	in let valL = (variableValue (Ident x) s)
 	in M.insert x (valL*valR) s
+    SAssDiv (Ident x) exp ->
+	let valR = (interpretExp exp s)
+	in let valL = (variableValue (Ident x) s)
+	in M.insert x (valL/valR) s
 
     SIf b i ->
         let cond = (interpretBExp b s)
