@@ -32,9 +32,9 @@ interpretBExp :: BExp -> TState -> Bool
 interpretBExp b s = case b of
 	BOr bexp1 bexp2 -> (interpretBExp bexp1 s) || (interpretBExp bexp2 s) 
 	BAnd bexp1 bexp2 -> (interpretBExp bexp1 s) && (interpretBExp bexp2 s) 
-	BRel exp1 relOp exp2 -> case relOp of
-		LTH -> (interpretExp exp1 s) < (interpretExp exp2 s)
-		GTH -> (interpretExp exp1 s) > (interpretExp exp2 s)
+--	BRel exp1 relOp exp2 -> case relOp of
+--		LTH -> (interpretExp exp1 s) < (interpretExp exp2 s)
+--		GTH -> (interpretExp exp1 s) > (interpretExp exp2 s)
 
 interpretStmt :: Stmt -> TState -> TState
 interpretStmt stmt s = case stmt of
