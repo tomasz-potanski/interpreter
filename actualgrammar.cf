@@ -44,12 +44,14 @@ separator nonempty ConstDeclLine "" ;
 SBlock.		Stmt	::=	"begin" [Stmt] "end" ;
 
 SAss.		Stmt	::=	Ident ":=" Exp ";" ;
-SAssMul.    	Stmt 	::= 	Stmt "*=" Exp ";" ; 
-SAssDiv.    	Stmt 	::= 	Stmt "/=" Exp ";" ; 
-SAssAdd.    	Stmt 	::= 	Stmt "+=" Exp ";" ; 
-SAssSub.    	Stmt 	::= 	Stmt "-=" Exp ";" ; 
-SIncr.    	Stmt1 	::= 	"++" Ident ";" ;
-SDecr.    	Stmt1 	::= 	"--" Ident ";" ;
+SAssMul.    	Stmt 	::= 	Ident "*=" Exp ";" ; 
+--SAssDiv.    	Stmt 	::= 	Ident "/=" Exp ";" ; 
+--SAssAdd.    	Stmt 	::= 	Ident "+=" Exp ";" ; 
+--SAssSub.    	Stmt 	::= 	Ident "-=" Exp ";" ; 
+--SPreIncr.    	Stmt1 	::= 	"++" Ident ";" ;
+--SPreDecr.    	Stmt1 	::= 	"--" Ident ";" ;
+--SPostIncr.    	Stmt1 	::= 	Ident "++" ";" ;
+--SPostDecr.    	Stmt1 	::= 	Ident "--" ";" ;
 
 --SExp.		Stmt 	::=	Exp ";" ;
 SIf.		Stmt	::=	"if" BExp "then" Stmt ;

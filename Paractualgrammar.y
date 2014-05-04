@@ -22,39 +22,34 @@ import ErrM
  '*' { PT _ (TS _ 5) }
  '*=' { PT _ (TS _ 6) }
  '+' { PT _ (TS _ 7) }
- '++' { PT _ (TS _ 8) }
- '+=' { PT _ (TS _ 9) }
- ',' { PT _ (TS _ 10) }
- '-' { PT _ (TS _ 11) }
- '--' { PT _ (TS _ 12) }
- '-=' { PT _ (TS _ 13) }
- '.' { PT _ (TS _ 14) }
- '/' { PT _ (TS _ 15) }
- '/=' { PT _ (TS _ 16) }
- ':' { PT _ (TS _ 17) }
- ':=' { PT _ (TS _ 18) }
- ';' { PT _ (TS _ 19) }
- '<' { PT _ (TS _ 20) }
- '<=' { PT _ (TS _ 21) }
- '=' { PT _ (TS _ 22) }
- '==' { PT _ (TS _ 23) }
- '>' { PT _ (TS _ 24) }
- '>=' { PT _ (TS _ 25) }
- 'Boolean' { PT _ (TS _ 26) }
- 'Char' { PT _ (TS _ 27) }
- 'Integer' { PT _ (TS _ 28) }
- 'String' { PT _ (TS _ 29) }
- 'begin' { PT _ (TS _ 30) }
- 'const' { PT _ (TS _ 31) }
- 'do' { PT _ (TS _ 32) }
- 'end' { PT _ (TS _ 33) }
- 'if' { PT _ (TS _ 34) }
- 'print' { PT _ (TS _ 35) }
- 'program' { PT _ (TS _ 36) }
- 'then' { PT _ (TS _ 37) }
- 'var' { PT _ (TS _ 38) }
- 'while' { PT _ (TS _ 39) }
- '||' { PT _ (TS _ 40) }
+ ',' { PT _ (TS _ 8) }
+ '-' { PT _ (TS _ 9) }
+ '.' { PT _ (TS _ 10) }
+ '/' { PT _ (TS _ 11) }
+ ':' { PT _ (TS _ 12) }
+ ':=' { PT _ (TS _ 13) }
+ ';' { PT _ (TS _ 14) }
+ '<' { PT _ (TS _ 15) }
+ '<=' { PT _ (TS _ 16) }
+ '=' { PT _ (TS _ 17) }
+ '==' { PT _ (TS _ 18) }
+ '>' { PT _ (TS _ 19) }
+ '>=' { PT _ (TS _ 20) }
+ 'Boolean' { PT _ (TS _ 21) }
+ 'Char' { PT _ (TS _ 22) }
+ 'Integer' { PT _ (TS _ 23) }
+ 'String' { PT _ (TS _ 24) }
+ 'begin' { PT _ (TS _ 25) }
+ 'const' { PT _ (TS _ 26) }
+ 'do' { PT _ (TS _ 27) }
+ 'end' { PT _ (TS _ 28) }
+ 'if' { PT _ (TS _ 29) }
+ 'print' { PT _ (TS _ 30) }
+ 'program' { PT _ (TS _ 31) }
+ 'then' { PT _ (TS _ 32) }
+ 'var' { PT _ (TS _ 33) }
+ 'while' { PT _ (TS _ 34) }
+ '||' { PT _ (TS _ 35) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -130,10 +125,7 @@ ListConstDeclLine : ConstDeclLine { (:[]) $1 }
 Stmt :: { Stmt }
 Stmt : 'begin' ListStmt 'end' { SBlock (reverse $2) } 
   | Ident ':=' Exp ';' { SAss $1 $3 }
-  | Stmt '*=' Exp ';' { SAssMul $1 $3 }
-  | Stmt '/=' Exp ';' { SAssDiv $1 $3 }
-  | Stmt '+=' Exp ';' { SAssAdd $1 $3 }
-  | Stmt '-=' Exp ';' { SAssSub $1 $3 }
+  | Ident '*=' Exp ';' { SAssMul $1 $3 }
   | 'if' BExp 'then' Stmt { SIf $2 $4 }
   | 'while' BExp 'do' Stmt { SWhile $2 $4 }
   | 'print' Ident ';' { SPrintId $2 }
@@ -142,9 +134,7 @@ Stmt : 'begin' ListStmt 'end' { SBlock (reverse $2) }
 
 
 Stmt1 :: { Stmt }
-Stmt1 : '++' Ident ';' { SIncr $2 } 
-  | '--' Ident ';' { SDecr $2 }
-  | '(' Stmt ')' { $2 }
+Stmt1 : '(' Stmt ')' { $2 } 
 
 
 Exp :: { Exp }

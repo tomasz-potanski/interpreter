@@ -61,12 +61,7 @@ transStmt :: Stmt -> Result
 transStmt x = case x of
   SBlock stmts  -> failure x
   SAss id exp  -> failure x
-  SAssMul stmt exp  -> failure x
-  SAssDiv stmt exp  -> failure x
-  SAssAdd stmt exp  -> failure x
-  SAssSub stmt exp  -> failure x
-  SIncr id  -> failure x
-  SDecr id  -> failure x
+  SAssMul id exp  -> failure x
   SIf bexp stmt  -> failure x
   SWhile bexp stmt  -> failure x
   SPrintId id  -> failure x

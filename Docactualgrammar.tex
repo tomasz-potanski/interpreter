@@ -67,13 +67,11 @@ The symbols used in actualgrammar are the following: \\
 \begin{tabular}{lll}
 {\symb{.}} &{\symb{;}} &{\symb{:}} \\
 {\symb{,}} &{\symb{{$=$}}} &{\symb{:{$=$}}} \\
-{\symb{*{$=$}}} &{\symb{/{$=$}}} &{\symb{{$+$}{$=$}}} \\
-{\symb{{$-$}{$=$}}} &{\symb{{$+$}{$+$}}} &{\symb{{$-$}{$-$}}} \\
-{\symb{(}} &{\symb{)}} &{\symb{{$+$}}} \\
-{\symb{{$-$}}} &{\symb{*}} &{\symb{/}} \\
-{\symb{{$|$}{$|$}}} &{\symb{\&\&}} &{\symb{{$<$}}} \\
-{\symb{{$<$}{$=$}}} &{\symb{{$>$}}} &{\symb{{$>$}{$=$}}} \\
-{\symb{{$=$}{$=$}}} &{\symb{!{$=$}}} & \\
+{\symb{*{$=$}}} &{\symb{(}} &{\symb{)}} \\
+{\symb{{$+$}}} &{\symb{{$-$}}} &{\symb{*}} \\
+{\symb{/}} &{\symb{{$|$}{$|$}}} &{\symb{\&\&}} \\
+{\symb{{$<$}}} &{\symb{{$<$}{$=$}}} &{\symb{{$>$}}} \\
+{\symb{{$>$}{$=$}}} &{\symb{{$=$}{$=$}}} &{\symb{!{$=$}}} \\
 \end{tabular}\\
 
 \subsection*{Comments}
@@ -143,10 +141,7 @@ All other symbols are terminals.\\
 \begin{tabular}{lll}
 {\nonterminal{Stmt}} & {\arrow}  &{\terminal{begin}} {\nonterminal{ListStmt}} {\terminal{end}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{:{$=$}}} {\nonterminal{Exp}} {\terminal{;}}  \\
- & {\delimit}  &{\nonterminal{Stmt}} {\terminal{*{$=$}}} {\nonterminal{Exp}} {\terminal{;}}  \\
- & {\delimit}  &{\nonterminal{Stmt}} {\terminal{/{$=$}}} {\nonterminal{Exp}} {\terminal{;}}  \\
- & {\delimit}  &{\nonterminal{Stmt}} {\terminal{{$+$}{$=$}}} {\nonterminal{Exp}} {\terminal{;}}  \\
- & {\delimit}  &{\nonterminal{Stmt}} {\terminal{{$-$}{$=$}}} {\nonterminal{Exp}} {\terminal{;}}  \\
+ & {\delimit}  &{\nonterminal{Ident}} {\terminal{*{$=$}}} {\nonterminal{Exp}} {\terminal{;}}  \\
  & {\delimit}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}}  \\
  & {\delimit}  &{\terminal{while}} {\nonterminal{BExp}} {\terminal{do}} {\nonterminal{Stmt}}  \\
  & {\delimit}  &{\terminal{print}} {\nonterminal{Ident}} {\terminal{;}}  \\
@@ -155,9 +150,7 @@ All other symbols are terminals.\\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{Stmt1}} & {\arrow}  &{\terminal{{$+$}{$+$}}} {\nonterminal{Ident}} {\terminal{;}}  \\
- & {\delimit}  &{\terminal{{$-$}{$-$}}} {\nonterminal{Ident}} {\terminal{;}}  \\
- & {\delimit}  &{\terminal{(}} {\nonterminal{Stmt}} {\terminal{)}}  \\
+{\nonterminal{Stmt1}} & {\arrow}  &{\terminal{(}} {\nonterminal{Stmt}} {\terminal{)}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}

@@ -139,12 +139,7 @@ instance Print Stmt where
   prt i e = case e of
    SBlock stmts -> prPrec i 0 (concatD [doc (showString "begin") , prt 0 stmts , doc (showString "end")])
    SAss id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 exp , doc (showString ";")])
-   SAssMul stmt exp -> prPrec i 0 (concatD [prt 0 stmt , doc (showString "*=") , prt 0 exp , doc (showString ";")])
-   SAssDiv stmt exp -> prPrec i 0 (concatD [prt 0 stmt , doc (showString "/=") , prt 0 exp , doc (showString ";")])
-   SAssAdd stmt exp -> prPrec i 0 (concatD [prt 0 stmt , doc (showString "+=") , prt 0 exp , doc (showString ";")])
-   SAssSub stmt exp -> prPrec i 0 (concatD [prt 0 stmt , doc (showString "-=") , prt 0 exp , doc (showString ";")])
-   SIncr id -> prPrec i 1 (concatD [doc (showString "++") , prt 0 id , doc (showString ";")])
-   SDecr id -> prPrec i 1 (concatD [doc (showString "--") , prt 0 id , doc (showString ";")])
+   SAssMul id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "*=") , prt 0 exp , doc (showString ";")])
    SIf bexp stmt -> prPrec i 0 (concatD [doc (showString "if") , prt 0 bexp , doc (showString "then") , prt 0 stmt])
    SWhile bexp stmt -> prPrec i 0 (concatD [doc (showString "while") , prt 0 bexp , doc (showString "do") , prt 0 stmt])
    SPrintId id -> prPrec i 0 (concatD [doc (showString "print") , prt 0 id , doc (showString ";")])
