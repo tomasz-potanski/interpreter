@@ -42,7 +42,15 @@ separator nonempty ConstDeclLine "" ;
 ------------(statements)-------
 
 SBlock.		Stmt	::=	"begin" [Stmt] "end" ;
+
 SAss.		Stmt	::=	Ident ":=" Exp ";" ;
+SAssMul.    	Stmt 	::= 	Stmt "*=" Exp ";" ; 
+SAssDiv.    	Stmt 	::= 	Stmt "/=" Exp ";" ; 
+SAssAdd.    	Stmt 	::= 	Stmt "+=" Exp ";" ; 
+SAssSub.    	Stmt 	::= 	Stmt "-=" Exp ";" ; 
+SIncr.    	Stmt1 	::= 	"++" Ident ";" ;
+SDecr.    	Stmt1 	::= 	"--" Ident ";" ;
+
 --SExp.		Stmt 	::=	Exp ";" ;
 SIf.		Stmt	::=	"if" BExp "then" Stmt ;
 SWhile.		Stmt	::=	"while" BExp "do" Stmt ; 
@@ -53,6 +61,8 @@ SPrint.		Stmt	::=	"print" LitVal ";" ;
 --SPrintInt.	Stmt	::=	"print" Integer ";" ;
 --SPrintChar.	Stmt	::=	"print" Char ";" ;
 --SPrintDouble.	Stmt	::=	"print" Double ";" ;
+
+coercions Stmt 1;
 
 ------------(print args)--------
 

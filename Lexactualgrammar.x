@@ -19,7 +19,7 @@ $i = [$l $d _ ']          -- identifier character
 $u = [\0-\255]          -- universal: any character
 
 @rsyms =    -- symbols and non-identifier-like reserved words
-   \. | \; | \: | \, | \= | \: \= | \+ | \- | \* | \/ | \( | \) | \| \| | \& \& | \< | \< \= | \> | \> \= | \= \= | \! \=
+   \. | \; | \: | \, | \= | \: \= | \* \= | \/ \= | \+ \= | \- \= | \+ \+ | \- \- | \( | \) | \+ | \- | \* | \/ | \| \| | \& \& | \< | \< \= | \> | \> \= | \= \= | \! \=
 
 :-
 "//" [.]* ; -- Toss single line comments
@@ -87,7 +87,7 @@ eitherResIdent tv s = treeFind resWords
                               | s > a  = treeFind right
                               | s == a = t
 
-resWords = b ">" 18 (b "." 9 (b "*" 5 (b "(" 3 (b "&&" 2 (b "!=" 1 N N) N) (b ")" 4 N N)) (b "," 7 (b "+" 6 N N) (b "-" 8 N N))) (b "<" 14 (b ":=" 12 (b ":" 11 (b "/" 10 N N) N) (b ";" 13 N N)) (b "=" 16 (b "<=" 15 N N) (b "==" 17 N N)))) (b "end" 27 (b "String" 23 (b "Char" 21 (b "Boolean" 20 (b ">=" 19 N N) N) (b "Integer" 22 N N)) (b "const" 25 (b "begin" 24 N N) (b "do" 26 N N))) (b "then" 31 (b "print" 29 (b "if" 28 N N) (b "program" 30 N N)) (b "while" 33 (b "var" 32 N N) (b "||" 34 N N))))
+resWords = b "<=" 21 (b "-" 11 (b "*=" 6 (b "(" 3 (b "&&" 2 (b "!=" 1 N N) N) (b "*" 5 (b ")" 4 N N) N)) (b "+=" 9 (b "++" 8 (b "+" 7 N N) N) (b "," 10 N N))) (b "/=" 16 (b "." 14 (b "-=" 13 (b "--" 12 N N) N) (b "/" 15 N N)) (b ";" 19 (b ":=" 18 (b ":" 17 N N) N) (b "<" 20 N N)))) (b "const" 31 (b "Boolean" 26 (b ">" 24 (b "==" 23 (b "=" 22 N N) N) (b ">=" 25 N N)) (b "String" 29 (b "Integer" 28 (b "Char" 27 N N) N) (b "begin" 30 N N))) (b "program" 36 (b "if" 34 (b "end" 33 (b "do" 32 N N) N) (b "print" 35 N N)) (b "while" 39 (b "var" 38 (b "then" 37 N N) N) (b "||" 40 N N))))
    where b s n = let bs = id s
                   in B bs (TS bs n)
 

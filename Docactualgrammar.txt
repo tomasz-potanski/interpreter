@@ -48,10 +48,12 @@ The reserved words used in actualgrammar are the following:
 
 The symbols used in actualgrammar are the following:
   | . | ; | : | ,
-  | = | := | + | -
-  | * | / | ( | )
-  | || | && | < | <=
-  | > | >= | == | !=
+  | = | := | *= | /=
+  | += | -= | ++ | --
+  | ( | ) | + | -
+  | * | / | || | &&
+  | < | <= | > | >=
+  | == | != |  | 
 
 ===Comments===
 Single-line comments begin with //, #.Multiple-line comments are  enclosed with /* and */, { and }, {* and *}.
@@ -83,10 +85,18 @@ All other symbols are terminals.
   |  |  **|**  | //ConstDeclLine// //[ConstDeclLine]// 
   | //Stmt// | -> | ``begin`` //[Stmt]// ``end`` 
   |  |  **|**  | //Ident// ``:=`` //Exp// ``;`` 
+  |  |  **|**  | //Stmt// ``*=`` //Exp// ``;`` 
+  |  |  **|**  | //Stmt// ``/=`` //Exp// ``;`` 
+  |  |  **|**  | //Stmt// ``+=`` //Exp// ``;`` 
+  |  |  **|**  | //Stmt// ``-=`` //Exp// ``;`` 
   |  |  **|**  | ``if`` //BExp// ``then`` //Stmt// 
   |  |  **|**  | ``while`` //BExp// ``do`` //Stmt// 
   |  |  **|**  | ``print`` //Ident// ``;`` 
   |  |  **|**  | ``print`` //LitVal// ``;`` 
+  |  |  **|**  | //Stmt1// 
+  | //Stmt1// | -> | ``++`` //Ident// ``;`` 
+  |  |  **|**  | ``--`` //Ident// ``;`` 
+  |  |  **|**  | ``(`` //Stmt// ``)`` 
   | //Exp// | -> | //Exp// ``+`` //Exp1// 
   |  |  **|**  | //Exp// ``-`` //Exp1// 
   |  |  **|**  | //Exp1// 

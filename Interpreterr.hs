@@ -18,7 +18,7 @@ import Debug.Trace
 type TState = M.Map String Integer
 -- nazwa zmiennej -> wartosc
 
---import Control.Monad.TState
+--import Control.Monad.State
 --import Control.Monad.Error
 
 putIO :: String -> IO ()
@@ -31,7 +31,8 @@ putError msg = do
 
 showToUser :: String -> a -> a
 showToUser string expr = unsafePerformIO $ do
-	putIO string
+--	putIO string
+	putStrLn string
 	return expr
 
 showError :: String -> a -> a
@@ -74,6 +75,11 @@ interpretStmt stmt s = case stmt of
     SAss (Ident x) exp ->
         let val = (interpretExp exp s)
         in M.insert x val s
+    SAssMult (Ident x) exp ->
+	let valR = (interpretExp exp s)
+	in let valL = (variableValue (Ident x) s)
+	in M.insert x (valL*valR) s
+
     SIf b i ->
         let cond = (interpretBExp b s)
         in if cond then (interpretStmt i s) else s
