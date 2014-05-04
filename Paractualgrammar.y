@@ -15,18 +15,24 @@ import ErrM
 %tokentype { Token }
 
 %token 
- ',' { PT _ (TS _ 1) }
- '.' { PT _ (TS _ 2) }
- ':' { PT _ (TS _ 3) }
- ';' { PT _ (TS _ 4) }
- '=' { PT _ (TS _ 5) }
- 'Boolean' { PT _ (TS _ 6) }
- 'Integer' { PT _ (TS _ 7) }
- 'begin' { PT _ (TS _ 8) }
- 'const' { PT _ (TS _ 9) }
- 'end' { PT _ (TS _ 10) }
- 'program' { PT _ (TS _ 11) }
- 'var' { PT _ (TS _ 12) }
+ '(' { PT _ (TS _ 1) }
+ ')' { PT _ (TS _ 2) }
+ '*' { PT _ (TS _ 3) }
+ '+' { PT _ (TS _ 4) }
+ ',' { PT _ (TS _ 5) }
+ '-' { PT _ (TS _ 6) }
+ '.' { PT _ (TS _ 7) }
+ '/' { PT _ (TS _ 8) }
+ ':' { PT _ (TS _ 9) }
+ ';' { PT _ (TS _ 10) }
+ '=' { PT _ (TS _ 11) }
+ 'Boolean' { PT _ (TS _ 12) }
+ 'Integer' { PT _ (TS _ 13) }
+ 'begin' { PT _ (TS _ 14) }
+ 'const' { PT _ (TS _ 15) }
+ 'end' { PT _ (TS _ 16) }
+ 'program' { PT _ (TS _ 17) }
+ 'var' { PT _ (TS _ 18) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -98,7 +104,20 @@ Stmt : Exp { Stmtt $1 }
 
 
 Exp :: { Exp }
-Exp : Ident '=' Exp { EAss $1 $3 } 
+Exp : Exp '+' Exp1 { EAdd $1 $3 } 
+  | Exp '-' Exp1 { ESub $1 $3 }
+  | Exp1 { $1 }
+
+
+Exp1 :: { Exp }
+Exp1 : Exp1 '*' Exp2 { EMul $1 $3 } 
+  | Exp1 '/' Exp2 { EDiv $1 $3 }
+  | Exp2 { $1 }
+
+
+Exp2 :: { Exp }
+Exp2 : Integer { EInt $1 } 
+  | '(' Exp ')' { $2 }
 
 
 Type :: { Type }

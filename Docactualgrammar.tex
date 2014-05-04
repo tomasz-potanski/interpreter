@@ -49,7 +49,9 @@ The symbols used in actualgrammar are the following: \\
 
 \begin{tabular}{lll}
 {\symb{.}} &{\symb{;}} &{\symb{:}} \\
-{\symb{,}} &{\symb{{$=$}}} & \\
+{\symb{,}} &{\symb{{$=$}}} &{\symb{{$+$}}} \\
+{\symb{{$-$}}} &{\symb{*}} &{\symb{/}} \\
+{\symb{(}} &{\symb{)}} & \\
 \end{tabular}\\
 
 \subsection*{Comments}
@@ -121,7 +123,20 @@ All other symbols are terminals.\\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{Exp}} & {\arrow}  &{\nonterminal{Ident}} {\terminal{{$=$}}} {\nonterminal{Exp}}  \\
+{\nonterminal{Exp}} & {\arrow}  &{\nonterminal{Exp}} {\terminal{{$+$}}} {\nonterminal{Exp1}}  \\
+ & {\delimit}  &{\nonterminal{Exp}} {\terminal{{$-$}}} {\nonterminal{Exp1}}  \\
+ & {\delimit}  &{\nonterminal{Exp1}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{Exp1}} & {\arrow}  &{\nonterminal{Exp1}} {\terminal{*}} {\nonterminal{Exp2}}  \\
+ & {\delimit}  &{\nonterminal{Exp1}} {\terminal{/}} {\nonterminal{Exp2}}  \\
+ & {\delimit}  &{\nonterminal{Exp2}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{Exp2}} & {\arrow}  &{\nonterminal{Integer}}  \\
+ & {\delimit}  &{\terminal{(}} {\nonterminal{Exp}} {\terminal{)}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}

@@ -31,7 +31,8 @@ The reserved words used in actualgrammar are the following:
 
 The symbols used in actualgrammar are the following:
   | . | ; | : | ,
-  | = |  |  | 
+  | = | + | - | *
+  | / | ( | ) | 
 
 ===Comments===
 Single-line comments begin with //.Multiple-line comments are  enclosed with /* and */, { and }, {* and *}.
@@ -62,7 +63,14 @@ All other symbols are terminals.
   | //[ConstDeclLine]// | -> | //ConstDeclLine// 
   |  |  **|**  | //ConstDeclLine// //[ConstDeclLine]// 
   | //Stmt// | -> | //Exp// 
-  | //Exp// | -> | //Ident// ``=`` //Exp// 
+  | //Exp// | -> | //Exp// ``+`` //Exp1// 
+  |  |  **|**  | //Exp// ``-`` //Exp1// 
+  |  |  **|**  | //Exp1// 
+  | //Exp1// | -> | //Exp1// ``*`` //Exp2// 
+  |  |  **|**  | //Exp1// ``/`` //Exp2// 
+  |  |  **|**  | //Exp2// 
+  | //Exp2// | -> | //Integer// 
+  |  |  **|**  | ``(`` //Exp// ``)`` 
   | //Type// | -> | ``Integer`` 
   |  |  **|**  | ``Boolean`` 
 

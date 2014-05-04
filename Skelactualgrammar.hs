@@ -64,7 +64,11 @@ transStmt x = case x of
 
 transExp :: Exp -> Result
 transExp x = case x of
-  EAss id exp  -> failure x
+  EAdd exp1 exp2  -> failure x
+  ESub exp1 exp2  -> failure x
+  EMul exp1 exp2  -> failure x
+  EDiv exp1 exp2  -> failure x
+  EInt n  -> failure x
 
 
 transType :: Type -> Result

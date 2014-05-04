@@ -145,7 +145,11 @@ instance Print Stmt where
 
 instance Print Exp where
   prt i e = case e of
-   EAss id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "=") , prt 0 exp])
+   EAdd exp0 exp -> prPrec i 0 (concatD [prt 0 exp0 , doc (showString "+") , prt 1 exp])
+   ESub exp0 exp -> prPrec i 0 (concatD [prt 0 exp0 , doc (showString "-") , prt 1 exp])
+   EMul exp0 exp -> prPrec i 1 (concatD [prt 1 exp0 , doc (showString "*") , prt 2 exp])
+   EDiv exp0 exp -> prPrec i 1 (concatD [prt 1 exp0 , doc (showString "/") , prt 2 exp])
+   EInt n -> prPrec i 2 (concatD [prt 0 n])
 
 
 instance Print Type where
