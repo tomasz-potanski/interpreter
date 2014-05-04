@@ -34,7 +34,7 @@ main = do
     case pStmt (myLexer fileContent) of
 		-- ogarnac wypisywanie bledow na stdErr
         Bad s -> do 
-		 putStrLn "Error"
-		 putStrLn s
+		 hPutStrLn stderr "Error"
+		 hPutStrLn stderr s
         Ok i -> putStrLn (show (M.toList (interpretFile i)))
 --        Ok i -> return()

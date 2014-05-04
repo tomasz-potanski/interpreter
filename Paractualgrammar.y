@@ -9,7 +9,6 @@ import ErrM
 }
 
 %name pStmt Stmt
-%name pExp Exp
 
 -- no lexer declaration
 %monad { Err } { thenM } { returnM }
