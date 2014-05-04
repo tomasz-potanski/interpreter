@@ -22,6 +22,7 @@ echo "$bldred \r--------------------------------------$reset"
 sed -i /latex/d  Makefile
 sed -i '4s/-o .*$/-o verifier/' Makefile
 make 2>&1 | ack-grep --passthru --color -i "unused|conflicts|shift|reduce"
+ghc --make Interpret.hs
 echo "$bldred \r<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<$reset"
 
 echo "  "
