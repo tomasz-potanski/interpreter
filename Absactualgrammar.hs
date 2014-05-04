@@ -60,7 +60,6 @@ data BExp =
    BOr BExp BExp
  | BAnd BExp BExp
  | BErel Exp RelOp Exp
- | BTExp Exp
   deriving (Eq,Ord,Show)
 
 data RelOp =

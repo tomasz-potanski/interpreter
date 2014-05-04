@@ -81,7 +81,6 @@ transBExp x = case x of
   BOr bexp1 bexp2  -> failure x
   BAnd bexp1 bexp2  -> failure x
   BErel exp1 relop2 exp3  -> failure x
-  BTExp exp  -> failure x
 
 
 transRelOp :: RelOp -> Result

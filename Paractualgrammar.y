@@ -150,7 +150,6 @@ Exp2 : Integer { EInt $1 }
 
 BExp :: { BExp }
 BExp : BExp '||' BExp1 { BOr $1 $3 } 
-  | Exp { BTExp $1 }
   | BExp1 { $1 }
 
 
