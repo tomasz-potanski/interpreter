@@ -40,7 +40,11 @@ data LiteralValue =
   deriving (Eq,Ord,Show)
 
 data Stmt =
-   Stmtt Exp
+   SBlock [Stmt]
+ | SAss Ident Exp
+ | SExp Exp
+ | SIf BExp Stmt
+ | SWhile BExp Stmt
   deriving (Eq,Ord,Show)
 
 data Exp =
@@ -49,10 +53,38 @@ data Exp =
  | EMul Exp Exp
  | EDiv Exp Exp
  | EInt Integer
+ | EId Ident
+  deriving (Eq,Ord,Show)
+
+data BExp =
+   BOr BExp BExp
+ | BAnd BExp BExp
+ | BErel Exp RelOp Exp
+ | BTExp Exp
+  deriving (Eq,Ord,Show)
+
+data RelOp =
+   LTH
+ | LE
+ | GTH
+ | GE
+ | EQU
+ | NE
   deriving (Eq,Ord,Show)
 
 data Type =
    TInt
  | TBool
+ | TString
+ | TChar
+  deriving (Eq,Ord,Show)
+
+data LitVal =
+   LiteralValueInteger Integer
+ | LiteralValueString String
+ | LiteralValueDouble Double
+ | LiteralValueChar Char
+ | LiteralValueTrue
+ | LiteralValueFalse
   deriving (Eq,Ord,Show)
 

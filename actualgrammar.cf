@@ -81,9 +81,9 @@ TString.	Type	::=	"String" ;
 TChar.		Type	::=	"Char" ;
 
 ------(Literals)-----------
-LiteralValueInteger			LitVal	::=	Integer ;
-LiteralValueString			LitVal	::=	String ;
-LiteralValueDouble			LitVal	::=	Double ;
-LiteralValueChar			LitVal	::=	Char ;
-LiteralValueTrue			LitVal	::=	"true" ;
-LiteralValueFalse			LitVal	::=	"false" ;
+LiteralValueInteger.			LitVal	::=	Integer ;
+LiteralValueString.			LitVal	::=	String ;
+LiteralValueDouble.			LitVal	::=	Double ;
+LiteralValueChar.			LitVal	::=	Char ;
+LiteralValueTrue.			LitVal	::=	"true" ;
+LiteralValueFalse.			LitVal	::=	"false" ;

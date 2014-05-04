@@ -32,6 +32,21 @@ reserved words excluded.
 Integer literals \nonterminal{Int}\ are nonempty sequences of digits.
 
 
+String literals \nonterminal{String}\ have the form
+\terminal{"}$x$\terminal{"}, where $x$ is any sequence of any characters
+except \terminal{"}\ unless preceded by \verb6\6.
+
+
+Double-precision float literals \nonterminal{Double}\ have the structure
+indicated by the regular expression $\nonterminal{digit}+ \mbox{{\it `.'}} \nonterminal{digit}+ (\mbox{{\it `e'}} \mbox{{\it `-'}}? \nonterminal{digit}+)?$ i.e.\
+two sequences of digits separated by a decimal point, optionally
+followed by an unsigned or negative exponent.
+
+
+Character literals \nonterminal{Char}\ have the form
+\terminal{'}$c$\terminal{'}, where $c$ is any single character.
+
+
 
 
 \subsection*{Reserved words and symbols}
@@ -40,22 +55,27 @@ The set of reserved words is the set of terminals appearing in the grammar. Thos
 The reserved words used in actualgrammar are the following: \\
 
 \begin{tabular}{lll}
-{\reserved{Boolean}} &{\reserved{Integer}} &{\reserved{begin}} \\
-{\reserved{const}} &{\reserved{end}} &{\reserved{program}} \\
-{\reserved{var}} & & \\
+{\reserved{Boolean}} &{\reserved{Char}} &{\reserved{Integer}} \\
+{\reserved{String}} &{\reserved{begin}} &{\reserved{const}} \\
+{\reserved{do}} &{\reserved{end}} &{\reserved{false}} \\
+{\reserved{if}} &{\reserved{program}} &{\reserved{then}} \\
+{\reserved{true}} &{\reserved{var}} &{\reserved{while}} \\
 \end{tabular}\\
 
 The symbols used in actualgrammar are the following: \\
 
 \begin{tabular}{lll}
 {\symb{.}} &{\symb{;}} &{\symb{:}} \\
-{\symb{,}} &{\symb{{$=$}}} &{\symb{{$+$}}} \\
-{\symb{{$-$}}} &{\symb{*}} &{\symb{/}} \\
-{\symb{(}} &{\symb{)}} & \\
+{\symb{,}} &{\symb{{$=$}}} &{\symb{:{$=$}}} \\
+{\symb{{$+$}}} &{\symb{{$-$}}} &{\symb{*}} \\
+{\symb{/}} &{\symb{(}} &{\symb{)}} \\
+{\symb{{$|$}{$|$}}} &{\symb{\&\&}} &{\symb{{$<$}}} \\
+{\symb{{$<$}{$=$}}} &{\symb{{$>$}}} &{\symb{{$>$}{$=$}}} \\
+{\symb{{$=$}{$=$}}} &{\symb{!{$=$}}} & \\
 \end{tabular}\\
 
 \subsection*{Comments}
-Single-line comments begin with {\symb{//}}. \\Multiple-line comments are  enclosed with {\symb{/*}} and {\symb{*/}}, {\symb{\{}} and {\symb{\}}}, {\symb{\{*}} and {\symb{*\}}}.
+Single-line comments begin with {\symb{//}}, {\symb{\#}}. \\Multiple-line comments are  enclosed with {\symb{/*}} and {\symb{*/}}, {\symb{\{}} and {\symb{\}}}, {\symb{\{*}} and {\symb{*\}}}.
 
 \section*{The syntactic structure of actualgrammar}
 Non-terminals are enclosed between $\langle$ and $\rangle$. 
@@ -119,7 +139,11 @@ All other symbols are terminals.\\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{Stmt}} & {\arrow}  &{\nonterminal{Exp}}  \\
+{\nonterminal{Stmt}} & {\arrow}  &{\terminal{begin}} {\nonterminal{ListStmt}} {\terminal{end}}  \\
+ & {\delimit}  &{\nonterminal{Ident}} {\terminal{:{$=$}}} {\nonterminal{Exp}} {\terminal{;}}  \\
+ & {\delimit}  &{\nonterminal{Exp}} {\terminal{;}}  \\
+ & {\delimit}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}}  \\
+ & {\delimit}  &{\terminal{while}} {\nonterminal{BExp}} {\terminal{do}} {\nonterminal{Stmt}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
@@ -136,12 +160,49 @@ All other symbols are terminals.\\
 
 \begin{tabular}{lll}
 {\nonterminal{Exp2}} & {\arrow}  &{\nonterminal{Integer}}  \\
+ & {\delimit}  &{\nonterminal{Ident}}  \\
  & {\delimit}  &{\terminal{(}} {\nonterminal{Exp}} {\terminal{)}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{BExp}} & {\arrow}  &{\nonterminal{BExp}} {\terminal{{$|$}{$|$}}} {\nonterminal{BExp1}}  \\
+ & {\delimit}  &{\nonterminal{Exp}}  \\
+ & {\delimit}  &{\nonterminal{BExp1}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{BExp1}} & {\arrow}  &{\nonterminal{BExp1}} {\terminal{\&\&}} {\nonterminal{BExp2}}  \\
+ & {\delimit}  &{\nonterminal{BExp2}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{BExp2}} & {\arrow}  &{\nonterminal{Exp}} {\nonterminal{RelOp}} {\nonterminal{Exp}}  \\
+ & {\delimit}  &{\terminal{(}} {\nonterminal{BExp}} {\terminal{)}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{RelOp}} & {\arrow}  &{\terminal{{$<$}}}  \\
+ & {\delimit}  &{\terminal{{$<$}{$=$}}}  \\
+ & {\delimit}  &{\terminal{{$>$}}}  \\
+ & {\delimit}  &{\terminal{{$>$}{$=$}}}  \\
+ & {\delimit}  &{\terminal{{$=$}{$=$}}}  \\
+ & {\delimit}  &{\terminal{!{$=$}}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
 {\nonterminal{Type}} & {\arrow}  &{\terminal{Integer}}  \\
  & {\delimit}  &{\terminal{Boolean}}  \\
+ & {\delimit}  &{\terminal{String}}  \\
+ & {\delimit}  &{\terminal{Char}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{LitVal}} & {\arrow}  &{\nonterminal{Integer}}  \\
+ & {\delimit}  &{\nonterminal{String}}  \\
+ & {\delimit}  &{\nonterminal{Double}}  \\
+ & {\delimit}  &{\nonterminal{Char}}  \\
+ & {\delimit}  &{\terminal{true}}  \\
+ & {\delimit}  &{\terminal{false}}  \\
 \end{tabular}\\
 
 

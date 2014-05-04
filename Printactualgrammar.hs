@@ -137,7 +137,11 @@ instance Print LiteralValue where
 
 instance Print Stmt where
   prt i e = case e of
-   Stmtt exp -> prPrec i 0 (concatD [prt 0 exp])
+   SBlock stmts -> prPrec i 0 (concatD [doc (showString "begin") , prt 0 stmts , doc (showString "end")])
+   SAss id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 exp , doc (showString ";")])
+   SExp exp -> prPrec i 0 (concatD [prt 0 exp , doc (showString ";")])
+   SIf bexp stmt -> prPrec i 0 (concatD [doc (showString "if") , prt 0 bexp , doc (showString "then") , prt 0 stmt])
+   SWhile bexp stmt -> prPrec i 0 (concatD [doc (showString "while") , prt 0 bexp , doc (showString "do") , prt 0 stmt])
 
   prtList es = case es of
    [] -> (concatD [])
@@ -150,12 +154,43 @@ instance Print Exp where
    EMul exp0 exp -> prPrec i 1 (concatD [prt 1 exp0 , doc (showString "*") , prt 2 exp])
    EDiv exp0 exp -> prPrec i 1 (concatD [prt 1 exp0 , doc (showString "/") , prt 2 exp])
    EInt n -> prPrec i 2 (concatD [prt 0 n])
+   EId id -> prPrec i 2 (concatD [prt 0 id])
+
+
+instance Print BExp where
+  prt i e = case e of
+   BOr bexp0 bexp -> prPrec i 0 (concatD [prt 0 bexp0 , doc (showString "||") , prt 1 bexp])
+   BAnd bexp0 bexp -> prPrec i 1 (concatD [prt 1 bexp0 , doc (showString "&&") , prt 2 bexp])
+   BErel exp0 relop exp -> prPrec i 2 (concatD [prt 0 exp0 , prt 0 relop , prt 0 exp])
+   BTExp exp -> prPrec i 0 (concatD [prt 0 exp])
+
+
+instance Print RelOp where
+  prt i e = case e of
+   LTH  -> prPrec i 0 (concatD [doc (showString "<")])
+   LE  -> prPrec i 0 (concatD [doc (showString "<=")])
+   GTH  -> prPrec i 0 (concatD [doc (showString ">")])
+   GE  -> prPrec i 0 (concatD [doc (showString ">=")])
+   EQU  -> prPrec i 0 (concatD [doc (showString "==")])
+   NE  -> prPrec i 0 (concatD [doc (showString "!=")])
 
 
 instance Print Type where
   prt i e = case e of
    TInt  -> prPrec i 0 (concatD [doc (showString "Integer")])
    TBool  -> prPrec i 0 (concatD [doc (showString "Boolean")])
+   TString  -> prPrec i 0 (concatD [doc (showString "String")])
+   TChar  -> prPrec i 0 (concatD [doc (showString "Char")])
+
+
+instance Print LitVal where
+  prt i e = case e of
+   LiteralValueInteger n -> prPrec i 0 (concatD [prt 0 n])
+   LiteralValueString str -> prPrec i 0 (concatD [prt 0 str])
+   LiteralValueDouble d -> prPrec i 0 (concatD [prt 0 d])
+   LiteralValueChar c -> prPrec i 0 (concatD [prt 0 c])
+   LiteralValueTrue  -> prPrec i 0 (concatD [doc (showString "true")])
+   LiteralValueFalse  -> prPrec i 0 (concatD [doc (showString "false")])
 
 
 

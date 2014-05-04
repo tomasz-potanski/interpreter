@@ -59,7 +59,11 @@ transLiteralValue x = case x of
 
 transStmt :: Stmt -> Result
 transStmt x = case x of
-  Stmtt exp  -> failure x
+  SBlock stmts  -> failure x
+  SAss id exp  -> failure x
+  SExp exp  -> failure x
+  SIf bexp stmt  -> failure x
+  SWhile bexp stmt  -> failure x
 
 
 transExp :: Exp -> Result
@@ -69,12 +73,43 @@ transExp x = case x of
   EMul exp1 exp2  -> failure x
   EDiv exp1 exp2  -> failure x
   EInt n  -> failure x
+  EId id  -> failure x
+
+
+transBExp :: BExp -> Result
+transBExp x = case x of
+  BOr bexp1 bexp2  -> failure x
+  BAnd bexp1 bexp2  -> failure x
+  BErel exp1 relop2 exp3  -> failure x
+  BTExp exp  -> failure x
+
+
+transRelOp :: RelOp -> Result
+transRelOp x = case x of
+  LTH  -> failure x
+  LE  -> failure x
+  GTH  -> failure x
+  GE  -> failure x
+  EQU  -> failure x
+  NE  -> failure x
 
 
 transType :: Type -> Result
 transType x = case x of
   TInt  -> failure x
   TBool  -> failure x
+  TString  -> failure x
+  TChar  -> failure x
+
+
+transLitVal :: LitVal -> Result
+transLitVal x = case x of
+  LiteralValueInteger n  -> failure x
+  LiteralValueString str  -> failure x
+  LiteralValueDouble d  -> failure x
+  LiteralValueChar c  -> failure x
+  LiteralValueTrue  -> failure x
+  LiteralValueFalse  -> failure x
 
 
 
