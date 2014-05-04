@@ -12,5 +12,5 @@ main = do
   putStrLn ""
 
 calc s = 
-  let Ok e = pProgram (myLexer s) 
+  let Ok e = pExp (myLexer s) 
   in show (interpret e)
