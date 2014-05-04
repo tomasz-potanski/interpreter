@@ -26,7 +26,7 @@ extractInt :: TTypes -> Integer
 extractInt (TTInt a) = a
 
 extractBool :: TTypes -> Bool
-extractBool (TTBool a) = a
+extractBool (TTBoolean a) = a
 
 --extractString :: TTypes -> String
 --extractString (TTString a) = a
