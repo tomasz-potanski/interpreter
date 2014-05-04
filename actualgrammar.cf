@@ -39,11 +39,18 @@ LiteralValInt.		LiteralValue	::=	Integer ;
 
 separator nonempty ConstDeclLine "" ;
 
+---------------(bool values)-------
+BoolLitTrue.	BoolLit	::=	"True" ;
+BoolLitFalse.	BoolLit	::=	"False" ;
+
 ------------(statements)-------
 
 SBlock.		Stmt	::=	"begin" [Stmt] "end" ;
 
 SAss.		Stmt	::=	Ident ":=" Exp ";" ;
+--SAssBool.	Stmt	::=	Ident ":=" BExp ";" ;
+SAssBoolLit.	Stmt	::=	Ident ":=" BoolLit ";" ;
+
 SAssMult.    	Stmt 	::= 	Ident "*=" Exp ";" ; 
 SAssDiv.    	Stmt 	::= 	Ident "/=" Exp ";" ; 
 SAssAdd.    	Stmt 	::= 	Ident "+=" Exp ";" ; 

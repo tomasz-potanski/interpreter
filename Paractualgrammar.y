@@ -43,19 +43,21 @@ import ErrM
  'Boolean' { PT _ (TS _ 26) }
  'Char' { PT _ (TS _ 27) }
  'Double' { PT _ (TS _ 28) }
- 'Integer' { PT _ (TS _ 29) }
- 'String' { PT _ (TS _ 30) }
- 'begin' { PT _ (TS _ 31) }
- 'const' { PT _ (TS _ 32) }
- 'do' { PT _ (TS _ 33) }
- 'end' { PT _ (TS _ 34) }
- 'if' { PT _ (TS _ 35) }
- 'print' { PT _ (TS _ 36) }
- 'program' { PT _ (TS _ 37) }
- 'then' { PT _ (TS _ 38) }
- 'var' { PT _ (TS _ 39) }
- 'while' { PT _ (TS _ 40) }
- '||' { PT _ (TS _ 41) }
+ 'False' { PT _ (TS _ 29) }
+ 'Integer' { PT _ (TS _ 30) }
+ 'String' { PT _ (TS _ 31) }
+ 'True' { PT _ (TS _ 32) }
+ 'begin' { PT _ (TS _ 33) }
+ 'const' { PT _ (TS _ 34) }
+ 'do' { PT _ (TS _ 35) }
+ 'end' { PT _ (TS _ 36) }
+ 'if' { PT _ (TS _ 37) }
+ 'print' { PT _ (TS _ 38) }
+ 'program' { PT _ (TS _ 39) }
+ 'then' { PT _ (TS _ 40) }
+ 'var' { PT _ (TS _ 41) }
+ 'while' { PT _ (TS _ 42) }
+ '||' { PT _ (TS _ 43) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -128,9 +130,15 @@ ListConstDeclLine : ConstDeclLine { (:[]) $1 }
   | ConstDeclLine ListConstDeclLine { (:) $1 $2 }
 
 
+BoolLit :: { BoolLit }
+BoolLit : 'True' { BoolLitTrue } 
+  | 'False' { BoolLitFalse }
+
+
 Stmt :: { Stmt }
 Stmt : 'begin' ListStmt 'end' { SBlock (reverse $2) } 
   | Ident ':=' Exp ';' { SAss $1 $3 }
+  | Ident ':=' BoolLit ';' { SAssBoolLit $1 $3 }
   | Ident '*=' Exp ';' { SAssMult $1 $3 }
   | Ident '/=' Exp ';' { SAssDiv $1 $3 }
   | Ident '+=' Exp ';' { SAssAdd $1 $3 }

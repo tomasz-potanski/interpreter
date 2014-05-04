@@ -39,9 +39,15 @@ data LiteralValue =
    LiteralValInt Integer
   deriving (Eq,Ord,Show)
 
+data BoolLit =
+   BoolLitTrue
+ | BoolLitFalse
+  deriving (Eq,Ord,Show)
+
 data Stmt =
    SBlock [Stmt]
  | SAss Ident Exp
+ | SAssBoolLit Ident BoolLit
  | SAssMult Ident Exp
  | SAssDiv Ident Exp
  | SAssAdd Ident Exp

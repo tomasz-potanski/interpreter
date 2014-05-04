@@ -57,10 +57,17 @@ transLiteralValue x = case x of
   LiteralValInt n  -> failure x
 
 
+transBoolLit :: BoolLit -> Result
+transBoolLit x = case x of
+  BoolLitTrue  -> failure x
+  BoolLitFalse  -> failure x
+
+
 transStmt :: Stmt -> Result
 transStmt x = case x of
   SBlock stmts  -> failure x
   SAss id exp  -> failure x
+  SAssBoolLit id boollit  -> failure x
   SAssMult id exp  -> failure x
   SAssDiv id exp  -> failure x
   SAssAdd id exp  -> failure x

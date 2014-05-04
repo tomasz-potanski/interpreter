@@ -56,10 +56,11 @@ The reserved words used in actualgrammar are the following: \\
 
 \begin{tabular}{lll}
 {\reserved{Boolean}} &{\reserved{Char}} &{\reserved{Double}} \\
-{\reserved{Integer}} &{\reserved{String}} &{\reserved{begin}} \\
-{\reserved{const}} &{\reserved{do}} &{\reserved{end}} \\
-{\reserved{if}} &{\reserved{print}} &{\reserved{program}} \\
-{\reserved{then}} &{\reserved{var}} &{\reserved{while}} \\
+{\reserved{False}} &{\reserved{Integer}} &{\reserved{String}} \\
+{\reserved{True}} &{\reserved{begin}} &{\reserved{const}} \\
+{\reserved{do}} &{\reserved{end}} &{\reserved{if}} \\
+{\reserved{print}} &{\reserved{program}} &{\reserved{then}} \\
+{\reserved{var}} &{\reserved{while}} & \\
 \end{tabular}\\
 
 The symbols used in actualgrammar are the following: \\
@@ -141,8 +142,14 @@ All other symbols are terminals.\\
 \end{tabular}\\
 
 \begin{tabular}{lll}
+{\nonterminal{BoolLit}} & {\arrow}  &{\terminal{True}}  \\
+ & {\delimit}  &{\terminal{False}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
 {\nonterminal{Stmt}} & {\arrow}  &{\terminal{begin}} {\nonterminal{ListStmt}} {\terminal{end}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{:{$=$}}} {\nonterminal{Exp}} {\terminal{;}}  \\
+ & {\delimit}  &{\nonterminal{Ident}} {\terminal{:{$=$}}} {\nonterminal{BoolLit}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{*{$=$}}} {\nonterminal{Exp}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{/{$=$}}} {\nonterminal{Exp}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{{$+$}{$=$}}} {\nonterminal{Exp}} {\terminal{;}}  \\

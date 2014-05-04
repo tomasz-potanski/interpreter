@@ -135,10 +135,17 @@ instance Print LiteralValue where
    LiteralValInt n -> prPrec i 0 (concatD [prt 0 n])
 
 
+instance Print BoolLit where
+  prt i e = case e of
+   BoolLitTrue  -> prPrec i 0 (concatD [doc (showString "True")])
+   BoolLitFalse  -> prPrec i 0 (concatD [doc (showString "False")])
+
+
 instance Print Stmt where
   prt i e = case e of
    SBlock stmts -> prPrec i 0 (concatD [doc (showString "begin") , prt 0 stmts , doc (showString "end")])
    SAss id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 exp , doc (showString ";")])
+   SAssBoolLit id boollit -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 boollit , doc (showString ";")])
    SAssMult id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "*=") , prt 0 exp , doc (showString ";")])
    SAssDiv id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "/=") , prt 0 exp , doc (showString ";")])
    SAssAdd id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "+=") , prt 0 exp , doc (showString ";")])
