@@ -23,4 +23,4 @@ begin
 	cztery := 1 + 3;
 	dziesiec := 2 * 5;
 
-end
+end.

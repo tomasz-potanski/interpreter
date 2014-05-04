@@ -31,7 +31,7 @@ main = do
     (filePath:_) <- getArgs
     fileHandler <- openFile filePath ReadMode
     fileContent <- hGetContents fileHandler
-    case pStmt (myLexer fileContent) of
+    case pProgram (myLexer fileContent) of
 		-- ogarnac wypisywanie bledow na stdErr
         Bad s -> do 
 		 hPutStrLn stderr "Error"

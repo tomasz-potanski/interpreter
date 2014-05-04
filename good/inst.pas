@@ -18,4 +18,4 @@ begin
 	szesc:=7;
 	--szesc;
 
-end
+end.

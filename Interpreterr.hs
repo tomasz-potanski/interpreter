@@ -169,6 +169,6 @@ interpretStmt stmt s = case stmt of
 
 
 -------------INTERPRET FILE------------
-interpretFile :: Stmt -> TState
-interpretFile i = interpretStmt i M.empty
+interpretFile :: Program -> TState
+interpretFile (ProgramNameHeader (VariableDeclaration stmts)) = interpretStmt stmts M.empty
 --interpretFile :: Program -> TState
