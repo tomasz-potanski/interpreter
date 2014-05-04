@@ -20,7 +20,7 @@ bnfc -m -haskell actualgrammar.cf | ack-grep --passthru --color -i "warning|erro
 echo "$bldred \r--------------------------------------$reset"
 
 sed -i /latex/d  Makefile
-sed -i '4s/-o .*$/-o interpreter/' Makefile
+sed -i '4s/-o .*$/-o verifier/' Makefile
 make 2>&1 | ack-grep --passthru --color -i "unused|conflicts|shift|reduce"
 echo "$bldred \r<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<$reset"
 

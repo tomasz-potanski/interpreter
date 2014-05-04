@@ -24,13 +24,13 @@ for file in ./good/*pas
 do
 
 #echo "$file"
-	if [ `./interpreter $file 2>&1 | grep "Parse Successful!" | wc -l` = 1 ]
+	if [ `./verifier $file 2>&1 | grep "Parse Successful!" | wc -l` = 1 ]
 	then
 		echo "||| $green$file: OK$reset"
 	else 
 		echo "||| $bldred$file: Error$(tput sgr0)" 
 		echo "  "
-		./interpreter $file
+		./verifier $file
 		echo "  "
 		errors=$((errors + 1))
 	fi
@@ -47,7 +47,7 @@ for file in ./bad/*pas
 do
 
 #echo "$file"
-	if [ `./interpreter $file | grep "Parse Successful!" | wc -l` = 1 ]
+	if [ `./verifier $file | grep "Parse Successful!" | wc -l` = 1 ]
 	then
 		echo "||| $bldred-$file: OK$reset"
 		errors=$((errors + 1))
