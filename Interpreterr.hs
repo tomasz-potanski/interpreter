@@ -90,9 +90,6 @@ interpretStmt stmt s = case stmt of
 		LiteralValueInteger ii -> showToUser (show ii) s  
 		LiteralValueChar ss -> showToUser [ss] s
 		LiteralValueDouble ii -> showToUser (show ii) s 
-		LiteralValueBool bb -> showToUser (show bb) s
-
-
 
 
 interpretFile :: Stmt -> TState

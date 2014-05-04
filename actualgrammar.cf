@@ -96,6 +96,5 @@ LiteralValueInteger.			LitVal	::=	Integer ;
 LiteralValueString.			LitVal	::=	String ;
 LiteralValueDouble.			LitVal	::=	Double ;
 LiteralValueChar.			LitVal	::=	Char ;
-LiteralValueBool.			LitVal	::=	Boolean ;
 --LiteralValueTrue.			LitVal	::=	"true" ;
 --LiteralValueFalse.			LitVal	::=	"false" ;
