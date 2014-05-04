@@ -25,7 +25,7 @@ import qualified Data.Map as M
 
 
 
-
+-- !! WCZYTYWANIE Z WEJSCIA PRZY BRAKU PARAM.
 main :: IO()
 main = do
     (filePath:_) <- getArgs

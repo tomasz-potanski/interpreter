@@ -15,8 +15,25 @@ import System.IO
 import System.IO.Unsafe
 import Debug.Trace
 
-type TState = M.Map String Integer
+data TTypes = TInt Integer | TBool Bool | TString String | TChar Char | TDouble Double deriving (Eq, Show)
 -- nazwa zmiennej -> wartosc
+type TState = M.Map String TTypes
+
+extractInt :: TTypes -> Integer
+extractInt (TInt a) = a
+
+extractBool :: TTypes -> Bool
+extractBool (TBool a) = a
+
+extractString :: TTypes -> String
+extractString (TString a) = a
+
+extractChar :: TTypes -> Char
+extractChar (TChar a) = a
+
+extractDouble :: TTypes -> Double
+extractDouble (TDouble a) = a
+
 
 --import Control.Monad.State
 --import Control.Monad.Error
@@ -45,7 +62,7 @@ interpretExp x s = case x of
   EAdd exp0 exp  -> (interpretExp exp0 s) + (interpretExp exp s)
   ESub exp0 exp  -> (interpretExp exp0 s) - (interpretExp exp s)
   EMul exp0 exp  -> (interpretExp exp0 s) * (interpretExp exp s)
-  EDiv exp0 exp  -> (interpretExp exp0 s) `div` (interpretExp exp s)
+  EDiv exp0 exp  -> (interpretExp exp0 s) `div` (interpretExp exp s) -- !! SPRAWDZ DZIELENIE PRZEZ ZERO
   EInt n  -> n
   EId (Ident x) -> variableValue (Ident x) s
 
@@ -79,7 +96,7 @@ interpretStmt stmt s = case stmt of
 	let valR = (interpretExp exp s)
 	in let valL = (variableValue (Ident x) s)
 	in M.insert x (valL*valR) s
-    SAssDiv (Ident x) exp ->
+    SAssDiv (Ident x) exp ->                 -- !! SPRAWDZ DZIELENIE PRZEZ ZERO
 	let valR = (interpretExp exp s)
 	in let valL = (variableValue (Ident x) s)
 	in M.insert x (valL `div` valR) s
