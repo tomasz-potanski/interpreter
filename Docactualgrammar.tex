@@ -57,9 +57,9 @@ The reserved words used in actualgrammar are the following: \\
 \begin{tabular}{lll}
 {\reserved{Boolean}} &{\reserved{Char}} &{\reserved{Integer}} \\
 {\reserved{String}} &{\reserved{begin}} &{\reserved{const}} \\
-{\reserved{do}} &{\reserved{end}} &{\reserved{false}} \\
-{\reserved{if}} &{\reserved{program}} &{\reserved{then}} \\
-{\reserved{true}} &{\reserved{var}} &{\reserved{while}} \\
+{\reserved{do}} &{\reserved{end}} &{\reserved{if}} \\
+{\reserved{print}} &{\reserved{program}} &{\reserved{then}} \\
+{\reserved{var}} &{\reserved{while}} & \\
 \end{tabular}\\
 
 The symbols used in actualgrammar are the following: \\
@@ -143,6 +143,12 @@ All other symbols are terminals.\\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{:{$=$}}} {\nonterminal{Exp}} {\terminal{;}}  \\
  & {\delimit}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}}  \\
  & {\delimit}  &{\terminal{while}} {\nonterminal{BExp}} {\terminal{do}} {\nonterminal{Stmt}}  \\
+ & {\delimit}  &{\terminal{print}} {\nonterminal{PrintArg}} {\terminal{;}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{PrintArg}} & {\arrow}  &{\nonterminal{Ident}}  \\
+ & {\delimit}  &{\nonterminal{LitVal}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
@@ -199,8 +205,6 @@ All other symbols are terminals.\\
  & {\delimit}  &{\nonterminal{String}}  \\
  & {\delimit}  &{\nonterminal{Double}}  \\
  & {\delimit}  &{\nonterminal{Char}}  \\
- & {\delimit}  &{\terminal{true}}  \\
- & {\delimit}  &{\terminal{false}}  \\
 \end{tabular}\\
 
 

@@ -46,6 +46,13 @@ SAss.		Stmt	::=	Ident ":=" Exp ";" ;
 --SExp.		Stmt 	::=	Exp ";" ;
 SIf.		Stmt	::=	"if" BExp "then" Stmt ;
 SWhile.		Stmt	::=	"while" BExp "do" Stmt ; 
+SPrint.		Stmt	::=	"print" PrintArg ";" ;
+
+------------(print args)--------
+
+PAId.		PrintArg	::=	Ident ;
+PALitVal.	PrintArg	::=	LitVal ;
+
 
 -------------(expressions)--------
 EAdd. 	Exp 	::= 	Exp 	"+" 	Exp1 	;
@@ -85,5 +92,5 @@ LiteralValueInteger.			LitVal	::=	Integer ;
 LiteralValueString.			LitVal	::=	String ;
 LiteralValueDouble.			LitVal	::=	Double ;
 LiteralValueChar.			LitVal	::=	Char ;
-LiteralValueTrue.			LitVal	::=	"true" ;
-LiteralValueFalse.			LitVal	::=	"false" ;
+--LiteralValueTrue.			LitVal	::=	"true" ;
+--LiteralValueFalse.			LitVal	::=	"false" ;

@@ -42,14 +42,13 @@ import ErrM
  'const' { PT _ (TS _ 25) }
  'do' { PT _ (TS _ 26) }
  'end' { PT _ (TS _ 27) }
- 'false' { PT _ (TS _ 28) }
- 'if' { PT _ (TS _ 29) }
+ 'if' { PT _ (TS _ 28) }
+ 'print' { PT _ (TS _ 29) }
  'program' { PT _ (TS _ 30) }
  'then' { PT _ (TS _ 31) }
- 'true' { PT _ (TS _ 32) }
- 'var' { PT _ (TS _ 33) }
- 'while' { PT _ (TS _ 34) }
- '||' { PT _ (TS _ 35) }
+ 'var' { PT _ (TS _ 32) }
+ 'while' { PT _ (TS _ 33) }
+ '||' { PT _ (TS _ 34) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -127,6 +126,12 @@ Stmt : 'begin' ListStmt 'end' { SBlock (reverse $2) }
   | Ident ':=' Exp ';' { SAss $1 $3 }
   | 'if' BExp 'then' Stmt { SIf $2 $4 }
   | 'while' BExp 'do' Stmt { SWhile $2 $4 }
+  | 'print' PrintArg ';' { SPrint $2 }
+
+
+PrintArg :: { PrintArg }
+PrintArg : Ident { PAId $1 } 
+  | LitVal { PALitVal $1 }
 
 
 Exp :: { Exp }
@@ -183,8 +188,6 @@ LitVal : Integer { LiteralValueInteger $1 }
   | String { LiteralValueString $1 }
   | Double { LiteralValueDouble $1 }
   | Char { LiteralValueChar $1 }
-  | 'true' { LiteralValueTrue }
-  | 'false' { LiteralValueFalse }
 
 
 

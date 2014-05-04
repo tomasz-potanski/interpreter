@@ -63,6 +63,13 @@ transStmt x = case x of
   SAss id exp  -> failure x
   SIf bexp stmt  -> failure x
   SWhile bexp stmt  -> failure x
+  SPrint printarg  -> failure x
+
+
+transPrintArg :: PrintArg -> Result
+transPrintArg x = case x of
+  PAId id  -> failure x
+  PALitVal litval  -> failure x
 
 
 transExp :: Exp -> Result
@@ -106,8 +113,6 @@ transLitVal x = case x of
   LiteralValueString str  -> failure x
   LiteralValueDouble d  -> failure x
   LiteralValueChar c  -> failure x
-  LiteralValueTrue  -> failure x
-  LiteralValueFalse  -> failure x
 
 
 

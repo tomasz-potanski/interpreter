@@ -34,8 +34,12 @@ interpretBExp b s = case b of
 	BAnd bexp1 bexp2 -> (interpretBExp bexp1 s) && (interpretBExp bexp2 s) 
 	BRel exp1 relOp exp2 -> case relOp of
 		LTH -> (interpretExp exp1 s) < (interpretExp exp2 s)
+		LE -> (interpretExp exp1 s) <= (interpretExp exp2 s)
 		GTH -> (interpretExp exp1 s) > (interpretExp exp2 s)
-
+		GE -> (interpretExp exp1 s) >= (interpretExp exp2 s)
+		EQU -> (interpretExp exp1 s) == (interpretExp exp2 s)
+		NE. -> (interpretExp exp1 s) != (interpretExp exp2 s)
+		
 interpretStmt :: Stmt -> TState -> TState
 interpretStmt stmt s = case stmt of
     SAss (Ident x) exp ->
@@ -50,6 +54,9 @@ interpretStmt stmt s = case stmt of
     SBlock [] -> s
     SBlock (i:is) ->
         (interpretStmt (SBlock is) (interpretStmt i s))
+    SPrint a -> case a of
+	PAId	->	PutStrLn a
+	PALitVal ->	PutStrLn a
 
 interpretFile :: Stmt -> TState
 interpretFile i = interpretStmt i M.empty
