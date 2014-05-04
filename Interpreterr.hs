@@ -92,6 +92,13 @@ interpretStmt stmt s = case stmt of
 	in let valL = (variableValue (Ident x) s)
 	in M.insert x (valL - valR) s
 
+    SPreIncr (Ident x) ->
+	let valL = (variableValue (Ident x) s)
+	in M.insert x (valL + 1) s
+    SPreDecr (Ident x) ->
+	let valL = (variableValue (Ident x) s)
+	in M.insert x (valL - 1) s
+
     SIf b i ->
         let cond = (interpretBExp b s)
         in if cond then (interpretStmt i s) else s

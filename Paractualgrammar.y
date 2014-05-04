@@ -22,37 +22,39 @@ import ErrM
  '*' { PT _ (TS _ 5) }
  '*=' { PT _ (TS _ 6) }
  '+' { PT _ (TS _ 7) }
- '+=' { PT _ (TS _ 8) }
- ',' { PT _ (TS _ 9) }
- '-' { PT _ (TS _ 10) }
- '-=' { PT _ (TS _ 11) }
- '.' { PT _ (TS _ 12) }
- '/' { PT _ (TS _ 13) }
- '/=' { PT _ (TS _ 14) }
- ':' { PT _ (TS _ 15) }
- ':=' { PT _ (TS _ 16) }
- ';' { PT _ (TS _ 17) }
- '<' { PT _ (TS _ 18) }
- '<=' { PT _ (TS _ 19) }
- '=' { PT _ (TS _ 20) }
- '==' { PT _ (TS _ 21) }
- '>' { PT _ (TS _ 22) }
- '>=' { PT _ (TS _ 23) }
- 'Boolean' { PT _ (TS _ 24) }
- 'Char' { PT _ (TS _ 25) }
- 'Integer' { PT _ (TS _ 26) }
- 'String' { PT _ (TS _ 27) }
- 'begin' { PT _ (TS _ 28) }
- 'const' { PT _ (TS _ 29) }
- 'do' { PT _ (TS _ 30) }
- 'end' { PT _ (TS _ 31) }
- 'if' { PT _ (TS _ 32) }
- 'print' { PT _ (TS _ 33) }
- 'program' { PT _ (TS _ 34) }
- 'then' { PT _ (TS _ 35) }
- 'var' { PT _ (TS _ 36) }
- 'while' { PT _ (TS _ 37) }
- '||' { PT _ (TS _ 38) }
+ '++' { PT _ (TS _ 8) }
+ '+=' { PT _ (TS _ 9) }
+ ',' { PT _ (TS _ 10) }
+ '-' { PT _ (TS _ 11) }
+ '--' { PT _ (TS _ 12) }
+ '-=' { PT _ (TS _ 13) }
+ '.' { PT _ (TS _ 14) }
+ '/' { PT _ (TS _ 15) }
+ '/=' { PT _ (TS _ 16) }
+ ':' { PT _ (TS _ 17) }
+ ':=' { PT _ (TS _ 18) }
+ ';' { PT _ (TS _ 19) }
+ '<' { PT _ (TS _ 20) }
+ '<=' { PT _ (TS _ 21) }
+ '=' { PT _ (TS _ 22) }
+ '==' { PT _ (TS _ 23) }
+ '>' { PT _ (TS _ 24) }
+ '>=' { PT _ (TS _ 25) }
+ 'Boolean' { PT _ (TS _ 26) }
+ 'Char' { PT _ (TS _ 27) }
+ 'Integer' { PT _ (TS _ 28) }
+ 'String' { PT _ (TS _ 29) }
+ 'begin' { PT _ (TS _ 30) }
+ 'const' { PT _ (TS _ 31) }
+ 'do' { PT _ (TS _ 32) }
+ 'end' { PT _ (TS _ 33) }
+ 'if' { PT _ (TS _ 34) }
+ 'print' { PT _ (TS _ 35) }
+ 'program' { PT _ (TS _ 36) }
+ 'then' { PT _ (TS _ 37) }
+ 'var' { PT _ (TS _ 38) }
+ 'while' { PT _ (TS _ 39) }
+ '||' { PT _ (TS _ 40) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -140,7 +142,9 @@ Stmt : 'begin' ListStmt 'end' { SBlock (reverse $2) }
 
 
 Stmt1 :: { Stmt }
-Stmt1 : '(' Stmt ')' { $2 } 
+Stmt1 : '++' Ident ';' { SPreIncr $2 } 
+  | '--' Ident ';' { SPreDecr $2 }
+  | '(' Stmt ')' { $2 }
 
 
 Exp :: { Exp }

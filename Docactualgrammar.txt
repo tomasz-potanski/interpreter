@@ -49,10 +49,11 @@ The reserved words used in actualgrammar are the following:
 The symbols used in actualgrammar are the following:
   | . | ; | : | ,
   | = | := | *= | /=
-  | += | -= | ( | )
-  | + | - | * | /
-  | || | && | < | <=
-  | > | >= | == | !=
+  | += | -= | ++ | --
+  | ( | ) | + | -
+  | * | / | || | &&
+  | < | <= | > | >=
+  | == | != |  | 
 
 ===Comments===
 Single-line comments begin with //, #.Multiple-line comments are  enclosed with /* and */, { and }, {* and *}.
@@ -93,7 +94,9 @@ All other symbols are terminals.
   |  |  **|**  | ``print`` //Ident// ``;`` 
   |  |  **|**  | ``print`` //LitVal// ``;`` 
   |  |  **|**  | //Stmt1// 
-  | //Stmt1// | -> | ``(`` //Stmt// ``)`` 
+  | //Stmt1// | -> | ``++`` //Ident// ``;`` 
+  |  |  **|**  | ``--`` //Ident// ``;`` 
+  |  |  **|**  | ``(`` //Stmt// ``)`` 
   | //Exp// | -> | //Exp// ``+`` //Exp1// 
   |  |  **|**  | //Exp// ``-`` //Exp1// 
   |  |  **|**  | //Exp1// 

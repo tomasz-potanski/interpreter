@@ -46,6 +46,8 @@ data Stmt =
  | SAssDiv Ident Exp
  | SAssAdd Ident Exp
  | SAssSub Ident Exp
+ | SPreIncr Ident
+ | SPreDecr Ident
  | SIf BExp Stmt
  | SWhile BExp Stmt
  | SPrintId Ident

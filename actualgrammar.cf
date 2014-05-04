@@ -48,10 +48,9 @@ SAssMult.    	Stmt 	::= 	Ident "*=" Exp ";" ;
 SAssDiv.    	Stmt 	::= 	Ident "/=" Exp ";" ; 
 SAssAdd.    	Stmt 	::= 	Ident "+=" Exp ";" ; 
 SAssSub.    	Stmt 	::= 	Ident "-=" Exp ";" ; 
---SPreIncr.    	Stmt1 	::= 	"++" Ident ";" ;
---SPreDecr.    	Stmt1 	::= 	"--" Ident ";" ;
---SPostIncr.    	Stmt1 	::= 	Ident "++" ";" ;
---SPostDecr.    	Stmt1 	::= 	Ident "--" ";" ;
+SPreIncr.    	Stmt1 	::= 	"++" Ident ";" ;
+SPreDecr.    	Stmt1 	::= 	"--" Ident ";" ;
+
 
 --SExp.		Stmt 	::=	Exp ";" ;
 SIf.		Stmt	::=	"if" BExp "then" Stmt ;

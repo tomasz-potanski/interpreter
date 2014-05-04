@@ -68,11 +68,12 @@ The symbols used in actualgrammar are the following: \\
 {\symb{.}} &{\symb{;}} &{\symb{:}} \\
 {\symb{,}} &{\symb{{$=$}}} &{\symb{:{$=$}}} \\
 {\symb{*{$=$}}} &{\symb{/{$=$}}} &{\symb{{$+$}{$=$}}} \\
-{\symb{{$-$}{$=$}}} &{\symb{(}} &{\symb{)}} \\
-{\symb{{$+$}}} &{\symb{{$-$}}} &{\symb{*}} \\
-{\symb{/}} &{\symb{{$|$}{$|$}}} &{\symb{\&\&}} \\
-{\symb{{$<$}}} &{\symb{{$<$}{$=$}}} &{\symb{{$>$}}} \\
-{\symb{{$>$}{$=$}}} &{\symb{{$=$}{$=$}}} &{\symb{!{$=$}}} \\
+{\symb{{$-$}{$=$}}} &{\symb{{$+$}{$+$}}} &{\symb{{$-$}{$-$}}} \\
+{\symb{(}} &{\symb{)}} &{\symb{{$+$}}} \\
+{\symb{{$-$}}} &{\symb{*}} &{\symb{/}} \\
+{\symb{{$|$}{$|$}}} &{\symb{\&\&}} &{\symb{{$<$}}} \\
+{\symb{{$<$}{$=$}}} &{\symb{{$>$}}} &{\symb{{$>$}{$=$}}} \\
+{\symb{{$=$}{$=$}}} &{\symb{!{$=$}}} & \\
 \end{tabular}\\
 
 \subsection*{Comments}
@@ -154,7 +155,9 @@ All other symbols are terminals.\\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{Stmt1}} & {\arrow}  &{\terminal{(}} {\nonterminal{Stmt}} {\terminal{)}}  \\
+{\nonterminal{Stmt1}} & {\arrow}  &{\terminal{{$+$}{$+$}}} {\nonterminal{Ident}} {\terminal{;}}  \\
+ & {\delimit}  &{\terminal{{$-$}{$-$}}} {\nonterminal{Ident}} {\terminal{;}}  \\
+ & {\delimit}  &{\terminal{(}} {\nonterminal{Stmt}} {\terminal{)}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}

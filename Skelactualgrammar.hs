@@ -65,6 +65,8 @@ transStmt x = case x of
   SAssDiv id exp  -> failure x
   SAssAdd id exp  -> failure x
   SAssSub id exp  -> failure x
+  SPreIncr id  -> failure x
+  SPreDecr id  -> failure x
   SIf bexp stmt  -> failure x
   SWhile bexp stmt  -> failure x
   SPrintId id  -> failure x
