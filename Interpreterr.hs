@@ -15,24 +15,24 @@ import System.IO
 import System.IO.Unsafe
 import Debug.Trace
 
-data TTypes = TInt Integer | TBool Bool | TString String | TChar Char | TDouble Double deriving (Eq, Show)
+data TTypes = TTInt Integer | TTBool Bool | TTString String | TTChar Char | TTDouble Double deriving (Eq, Show)
 -- nazwa zmiennej -> wartosc
 type TState = M.Map String TTypes
 
 extractInt :: TTypes -> Integer
-extractInt (TInt a) = a
+extractInt (TTInt a) = a
 
 extractBool :: TTypes -> Bool
-extractBool (TBool a) = a
+extractBool (TTBool a) = a
 
 extractString :: TTypes -> String
-extractString (TString a) = a
+extractString (TTString a) = a
 
 extractChar :: TTypes -> Char
-extractChar (TChar a) = a
+extractChar (TTChar a) = a
 
 extractDouble :: TTypes -> Double
-extractDouble (TDouble a) = a
+extractDouble (TTDouble a) = a
 
 
 --import Control.Monad.State
@@ -64,16 +64,22 @@ interpretExp x s = case x of
   EMul exp0 exp  -> (interpretExp exp0 s) * (interpretExp exp s)
   EDiv exp0 exp  -> (interpretExp exp0 s) `div` (interpretExp exp s) -- !! SPRAWDZ DZIELENIE PRZEZ ZERO
   EInt n  -> n
-  EId (Ident x) -> variableValue (Ident x) s
+  EId (Ident x) -> variableValueInt (Ident x) s
 
 --  EId (Ident x) -> case M.lookup x s of
 --	Just n 	-> n
 --	Nothing	-> 0 -- !!rzuc blad
 
-variableValue :: Ident -> TState -> Integer
-variableValue (Ident x) s = case M.lookup x s of
-	Just n 	-> n
+--variableValue :: Ident -> TState -> TTypes
+--variableValue (Ident x) s = case M.lookup x s of
+--	Just n 	-> n
+--	Nothing	-> showError ("Zmienna: " ++ (show x) ++ " nie istnieje!") 0 -- !!rzuc blad
+
+variableValueInt :: Ident -> TState -> Integer
+variableValueInt (Ident x) s = case M.lookup x s of
+	Just n 	-> (extractInt n)
 	Nothing	-> showError ("Zmienna: " ++ (show x) ++ " nie istnieje!") 0 -- !!rzuc blad
+
 
 interpretBExp :: BExp -> TState -> Bool
 interpretBExp b s = case b of
@@ -91,30 +97,30 @@ interpretStmt :: Stmt -> TState -> TState
 interpretStmt stmt s = case stmt of
     SAss (Ident x) exp ->
         let val = (interpretExp exp s)
-        in M.insert x val s
+        in M.insert x (TTInt val) s
     SAssMult (Ident x) exp ->
 	let valR = (interpretExp exp s)
-	in let valL = (variableValue (Ident x) s)
-	in M.insert x (valL*valR) s
+	in let valL = (variableValueInt (Ident x) s)
+	in M.insert x (TTInt (valL*valR)) s
     SAssDiv (Ident x) exp ->                 -- !! SPRAWDZ DZIELENIE PRZEZ ZERO
 	let valR = (interpretExp exp s)
-	in let valL = (variableValue (Ident x) s)
-	in M.insert x (valL `div` valR) s
+	in let valL = (variableValueInt (Ident x) s)
+	in M.insert x (TTInt (valL `div` valR)) s
     SAssAdd (Ident x) exp ->
 	let valR = (interpretExp exp s)
-	in let valL = (variableValue (Ident x) s)
-	in M.insert x (valL + valR) s
+	in let valL = (variableValueInt (Ident x) s)
+	in M.insert x (TTInt (valL + valR)) s
     SAssSub (Ident x) exp ->
 	let valR = (interpretExp exp s)
-	in let valL = (variableValue (Ident x) s)
-	in M.insert x (valL - valR) s
+	in let valL = (variableValueInt (Ident x) s)
+	in M.insert x (TTInt (valL - valR)) s
 
     SPreIncr (Ident x) ->
-	let valL = (variableValue (Ident x) s)
-	in M.insert x (valL + 1) s
+	let valL = (variableValueInt (Ident x) s)
+	in M.insert x (TTInt (valL + 1)) s
     SPreDecr (Ident x) ->
-	let valL = (variableValue (Ident x) s)
-	in M.insert x (valL - 1) s
+	let valL = (variableValueInt (Ident x) s)
+	in M.insert x (TTInt (valL - 1)) s
 
     SIf b i ->
         let cond = (interpretBExp b s)
@@ -126,7 +132,7 @@ interpretStmt stmt s = case stmt of
     SBlock (i:is) ->
         (interpretStmt (SBlock is) (interpretStmt i s))
 	-- !! ZROBIĆ PRINT INACZEJ
-    SPrintId (Ident x) -> showToUser (show (variableValue (Ident x) s)) s
+    SPrintId (Ident x) -> showToUser (show (variableValueInt (Ident x) s)) s
     SPrint a -> case a of
 		LiteralValueString ss -> showToUser ss s
 		LiteralValueInteger ii -> showToUser (show ii) s  
