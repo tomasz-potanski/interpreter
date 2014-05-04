@@ -38,3 +38,5 @@ main = do
 		 hPutStrLn stderr s
         Ok i -> putStrLn (show (M.toList (interpretFile i)))
 --        Ok i -> return()
+
+-- s <- getContents

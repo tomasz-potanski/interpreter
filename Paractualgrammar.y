@@ -99,7 +99,7 @@ VariableDeclaration : 'var' ListVarDeclarationLine { VBExists $2 }
 
 
 VarDeclarationLine :: { VarDeclarationLine }
-VarDeclarationLine : Ident ':' Type ';' { DLList $1 $3 } 
+VarDeclarationLine : ListIdent ':' Type ';' { DLList $1 $3 } 
 
 
 ListVarDeclarationLine :: { [VarDeclarationLine] }

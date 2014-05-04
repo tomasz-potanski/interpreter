@@ -23,7 +23,7 @@ terminator Stmt "" ;
 -------------(Variables Declaration)---------------
 VBExists.		VariableDeclaration ::=	"var" [VarDeclarationLine] ;
 VBDoesntExists.		VariableDeclaration ::=	;
-DLList.			VarDeclarationLine    ::= Ident ":" Type ";" ;
+DLList.			VarDeclarationLine    ::= [Ident] ":" Type ";" ;
 
 separator nonempty VarDeclarationLine "" ;
 separator nonempty Ident "," ;
