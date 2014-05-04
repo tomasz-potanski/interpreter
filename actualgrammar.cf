@@ -1,10 +1,12 @@
 comment "//" ;
+comment "#" ;
 comment "/*" "*/" ;
 comment "{" "}" ;
 comment "{*" "*}" ;
   
+entrypoints Stmt;
 --entrypoints Program ;
-entrypoints Exp ;
+--entrypoints Exp ;
 
 Programm.	Program	::=	ProgramNameHeader Block "." ;
 --Programm.	Program	::=	Exp ;
@@ -39,8 +41,11 @@ separator nonempty ConstDeclLine "" ;
 
 ------------(statements)-------
 
-
-Stmtt.		Stmt 	::=	Exp ;
+SBlock		Stmt	::=	"begin" [Stmt] "end"
+SAss.		Stmt	::=	Ident ":=" Exp ";" ;
+SExp.		Stmt 	::=	Exp ";" ;
+SIf.		Stmt	::=	"if" BExp "then" Stmt ;
+SWhile.		Stmt	::=	"while" BExp "do" Stmt ; 
 
 -------------(expressions)--------
 EAdd. 	Exp 	::= 	Exp 	"+" 	Exp1 	;
@@ -48,10 +53,37 @@ ESub. 	Exp 	::= 	Exp 	"-" 	Exp1 	;
 EMul. 	Exp1 	::= 	Exp1 	"*" 	Exp2 	;
 EDiv. 	Exp1 	::= 	Exp1 	"/" 	Exp2 	;
 EInt. 	Exp2 	::= 	Integer 	;
+EId.	Exp2	::=	Ident	;
 coercions 	Exp 	2 	;
 --EAss.		Exp 	::=	Ident "=" Exp ;
 
+----------------(Bool Expressions)----------
+BOr.  	BExp   	::= BExp "||" BExp1 ;
+BAnd. 	BExp1  	::= BExp1 "&&" BExp2 ;
+BErel.  BExp2  	::= Exp RelOp Exp ;
+BTExp.	BExp	::= Exp ;	
+
+coercions BExp 2 ;
+
+----------(operators)-------
+LTH.       RelOp ::= "<" ;
+LE.        RelOp ::= "<=" ;
+GTH.       RelOp ::= ">" ;
+GE.        RelOp ::= ">=" ;
+EQU.       RelOp ::= "==" ;
+NE.        RelOp ::= "!=" ;
+
 ---------(types)-----------
 
-TInt.	Type	::=	"Integer" ;
-TBool.	Type 	::=	"Boolean" ;
+TInt.		Type	::=	"Integer" ;
+TBool.		Type 	::=	"Boolean" ;
+TString.	Type	::=	"String" ;
+TChar.		Type	::=	"Char" ;
+
+------(Literals)-----------
+LiteralValueInteger			LitVal	::=	Integer ;
+LiteralValueString			LitVal	::=	String ;
+LiteralValueDouble			LitVal	::=	Double ;
+LiteralValueChar			LitVal	::=	Char ;
+LiteralValueTrue			LitVal	::=	"true" ;
+LiteralValueFalse			LitVal	::=	"false" ;
