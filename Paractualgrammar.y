@@ -65,13 +65,15 @@ import ErrM
  'intToStr' { PT _ (TS _ 48) }
  'of' { PT _ (TS _ 49) }
  'print' { PT _ (TS _ 50) }
- 'program' { PT _ (TS _ 51) }
- 'strToInt' { PT _ (TS _ 52) }
- 'then' { PT _ (TS _ 53) }
- 'to' { PT _ (TS _ 54) }
- 'var' { PT _ (TS _ 55) }
- 'while' { PT _ (TS _ 56) }
- '||' { PT _ (TS _ 57) }
+ 'proc' { PT _ (TS _ 51) }
+ 'procedure' { PT _ (TS _ 52) }
+ 'program' { PT _ (TS _ 53) }
+ 'strToInt' { PT _ (TS _ 54) }
+ 'then' { PT _ (TS _ 55) }
+ 'to' { PT _ (TS _ 56) }
+ 'var' { PT _ (TS _ 57) }
+ 'while' { PT _ (TS _ 58) }
+ '||' { PT _ (TS _ 59) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -99,12 +101,26 @@ ProgramNameHeader : 'program' Ident ';' { ProgNameHeaderNotBlank $2 }
 
 
 Block :: { Block }
-Block : VariableDeclaration Stmt2 { Blockk $1 $2 } 
+Block : ProcDeclaration VariableDeclaration Stmt2 { Blockk $1 $2 $3 } 
 
 
 ListStmt :: { [Stmt] }
 ListStmt : {- empty -} { [] } 
   | ListStmt Stmt { flip (:) $1 $2 }
+
+
+ProcDeclaration :: { ProcDeclaration }
+ProcDeclaration : 'proc' ListProcDeclLine { PExists (reverse $2) } 
+  | {- empty -} { PDoesntExist }
+
+
+ProcDeclLine :: { ProcDeclLine }
+ProcDeclLine : 'procedure' Ident '(' VarDeclarationLine ')' ';' VariableDeclaration Stmt2 { PLine $2 $4 $7 $8 } 
+
+
+ListProcDeclLine :: { [ProcDeclLine] }
+ListProcDeclLine : {- empty -} { [] } 
+  | ListProcDeclLine ProcDeclLine { flip (:) $1 $2 }
 
 
 VariableDeclaration :: { VariableDeclaration }

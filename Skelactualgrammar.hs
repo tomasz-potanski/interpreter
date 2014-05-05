@@ -27,7 +27,18 @@ transProgramNameHeader x = case x of
 
 transBlock :: Block -> Result
 transBlock x = case x of
-  Blockk variabledeclaration stmt  -> failure x
+  Blockk procdeclaration variabledeclaration stmt  -> failure x
+
+
+transProcDeclaration :: ProcDeclaration -> Result
+transProcDeclaration x = case x of
+  PExists procdecllines  -> failure x
+  PDoesntExist  -> failure x
+
+
+transProcDeclLine :: ProcDeclLine -> Result
+transProcDeclLine x = case x of
+  PLine id vardeclarationline variabledeclaration stmt  -> failure x
 
 
 transVariableDeclaration :: VariableDeclaration -> Result

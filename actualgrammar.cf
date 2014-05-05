@@ -16,14 +16,15 @@ ProgNameHeaderBlank.	ProgramNameHeader 	::=  ;
 
 
 --Blockk.		Block	::= ProcDeclaration ConstantDeclaration VariableDeclaration "begin" [Stmt] "end" ;
-Blockk.		Block	::= VariableDeclaration Stmt2 ;
+Blockk.		Block	::= ProcDeclaration VariableDeclaration Stmt2 ;
 
 terminator Stmt "" ;
 
 --------------(Proc Declaration)-----------
 PExists.		ProcDeclaration ::= "proc" [ProcDeclLine] ;
-PDoesntExist.		ProcDeclaration ""= ;
-PLine.			ProcDeclLine ::= "procedure" Ident ";" VariableDeclaration "begin" [Stmt] "end";
+PDoesntExist.		ProcDeclaration ::= ;
+PLine.			ProcDeclLine ::= "procedure" Ident "(" VarDeclarationLine ")" ";" VariableDeclaration Stmt2;
+terminator ProcDeclLine "";
 
 -------------(Variables Declaration)---------------
 VBExists.		VariableDeclaration ::=	"var" [VarDeclarationLine] ;

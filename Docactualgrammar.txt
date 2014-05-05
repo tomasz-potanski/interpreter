@@ -46,14 +46,14 @@ The reserved words used in actualgrammar are the following:
   | ``begin`` | ``const`` | ``do`` | ``elif``
   | ``else`` | ``end`` | ``endif`` | ``for``
   | ``if`` | ``intToStr`` | ``of`` | ``print``
-  | ``program`` | ``strToInt`` | ``then`` | ``to``
-  | ``var`` | ``while`` |  | 
+  | ``proc`` | ``procedure`` | ``program`` | ``strToInt``
+  | ``then`` | ``to`` | ``var`` | ``while``
 
 The symbols used in actualgrammar are the following:
-  | . | ; | : | ,
-  | = | := | [ | ]
-  | *= | /= | += | -=
-  | ++ | -- | ( | )
+  | . | ; | ( | )
+  | : | , | = | :=
+  | [ | ] | *= | /=
+  | += | -= | ++ | --
   | <- | <-- | + | -
   | * | / | || | &&
   | < | <= | > | >=
@@ -71,9 +71,14 @@ All other symbols are terminals.
   | //Program// | -> | //ProgramNameHeader// //Block// ``.`` 
   | //ProgramNameHeader// | -> | ``program`` //Ident// ``;`` 
   |  |  **|**  | **eps**
-  | //Block// | -> | //VariableDeclaration// //Stmt2// 
+  | //Block// | -> | //ProcDeclaration// //VariableDeclaration// //Stmt2// 
   | //[Stmt]// | -> | **eps**
   |  |  **|**  | //Stmt// //[Stmt]// 
+  | //ProcDeclaration// | -> | ``proc`` //[ProcDeclLine]// 
+  |  |  **|**  | **eps**
+  | //ProcDeclLine// | -> | ``procedure`` //Ident// ``(`` //VarDeclarationLine// ``)`` ``;`` //VariableDeclaration// //Stmt2// 
+  | //[ProcDeclLine]// | -> | **eps**
+  |  |  **|**  | //ProcDeclLine// //[ProcDeclLine]// 
   | //VariableDeclaration// | -> | ``var`` //[VarDeclarationLine]// 
   |  |  **|**  | **eps**
   | //VarDeclarationLine// | -> | //[Ident]// ``:`` //Type// ``;`` 

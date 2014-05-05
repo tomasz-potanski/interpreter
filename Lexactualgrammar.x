@@ -19,7 +19,7 @@ $i = [$l $d _ ']          -- identifier character
 $u = [\0-\255]          -- universal: any character
 
 @rsyms =    -- symbols and non-identifier-like reserved words
-   \. | \; | \: | \, | \= | \: \= | \[ | \] | \* \= | \/ \= | \+ \= | \- \= | \+ \+ | \- \- | \( | \) | \< \- | \< \- \- | \+ | \- | \* | \/ | \| \| | \& \& | \< | \< \= | \> | \> \= | \= \= | \! \= | \. \.
+   \. | \; | \( | \) | \: | \, | \= | \: \= | \[ | \] | \* \= | \/ \= | \+ \= | \- \= | \+ \+ | \- \- | \< \- | \< \- \- | \+ | \- | \* | \/ | \| \| | \& \& | \< | \< \= | \> | \> \= | \= \= | \! \= | \. \.
 
 :-
 "//" [.]* ; -- Toss single line comments
@@ -87,7 +87,7 @@ eitherResIdent tv s = treeFind resWords
                               | s > a  = treeFind right
                               | s == a = t
 
-resWords = b "Array" 29 (b ".." 15 (b "++" 8 (b ")" 4 (b "&&" 2 (b "!=" 1 N N) (b "(" 3 N N)) (b "*=" 6 (b "*" 5 N N) (b "+" 7 N N))) (b "--" 12 (b "," 10 (b "+=" 9 N N) (b "-" 11 N N)) (b "." 14 (b "-=" 13 N N) N))) (b "<-" 22 (b ":=" 19 (b "/=" 17 (b "/" 16 N N) (b ":" 18 N N)) (b "<" 21 (b ";" 20 N N) N)) (b "==" 26 (b "<=" 24 (b "<--" 23 N N) (b "=" 25 N N)) (b ">=" 28 (b ">" 27 N N) N)))) (b "end" 44 (b "[" 37 (b "False" 33 (b "Char" 31 (b "Boolean" 30 N N) (b "Double" 32 N N)) (b "String" 35 (b "Integer" 34 N N) (b "True" 36 N N))) (b "do" 41 (b "begin" 39 (b "]" 38 N N) (b "const" 40 N N)) (b "else" 43 (b "elif" 42 N N) N))) (b "program" 51 (b "intToStr" 48 (b "for" 46 (b "endif" 45 N N) (b "if" 47 N N)) (b "print" 50 (b "of" 49 N N) N)) (b "var" 55 (b "then" 53 (b "strToInt" 52 N N) (b "to" 54 N N)) (b "||" 57 (b "while" 56 N N) N))))
+resWords = b "Boolean" 30 (b ".." 15 (b "++" 8 (b ")" 4 (b "&&" 2 (b "!=" 1 N N) (b "(" 3 N N)) (b "*=" 6 (b "*" 5 N N) (b "+" 7 N N))) (b "--" 12 (b "," 10 (b "+=" 9 N N) (b "-" 11 N N)) (b "." 14 (b "-=" 13 N N) N))) (b "<--" 23 (b ":=" 19 (b "/=" 17 (b "/" 16 N N) (b ":" 18 N N)) (b "<" 21 (b ";" 20 N N) (b "<-" 22 N N))) (b ">" 27 (b "=" 25 (b "<=" 24 N N) (b "==" 26 N N)) (b "Array" 29 (b ">=" 28 N N) N)))) (b "endif" 45 (b "]" 38 (b "Integer" 34 (b "Double" 32 (b "Char" 31 N N) (b "False" 33 N N)) (b "True" 36 (b "String" 35 N N) (b "[" 37 N N))) (b "elif" 42 (b "const" 40 (b "begin" 39 N N) (b "do" 41 N N)) (b "end" 44 (b "else" 43 N N) N))) (b "program" 53 (b "of" 49 (b "if" 47 (b "for" 46 N N) (b "intToStr" 48 N N)) (b "proc" 51 (b "print" 50 N N) (b "procedure" 52 N N))) (b "var" 57 (b "then" 55 (b "strToInt" 54 N N) (b "to" 56 N N)) (b "||" 59 (b "while" 58 N N) N))))
    where b s n = let bs = id s
                   in B bs (TS bs n)
 

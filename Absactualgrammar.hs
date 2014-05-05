@@ -14,7 +14,16 @@ data ProgramNameHeader =
   deriving (Eq,Ord,Show)
 
 data Block =
-   Blockk VariableDeclaration Stmt
+   Blockk ProcDeclaration VariableDeclaration Stmt
+  deriving (Eq,Ord,Show)
+
+data ProcDeclaration =
+   PExists [ProcDeclLine]
+ | PDoesntExist
+  deriving (Eq,Ord,Show)
+
+data ProcDeclLine =
+   PLine Ident VarDeclarationLine VariableDeclaration Stmt
   deriving (Eq,Ord,Show)
 
 data VariableDeclaration =

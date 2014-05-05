@@ -61,20 +61,21 @@ The reserved words used in actualgrammar are the following: \\
 {\reserved{const}} &{\reserved{do}} &{\reserved{elif}} \\
 {\reserved{else}} &{\reserved{end}} &{\reserved{endif}} \\
 {\reserved{for}} &{\reserved{if}} &{\reserved{intToStr}} \\
-{\reserved{of}} &{\reserved{print}} &{\reserved{program}} \\
-{\reserved{strToInt}} &{\reserved{then}} &{\reserved{to}} \\
-{\reserved{var}} &{\reserved{while}} & \\
+{\reserved{of}} &{\reserved{print}} &{\reserved{proc}} \\
+{\reserved{procedure}} &{\reserved{program}} &{\reserved{strToInt}} \\
+{\reserved{then}} &{\reserved{to}} &{\reserved{var}} \\
+{\reserved{while}} & & \\
 \end{tabular}\\
 
 The symbols used in actualgrammar are the following: \\
 
 \begin{tabular}{lll}
-{\symb{.}} &{\symb{;}} &{\symb{:}} \\
-{\symb{,}} &{\symb{{$=$}}} &{\symb{:{$=$}}} \\
-{\symb{[}} &{\symb{]}} &{\symb{*{$=$}}} \\
-{\symb{/{$=$}}} &{\symb{{$+$}{$=$}}} &{\symb{{$-$}{$=$}}} \\
-{\symb{{$+$}{$+$}}} &{\symb{{$-$}{$-$}}} &{\symb{(}} \\
-{\symb{)}} &{\symb{{$<$}{$-$}}} &{\symb{{$<$}{$-$}{$-$}}} \\
+{\symb{.}} &{\symb{;}} &{\symb{(}} \\
+{\symb{)}} &{\symb{:}} &{\symb{,}} \\
+{\symb{{$=$}}} &{\symb{:{$=$}}} &{\symb{[}} \\
+{\symb{]}} &{\symb{*{$=$}}} &{\symb{/{$=$}}} \\
+{\symb{{$+$}{$=$}}} &{\symb{{$-$}{$=$}}} &{\symb{{$+$}{$+$}}} \\
+{\symb{{$-$}{$-$}}} &{\symb{{$<$}{$-$}}} &{\symb{{$<$}{$-$}{$-$}}} \\
 {\symb{{$+$}}} &{\symb{{$-$}}} &{\symb{*}} \\
 {\symb{/}} &{\symb{{$|$}{$|$}}} &{\symb{\&\&}} \\
 {\symb{{$<$}}} &{\symb{{$<$}{$=$}}} &{\symb{{$>$}}} \\
@@ -101,12 +102,26 @@ All other symbols are terminals.\\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{Block}} & {\arrow}  &{\nonterminal{VariableDeclaration}} {\nonterminal{Stmt2}}  \\
+{\nonterminal{Block}} & {\arrow}  &{\nonterminal{ProcDeclaration}} {\nonterminal{VariableDeclaration}} {\nonterminal{Stmt2}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
 {\nonterminal{ListStmt}} & {\arrow}  &{\emptyP} \\
  & {\delimit}  &{\nonterminal{Stmt}} {\nonterminal{ListStmt}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{ProcDeclaration}} & {\arrow}  &{\terminal{proc}} {\nonterminal{ListProcDeclLine}}  \\
+ & {\delimit}  &{\emptyP} \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{ProcDeclLine}} & {\arrow}  &{\terminal{procedure}} {\nonterminal{Ident}} {\terminal{(}} {\nonterminal{VarDeclarationLine}} {\terminal{)}} {\terminal{;}} {\nonterminal{VariableDeclaration}} {\nonterminal{Stmt2}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{ListProcDeclLine}} & {\arrow}  &{\emptyP} \\
+ & {\delimit}  &{\nonterminal{ProcDeclLine}} {\nonterminal{ListProcDeclLine}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}

@@ -99,8 +99,22 @@ instance Print ProgramNameHeader where
 
 instance Print Block where
   prt i e = case e of
-   Blockk variabledeclaration stmt -> prPrec i 0 (concatD [prt 0 variabledeclaration , prt 2 stmt])
+   Blockk procdeclaration variabledeclaration stmt -> prPrec i 0 (concatD [prt 0 procdeclaration , prt 0 variabledeclaration , prt 2 stmt])
 
+
+instance Print ProcDeclaration where
+  prt i e = case e of
+   PExists procdecllines -> prPrec i 0 (concatD [doc (showString "proc") , prt 0 procdecllines])
+   PDoesntExist  -> prPrec i 0 (concatD [])
+
+
+instance Print ProcDeclLine where
+  prt i e = case e of
+   PLine id vardeclarationline variabledeclaration stmt -> prPrec i 0 (concatD [doc (showString "procedure") , prt 0 id , doc (showString "(") , prt 0 vardeclarationline , doc (showString ")") , doc (showString ";") , prt 0 variabledeclaration , prt 2 stmt])
+
+  prtList es = case es of
+   [] -> (concatD [])
+   x:xs -> (concatD [prt 0 x , prt 0 xs])
 
 instance Print VariableDeclaration where
   prt i e = case e of
