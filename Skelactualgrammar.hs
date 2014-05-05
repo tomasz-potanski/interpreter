@@ -70,7 +70,7 @@ transStmt x = case x of
   SAssArray id n exp  -> failure x
   SAssBool id bexp  -> failure x
   SAssBoolLit id boollit  -> failure x
-  SAssString id strlit  -> failure x
+  SAssString id str  -> failure x
   SAssArrayBool id n bexp  -> failure x
   SAssArrayBoolLit id n boollit  -> failure x
   SAssMult id exp  -> failure x
@@ -84,11 +84,6 @@ transStmt x = case x of
   SFor id exp1 exp2 stmt3  -> failure x
   SPrintExp exp  -> failure x
   SPrint litval  -> failure x
-
-
-transStrLit :: StrLit -> Result
-transStrLit x = case x of
-  AtrStrLit str  -> failure x
 
 
 transIfStmt :: IfStmt -> Result

@@ -17,57 +17,56 @@ import ErrM
 %token 
  '!=' { PT _ (TS _ 1) }
  '&&' { PT _ (TS _ 2) }
- '\'' { PT _ (TS _ 3) }
- '(' { PT _ (TS _ 4) }
- ')' { PT _ (TS _ 5) }
- '*' { PT _ (TS _ 6) }
- '*=' { PT _ (TS _ 7) }
- '+' { PT _ (TS _ 8) }
- '++' { PT _ (TS _ 9) }
- '+=' { PT _ (TS _ 10) }
- ',' { PT _ (TS _ 11) }
- '-' { PT _ (TS _ 12) }
- '--' { PT _ (TS _ 13) }
- '-=' { PT _ (TS _ 14) }
- '.' { PT _ (TS _ 15) }
- '..' { PT _ (TS _ 16) }
- '/' { PT _ (TS _ 17) }
- '/=' { PT _ (TS _ 18) }
- ':' { PT _ (TS _ 19) }
- ':=' { PT _ (TS _ 20) }
- ';' { PT _ (TS _ 21) }
- '<' { PT _ (TS _ 22) }
- '<=' { PT _ (TS _ 23) }
- '=' { PT _ (TS _ 24) }
- '==' { PT _ (TS _ 25) }
- '>' { PT _ (TS _ 26) }
- '>=' { PT _ (TS _ 27) }
- 'Array' { PT _ (TS _ 28) }
- 'Boolean' { PT _ (TS _ 29) }
- 'Char' { PT _ (TS _ 30) }
- 'Double' { PT _ (TS _ 31) }
- 'False' { PT _ (TS _ 32) }
- 'Integer' { PT _ (TS _ 33) }
- 'String' { PT _ (TS _ 34) }
- 'True' { PT _ (TS _ 35) }
- '[' { PT _ (TS _ 36) }
- ']' { PT _ (TS _ 37) }
- 'begin' { PT _ (TS _ 38) }
- 'const' { PT _ (TS _ 39) }
- 'do' { PT _ (TS _ 40) }
- 'elif' { PT _ (TS _ 41) }
- 'else' { PT _ (TS _ 42) }
- 'end' { PT _ (TS _ 43) }
- 'for' { PT _ (TS _ 44) }
- 'if' { PT _ (TS _ 45) }
- 'of' { PT _ (TS _ 46) }
- 'print' { PT _ (TS _ 47) }
- 'program' { PT _ (TS _ 48) }
- 'then' { PT _ (TS _ 49) }
- 'to' { PT _ (TS _ 50) }
- 'var' { PT _ (TS _ 51) }
- 'while' { PT _ (TS _ 52) }
- '||' { PT _ (TS _ 53) }
+ '(' { PT _ (TS _ 3) }
+ ')' { PT _ (TS _ 4) }
+ '*' { PT _ (TS _ 5) }
+ '*=' { PT _ (TS _ 6) }
+ '+' { PT _ (TS _ 7) }
+ '++' { PT _ (TS _ 8) }
+ '+=' { PT _ (TS _ 9) }
+ ',' { PT _ (TS _ 10) }
+ '-' { PT _ (TS _ 11) }
+ '--' { PT _ (TS _ 12) }
+ '-=' { PT _ (TS _ 13) }
+ '.' { PT _ (TS _ 14) }
+ '..' { PT _ (TS _ 15) }
+ '/' { PT _ (TS _ 16) }
+ '/=' { PT _ (TS _ 17) }
+ ':' { PT _ (TS _ 18) }
+ ':=' { PT _ (TS _ 19) }
+ ';' { PT _ (TS _ 20) }
+ '<' { PT _ (TS _ 21) }
+ '<=' { PT _ (TS _ 22) }
+ '=' { PT _ (TS _ 23) }
+ '==' { PT _ (TS _ 24) }
+ '>' { PT _ (TS _ 25) }
+ '>=' { PT _ (TS _ 26) }
+ 'Array' { PT _ (TS _ 27) }
+ 'Boolean' { PT _ (TS _ 28) }
+ 'Char' { PT _ (TS _ 29) }
+ 'Double' { PT _ (TS _ 30) }
+ 'False' { PT _ (TS _ 31) }
+ 'Integer' { PT _ (TS _ 32) }
+ 'String' { PT _ (TS _ 33) }
+ 'True' { PT _ (TS _ 34) }
+ '[' { PT _ (TS _ 35) }
+ ']' { PT _ (TS _ 36) }
+ 'begin' { PT _ (TS _ 37) }
+ 'const' { PT _ (TS _ 38) }
+ 'do' { PT _ (TS _ 39) }
+ 'elif' { PT _ (TS _ 40) }
+ 'else' { PT _ (TS _ 41) }
+ 'end' { PT _ (TS _ 42) }
+ 'for' { PT _ (TS _ 43) }
+ 'if' { PT _ (TS _ 44) }
+ 'of' { PT _ (TS _ 45) }
+ 'print' { PT _ (TS _ 46) }
+ 'program' { PT _ (TS _ 47) }
+ 'then' { PT _ (TS _ 48) }
+ 'to' { PT _ (TS _ 49) }
+ 'var' { PT _ (TS _ 50) }
+ 'while' { PT _ (TS _ 51) }
+ '||' { PT _ (TS _ 52) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -155,7 +154,7 @@ Stmt : Ident ':=' Exp ';' { SAss $1 $3 }
   | Ident '[' Integer ']' ':=' Exp ';' { SAssArray $1 $3 $6 }
   | Ident ':=' BExp ';' { SAssBool $1 $3 }
   | Ident ':=' BoolLit ';' { SAssBoolLit $1 $3 }
-  | Ident ':=' StrLit ';' { SAssString $1 $3 }
+  | Ident ':=' String ';' { SAssString $1 $3 }
   | Ident '[' Integer ']' ':=' BExp ';' { SAssArrayBool $1 $3 $6 }
   | Ident '[' Integer ']' ':=' BoolLit ';' { SAssArrayBoolLit $1 $3 $6 }
   | Ident '*=' Exp ';' { SAssMult $1 $3 }
@@ -168,10 +167,6 @@ Stmt : Ident ':=' Exp ';' { SAss $1 $3 }
   | 'print' Exp ';' { SPrintExp $2 }
   | 'print' LitVal ';' { SPrint $2 }
   | Stmt1 { $1 }
-
-
-StrLit :: { StrLit }
-StrLit : '\'' String '\'' { AtrStrLit $2 } 
 
 
 Stmt1 :: { Stmt }

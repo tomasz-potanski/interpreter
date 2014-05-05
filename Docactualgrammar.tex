@@ -70,14 +70,14 @@ The symbols used in actualgrammar are the following: \\
 \begin{tabular}{lll}
 {\symb{.}} &{\symb{;}} &{\symb{:}} \\
 {\symb{,}} &{\symb{{$=$}}} &{\symb{:{$=$}}} \\
-{\symb{[}} &{\symb{]}} &{\symb{'}} \\
-{\symb{*{$=$}}} &{\symb{/{$=$}}} &{\symb{{$+$}{$=$}}} \\
-{\symb{{$-$}{$=$}}} &{\symb{{$+$}{$+$}}} &{\symb{{$-$}{$-$}}} \\
-{\symb{(}} &{\symb{)}} &{\symb{{$+$}}} \\
-{\symb{{$-$}}} &{\symb{*}} &{\symb{/}} \\
-{\symb{{$|$}{$|$}}} &{\symb{\&\&}} &{\symb{{$<$}}} \\
-{\symb{{$<$}{$=$}}} &{\symb{{$>$}}} &{\symb{{$>$}{$=$}}} \\
-{\symb{{$=$}{$=$}}} &{\symb{!{$=$}}} &{\symb{..}} \\
+{\symb{[}} &{\symb{]}} &{\symb{*{$=$}}} \\
+{\symb{/{$=$}}} &{\symb{{$+$}{$=$}}} &{\symb{{$-$}{$=$}}} \\
+{\symb{{$+$}{$+$}}} &{\symb{{$-$}{$-$}}} &{\symb{(}} \\
+{\symb{)}} &{\symb{{$+$}}} &{\symb{{$-$}}} \\
+{\symb{*}} &{\symb{/}} &{\symb{{$|$}{$|$}}} \\
+{\symb{\&\&}} &{\symb{{$<$}}} &{\symb{{$<$}{$=$}}} \\
+{\symb{{$>$}}} &{\symb{{$>$}{$=$}}} &{\symb{{$=$}{$=$}}} \\
+{\symb{!{$=$}}} &{\symb{..}} & \\
 \end{tabular}\\
 
 \subsection*{Comments}
@@ -159,7 +159,7 @@ All other symbols are terminals.\\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{[}} {\nonterminal{Integer}} {\terminal{]}} {\terminal{:{$=$}}} {\nonterminal{Exp}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{:{$=$}}} {\nonterminal{BExp}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{:{$=$}}} {\nonterminal{BoolLit}} {\terminal{;}}  \\
- & {\delimit}  &{\nonterminal{Ident}} {\terminal{:{$=$}}} {\nonterminal{StrLit}} {\terminal{;}}  \\
+ & {\delimit}  &{\nonterminal{Ident}} {\terminal{:{$=$}}} {\nonterminal{String}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{[}} {\nonterminal{Integer}} {\terminal{]}} {\terminal{:{$=$}}} {\nonterminal{BExp}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{[}} {\nonterminal{Integer}} {\terminal{]}} {\terminal{:{$=$}}} {\nonterminal{BoolLit}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{*{$=$}}} {\nonterminal{Exp}} {\terminal{;}}  \\
@@ -172,10 +172,6 @@ All other symbols are terminals.\\
  & {\delimit}  &{\terminal{print}} {\nonterminal{Exp}} {\terminal{;}}  \\
  & {\delimit}  &{\terminal{print}} {\nonterminal{LitVal}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Stmt1}}  \\
-\end{tabular}\\
-
-\begin{tabular}{lll}
-{\nonterminal{StrLit}} & {\arrow}  &{\terminal{'}} {\nonterminal{String}} {\terminal{'}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}

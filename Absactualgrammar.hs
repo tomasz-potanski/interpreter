@@ -50,7 +50,7 @@ data Stmt =
  | SAssArray Ident Integer Exp
  | SAssBool Ident BExp
  | SAssBoolLit Ident BoolLit
- | SAssString Ident StrLit
+ | SAssString Ident String
  | SAssArrayBool Ident Integer BExp
  | SAssArrayBoolLit Ident Integer BoolLit
  | SAssMult Ident Exp
@@ -64,10 +64,6 @@ data Stmt =
  | SFor Ident Exp Exp Stmt
  | SPrintExp Exp
  | SPrint LitVal
-  deriving (Eq,Ord,Show)
-
-data StrLit =
-   AtrStrLit String
   deriving (Eq,Ord,Show)
 
 data IfStmt =
