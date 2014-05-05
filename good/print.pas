@@ -15,6 +15,6 @@ begin
 	print x;
 	print x+2;
 	print 3*7;
-	print False;
+	//print False;
 
 end.
