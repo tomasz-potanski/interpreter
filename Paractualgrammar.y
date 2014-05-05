@@ -168,18 +168,22 @@ Stmt1 : '++' Ident ';' { SPreIncr $2 }
 
 IfStmt :: { IfStmt }
 IfStmt : 'if' BExp 'then' Stmt { SimpleIf $2 $4 } 
+  | IfStmt1 { $1 }
 
 
 IfStmt1 :: { IfStmt }
 IfStmt1 : 'if' BExp 'then' Stmt 'else' Stmt { IfElse $2 $4 $6 } 
+  | IfStmt2 { $1 }
 
 
 IfStmt2 :: { IfStmt }
 IfStmt2 : 'if' BExp 'then' Stmt 'elif' Stmt { IfElif $2 $4 $6 } 
+  | IfStmt3 { $1 }
 
 
 IfStmt3 :: { IfStmt }
 IfStmt3 : 'if' BExp 'then' Stmt 'elif' Stmt 'else' Stmt { IfElifElse $2 $4 $6 $8 } 
+  | '(' IfStmt ')' { $2 }
 
 
 Exp :: { Exp }
