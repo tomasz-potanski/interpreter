@@ -180,8 +180,14 @@ interpretStmt stmt s = case stmt of
 	    Just n -> case n of
 		TTArray minn maxx typee mapp -> 
 		    if (index >= minn) && (index <= maxx) then
-			M.insert x (TTArray minn maxx typee (M.insert index (TTInt (interpretExp exp s)) mapp)) s
-		    else 
+			let val = (interpretExp exp s)
+			in
+			  case typee of
+			     TInt -> M.insert x (TTArray minn maxx typee (M.insert index (TTInt val) mapp)) s
+			     TBool -> if (val == 0) || (val == 1) then M.insert x (TTArray minn maxx typee (M.insert index (TTInt val) mapp)) s
+					else error("Error - incorrect type")
+			     otherwise -> error("Error - incorrect type")		  
+			  else 
 			error("Error - index out of bound!")
 		otherwise -> error("Error - variable is not an array!")
 	False 	-> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
