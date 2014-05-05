@@ -10,7 +10,7 @@ begin
 	table[2]:= jeden;
 	table[3]:= 3;
 //	table[4]:="Zly napis";
-	dwa:="Zly napis";
+//	dwa:="Zly napis";
 	jeden:=table[5];
 	print table[5];
 end.
