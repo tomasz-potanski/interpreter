@@ -1,12 +1,11 @@
 // Program prezentuje implementacje instrukcji warunkowej: if
-var
-	jeden, dwa, result : Integer;
 begin
-	jeden:=1;
-	dwa:=2;
-	result:=0;
-	if jeden < 2 then print "OK" ;
-	if 2 < 3 then result := 2; else result:= 3;
-	print result;
 
+	if jeden < 2 then print "OK" ;
+
+	if 2 < 3 then print "OK"; else print "ZLE";
+
+	if 3 < 2 then print "ZLE"; elif 1 < 2 then print "OK";
+
+//	if 3 < 2 then print "ZLE"; elif 2 < 1 then print "ZLE"; else print "OK";
 end.

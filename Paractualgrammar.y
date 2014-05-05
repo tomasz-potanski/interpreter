@@ -177,12 +177,12 @@ IfStmt1 : 'if' BExp 'then' Stmt 'else' Stmt { IfElse $2 $4 $6 }
 
 
 IfStmt2 :: { IfStmt }
-IfStmt2 : 'if' BExp 'then' Stmt 'elif' BExp Stmt { IfElif $2 $4 $6 $7 } 
+IfStmt2 : 'if' BExp 'then' Stmt 'elif' BExp 'then' Stmt { IfElif $2 $4 $6 $8 } 
   | IfStmt3 { $1 }
 
 
 IfStmt3 :: { IfStmt }
-IfStmt3 : 'if' BExp 'then' Stmt 'elif' BExp Stmt 'else' Stmt { IfElifElse $2 $4 $6 $7 $9 } 
+IfStmt3 : 'if' BExp 'then' Stmt 'elif' BExp 'then' Stmt 'else' Stmt { IfElifElse $2 $4 $6 $8 $10 } 
   | '(' IfStmt ')' { $2 }
 
 
