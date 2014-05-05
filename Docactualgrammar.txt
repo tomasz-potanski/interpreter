@@ -100,6 +100,7 @@ All other symbols are terminals.
   |  |  **|**  | //Ident// ``:=`` ``intToStr`` //Integer// ``;`` 
   |  |  **|**  | //Ident// ``[`` //Integer// ``]`` ``:=`` //BExp// ``;`` 
   |  |  **|**  | //Ident// ``[`` //Integer// ``]`` ``:=`` //BoolLit// ``;`` 
+  |  |  **|**  | //Ident// ``[`` //Integer// ``]`` ``:=`` //String// ``;`` 
   |  |  **|**  | //Ident// ``*=`` //Exp// ``;`` 
   |  |  **|**  | //Ident// ``/=`` //Exp// ``;`` 
   |  |  **|**  | //Ident// ``+=`` //Exp// ``;`` 

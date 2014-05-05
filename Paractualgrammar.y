@@ -164,6 +164,7 @@ Stmt : Ident ':=' Exp ';' { SAss $1 $3 }
   | Ident ':=' 'intToStr' Integer ';' { SAzs $1 $4 }
   | Ident '[' Integer ']' ':=' BExp ';' { SAssArrayBool $1 $3 $6 }
   | Ident '[' Integer ']' ':=' BoolLit ';' { SAssArrayBoolLit $1 $3 $6 }
+  | Ident '[' Integer ']' ':=' String ';' { SAssArrayString $1 $3 $6 }
   | Ident '*=' Exp ';' { SAssMult $1 $3 }
   | Ident '/=' Exp ';' { SAssDiv $1 $3 }
   | Ident '+=' Exp ';' { SAssAdd $1 $3 }

@@ -290,6 +290,18 @@ interpretStmt stmt s = case stmt of
 		otherwise -> error("Error - variable is not an array!")
 	False 	-> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
+    SAssArrayString (Ident x) index string -> case (checkifVarExistsAndIsArray (Ident x) s) of  
+	True 	-> case (M.lookup x s) of 
+	    Just n -> case n of
+		TTArray minn maxx typee mapp -> 
+		    if (index >= minn) && (index <= maxx) then
+                        if typee == TString then M.insert x (TTArray minn maxx typee (M.insert index (TTString str) mapp)) s
+			else error("Error - incorrect assignment type")
+		    else 
+			error("Error - index out of bound!")
+	        otherwise -> error("Error - variable is not an array!")
+	False 	-> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+
     SAssMult (Ident x) exp -> case (checkifVarExists (Ident x) s) of     
 	True ->
 		let valR = (interpretExp exp s)
