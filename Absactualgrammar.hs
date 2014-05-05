@@ -104,7 +104,6 @@ data Type =
  | TString
  | TChar
  | TDouble
- | TArray Integer Type
   deriving (Eq,Ord,Show)
 
 data LitVal =

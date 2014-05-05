@@ -227,7 +227,7 @@ addOneVariable :: Ident -> Type -> TState -> TState
 addOneVariable (Ident ident) typee state = case typee of
 		TInt -> M.insert ident (TTInt 0) state
 		TBool -> M.insert ident (TTBoolean False) state
-		TArray maxx typee -> M.insert ident (TTArray maxx typee M.empty) state
+--		TArray maxx typee -> M.insert ident (TTArray maxx typee M.empty) state
 
 addManyVariables :: [Ident] -> Type -> TState -> TState
 addManyVariables [] typee state = state 

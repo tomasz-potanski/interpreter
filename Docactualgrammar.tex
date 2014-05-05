@@ -55,14 +55,13 @@ The set of reserved words is the set of terminals appearing in the grammar. Thos
 The reserved words used in actualgrammar are the following: \\
 
 \begin{tabular}{lll}
-{\reserved{Array}} &{\reserved{Boolean}} &{\reserved{Char}} \\
-{\reserved{Double}} &{\reserved{False}} &{\reserved{Integer}} \\
-{\reserved{String}} &{\reserved{True}} &{\reserved{begin}} \\
-{\reserved{const}} &{\reserved{do}} &{\reserved{elif}} \\
-{\reserved{else}} &{\reserved{end}} &{\reserved{for}} \\
-{\reserved{if}} &{\reserved{of}} &{\reserved{print}} \\
-{\reserved{program}} &{\reserved{then}} &{\reserved{to}} \\
-{\reserved{var}} &{\reserved{while}} & \\
+{\reserved{Boolean}} &{\reserved{Char}} &{\reserved{Double}} \\
+{\reserved{False}} &{\reserved{Integer}} &{\reserved{String}} \\
+{\reserved{True}} &{\reserved{begin}} &{\reserved{const}} \\
+{\reserved{do}} &{\reserved{elif}} &{\reserved{else}} \\
+{\reserved{end}} &{\reserved{for}} &{\reserved{if}} \\
+{\reserved{print}} &{\reserved{program}} &{\reserved{then}} \\
+{\reserved{to}} &{\reserved{var}} &{\reserved{while}} \\
 \end{tabular}\\
 
 The symbols used in actualgrammar are the following: \\
@@ -77,7 +76,7 @@ The symbols used in actualgrammar are the following: \\
 {\symb{*}} &{\symb{/}} &{\symb{{$|$}{$|$}}} \\
 {\symb{\&\&}} &{\symb{{$<$}}} &{\symb{{$<$}{$=$}}} \\
 {\symb{{$>$}}} &{\symb{{$>$}{$=$}}} &{\symb{{$=$}{$=$}}} \\
-{\symb{!{$=$}}} &{\symb{1}} &{\symb{..}} \\
+{\symb{!{$=$}}} & & \\
 \end{tabular}\\
 
 \subsection*{Comments}
@@ -249,16 +248,6 @@ All other symbols are terminals.\\
  & {\delimit}  &{\terminal{String}}  \\
  & {\delimit}  &{\terminal{Char}}  \\
  & {\delimit}  &{\terminal{Double}}  \\
- & {\delimit}  &{\nonterminal{Type1}}  \\
-\end{tabular}\\
-
-\begin{tabular}{lll}
-{\nonterminal{Type2}} & {\arrow}  &{\terminal{Array}} {\terminal{[}} {\terminal{1}} {\terminal{..}} {\nonterminal{Integer}} {\terminal{]}} {\terminal{of}} {\nonterminal{Type}}  \\
- & {\delimit}  &{\terminal{(}} {\nonterminal{Type}} {\terminal{)}}  \\
-\end{tabular}\\
-
-\begin{tabular}{lll}
-{\nonterminal{Type1}} & {\arrow}  &{\nonterminal{Type2}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
