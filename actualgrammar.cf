@@ -15,13 +15,19 @@ ProgNameHeaderNotBlank.	ProgramNameHeader 	::= "program" Ident ";" ;
 ProgNameHeaderBlank.	ProgramNameHeader 	::=  ;
 
 
---Blockk.		Block	::= ConstantDeclaration VariableDeclaration "begin" [Stmt] "end" ;
+--Blockk.		Block	::= ProcDeclaration ConstantDeclaration VariableDeclaration "begin" [Stmt] "end" ;
 Blockk.		Block	::= VariableDeclaration Stmt2 ;
 
 terminator Stmt "" ;
 
+--------------(Proc Declaration)-----------
+PExists.		ProcDeclaration ::= "proc" [ProcDeclLine] ;
+PDoesntExist.		ProcDeclaration ""= ;
+PLine.			ProcDeclLine ::= "procedure" Ident ";" VariableDeclaration "begin" [Stmt] "end";
+
 -------------(Variables Declaration)---------------
 VBExists.		VariableDeclaration ::=	"var" [VarDeclarationLine] ;
+-- i know it's a english grammar mistake
 VBDoesntExists.		VariableDeclaration ::=	;
 DLList.			VarDeclarationLine    ::= [Ident] ":" Type ";" ;
 
