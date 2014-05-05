@@ -112,6 +112,7 @@ transBExp x = case x of
   BLit boollit  -> failure x
   BIdent id  -> failure x
   BExpArray id n  -> failure x
+  BTExp exp  -> failure x
 
 
 transRelOp :: RelOp -> Result

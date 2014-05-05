@@ -193,6 +193,7 @@ instance Print BExp where
    BLit boollit -> prPrec i 2 (concatD [prt 0 boollit])
    BIdent id -> prPrec i 2 (concatD [prt 0 id])
    BExpArray id n -> prPrec i 2 (concatD [prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]")])
+   BTExp exp -> prPrec i 0 (concatD [prt 0 exp])
 
 
 instance Print RelOp where

@@ -121,7 +121,7 @@ BRel.  	BExp2  	::= Exp RelOp Exp ;
 BLit.	BExp2	::= BoolLit;
 BIdent.	BExp2	::= Ident ;
 BExpArray.	BExp2	::= Ident "[" Integer "]";
---BTExp.	BExp	::= Exp ;	
+BTExp.	BExp	::= Exp ;	
 
 coercions BExp 2 ;
 
