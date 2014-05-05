@@ -194,9 +194,15 @@ interpretStmt stmt s = case stmt of
 
     SAssBoolLit (Ident x) bLit -> case (checkifVarExists (Ident x) s) of  
 	True ->
-		case bLit of
-			BoolLitTrue -> M.insert x (TTBoolean True) s
-			BoolLitFalse -> M.insert x (TTBoolean False) s
+		let boolVal = extractBoolLit bLit
+		in
+		case typee of
+		    TBool -> M.insert x (TTBoolean boolVal) s
+		    TInt -> error("Error - mapa przechowuje Inty - nie chcemy rzutowac")
+		    otherwise -> error("Error - niepoprawny typ")
+--		case bLit of
+--			BoolLitTrue -> M.insert x (TTBoolean True) s
+--			BoolLitFalse -> M.insert x (TTBoolean False) s
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
     SAssBool (Ident x) bexp -> case (checkifVarExists (Ident x) s) of  
 	True ->
