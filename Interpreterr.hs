@@ -179,6 +179,7 @@ interpretStmt stmt s = case stmt of
 	IfElse b stmt1 stmt2 ->
             let cond = (interpretBExp b s)
             in if cond then (interpretStmt stmt1 s) else (interpretStmt stmt2 s)
+	
 
     SWhile b i ->
         let cond = (interpretBExp b s)
