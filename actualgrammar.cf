@@ -54,7 +54,7 @@ SAssArray.	Stmt	::=	Ident "[" Integer "]" ":=" Exp ";" ;
 
 SAssBool.		Stmt	::=	Ident ":=" BExp ";" ;
 SAssBoolLit.		Stmt	::=	Ident ":=" BoolLit ";" ;
-SAssString.		Stmt	::=	Ident ":=" "\"" String """ ";" ;
+SAssString.		Stmt	::=	Ident ":=" "\"" String "\"" ";" ;
 SAssArrayBool.		Stmt	::=	Ident "[" Integer "]" ":=" BExp ";" ;
 SAssArrayBoolLit.	Stmt	::=	Ident "[" Integer "]" ":=" BoolLit ";" ;
 
