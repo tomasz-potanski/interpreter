@@ -1,6 +1,7 @@
 var
 
 	table : Array[1..10] of Integer ;
+	tableBool : Array[1..10] of Boolean;
 	jeden, dwa : Integer;
 
 begin
@@ -16,5 +17,10 @@ begin
 	
 
 	jeden:=table[5];
+	table[6]:=6;
+	table[7]:=7;
+	table[8]:=8;
 	print table[5];
+	print table[6];
+	print table[7];
 end.

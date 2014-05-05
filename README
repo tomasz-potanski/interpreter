@@ -65,7 +65,7 @@ Wymagania na 20 puntków:
 
 Dwie dodatkowe rzeczy z listy:
 1. rekordy						Brak
-2. tablice indeksowane int lub listy			Brak
+2. tablice indeksowane int lub listy			OK
 3. tablice/slowniki indeksowane dowolnymi		Brak
    porównywalnymi wartościami; typ klucza
    należy uwzględnić w typie słownika
