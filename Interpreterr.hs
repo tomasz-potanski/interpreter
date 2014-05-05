@@ -369,6 +369,9 @@ interpretStmt stmt s = case stmt of
         (interpretStmts is (interpretStmt i s))
 	-- !! ZROBIĆ PRINT INACZEJ
     SPrintString str -> showToUser str s
+    SPrintBLit bLit -> case bLit of
+	BoolLitTrue -> showToUser "True" s
+	BoolLitFalse -> showToUser "False" s
 
 --    SPrintExp exp -> 
 --	showToUser (show (interpretExp exp s)) s
