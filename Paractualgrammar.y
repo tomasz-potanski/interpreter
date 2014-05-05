@@ -57,18 +57,19 @@ import ErrM
  'elif' { PT _ (TS _ 40) }
  'else' { PT _ (TS _ 41) }
  'end' { PT _ (TS _ 42) }
- 'for' { PT _ (TS _ 43) }
- 'if' { PT _ (TS _ 44) }
- 'intToStr' { PT _ (TS _ 45) }
- 'of' { PT _ (TS _ 46) }
- 'print' { PT _ (TS _ 47) }
- 'program' { PT _ (TS _ 48) }
- 'strToInt' { PT _ (TS _ 49) }
- 'then' { PT _ (TS _ 50) }
- 'to' { PT _ (TS _ 51) }
- 'var' { PT _ (TS _ 52) }
- 'while' { PT _ (TS _ 53) }
- '||' { PT _ (TS _ 54) }
+ 'endif' { PT _ (TS _ 43) }
+ 'for' { PT _ (TS _ 44) }
+ 'if' { PT _ (TS _ 45) }
+ 'intToStr' { PT _ (TS _ 46) }
+ 'of' { PT _ (TS _ 47) }
+ 'print' { PT _ (TS _ 48) }
+ 'program' { PT _ (TS _ 49) }
+ 'strToInt' { PT _ (TS _ 50) }
+ 'then' { PT _ (TS _ 51) }
+ 'to' { PT _ (TS _ 52) }
+ 'var' { PT _ (TS _ 53) }
+ 'while' { PT _ (TS _ 54) }
+ '||' { PT _ (TS _ 55) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -180,22 +181,22 @@ Stmt1 : '++' Ident ';' { SPreIncr $2 }
 
 
 IfStmt :: { IfStmt }
-IfStmt : 'if' BExp 'then' Stmt { SimpleIf $2 $4 } 
+IfStmt : 'if' BExp 'then' Stmt 'endif' { SimpleIf $2 $4 } 
   | IfStmt1 { $1 }
 
 
 IfStmt1 :: { IfStmt }
-IfStmt1 : 'if' BExp 'then' Stmt 'else' Stmt { IfElse $2 $4 $6 } 
+IfStmt1 : 'if' BExp 'then' Stmt 'else' Stmt 'endif' { IfElse $2 $4 $6 } 
   | IfStmt2 { $1 }
 
 
 IfStmt2 :: { IfStmt }
-IfStmt2 : 'if' BExp 'then' Stmt 'elif' BExp 'then' Stmt { IfElif $2 $4 $6 $8 } 
+IfStmt2 : 'if' BExp 'then' Stmt 'elif' BExp 'then' Stmt 'endif' { IfElif $2 $4 $6 $8 } 
   | IfStmt3 { $1 }
 
 
 IfStmt3 :: { IfStmt }
-IfStmt3 : 'if' BExp 'then' Stmt 'elif' BExp 'then' Stmt 'else' Stmt { IfElifElse $2 $4 $6 $8 $10 } 
+IfStmt3 : 'if' BExp 'then' Stmt 'elif' BExp 'then' Stmt 'else' Stmt 'endif' { IfElifElse $2 $4 $6 $8 $10 } 
   | '(' IfStmt ')' { $2 }
 
 

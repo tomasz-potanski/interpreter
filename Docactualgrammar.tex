@@ -59,11 +59,11 @@ The reserved words used in actualgrammar are the following: \\
 {\reserved{Double}} &{\reserved{False}} &{\reserved{Integer}} \\
 {\reserved{String}} &{\reserved{True}} &{\reserved{begin}} \\
 {\reserved{const}} &{\reserved{do}} &{\reserved{elif}} \\
-{\reserved{else}} &{\reserved{end}} &{\reserved{for}} \\
-{\reserved{if}} &{\reserved{intToStr}} &{\reserved{of}} \\
-{\reserved{print}} &{\reserved{program}} &{\reserved{strToInt}} \\
-{\reserved{then}} &{\reserved{to}} &{\reserved{var}} \\
-{\reserved{while}} & & \\
+{\reserved{else}} &{\reserved{end}} &{\reserved{endif}} \\
+{\reserved{for}} &{\reserved{if}} &{\reserved{intToStr}} \\
+{\reserved{of}} &{\reserved{print}} &{\reserved{program}} \\
+{\reserved{strToInt}} &{\reserved{then}} &{\reserved{to}} \\
+{\reserved{var}} &{\reserved{while}} & \\
 \end{tabular}\\
 
 The symbols used in actualgrammar are the following: \\
@@ -184,22 +184,22 @@ All other symbols are terminals.\\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{IfStmt}} & {\arrow}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}}  \\
+{\nonterminal{IfStmt}} & {\arrow}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}} {\terminal{endif}}  \\
  & {\delimit}  &{\nonterminal{IfStmt1}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{IfStmt1}} & {\arrow}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}} {\terminal{else}} {\nonterminal{Stmt}}  \\
+{\nonterminal{IfStmt1}} & {\arrow}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}} {\terminal{else}} {\nonterminal{Stmt}} {\terminal{endif}}  \\
  & {\delimit}  &{\nonterminal{IfStmt2}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{IfStmt2}} & {\arrow}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}} {\terminal{elif}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}}  \\
+{\nonterminal{IfStmt2}} & {\arrow}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}} {\terminal{elif}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}} {\terminal{endif}}  \\
  & {\delimit}  &{\nonterminal{IfStmt3}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{IfStmt3}} & {\arrow}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}} {\terminal{elif}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}} {\terminal{else}} {\nonterminal{Stmt}}  \\
+{\nonterminal{IfStmt3}} & {\arrow}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}} {\terminal{elif}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}} {\terminal{else}} {\nonterminal{Stmt}} {\terminal{endif}}  \\
  & {\delimit}  &{\terminal{(}} {\nonterminal{IfStmt}} {\terminal{)}}  \\
 \end{tabular}\\
 

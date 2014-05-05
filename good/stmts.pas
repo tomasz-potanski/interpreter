@@ -26,8 +26,8 @@ begin
 	x := x + 1 ;
 	y := x + 3 ;
 	z := 1 ;
-	if z < 2 then print "OK" ;
-	if z < 3 then print z ;
+	if z < 2 then print "OK" endif;
+	if z < 3 then print z endif;
 	print 'a';
 	
 	n := 10 ;

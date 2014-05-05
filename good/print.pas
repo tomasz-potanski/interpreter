@@ -13,5 +13,8 @@ begin
 
 	x := 2;
 	print x;
+	print x+2;
+	print 3*7;
+	print False;
 
 end.

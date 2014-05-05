@@ -44,10 +44,10 @@ The reserved words used in actualgrammar are the following:
   | ``Array`` | ``Boolean`` | ``Char`` | ``Double``
   | ``False`` | ``Integer`` | ``String`` | ``True``
   | ``begin`` | ``const`` | ``do`` | ``elif``
-  | ``else`` | ``end`` | ``for`` | ``if``
-  | ``intToStr`` | ``of`` | ``print`` | ``program``
-  | ``strToInt`` | ``then`` | ``to`` | ``var``
-  | ``while`` |  |  | 
+  | ``else`` | ``end`` | ``endif`` | ``for``
+  | ``if`` | ``intToStr`` | ``of`` | ``print``
+  | ``program`` | ``strToInt`` | ``then`` | ``to``
+  | ``var`` | ``while`` |  | 
 
 The symbols used in actualgrammar are the following:
   | . | ; | : | ,
@@ -113,13 +113,13 @@ All other symbols are terminals.
   | //Stmt1// | -> | ``++`` //Ident// ``;`` 
   |  |  **|**  | ``--`` //Ident// ``;`` 
   |  |  **|**  | //Stmt2// 
-  | //IfStmt// | -> | ``if`` //BExp// ``then`` //Stmt// 
+  | //IfStmt// | -> | ``if`` //BExp// ``then`` //Stmt// ``endif`` 
   |  |  **|**  | //IfStmt1// 
-  | //IfStmt1// | -> | ``if`` //BExp// ``then`` //Stmt// ``else`` //Stmt// 
+  | //IfStmt1// | -> | ``if`` //BExp// ``then`` //Stmt// ``else`` //Stmt// ``endif`` 
   |  |  **|**  | //IfStmt2// 
-  | //IfStmt2// | -> | ``if`` //BExp// ``then`` //Stmt// ``elif`` //BExp// ``then`` //Stmt// 
+  | //IfStmt2// | -> | ``if`` //BExp// ``then`` //Stmt// ``elif`` //BExp// ``then`` //Stmt// ``endif`` 
   |  |  **|**  | //IfStmt3// 
-  | //IfStmt3// | -> | ``if`` //BExp// ``then`` //Stmt// ``elif`` //BExp// ``then`` //Stmt// ``else`` //Stmt// 
+  | //IfStmt3// | -> | ``if`` //BExp// ``then`` //Stmt// ``elif`` //BExp// ``then`` //Stmt// ``else`` //Stmt// ``endif`` 
   |  |  **|**  | ``(`` //IfStmt// ``)`` 
   | //Exp// | -> | //Exp// ``+`` //Exp1// 
   |  |  **|**  | //Exp// ``-`` //Exp1// 
