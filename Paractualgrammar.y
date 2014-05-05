@@ -197,8 +197,7 @@ Printable1 : Ident { SPId $1 }
 
 
 Printable :: { Printable }
-Printable : Exp2 { SPExp $1 } 
-  | Printable1 { $1 }
+Printable : Printable1 { $1 } 
 
 
 Exp :: { Exp }
