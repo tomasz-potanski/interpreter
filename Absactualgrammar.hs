@@ -65,8 +65,6 @@ data Stmt =
 data IfStmt =
    SimpleIf BExp Stmt
  | IfElse BExp Stmt Stmt
- | IfElif BExp Stmt Stmt
- | IfElifElse BExp Stmt Stmt Stmt
   deriving (Eq,Ord,Show)
 
 data Exp =

@@ -86,8 +86,6 @@ transIfStmt :: IfStmt -> Result
 transIfStmt x = case x of
   SimpleIf bexp stmt  -> failure x
   IfElse bexp stmt1 stmt2  -> failure x
-  IfElif bexp stmt1 stmt2  -> failure x
-  IfElifElse bexp stmt1 stmt2 stmt3  -> failure x
 
 
 transExp :: Exp -> Result
