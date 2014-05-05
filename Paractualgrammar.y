@@ -40,28 +40,32 @@ import ErrM
  '==' { PT _ (TS _ 23) }
  '>' { PT _ (TS _ 24) }
  '>=' { PT _ (TS _ 25) }
- 'Boolean' { PT _ (TS _ 26) }
- 'Char' { PT _ (TS _ 27) }
- 'Double' { PT _ (TS _ 28) }
- 'False' { PT _ (TS _ 29) }
- 'Integer' { PT _ (TS _ 30) }
- 'String' { PT _ (TS _ 31) }
- 'True' { PT _ (TS _ 32) }
- 'begin' { PT _ (TS _ 33) }
- 'const' { PT _ (TS _ 34) }
- 'do' { PT _ (TS _ 35) }
- 'elif' { PT _ (TS _ 36) }
- 'else' { PT _ (TS _ 37) }
- 'end' { PT _ (TS _ 38) }
- 'for' { PT _ (TS _ 39) }
- 'if' { PT _ (TS _ 40) }
- 'print' { PT _ (TS _ 41) }
- 'program' { PT _ (TS _ 42) }
- 'then' { PT _ (TS _ 43) }
- 'to' { PT _ (TS _ 44) }
- 'var' { PT _ (TS _ 45) }
- 'while' { PT _ (TS _ 46) }
- '||' { PT _ (TS _ 47) }
+ 'Array' { PT _ (TS _ 26) }
+ 'Boolean' { PT _ (TS _ 27) }
+ 'Char' { PT _ (TS _ 28) }
+ 'Double' { PT _ (TS _ 29) }
+ 'False' { PT _ (TS _ 30) }
+ 'Integer' { PT _ (TS _ 31) }
+ 'String' { PT _ (TS _ 32) }
+ 'True' { PT _ (TS _ 33) }
+ '[' { PT _ (TS _ 34) }
+ ']' { PT _ (TS _ 35) }
+ 'begin' { PT _ (TS _ 36) }
+ 'const' { PT _ (TS _ 37) }
+ 'do' { PT _ (TS _ 38) }
+ 'elif' { PT _ (TS _ 39) }
+ 'else' { PT _ (TS _ 40) }
+ 'end' { PT _ (TS _ 41) }
+ 'for' { PT _ (TS _ 42) }
+ 'if' { PT _ (TS _ 43) }
+ 'of' { PT _ (TS _ 44) }
+ 'print' { PT _ (TS _ 45) }
+ 'program' { PT _ (TS _ 46) }
+ 'then' { PT _ (TS _ 47) }
+ 'to' { PT _ (TS _ 48) }
+ 'var' { PT _ (TS _ 49) }
+ 'while' { PT _ (TS _ 50) }
+ '||' { PT _ (TS _ 51) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -234,6 +238,16 @@ Type : 'Integer' { TInt }
   | 'String' { TString }
   | 'Char' { TChar }
   | 'Double' { TDouble }
+  | Type1 { $1 }
+
+
+Type2 :: { Type }
+Type2 : 'Array' '[' Integer ']' 'of' Type { TArray $3 $6 } 
+  | '(' Type ')' { $2 }
+
+
+Type1 :: { Type }
+Type1 : Type2 { $1 } 
 
 
 LitVal :: { LitVal }

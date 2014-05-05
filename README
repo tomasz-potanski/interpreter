@@ -45,7 +45,7 @@ Funkcjonalności zrealizowane (w częsci drugiej):
 Wymaganie na 16 pkt.
 1. Dwa typy wartości: Integer i Boolean			OK
 2. Arytmetyka, porównania				OK
-3. While, if (if _ elif _ else _ endif)			Brak (tylko podstawowe)
+3. While, if (if _ elif _ else _ endif)			OK
 4. Funkcje/procedury bez zagnieżdżania, rekurencja	Brak
 5. Jawne wypisywanie wartości na wyjście: print/write	OK
 
