@@ -193,7 +193,7 @@ interpretStmt stmt s = case stmt of
 	False 	-> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
     SAssBoolLit (Ident x) bLit -> case (checkifVarExists (Ident x) s) of  
-	True ->
+	True -> case bLit of
 			BoolLitTrue -> M.insert x (TTBoolean True) s
 			BoolLitFalse -> M.insert x (TTBoolean False) s
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
