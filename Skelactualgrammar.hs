@@ -102,7 +102,6 @@ transExp x = case x of
   EInt n  -> failure x
   EId id  -> failure x
   EArray id n  -> failure x
-  EBool bexp  -> failure x
 
 
 transBExp :: BExp -> Result

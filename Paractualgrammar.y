@@ -210,7 +210,6 @@ Exp2 :: { Exp }
 Exp2 : Integer { EInt $1 } 
   | Ident { EId $1 }
   | Ident '[' Integer ']' { EArray $1 $3 }
-  | BExp { EBool $1 }
   | '(' Exp ')' { $2 }
 
 

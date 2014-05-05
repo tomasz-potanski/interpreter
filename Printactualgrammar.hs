@@ -183,7 +183,6 @@ instance Print Exp where
    EInt n -> prPrec i 2 (concatD [prt 0 n])
    EId id -> prPrec i 2 (concatD [prt 0 id])
    EArray id n -> prPrec i 2 (concatD [prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]")])
-   EBool bexp -> prPrec i 2 (concatD [prt 0 bexp])
 
 
 instance Print BExp where

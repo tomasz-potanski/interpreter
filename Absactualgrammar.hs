@@ -80,7 +80,6 @@ data Exp =
  | EInt Integer
  | EId Ident
  | EArray Ident Integer
- | EBool BExp
   deriving (Eq,Ord,Show)
 
 data BExp =
