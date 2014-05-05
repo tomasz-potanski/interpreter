@@ -192,8 +192,7 @@ IfStmt3 : 'if' BExp 'then' Stmt 'elif' BExp 'then' Stmt 'else' Stmt { IfElifElse
 
 
 Printable :: { Printable }
-Printable : Ident { SPId $1 } 
-  | Exp { SPExp $1 }
+Printable : Exp { SPExp $1 } 
 
 
 Exp :: { Exp }
