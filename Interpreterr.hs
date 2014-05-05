@@ -41,6 +41,16 @@ extractBoolLit b = case b of
 	BoolLitTrue -> True
 	BoolLitFalse -> False
 
+boolToInt :: Bool -> Integer
+boolToInt b = case b of
+	True -> 1
+	False -> 0
+
+intToBool :: Integer -> Bool
+intToBool i = case i of 
+	0 -> False
+	otherwise -> True
+
 intToStr :: Integer -> String
 intToStr i = (show i)
 
@@ -193,12 +203,16 @@ interpretStmt stmt s = case stmt of
     SAssStrToInt (Ident x) str -> case (checkifVarExists (Ident x) s) of  
 	True -> let val = (strToInt str)
         	in 
-		  case (M.lookup x s) of
-		    TInt -> M.insert x (TTInt val) s
-		    TString -> error("Error - invalid types")
-		    TBool -> if (val == 0) || (val == 1) then M.insert x (TTBoolean val) s
-		    otherwise -> error("Error - invalid types")
+		    case (M.lookup x s) of
+			Just n -> case n of
+				TTInt _ -> (M.insert x (TTInt val) s)
+				TTString _ -> error("Error - incorrect types")
+				TTBoolean _ -> if (val == 0) || (val == 1) then
+					(M.insert x (TTBoolean (intToBool val)) s) else s
+				otherwise -> error("Error - incorrect types")
+			Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+
     SAssString (Ident x) str -> case (checkifVarExists (Ident x) s) of  
 	True -> case (M.lookup x s) of
 	    Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
