@@ -164,6 +164,7 @@ Stmt : Ident ':=' Exp ';' { SAss $1 $3 }
   | 'while' BExp 'do' Stmt { SWhile $2 $4 }
   | 'for' Ident ':=' Exp 'to' Exp 'do' Stmt { SFor $2 $4 $6 $8 }
   | 'print' Ident ';' { SPrintId $2 }
+  | 'print' Ident '[' Integer ']' ';' { SPrintArray $2 $4 }
   | 'print' LitVal ';' { SPrint $2 }
   | Stmt1 { $1 }
 

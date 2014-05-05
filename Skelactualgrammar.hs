@@ -82,6 +82,7 @@ transStmt x = case x of
   SWhile bexp stmt  -> failure x
   SFor id exp1 exp2 stmt3  -> failure x
   SPrintId id  -> failure x
+  SPrintArray id n  -> failure x
   SPrint litval  -> failure x
 
 

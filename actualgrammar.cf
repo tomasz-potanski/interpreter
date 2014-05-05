@@ -87,6 +87,7 @@ coercions 	IfStmt 	3;
 SWhile.		Stmt	::=	"while" BExp "do" Stmt ; 
 SFor.       	Stmt 	::= 	"for" Ident ":=" Exp "to" Exp "do" Stmt;
 SPrintId.	Stmt	::=	"print" Ident ";" ;
+SPrintArray.	Stmt	::=	"print" Ident "[" Integer "]" ";" ;
 SPrint.		Stmt	::=	"print" LitVal ";" ;
 
 --SPrintString.	Stmt	::=	"print" String ";" ;

@@ -160,6 +160,7 @@ instance Print Stmt where
    SWhile bexp stmt -> prPrec i 0 (concatD [doc (showString "while") , prt 0 bexp , doc (showString "do") , prt 0 stmt])
    SFor id exp0 exp stmt -> prPrec i 0 (concatD [doc (showString "for") , prt 0 id , doc (showString ":=") , prt 0 exp0 , doc (showString "to") , prt 0 exp , doc (showString "do") , prt 0 stmt])
    SPrintId id -> prPrec i 0 (concatD [doc (showString "print") , prt 0 id , doc (showString ";")])
+   SPrintArray id n -> prPrec i 0 (concatD [doc (showString "print") , prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ";")])
    SPrint litval -> prPrec i 0 (concatD [doc (showString "print") , prt 0 litval , doc (showString ";")])
 
   prtList es = case es of

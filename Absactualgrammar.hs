@@ -62,6 +62,7 @@ data Stmt =
  | SWhile BExp Stmt
  | SFor Ident Exp Exp Stmt
  | SPrintId Ident
+ | SPrintArray Ident Integer
  | SPrint LitVal
   deriving (Eq,Ord,Show)
 
