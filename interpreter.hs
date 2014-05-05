@@ -51,7 +51,7 @@ main = do
 		 hPutStrLn stderr "Error"
 		 hPutStrLn stderr s
 --            Ok i -> return()
-            Ok i -> putStrLn (show (M.toList (interpretFile i)))
+            Ok i -> putStrLn (show (M.toList (fst (interpretFile i))))
 
     else do
 	fileContent <- getContents
@@ -60,4 +60,4 @@ main = do
 		 hPutStrLn stderr "Error"
 		 hPutStrLn stderr s
 --            Ok i -> return()
-            Ok i -> putStrLn (show (M.toList (interpretFile i)))
+            Ok i -> putStrLn (show (M.toList (fst (interpretFile i))))

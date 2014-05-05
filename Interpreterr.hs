@@ -216,7 +216,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
         	in 
 		    case (M.lookup x extState) of
 			Just n -> case n of
-				TTInt _ -> ((M.insert x (TTInt val) s), funcMap)
+				TTInt _ -> ((M.insert x (TTInt val) extState), funcMap)
 				TTString _ -> error("Error - incorrect types")
 				TTBoolean _ -> if (val == 0) || (val == 1) then
 					((M.insert x (TTBoolean (intToBool val)) extState), funcMap) else s
@@ -240,7 +240,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	True -> case (M.lookup x extState) of
 	    Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 	    Just m -> case m of
-	        TTString _ -> (M.insert x (TTString str) extState), funcMap)
+	        TTString _ -> ((M.insert x (TTString str) extState), funcMap)
 	        otherwise -> error("Error - incorrect type - nie rzutujemy")
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
     SAssArray (Ident x) index exp -> case (checkifVarExistsAndIsArray (Ident x) s) of  
@@ -263,7 +263,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
     SAssBoolLit (Ident x) bLit -> case (checkifVarExists (Ident x) s) of  
 	True -> case bLit of
 			BoolLitTrue -> (M.insert x (TTBoolean True) extState, funcMap)
-			BoolLitFalse -> )M.insert x (TTBoolean False) extState, funcMap)
+			BoolLitFalse -> (M.insert x (TTBoolean False) extState, funcMap)
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
     SAssBool (Ident x) bexp -> case (checkifVarExists (Ident x) s) of  
 	True ->
@@ -329,7 +329,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	True ->
 		let valR = (interpretExp exp s)
 		in let valL = (variableValueInt (Ident x) s)
-		in (M.insert x (TTInt (valL + valR)) s, funcMap)
+		in (M.insert x (TTInt (valL + valR)) extState, funcMap)
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
     SAssSub (Ident x) exp -> case (checkifVarExists (Ident x) s) of
 	True ->
@@ -341,12 +341,12 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
     SPreIncr (Ident x) -> case (checkifVarExists (Ident x) s) of
 	True -> let valL = (variableValueInt (Ident x) s)
 		in 
-			(M.insert x (TTInt (valL + 1)) s, funcMap)
+			(M.insert x (TTInt (valL + 1)) extState, funcMap)
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
     SPreDecr (Ident x) -> case (checkifVarExists (Ident x) s) of
 	True -> let valL = (variableValueInt (Ident x) s)
 		in 
-			(M.insert x (TTInt (valL - 1)) s, funcMap)
+			(M.insert x (TTInt (valL - 1)) extState, funcMap)
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
     SIf kind -> case kind of
@@ -379,7 +379,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	  v1 = interpretExp exp0 s
 	  v2 = interpretExp exp1 s
 	  new_state = (M.insert ident (TTInt v1) extState, funcMap)
-	  forfor n s = if (n < 0) then s else forfor (n-1) (interpretStmt stmt ((M.insert ident (TTInt (v2 - n)) s), funcMap))
+	  forfor n s = if (n < 0) then s else forfor (n-1) (interpretStmt stmt ((M.insert ident (TTInt (v2 - n)) extState), funcMap))
 	in
    	  if (v1 < v2) then forfor (v2 - v1) new_state else s    
     SBlock [] -> s
@@ -391,7 +391,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	BoolLitTrue -> showToUser "True" s
 	BoolLitFalse -> showToUser "False" s
     SPrintId (Ident x) -> case (checkifVarExists (Ident x) s) of
-	True -> case (M.lookup x s) of
+	True -> case (M.lookup x extState) of
 	    Just mm -> case mm of
 	        TTInt val -> (showToUser (intToStr val) s)
 		TTBoolean val -> case val of
@@ -402,7 +402,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	    Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
-    SPrintArray (Ident x) index -> case (M.lookup x s) of
+    SPrintArray (Ident x) index -> case (M.lookup x extState) of
         Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
         Just n -> case n of
             TTArray minn maxx typee mapp -> 
@@ -444,12 +444,12 @@ simpleAddOneVar (Ident x) value (state, funcMap) = ((M.insert x value state), fu
 -------------------BEGINNING, DECLARATIONS, ...---------------
 addOneVariable :: Ident -> Type -> TState3 -> TState3
 addOneVariable (Ident ident) typee state = case typee of
-		TInt -> simpleAddOneVar ident (TTInt 0) state
-		TBool -> simpleAddOneVar ident (TTBoolean False) state
-		TString -> simpleAddOneVar ident (TTString "") state
+		TInt -> simpleAddOneVar (Ident ident) (TTInt 0) state
+		TBool -> simpleAddOneVar (Ident ident) (TTBoolean False) state
+		TString -> simpleAddOneVar (Ident ident) (TTString "") state
 		TArray minn maxx typee -> 
 			if (minn < maxx) && (minn >= 0) then 
-				simpleAddOneVar ident (TTArray minn maxx typee M.empty) state
+				simpleAddOneVar (Ident ident) (TTArray minn maxx typee M.empty) state
 			else 
 				error("Error - incorrect table index range!")	
 
@@ -470,7 +470,7 @@ addManyVariables [] typee state = state
 addManyVariables ((Ident ident):tl) typee state = 
 	addManyVariables tl typee (addOneVariable (Ident ident) typee state)
 
-declareNewVariables :: VariableDeclaration -> TStat3 -> TState3
+declareNewVariables :: VariableDeclaration -> TState3 -> TState3
 declareNewVariables vars state = case vars of
 	VBDoesntExists -> state
 	VBExists [] -> state
@@ -483,5 +483,5 @@ declareNewVariables vars state = case vars of
 -------------INTERPRET FILE------------
 interpretFile :: Program -> TState3
 --interpretFile (Programm programNameHeader (Blockk variableDeclaration stmts)) = interpretStmt stmts (declareNewVariables variableDeclaration (M.empty, M.empty, M.empty))
-interpretFile (Programm programNameHeader (Blockk variableDeclaration stmts)) = interpretStmt stmts (declareNewVariables variableDeclaration M.empty)
+interpretFile (Programm programNameHeader (Blockk variableDeclaration stmts)) = interpretStmt stmts (declareNewVariables variableDeclaration (M.empty, M.empty))
 --interpretFile :: Program -> TState
