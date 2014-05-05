@@ -261,10 +261,12 @@ interpretStmt stmt s = case stmt of
 	SPId (Ident x) 	-> case (checkifVarExists (Ident x) s) of
 	    False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 	    True -> case (M.lookup x s) of
-		TTInt i 	-> showToUser (show i) s
-		TTBoolean b 	-> 
-			if b then showToUser "True" s
-			else showToUser "False" s
+		Just n -> case n of
+			TTInt i 	-> showToUser (show i) s
+			TTBoolean b 	-> 
+				if b then showToUser "True" s
+				else showToUser "False" s
+		Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 	SPExp exp 	-> showToUser (show (interpretExp exp s)) s
 
 --    SPrintExp exp -> 
