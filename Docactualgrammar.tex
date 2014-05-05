@@ -58,10 +58,10 @@ The reserved words used in actualgrammar are the following: \\
 {\reserved{Boolean}} &{\reserved{Char}} &{\reserved{Double}} \\
 {\reserved{False}} &{\reserved{Integer}} &{\reserved{String}} \\
 {\reserved{True}} &{\reserved{begin}} &{\reserved{const}} \\
-{\reserved{do}} &{\reserved{else}} &{\reserved{end}} \\
-{\reserved{for}} &{\reserved{if}} &{\reserved{print}} \\
-{\reserved{program}} &{\reserved{then}} &{\reserved{to}} \\
-{\reserved{var}} &{\reserved{while}} & \\
+{\reserved{do}} &{\reserved{elif}} &{\reserved{else}} \\
+{\reserved{end}} &{\reserved{for}} &{\reserved{if}} \\
+{\reserved{print}} &{\reserved{program}} &{\reserved{then}} \\
+{\reserved{to}} &{\reserved{var}} &{\reserved{while}} \\
 \end{tabular}\\
 
 The symbols used in actualgrammar are the following: \\
@@ -182,6 +182,14 @@ All other symbols are terminals.\\
 \begin{tabular}{lll}
 {\nonterminal{IfStmt1}} & {\arrow}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}} {\terminal{else}} {\nonterminal{Stmt}}  \\
  & {\delimit}  &{\terminal{(}} {\nonterminal{IfStmt}} {\terminal{)}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{IfStmt2}} & {\arrow}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}} {\terminal{elif}} {\nonterminal{Stmt}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{IfStmt3}} & {\arrow}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}} {\terminal{elif}} {\nonterminal{Stmt}} {\terminal{else}} {\nonterminal{Stmt}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}

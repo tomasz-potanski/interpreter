@@ -65,8 +65,8 @@ SPreDecr.    	Stmt1 	::= 	"--" Ident ";" ;
 SIf.			Stmt	::= IfStmt;
 SimpleIf.		IfStmt	::= "if" BExp "then" Stmt ;
 IfElse.			IfStmt1	::= "if" BExp "then" Stmt "else" Stmt;
---IfElif.		IfStmt2	::= "if" BExp "then" Stmt "elif" Stmt;
---IfElifElse.		IfStmt3	::= "if" BExp "then" Stmt "elif" Stmt "else" Stmt;
+IfElif.		IfStmt2	::= "if" BExp "then" Stmt "elif" Stmt;
+IfElifElse.		IfStmt3	::= "if" BExp "then" Stmt "elif" Stmt "else" Stmt;
 coercions 	IfStmt 	1; 
 
 --SIf.			Stmt	::=	"if" BExp "then" Stmt ElIfBlock ElseBlock;
