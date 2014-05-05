@@ -119,7 +119,7 @@ BOr.  	BExp   	::= BExp "||" BExp1 ;
 BAnd. 	BExp1  	::= BExp1 "&&" BExp2 ;
 BRel.  	BExp2  	::= Exp RelOp Exp ;
 BLit.	BExp2	::= BoolLit;
-BExp.	BExp2	::= Ident ;
+BIdent.	BExp2	::= Ident ;
 BExpArray.	BExp2	::= Ident "[" Integer "]";
 --BTExp.	BExp	::= Exp ;	
 

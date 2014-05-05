@@ -110,7 +110,7 @@ transBExp x = case x of
   BAnd bexp1 bexp2  -> failure x
   BRel exp1 relop2 exp3  -> failure x
   BLit boollit  -> failure x
-  BExp id  -> failure x
+  BIdent id  -> failure x
   BExpArray id n  -> failure x
 
 

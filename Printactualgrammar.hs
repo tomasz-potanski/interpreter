@@ -191,7 +191,7 @@ instance Print BExp where
    BAnd bexp0 bexp -> prPrec i 1 (concatD [prt 1 bexp0 , doc (showString "&&") , prt 2 bexp])
    BRel exp0 relop exp -> prPrec i 2 (concatD [prt 0 exp0 , prt 0 relop , prt 0 exp])
    BLit boollit -> prPrec i 2 (concatD [prt 0 boollit])
-   BExp id -> prPrec i 2 (concatD [prt 0 id])
+   BIdent id -> prPrec i 2 (concatD [prt 0 id])
    BExpArray id n -> prPrec i 2 (concatD [prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]")])
 
 

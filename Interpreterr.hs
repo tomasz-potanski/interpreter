@@ -124,7 +124,7 @@ interpretBExp b s = case b of
 	BLit boolLit -> case boolLit of 
 		BoolLitTrue -> True
 		BoolLitFalse -> False
-	BExp (Ident x) -> case (checkifVarExists (Ident x) s) of
+	BIdent (Ident x) -> case (checkifVarExists (Ident x) s) of
 		True -> case (M.lookup x s) of 
 		    Just n -> case n of
 			TTBoolean b -> b
@@ -132,6 +132,23 @@ interpretBExp b s = case b of
 			otherwise -> False
 		    Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 		False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+
+	BExpArray (Ident x) index -> case (checkifVarExistsAndIsArray (Ident x) s) of
+		True -> case (M.lookup x s) of 
+		    Just n -> case n of
+			TTArray minn maxx typee mapp -> 
+				if (index >= minn) && (index <= maxx) then
+					case (M.lookup index mapp) of
+					    Nothing -> False
+					    Just m -> case m of
+						TTBoolean w -> w
+						TTInt w -> if w == 0 then False else True
+						otherwise -> False
+				else error("Error - array index out of bound!")
+			otherwise -> False
+		    Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+		False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+	
 	BRel exp1 relOp exp2 -> case relOp of
 		LTH -> (interpretExp exp1 s) < (interpretExp exp2 s)
 		LE -> (interpretExp exp1 s) <= (interpretExp exp2 s)
