@@ -88,6 +88,7 @@ data BExp =
  | BRel Exp RelOp Exp
  | BLit BoolLit
  | BExp Ident
+ | BExpArray Ident Integer
   deriving (Eq,Ord,Show)
 
 data RelOp =

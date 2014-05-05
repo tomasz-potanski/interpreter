@@ -111,6 +111,7 @@ transBExp x = case x of
   BRel exp1 relop2 exp3  -> failure x
   BLit boollit  -> failure x
   BExp id  -> failure x
+  BExpArray id n  -> failure x
 
 
 transRelOp :: RelOp -> Result
