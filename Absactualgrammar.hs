@@ -47,6 +47,7 @@ data BoolLit =
 data Stmt =
    SBlock [Stmt]
  | SAss Ident Exp
+ | SAssArray Ident Integer Exp
  | SAssBool Ident BExp
  | SAssBoolLit Ident BoolLit
  | SAssMult Ident Exp
@@ -76,6 +77,7 @@ data Exp =
  | EDiv Exp Exp
  | EInt Integer
  | EId Ident
+ | EArray Ident Integer
   deriving (Eq,Ord,Show)
 
 data BExp =

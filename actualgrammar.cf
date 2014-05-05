@@ -50,6 +50,8 @@ BoolLitFalse.	BoolLit	::=	"False" ;
 SBlock.		Stmt2	::=	"begin" [Stmt] "end" ;
 
 SAss.		Stmt	::=	Ident ":=" Exp ";" ;
+SAssArray.	Stmt	::=	Ident "[" Integer "]" ":=" Exp ";" ;
+
 SAssBool.	Stmt	::=	Ident ":=" BExp ";" ;
 SAssBoolLit.	Stmt	::=	Ident ":=" BoolLit ";" ;
 
@@ -103,6 +105,7 @@ EMul. 	Exp1 	::= 	Exp1 	"*" 	Exp2 	;
 EDiv. 	Exp1 	::= 	Exp1 	"/" 	Exp2 	;
 EInt. 	Exp2 	::= 	Integer 	;
 EId.	Exp2	::=	Ident	;
+EArray. Exp2	::= 	Ident "[" Integer "]" ;
 coercions 	Exp 	2 	;
 --EAss.		Exp 	::=	Ident "=" Exp ;
 

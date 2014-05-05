@@ -151,6 +151,7 @@ Stmt2 : 'begin' ListStmt 'end' { SBlock (reverse $2) }
 
 Stmt :: { Stmt }
 Stmt : Ident ':=' Exp ';' { SAss $1 $3 } 
+  | Ident '[' Integer ']' ':=' Exp ';' { SAssArray $1 $3 $6 }
   | Ident ':=' BExp ';' { SAssBool $1 $3 }
   | Ident ':=' BoolLit ';' { SAssBoolLit $1 $3 }
   | Ident '*=' Exp ';' { SAssMult $1 $3 }
@@ -206,6 +207,7 @@ Exp1 : Exp1 '*' Exp2 { EMul $1 $3 }
 Exp2 :: { Exp }
 Exp2 : Integer { EInt $1 } 
   | Ident { EId $1 }
+  | Ident '[' Integer ']' { EArray $1 $3 }
   | '(' Exp ')' { $2 }
 
 

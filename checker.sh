@@ -36,7 +36,7 @@ do
 		errors=$((errors + 1))
 	fi
 
-	if [ `./interpreter $file 2>&1 | grep "Error" | wc -l` = 0 ]
+	if [ `./interpreter $file 2>&1 | grep -E "Error|Non-exhaustive pat" | wc -l` = 0 ]
 	then
 		echo "|||    $green \binterpreter: OK$reset"
 	else 

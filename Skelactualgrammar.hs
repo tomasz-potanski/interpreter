@@ -67,6 +67,7 @@ transStmt :: Stmt -> Result
 transStmt x = case x of
   SBlock stmts  -> failure x
   SAss id exp  -> failure x
+  SAssArray id n exp  -> failure x
   SAssBool id bexp  -> failure x
   SAssBoolLit id boollit  -> failure x
   SAssMult id exp  -> failure x
@@ -98,6 +99,7 @@ transExp x = case x of
   EDiv exp1 exp2  -> failure x
   EInt n  -> failure x
   EId id  -> failure x
+  EArray id n  -> failure x
 
 
 transBExp :: BExp -> Result
