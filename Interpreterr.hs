@@ -213,7 +213,7 @@ interpretStmt stmt s = case stmt of
 			Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
-    SAzs (Ident x) (Integer intt) -> case (checkifVarExists (Ident x) s) of  
+    SAzs (Ident x) intt -> case (checkifVarExists (Ident x) s) of  
 	True -> let val = (intToStr intt)
         	in 
 		    case (M.lookup x s) of
