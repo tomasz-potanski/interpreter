@@ -36,40 +36,42 @@ import ErrM
  ':=' { PT _ (TS _ 19) }
  ';' { PT _ (TS _ 20) }
  '<' { PT _ (TS _ 21) }
- '<=' { PT _ (TS _ 22) }
- '=' { PT _ (TS _ 23) }
- '==' { PT _ (TS _ 24) }
- '>' { PT _ (TS _ 25) }
- '>=' { PT _ (TS _ 26) }
- 'Array' { PT _ (TS _ 27) }
- 'Boolean' { PT _ (TS _ 28) }
- 'Char' { PT _ (TS _ 29) }
- 'Double' { PT _ (TS _ 30) }
- 'False' { PT _ (TS _ 31) }
- 'Integer' { PT _ (TS _ 32) }
- 'String' { PT _ (TS _ 33) }
- 'True' { PT _ (TS _ 34) }
- '[' { PT _ (TS _ 35) }
- ']' { PT _ (TS _ 36) }
- 'begin' { PT _ (TS _ 37) }
- 'const' { PT _ (TS _ 38) }
- 'do' { PT _ (TS _ 39) }
- 'elif' { PT _ (TS _ 40) }
- 'else' { PT _ (TS _ 41) }
- 'end' { PT _ (TS _ 42) }
- 'endif' { PT _ (TS _ 43) }
- 'for' { PT _ (TS _ 44) }
- 'if' { PT _ (TS _ 45) }
- 'intToStr' { PT _ (TS _ 46) }
- 'of' { PT _ (TS _ 47) }
- 'print' { PT _ (TS _ 48) }
- 'program' { PT _ (TS _ 49) }
- 'strToInt' { PT _ (TS _ 50) }
- 'then' { PT _ (TS _ 51) }
- 'to' { PT _ (TS _ 52) }
- 'var' { PT _ (TS _ 53) }
- 'while' { PT _ (TS _ 54) }
- '||' { PT _ (TS _ 55) }
+ '<-' { PT _ (TS _ 22) }
+ '<--' { PT _ (TS _ 23) }
+ '<=' { PT _ (TS _ 24) }
+ '=' { PT _ (TS _ 25) }
+ '==' { PT _ (TS _ 26) }
+ '>' { PT _ (TS _ 27) }
+ '>=' { PT _ (TS _ 28) }
+ 'Array' { PT _ (TS _ 29) }
+ 'Boolean' { PT _ (TS _ 30) }
+ 'Char' { PT _ (TS _ 31) }
+ 'Double' { PT _ (TS _ 32) }
+ 'False' { PT _ (TS _ 33) }
+ 'Integer' { PT _ (TS _ 34) }
+ 'String' { PT _ (TS _ 35) }
+ 'True' { PT _ (TS _ 36) }
+ '[' { PT _ (TS _ 37) }
+ ']' { PT _ (TS _ 38) }
+ 'begin' { PT _ (TS _ 39) }
+ 'const' { PT _ (TS _ 40) }
+ 'do' { PT _ (TS _ 41) }
+ 'elif' { PT _ (TS _ 42) }
+ 'else' { PT _ (TS _ 43) }
+ 'end' { PT _ (TS _ 44) }
+ 'endif' { PT _ (TS _ 45) }
+ 'for' { PT _ (TS _ 46) }
+ 'if' { PT _ (TS _ 47) }
+ 'intToStr' { PT _ (TS _ 48) }
+ 'of' { PT _ (TS _ 49) }
+ 'print' { PT _ (TS _ 50) }
+ 'program' { PT _ (TS _ 51) }
+ 'strToInt' { PT _ (TS _ 52) }
+ 'then' { PT _ (TS _ 53) }
+ 'to' { PT _ (TS _ 54) }
+ 'var' { PT _ (TS _ 55) }
+ 'while' { PT _ (TS _ 56) }
+ '||' { PT _ (TS _ 57) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -169,8 +171,12 @@ Stmt : Ident ':=' Exp ';' { SAss $1 $3 }
   | IfStmt { SIf $1 }
   | 'while' BExp 'do' Stmt { SWhile $2 $4 }
   | 'for' Ident ':=' Exp 'to' Exp 'do' Stmt { SFor $2 $4 $6 $8 }
-  | 'print' Exp ';' { SPrintExp $2 }
-  | 'print' LitVal ';' { SPrint $2 }
+  | 'print' '<-' '(' String ')' ';' { SPrintString $4 }
+  | 'print' '<-' '(' BoolLit ')' ';' { SPrintBLit $4 }
+  | 'print' '<--' '(' Ident ')' ';' { SPrintId $4 }
+  | 'print' '<--' '(' Ident '[' Integer ']' ')' ';' { SPrintArray $4 $6 }
+  | 'print' '<-' '(' Exp ')' ';' { SPrintExp $4 }
+  | 'print' '<-' '(' BExp ')' ';' { SPrintBExp $4 }
   | Stmt1 { $1 }
 
 

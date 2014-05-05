@@ -92,10 +92,21 @@ coercions 	IfStmt 	3;
 
 SWhile.		Stmt	::=	"while" BExp "do" Stmt ; 
 SFor.       	Stmt 	::= 	"for" Ident ":=" Exp "to" Exp "do" Stmt;
+
+SPrintString.	Stmt	::=	"print" "<-" "(" String ")" ";" ;
+SPrintBLit.	Stmt	::=	"print" "<-" "(" BoolLit ")" ";" ;
+SPrintId.	Stmt	::=	"print" "<--" "(" Ident ")" ";" ;
+SPrintArray.	Stmt	::=	"print" "<--" "(" Ident "[" Integer "]" ")" ";" ;
+SPrintExp.	Stmt	::=	"print" "<-" "(" Exp ")" ";" ;
+SPrintBExp.	Stmt	::=	"print" "<-" "(" BExp ")" ";" ;
+
+
+
 --SPrintId.	Stmt	::=	"print" Ident ";" ;
 --SPrintArray.	Stmt	::=	"print" Ident "[" Integer "]" ";" ;
-SPrintExp.	Stmt	::=	"print" Exp ";" ;
-SPrint.		Stmt	::=	"print" LitVal ";" ;
+
+--SPrintBExp.
+--SPrint.		Stmt	::=	"print" LitVal ";" ;
 
 --SPrintString.	Stmt	::=	"print" String ";" ;
 --SPrintInt.	Stmt	::=	"print" Integer ";" ;

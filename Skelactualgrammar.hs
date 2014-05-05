@@ -84,8 +84,12 @@ transStmt x = case x of
   SIf ifstmt  -> failure x
   SWhile bexp stmt  -> failure x
   SFor id exp1 exp2 stmt3  -> failure x
+  SPrintString str  -> failure x
+  SPrintBLit boollit  -> failure x
+  SPrintId id  -> failure x
+  SPrintArray id n  -> failure x
   SPrintExp exp  -> failure x
-  SPrint litval  -> failure x
+  SPrintBExp bexp  -> failure x
 
 
 transIfStmt :: IfStmt -> Result

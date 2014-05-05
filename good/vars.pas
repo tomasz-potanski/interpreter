@@ -11,7 +11,7 @@ z, zz : Integer;
 
 begin
 	x := 3;
-	print x;
+	print <-- (x);
 	z := 5;
 	zz:=10;
 end.

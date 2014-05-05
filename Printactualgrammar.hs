@@ -162,8 +162,12 @@ instance Print Stmt where
    SIf ifstmt -> prPrec i 0 (concatD [prt 0 ifstmt])
    SWhile bexp stmt -> prPrec i 0 (concatD [doc (showString "while") , prt 0 bexp , doc (showString "do") , prt 0 stmt])
    SFor id exp0 exp stmt -> prPrec i 0 (concatD [doc (showString "for") , prt 0 id , doc (showString ":=") , prt 0 exp0 , doc (showString "to") , prt 0 exp , doc (showString "do") , prt 0 stmt])
-   SPrintExp exp -> prPrec i 0 (concatD [doc (showString "print") , prt 0 exp , doc (showString ";")])
-   SPrint litval -> prPrec i 0 (concatD [doc (showString "print") , prt 0 litval , doc (showString ";")])
+   SPrintString str -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<-") , doc (showString "(") , prt 0 str , doc (showString ")") , doc (showString ";")])
+   SPrintBLit boollit -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<-") , doc (showString "(") , prt 0 boollit , doc (showString ")") , doc (showString ";")])
+   SPrintId id -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<--") , doc (showString "(") , prt 0 id , doc (showString ")") , doc (showString ";")])
+   SPrintArray id n -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<--") , doc (showString "(") , prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ")") , doc (showString ";")])
+   SPrintExp exp -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<-") , doc (showString "(") , prt 0 exp , doc (showString ")") , doc (showString ";")])
+   SPrintBExp bexp -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<-") , doc (showString "(") , prt 0 bexp , doc (showString ")") , doc (showString ";")])
 
   prtList es = case es of
    [] -> (concatD [])

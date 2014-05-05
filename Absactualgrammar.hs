@@ -64,8 +64,12 @@ data Stmt =
  | SIf IfStmt
  | SWhile BExp Stmt
  | SFor Ident Exp Exp Stmt
+ | SPrintString String
+ | SPrintBLit BoolLit
+ | SPrintId Ident
+ | SPrintArray Ident Integer
  | SPrintExp Exp
- | SPrint LitVal
+ | SPrintBExp BExp
   deriving (Eq,Ord,Show)
 
 data IfStmt =

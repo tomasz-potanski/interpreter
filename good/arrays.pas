@@ -29,9 +29,9 @@ begin
 	tableBool[2] := 4 == 4;
 	b1:=True;
 
-	if True then print "OK"; endif
+	if True then print <- ("OK"); endif
 
-	print b1;
-	print tableBool[1];
-	print tableBool[2];
+	print <-- (b1);
+	print <-- (tableBool[1]);
+	print <-- (tableBool[2]);
 end.

@@ -54,10 +54,10 @@ The symbols used in actualgrammar are the following:
   | = | := | [ | ]
   | *= | /= | += | -=
   | ++ | -- | ( | )
-  | + | - | * | /
-  | || | && | < | <=
-  | > | >= | == | !=
-  | .. |  |  | 
+  | <- | <-- | + | -
+  | * | / | || | &&
+  | < | <= | > | >=
+  | == | != | .. | 
 
 ===Comments===
 Single-line comments begin with //, #.Multiple-line comments are  enclosed with /* and */, { and }, {* and *}.
@@ -107,8 +107,12 @@ All other symbols are terminals.
   |  |  **|**  | //IfStmt// 
   |  |  **|**  | ``while`` //BExp// ``do`` //Stmt// 
   |  |  **|**  | ``for`` //Ident// ``:=`` //Exp// ``to`` //Exp// ``do`` //Stmt// 
-  |  |  **|**  | ``print`` //Exp// ``;`` 
-  |  |  **|**  | ``print`` //LitVal// ``;`` 
+  |  |  **|**  | ``print`` ``<-`` ``(`` //String// ``)`` ``;`` 
+  |  |  **|**  | ``print`` ``<-`` ``(`` //BoolLit// ``)`` ``;`` 
+  |  |  **|**  | ``print`` ``<--`` ``(`` //Ident// ``)`` ``;`` 
+  |  |  **|**  | ``print`` ``<--`` ``(`` //Ident// ``[`` //Integer// ``]`` ``)`` ``;`` 
+  |  |  **|**  | ``print`` ``<-`` ``(`` //Exp// ``)`` ``;`` 
+  |  |  **|**  | ``print`` ``<-`` ``(`` //BExp// ``)`` ``;`` 
   |  |  **|**  | //Stmt1// 
   | //Stmt1// | -> | ``++`` //Ident// ``;`` 
   |  |  **|**  | ``--`` //Ident// ``;`` 

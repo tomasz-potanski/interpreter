@@ -8,8 +8,8 @@ begin
 	x:=1;
 	begin
 		x:= 7;
-		print x;
+		print <-- (x);
 	end
-	print x;
+	print <-- (x);
 
 end.

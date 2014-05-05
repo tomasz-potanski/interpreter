@@ -8,5 +8,5 @@ begin
 	begin
 		g+=2;
 	end
-	print g;
+	print <-- (g);
 end.
