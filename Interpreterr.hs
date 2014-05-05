@@ -121,6 +121,9 @@ interpretBExp :: BExp -> TState -> Bool
 interpretBExp b s = case b of
 	BOr bexp1 bexp2 -> (interpretBExp bexp1 s) || (interpretBExp bexp2 s) 
 	BAnd bexp1 bexp2 -> (interpretBExp bexp1 s) && (interpretBExp bexp2 s) 
+	BLit boolLit ->
+		BoolLitTrue -> True
+		BoolLitFalse -> False
 	BRel exp1 relOp exp2 -> case relOp of
 		LTH -> (interpretExp exp1 s) < (interpretExp exp2 s)
 		LE -> (interpretExp exp1 s) <= (interpretExp exp2 s)
