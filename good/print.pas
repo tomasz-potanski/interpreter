@@ -11,9 +11,10 @@ var
 	c : Array[1..10] of Boolean;
 
 begin
-//	print <- ("Ala ma kota!");
-//	print <- (True);
-//	print <- (False);
+	print <- ("Ala ma kota!");
+	print <- (True);
+	print <- (False);
+	print <- (2<3);
 	x := 0;
 	y := "... ale Ola jest ladniejsza ;)";
 	z := True;
@@ -23,8 +24,8 @@ begin
 
 	a[1] := 0;
 	b[1] := "... ale Ola jest ladniejsza ;)";
-	c[1] := True;
-/*	print <-- (a[1]);
+	c[1] := 2 < 3;
+	print <-- (a[1]);
 	print <-- (b[1]);
 	print <-- (c[1]);
 
@@ -36,5 +37,6 @@ begin
 	print <- (x+2);
 	print <- (3*7);
 	print <- (False);
-*/
+
+
 end.

@@ -280,7 +280,8 @@ interpretStmt stmt s = case stmt of
 			let boolVal = extractBoolLit boolLit
 			in
 			case typee of
-		    	   TBool -> M.insert x (TTBoolean boolVal) s
+		    	   TBool -> M.insert x (TTArray minn maxx typee (M.insert index (TTBoolean (extractBoolLit boolLit)) mapp)) s
+--M.insert x (TTBoolean boolVal) s
 		    	   TInt -> error("Error - mapa przechowuje Inty - nie chcemy rzutowac")
 		    	   otherwise -> error("Error - niepoprawny typ")
 --		case bLit of
@@ -290,7 +291,7 @@ interpretStmt stmt s = case stmt of
 		otherwise -> error("Error - variable is not an array!")
 	False 	-> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
-    SAssArrayString (Ident x) index string -> case (checkifVarExistsAndIsArray (Ident x) s) of  
+    SAssArrayString (Ident x) index str -> case (checkifVarExistsAndIsArray (Ident x) s) of  
 	True 	-> case (M.lookup x s) of 
 	    Just n -> case n of
 		TTArray minn maxx typee mapp -> 
@@ -394,11 +395,38 @@ interpretStmt stmt s = case stmt of
 		TTString val -> (showToUser val s)
 		otherwise -> error("Error - Variable: " ++ (show x) ++ " is unprintable!")
 	    Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
-
---showToUser (show (variableValueInt (Ident x) s)) s
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
---    SPrintExp exp -> 
---	showToUser (show (interpretExp exp s)) s
+
+    SPrintArray (Ident x) index -> case (M.lookup x s) of
+        Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+        Just n -> case n of
+            TTArray minn maxx typee mapp -> 
+                if (index >= minn) && (index <= maxx) then
+                    case typee of 
+                        TInt  -> case (M.lookup index mapp) of
+                            Nothing -> showToUser "0" s
+                            Just (TTInt nn)-> showToUser (show nn) s
+                        TBool  -> case (M.lookup index mapp) of
+                            Nothing -> showToUser "False" s
+                            Just (TTBoolean nn)-> showToUser (show (boolToInt nn)) s
+                        TString  -> case (M.lookup index mapp) of
+                            Nothing -> showToUser "" s
+                            Just (TTString nn) -> showToUser nn s
+                        otherwise -> error("Error - multidimmensional tables are not implemented!")
+                else 
+                    error("Error - index out of bound!")
+            TTBoolean _ -> error("Error - Variable: " ++ (show x) ++ " is not an array (B)!")
+            TTString _ -> error("Error - Variable: " ++ (show x) ++ " is not an array (s)!")
+            TTInt _ -> error("Error - Variable: " ++ (show x) ++ " is not an array (i)!")
+            otherwise -> error("Error - Variable: " ++ (show x) ++ " is not an array!")
+
+
+    SPrintExp exp -> 
+	showToUser (show (interpretExp exp s)) s
+    SPrintBExp bexp -> case (interpretBExp bexp s) of
+        True -> showToUser "True" s
+        False -> showToUser "False" s
+	
 --    SPrintId (Ident x) -> case (checkifVarExists (Ident x) s) of
 --	True -> showToUser (show (variableValueInt (Ident x) s)) s
 --	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
