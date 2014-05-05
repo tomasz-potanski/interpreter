@@ -128,11 +128,11 @@ All other symbols are terminals.
   |  |  **|**  | //Ident// ``[`` //Integer// ``]`` 
   |  |  **|**  | ``(`` //Exp// ``)`` 
   | //BExp// | -> | //BExp// ``||`` //BExp1// 
-  |  |  **|**  | //BoolLit// 
   |  |  **|**  | //BExp1// 
   | //BExp1// | -> | //BExp1// ``&&`` //BExp2// 
   |  |  **|**  | //BExp2// 
   | //BExp2// | -> | //Exp// //RelOp// //Exp// 
+  |  |  **|**  | //BoolLit// 
   |  |  **|**  | //Ident// 
   |  |  **|**  | //Ident// ``[`` //Integer// ``]`` 
   |  |  **|**  | ``(`` //BExp// ``)`` 
