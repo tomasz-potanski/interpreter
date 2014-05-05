@@ -197,13 +197,13 @@ All other symbols are terminals.\\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{Printable}} & {\arrow}  &{\nonterminal{Exp}}  \\
- & {\delimit}  &{\nonterminal{Printable1}}  \\
+{\nonterminal{Printable1}} & {\arrow}  &{\nonterminal{Exp}}  \\
+ & {\delimit}  &{\terminal{(}} {\nonterminal{Printable}} {\terminal{)}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{Printable1}} & {\arrow}  &{\nonterminal{Ident}}  \\
- & {\delimit}  &{\terminal{(}} {\nonterminal{Printable}} {\terminal{)}}  \\
+{\nonterminal{Printable}} & {\arrow}  &{\nonterminal{Ident}}  \\
+ & {\delimit}  &{\nonterminal{Printable1}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
