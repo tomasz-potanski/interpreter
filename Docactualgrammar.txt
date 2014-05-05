@@ -55,7 +55,8 @@ The symbols used in actualgrammar are the following:
   | ( | ) | + | -
   | * | / | || | &&
   | < | <= | > | >=
-  | == | != | [ | ]
+  | == | != | [ | ..
+  | ] |  |  | 
 
 ===Comments===
 Single-line comments begin with //, #.Multiple-line comments are  enclosed with /* and */, { and }, {* and *}.
@@ -140,7 +141,7 @@ All other symbols are terminals.
   |  |  **|**  | ``Char`` 
   |  |  **|**  | ``Double`` 
   |  |  **|**  | //Type1// 
-  | //Type2// | -> | ``Array`` ``[`` //Integer// ``]`` ``of`` //Type// 
+  | //Type2// | -> | ``Array`` ``[`` //Integer// ``..`` //Integer// ``]`` ``of`` //Type// 
   |  |  **|**  | ``(`` //Type// ``)`` 
   | //Type1// | -> | //Type2// 
   | //LitVal// | -> | //Integer// 

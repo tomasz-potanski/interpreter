@@ -29,43 +29,44 @@ import ErrM
  '--' { PT _ (TS _ 12) }
  '-=' { PT _ (TS _ 13) }
  '.' { PT _ (TS _ 14) }
- '/' { PT _ (TS _ 15) }
- '/=' { PT _ (TS _ 16) }
- ':' { PT _ (TS _ 17) }
- ':=' { PT _ (TS _ 18) }
- ';' { PT _ (TS _ 19) }
- '<' { PT _ (TS _ 20) }
- '<=' { PT _ (TS _ 21) }
- '=' { PT _ (TS _ 22) }
- '==' { PT _ (TS _ 23) }
- '>' { PT _ (TS _ 24) }
- '>=' { PT _ (TS _ 25) }
- 'Array' { PT _ (TS _ 26) }
- 'Boolean' { PT _ (TS _ 27) }
- 'Char' { PT _ (TS _ 28) }
- 'Double' { PT _ (TS _ 29) }
- 'False' { PT _ (TS _ 30) }
- 'Integer' { PT _ (TS _ 31) }
- 'String' { PT _ (TS _ 32) }
- 'True' { PT _ (TS _ 33) }
- '[' { PT _ (TS _ 34) }
- ']' { PT _ (TS _ 35) }
- 'begin' { PT _ (TS _ 36) }
- 'const' { PT _ (TS _ 37) }
- 'do' { PT _ (TS _ 38) }
- 'elif' { PT _ (TS _ 39) }
- 'else' { PT _ (TS _ 40) }
- 'end' { PT _ (TS _ 41) }
- 'for' { PT _ (TS _ 42) }
- 'if' { PT _ (TS _ 43) }
- 'of' { PT _ (TS _ 44) }
- 'print' { PT _ (TS _ 45) }
- 'program' { PT _ (TS _ 46) }
- 'then' { PT _ (TS _ 47) }
- 'to' { PT _ (TS _ 48) }
- 'var' { PT _ (TS _ 49) }
- 'while' { PT _ (TS _ 50) }
- '||' { PT _ (TS _ 51) }
+ '..' { PT _ (TS _ 15) }
+ '/' { PT _ (TS _ 16) }
+ '/=' { PT _ (TS _ 17) }
+ ':' { PT _ (TS _ 18) }
+ ':=' { PT _ (TS _ 19) }
+ ';' { PT _ (TS _ 20) }
+ '<' { PT _ (TS _ 21) }
+ '<=' { PT _ (TS _ 22) }
+ '=' { PT _ (TS _ 23) }
+ '==' { PT _ (TS _ 24) }
+ '>' { PT _ (TS _ 25) }
+ '>=' { PT _ (TS _ 26) }
+ 'Array' { PT _ (TS _ 27) }
+ 'Boolean' { PT _ (TS _ 28) }
+ 'Char' { PT _ (TS _ 29) }
+ 'Double' { PT _ (TS _ 30) }
+ 'False' { PT _ (TS _ 31) }
+ 'Integer' { PT _ (TS _ 32) }
+ 'String' { PT _ (TS _ 33) }
+ 'True' { PT _ (TS _ 34) }
+ '[' { PT _ (TS _ 35) }
+ ']' { PT _ (TS _ 36) }
+ 'begin' { PT _ (TS _ 37) }
+ 'const' { PT _ (TS _ 38) }
+ 'do' { PT _ (TS _ 39) }
+ 'elif' { PT _ (TS _ 40) }
+ 'else' { PT _ (TS _ 41) }
+ 'end' { PT _ (TS _ 42) }
+ 'for' { PT _ (TS _ 43) }
+ 'if' { PT _ (TS _ 44) }
+ 'of' { PT _ (TS _ 45) }
+ 'print' { PT _ (TS _ 46) }
+ 'program' { PT _ (TS _ 47) }
+ 'then' { PT _ (TS _ 48) }
+ 'to' { PT _ (TS _ 49) }
+ 'var' { PT _ (TS _ 50) }
+ 'while' { PT _ (TS _ 51) }
+ '||' { PT _ (TS _ 52) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -242,7 +243,7 @@ Type : 'Integer' { TInt }
 
 
 Type2 :: { Type }
-Type2 : 'Array' '[' Integer ']' 'of' Type { TArray $3 $6 } 
+Type2 : 'Array' '[' Integer '..' Integer ']' 'of' Type { TArray $3 $5 $8 } 
   | '(' Type ')' { $2 }
 
 

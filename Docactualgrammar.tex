@@ -77,7 +77,7 @@ The symbols used in actualgrammar are the following: \\
 {\symb{{$|$}{$|$}}} &{\symb{\&\&}} &{\symb{{$<$}}} \\
 {\symb{{$<$}{$=$}}} &{\symb{{$>$}}} &{\symb{{$>$}{$=$}}} \\
 {\symb{{$=$}{$=$}}} &{\symb{!{$=$}}} &{\symb{[}} \\
-{\symb{]}} & & \\
+{\symb{..}} &{\symb{]}} & \\
 \end{tabular}\\
 
 \subsection*{Comments}
@@ -248,7 +248,7 @@ All other symbols are terminals.\\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{Type2}} & {\arrow}  &{\terminal{Array}} {\terminal{[}} {\nonterminal{Integer}} {\terminal{]}} {\terminal{of}} {\nonterminal{Type}}  \\
+{\nonterminal{Type2}} & {\arrow}  &{\terminal{Array}} {\terminal{[}} {\nonterminal{Integer}} {\terminal{..}} {\nonterminal{Integer}} {\terminal{]}} {\terminal{of}} {\nonterminal{Type}}  \\
  & {\delimit}  &{\terminal{(}} {\nonterminal{Type}} {\terminal{)}}  \\
 \end{tabular}\\
 
