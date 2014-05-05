@@ -50,6 +50,8 @@ data Stmt =
  | SAssArray Ident Integer Exp
  | SAssBool Ident BExp
  | SAssBoolLit Ident BoolLit
+ | SAssArrayBool Ident Integer BExp
+ | SAssArrayBoolLit Ident Integer BoolLit
  | SAssMult Ident Exp
  | SAssDiv Ident Exp
  | SAssAdd Ident Exp

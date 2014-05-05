@@ -70,6 +70,8 @@ transStmt x = case x of
   SAssArray id n exp  -> failure x
   SAssBool id bexp  -> failure x
   SAssBoolLit id boollit  -> failure x
+  SAssArrayBool id n bexp  -> failure x
+  SAssArrayBoolLit id n boollit  -> failure x
   SAssMult id exp  -> failure x
   SAssDiv id exp  -> failure x
   SAssAdd id exp  -> failure x

@@ -94,6 +94,8 @@ All other symbols are terminals.
   |  |  **|**  | //Ident// ``[`` //Integer// ``]`` ``:=`` //Exp// ``;`` 
   |  |  **|**  | //Ident// ``:=`` //BExp// ``;`` 
   |  |  **|**  | //Ident// ``:=`` //BoolLit// ``;`` 
+  |  |  **|**  | //Ident// ``[`` //Integer// ``]`` ``:=`` //BExp// ``;`` 
+  |  |  **|**  | //Ident// ``[`` //Integer// ``]`` ``:=`` //BoolLit// ``;`` 
   |  |  **|**  | //Ident// ``*=`` //Exp// ``;`` 
   |  |  **|**  | //Ident// ``/=`` //Exp// ``;`` 
   |  |  **|**  | //Ident// ``+=`` //Exp// ``;`` 
