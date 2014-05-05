@@ -152,8 +152,8 @@ Stmt2 : 'begin' ListStmt 'end' { SBlock (reverse $2) }
 Stmt :: { Stmt }
 Stmt : Ident ':=' Exp ';' { SAss $1 $3 } 
   | Ident '[' Integer ']' ':=' Exp ';' { SAssArray $1 $3 $6 }
-  | Ident ':=' BExp ';' { SAssBool $1 $3 }
-  | Ident '[' Integer ']' ':=' BExp ';' { SAssArrayBool $1 $3 $6 }
+  | Ident ':=' BoolLit ';' { SAssBoolLit $1 $3 }
+  | Ident '[' Integer ']' ':=' BoolLit ';' { SAssArrayBoolLit $1 $3 $6 }
   | Ident '*=' Exp ';' { SAssMult $1 $3 }
   | Ident '/=' Exp ';' { SAssDiv $1 $3 }
   | Ident '+=' Exp ';' { SAssAdd $1 $3 }

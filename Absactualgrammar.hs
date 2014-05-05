@@ -48,8 +48,8 @@ data Stmt =
    SBlock [Stmt]
  | SAss Ident Exp
  | SAssArray Ident Integer Exp
- | SAssBool Ident BExp
- | SAssArrayBool Ident Integer BExp
+ | SAssBoolLit Ident BoolLit
+ | SAssArrayBoolLit Ident Integer BoolLit
  | SAssMult Ident Exp
  | SAssDiv Ident Exp
  | SAssAdd Ident Exp
