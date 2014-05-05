@@ -121,9 +121,6 @@ interpretBExp :: BExp -> TState -> Bool
 interpretBExp b s = case b of
 	BOr bexp1 bexp2 -> (interpretBExp bexp1 s) || (interpretBExp bexp2 s) 
 	BAnd bexp1 bexp2 -> (interpretBExp bexp1 s) && (interpretBExp bexp2 s) 
---	BBLit bl -> case bl of
---		BoolLitTrue -> True
---		BoolLitFalse -> False
 	BRel exp1 relOp exp2 -> case relOp of
 		LTH -> (interpretExp exp1 s) < (interpretExp exp2 s)
 		LE -> (interpretExp exp1 s) <= (interpretExp exp2 s)
@@ -161,23 +158,23 @@ interpretStmt stmt s = case stmt of
 --			BoolLitTrue -> M.insert x (TTBoolean True) s
 --			BoolLitFalse -> M.insert x (TTBoolean False) s
 --	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
---    SAssBool (Ident x) bexp -> case (checkifVarExists (Ident x) s) of  
---	True ->
---		case (interpretBExp bexp s) of 
---			True -> M.insert x (TTBoolean True) s
---			False -> M.insert x (TTBoolean False) s
---	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+    SAssBool (Ident x) bexp -> case (checkifVarExists (Ident x) s) of  
+	True ->
+		case (interpretBExp bexp s) of 
+			True -> M.insert x (TTBoolean True) s
+			False -> M.insert x (TTBoolean False) s
+	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
---    SAssArrayBool (Ident x) index bexp -> case (checkifVarExistsAndIsArray (Ident x) s) of  
---	True 	-> case (M.lookup x s) of 
---	    Just n -> case n of
---		TTArray minn maxx typee mapp -> 
---		    if (index >= minn) && (index <= maxx) then
---			M.insert x (TTArray minn maxx typee (M.insert index (TTBoolean (interpretBExp bexp s)) mapp)) s
---		    else 
---			error("Error - index out of bound!")
---		otherwise -> error("Error - variable is not an array!")
---	False 	-> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+    SAssArrayBool (Ident x) index bexp -> case (checkifVarExistsAndIsArray (Ident x) s) of  
+	True 	-> case (M.lookup x s) of 
+	    Just n -> case n of
+		TTArray minn maxx typee mapp -> 
+		    if (index >= minn) && (index <= maxx) then
+			M.insert x (TTArray minn maxx typee (M.insert index (TTBoolean (interpretBExp bexp s)) mapp)) s
+		    else 
+			error("Error - index out of bound!")
+		otherwise -> error("Error - variable is not an array!")
+	False 	-> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
     SAssMult (Ident x) exp -> case (checkifVarExists (Ident x) s) of     
 	True ->
 		let valR = (interpretExp exp s)
@@ -256,35 +253,16 @@ interpretStmt stmt s = case stmt of
     SBlock (i:is) -> 
         (interpretStmts is (interpretStmt i s))
 	-- !! ZROBIĆ PRINT INACZEJ
-
-    SPrint printable -> case printable of
---	SPId (Ident x) 	-> case (checkifVarExists (Ident x) s) of
---	    False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
---	    True -> case (M.lookup x s) of
---		Just n -> case n of
---			TTInt i 	-> showToUser (show i) s
---			TTBoolean b 	-> 
---				if b then showToUser "True" s
---				else showToUser "False" s
---		Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
---	SPExp exp 	-> showToUser (show (interpretExp exp s)) s
-
---    SPrintExp exp -> 
---	
+    SPrintExp exp -> 
+	showToUser (show (interpretExp exp s)) s
 --    SPrintId (Ident x) -> case (checkifVarExists (Ident x) s) of
---	True -> --showToUser (show (variableValueInt (Ident x) s)) s
---	    case (M.lookup x s) of
---		TTInt i 	-> showToUser (show i) s
---		TTBoolean b 	-> 
---			if b then showToUser "True" s
---			else showToUser "False" s
+--	True -> showToUser (show (variableValueInt (Ident x) s)) s
 --	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
- --   SPrint a -> case a of
---		LiteralValueString ss -> showToUser ss s
+    SPrint a -> case a of
+		LiteralValueString ss -> showToUser ss s
 --		LiteralValueInteger ii -> showToUser (show ii) s  
---		LiteralValueChar ss -> showToUser [ss] s
---		LiteralValueDouble ii -> showToUser (show ii) s 
---
+		LiteralValueChar ss -> showToUser [ss] s
+		LiteralValueDouble ii -> showToUser (show ii) s 
 
 checkifVarExists :: Ident -> TState -> Bool
 checkifVarExists (Ident ident) state = case M.lookup ident state of
