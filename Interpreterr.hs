@@ -285,6 +285,7 @@ interpretStmt stmt s = case stmt of
 --		LiteralValueChar ss -> showToUser [ss] s
 --		LiteralValueDouble ii -> showToUser (show ii) s 
 --
+
 checkifVarExists :: Ident -> TState -> Bool
 checkifVarExists (Ident ident) state = case M.lookup ident state of
 	Just n 	-> True
