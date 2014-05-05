@@ -175,23 +175,23 @@ All other symbols are terminals.\\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{IfStmt3}} & {\arrow}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}}  \\
- & {\delimit}  &{\terminal{(}} {\nonterminal{IfStmt}} {\terminal{)}}  \\
+{\nonterminal{IfStmt}} & {\arrow}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}}  \\
+ & {\delimit}  &{\nonterminal{IfStmt1}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{IfStmt2}} & {\arrow}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}} {\terminal{else}} {\nonterminal{Stmt}}  \\
- & {\delimit}  &{\nonterminal{IfStmt3}}  \\
-\end{tabular}\\
-
-\begin{tabular}{lll}
-{\nonterminal{IfStmt1}} & {\arrow}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}} {\terminal{elif}} {\nonterminal{Stmt}}  \\
+{\nonterminal{IfStmt1}} & {\arrow}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}} {\terminal{else}} {\nonterminal{Stmt}}  \\
  & {\delimit}  &{\nonterminal{IfStmt2}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{IfStmt}} & {\arrow}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}} {\terminal{elif}} {\nonterminal{Stmt}} {\terminal{else}} {\nonterminal{Stmt}}  \\
- & {\delimit}  &{\nonterminal{IfStmt1}}  \\
+{\nonterminal{IfStmt2}} & {\arrow}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}} {\terminal{elif}} {\nonterminal{Stmt}}  \\
+ & {\delimit}  &{\nonterminal{IfStmt3}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{IfStmt3}} & {\arrow}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}} {\terminal{elif}} {\nonterminal{Stmt}} {\terminal{else}} {\nonterminal{Stmt}}  \\
+ & {\delimit}  &{\terminal{(}} {\nonterminal{IfStmt}} {\terminal{)}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
