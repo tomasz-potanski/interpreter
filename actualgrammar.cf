@@ -86,10 +86,16 @@ coercions 	IfStmt 	3;
 
 SWhile.		Stmt	::=	"while" BExp "do" Stmt ; 
 SFor.       	Stmt 	::= 	"for" Ident ":=" Exp "to" Exp "do" Stmt;
-SPrintId.	Stmt	::=	"print" Ident ";" ;
+
+SPrint.		Stmt	::=	"print" Printalbe ";" ;
+SPExp.		Printable::=	Exp;
+SPId.		Printable2::=	Ident ;
+coercions Printable 2;
+
+--SPrintId.	Stmt	::=	"print" Ident ";" ;
 --SPrintArray.	Stmt	::=	"print" Ident "[" Integer "]" ";" ;
-SPrintExp.	Stmt	::=	"print" Exp ";" ;
-SPrint.		Stmt	::=	"print" LitVal ";" ;
+--SPrintExp.	Stmt	::=	"print" Exp ";" ;
+--SPrint.		Stmt	::=	"print" LitVal ";" ;
 
 --SPrintString.	Stmt	::=	"print" String ";" ;
 --SPrintInt.	Stmt	::=	"print" Integer ";" ;
