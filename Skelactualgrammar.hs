@@ -129,7 +129,7 @@ transType x = case x of
   TString  -> failure x
   TChar  -> failure x
   TDouble  -> failure x
-  TArray n type'  -> failure x
+  TArray n1 n2 type'3  -> failure x
 
 
 transLitVal :: LitVal -> Result
