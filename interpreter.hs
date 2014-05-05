@@ -32,23 +32,29 @@ import qualified Data.Map as M
 --	c <- getContents
 --	return c
 
--- !! WCZYTYWANIE Z WEJSCIA PRZY BRAKU PARAM.
+isNotNull :: [a] -> Bool
+isNotNull [] = False
+isNotNull (h:_) = True
+
+giveFirst :: [a] -> a
+giveFirst (h:_) = h
+
 main :: IO()
 main = do
-	args 	<-	getArgs
-	case args of
-		(filePath:_) ->
-    			fileHandler <- openFile filePath ReadMode
-    			fileContent <- hGetContents fileHandler
-    			case pProgram (myLexer fileContent) of
-        			Bad s -> do 
-			 		hPutStrLn stderr "Error"
-			 		hPutStrLn stderr s
-        			Ok i -> putStrLn (show (M.toList (interpretFile i)))
-		[] ->
-    			fileContent <- getContents
-    			case pProgram (myLexer fileContent) of
-        			Bad s -> do 
-			 		hPutStrLn stderr "Error"
-			 		hPutStrLn stderr s
-        			Ok i -> putStrLn (show (M.toList (interpretFile i)))
+    args <- getArgs
+    if (isNotNull args) then do
+	let filePath = giveFirst args
+    	fileHandler <- openFile filePath ReadMode
+    	fileContent <- hGetContents fileHandler
+    	case pProgram (myLexer fileContent) of
+    	    Bad s -> do 
+		 hPutStrLn stderr "Error"
+		 hPutStrLn stderr s
+            Ok i -> putStrLn (show (M.toList (interpretFile i)))
+    else do
+	fileContent <- getContents
+    	case pProgram (myLexer fileContent) of
+    	    Bad s -> do 
+		 hPutStrLn stderr "Error"
+		 hPutStrLn stderr s
+            Ok i -> putStrLn (show (M.toList (interpretFile i)))
