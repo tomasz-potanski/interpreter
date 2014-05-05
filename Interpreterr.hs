@@ -41,6 +41,18 @@ extractBoolLit b = case b of
 	BoolLitTrue -> True
 	BoolLitFalse -> False
 
+intToStr :: Integer -> String
+intToStr i = (show i)
+
+strToInt :: String -> Integer
+strToInt s = read s :: Integer
+-- do
+--	let x = read s
+--	case x of
+--		Nothing -> error("Error - incorrect string number")
+--		Just n -> n :: Integer
+     
+
 extractArray :: TTypes -> (Integer, Integer, Type, (M.Map Integer TTypes))
 extractArray (TTArray minn maxx typee mapp) = (minn, maxx, typee, mapp)
 
@@ -177,6 +189,15 @@ interpretStmt stmt s = case stmt of
 	True ->
         	let val = (interpretExp exp s)
         	in M.insert x (TTInt val) s
+	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+    SAssStrToInt (Ident x) str -> case (checkifVarExists (Ident x) s) of  
+	True -> let val = (strToInt str)
+        	in 
+		  case (M.lookup x s) of
+		    TInt -> M.insert x (TTInt val) s
+		    TString -> error("Error - invalid types")
+		    TBool -> if (val == 0) || (val == 1) then M.insert x (TTBoolean val) s
+		    otherwise -> error("Error - invalid types")
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
     SAssString (Ident x) str -> case (checkifVarExists (Ident x) s) of  
 	True -> case (M.lookup x s) of
@@ -348,6 +369,7 @@ addOneVariable :: Ident -> Type -> TState -> TState
 addOneVariable (Ident ident) typee state = case typee of
 		TInt -> M.insert ident (TTInt 0) state
 		TBool -> M.insert ident (TTBoolean False) state
+		TString -> M.insert ident (TTString "") state
 		TArray minn maxx typee -> 
 			if (minn < maxx) && (minn >= 0) then 
 				M.insert ident (TTArray minn maxx typee M.empty) state

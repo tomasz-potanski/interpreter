@@ -61,8 +61,8 @@ The reserved words used in actualgrammar are the following: \\
 {\reserved{const}} &{\reserved{do}} &{\reserved{elif}} \\
 {\reserved{else}} &{\reserved{end}} &{\reserved{for}} \\
 {\reserved{if}} &{\reserved{of}} &{\reserved{print}} \\
-{\reserved{program}} &{\reserved{then}} &{\reserved{to}} \\
-{\reserved{var}} &{\reserved{while}} & \\
+{\reserved{program}} &{\reserved{strToInt}} &{\reserved{then}} \\
+{\reserved{to}} &{\reserved{var}} &{\reserved{while}} \\
 \end{tabular}\\
 
 The symbols used in actualgrammar are the following: \\
@@ -160,6 +160,7 @@ All other symbols are terminals.\\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{:{$=$}}} {\nonterminal{BExp}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{:{$=$}}} {\nonterminal{BoolLit}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{:{$=$}}} {\nonterminal{String}} {\terminal{;}}  \\
+ & {\delimit}  &{\nonterminal{Ident}} {\terminal{:{$=$}}} {\terminal{strToInt}} {\nonterminal{String}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{[}} {\nonterminal{Integer}} {\terminal{]}} {\terminal{:{$=$}}} {\nonterminal{BExp}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{[}} {\nonterminal{Integer}} {\terminal{]}} {\terminal{:{$=$}}} {\nonterminal{BoolLit}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{*{$=$}}} {\nonterminal{Exp}} {\terminal{;}}  \\

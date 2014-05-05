@@ -62,11 +62,12 @@ import ErrM
  'of' { PT _ (TS _ 45) }
  'print' { PT _ (TS _ 46) }
  'program' { PT _ (TS _ 47) }
- 'then' { PT _ (TS _ 48) }
- 'to' { PT _ (TS _ 49) }
- 'var' { PT _ (TS _ 50) }
- 'while' { PT _ (TS _ 51) }
- '||' { PT _ (TS _ 52) }
+ 'strToInt' { PT _ (TS _ 48) }
+ 'then' { PT _ (TS _ 49) }
+ 'to' { PT _ (TS _ 50) }
+ 'var' { PT _ (TS _ 51) }
+ 'while' { PT _ (TS _ 52) }
+ '||' { PT _ (TS _ 53) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -155,6 +156,7 @@ Stmt : Ident ':=' Exp ';' { SAss $1 $3 }
   | Ident ':=' BExp ';' { SAssBool $1 $3 }
   | Ident ':=' BoolLit ';' { SAssBoolLit $1 $3 }
   | Ident ':=' String ';' { SAssString $1 $3 }
+  | Ident ':=' 'strToInt' String ';' { SAssStrToInt $1 $4 }
   | Ident '[' Integer ']' ':=' BExp ';' { SAssArrayBool $1 $3 $6 }
   | Ident '[' Integer ']' ':=' BoolLit ';' { SAssArrayBoolLit $1 $3 $6 }
   | Ident '*=' Exp ';' { SAssMult $1 $3 }
