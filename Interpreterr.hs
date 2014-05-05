@@ -178,6 +178,11 @@ interpretStmt stmt s = case stmt of
         	let val = (interpretExp exp s)
         	in M.insert x (TTInt val) s
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+    SAssString (Ident x) str -> case (checkifVarExists (Ident x) s) of  
+	True -> case (M.lookup x s) of
+	    TTString _ -> M.insert x (TTString str) s
+	    otherwise -> error("Error - incorrect type - nie rzutujemy")
+	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
     SAssArray (Ident x) index exp -> case (checkifVarExistsAndIsArray (Ident x) s) of  
 	True 	-> case (M.lookup x s) of 
 	    Just n -> case n of
