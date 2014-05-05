@@ -59,6 +59,7 @@ data Stmt =
  | SIf IfStmt
  | SWhile BExp Stmt
  | SFor Ident Exp Exp Stmt
+ | SPrintId Ident
  | SPrintExp Exp
  | SPrint LitVal
   deriving (Eq,Ord,Show)

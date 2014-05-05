@@ -157,6 +157,7 @@ instance Print Stmt where
    SIf ifstmt -> prPrec i 0 (concatD [prt 0 ifstmt])
    SWhile bexp stmt -> prPrec i 0 (concatD [doc (showString "while") , prt 0 bexp , doc (showString "do") , prt 0 stmt])
    SFor id exp0 exp stmt -> prPrec i 0 (concatD [doc (showString "for") , prt 0 id , doc (showString ":=") , prt 0 exp0 , doc (showString "to") , prt 0 exp , doc (showString "do") , prt 0 stmt])
+   SPrintId id -> prPrec i 0 (concatD [doc (showString "print") , prt 0 id , doc (showString ";")])
    SPrintExp exp -> prPrec i 0 (concatD [doc (showString "print") , prt 0 exp , doc (showString ";")])
    SPrint litval -> prPrec i 0 (concatD [doc (showString "print") , prt 0 litval , doc (showString ";")])
 

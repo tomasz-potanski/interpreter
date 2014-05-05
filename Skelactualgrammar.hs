@@ -79,6 +79,7 @@ transStmt x = case x of
   SIf ifstmt  -> failure x
   SWhile bexp stmt  -> failure x
   SFor id exp1 exp2 stmt3  -> failure x
+  SPrintId id  -> failure x
   SPrintExp exp  -> failure x
   SPrint litval  -> failure x
 

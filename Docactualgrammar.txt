@@ -101,6 +101,7 @@ All other symbols are terminals.
   |  |  **|**  | //IfStmt// 
   |  |  **|**  | ``while`` //BExp// ``do`` //Stmt// 
   |  |  **|**  | ``for`` //Ident// ``:=`` //Exp// ``to`` //Exp// ``do`` //Stmt// 
+  |  |  **|**  | ``print`` //Ident// ``;`` 
   |  |  **|**  | ``print`` //Exp// ``;`` 
   |  |  **|**  | ``print`` //LitVal// ``;`` 
   |  |  **|**  | //Stmt1// 

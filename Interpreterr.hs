@@ -258,9 +258,14 @@ interpretStmt stmt s = case stmt of
 	-- !! ZROBIĆ PRINT INACZEJ
     SPrintExp exp -> 
 	showToUser (show (interpretExp exp s)) s
---    SPrintId (Ident x) -> case (checkifVarExists (Ident x) s) of
---	True -> showToUser (show (variableValueInt (Ident x) s)) s
---	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+    SPrintId (Ident x) -> case (checkifVarExists (Ident x) s) of
+	True -> --showToUser (show (variableValueInt (Ident x) s)) s
+	    case (M.lookup x s) of
+		TTInt i 	-> showToUser (show i) s
+		TTBoolean b 	-> 
+			if b then showToUser "True" s
+			else showToUser "False" s
+	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
     SPrint a -> case a of
 		LiteralValueString ss -> showToUser ss s
 --		LiteralValueInteger ii -> showToUser (show ii) s  
