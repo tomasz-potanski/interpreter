@@ -75,12 +75,19 @@ transStmt x = case x of
   SAssSub id exp  -> failure x
   SPreIncr id  -> failure x
   SPreDecr id  -> failure x
-  SIf bexp stmt  -> failure x
-  SIfElse bexp stmt1 stmt2  -> failure x
+  SIf ifstmt  -> failure x
   SWhile bexp stmt  -> failure x
   SFor id exp1 exp2 stmt3  -> failure x
   SPrintId id  -> failure x
   SPrint litval  -> failure x
+
+
+transIfStmt :: IfStmt -> Result
+transIfStmt x = case x of
+  SimpleIf bexp stmt  -> failure x
+  IfElse bexp stmt1 stmt2  -> failure x
+  IfElif bexp stmt1 stmt2  -> failure x
+  IfElifElse bexp stmt1 stmt2 stmt3  -> failure x
 
 
 transExp :: Exp -> Result

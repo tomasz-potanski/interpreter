@@ -62,8 +62,21 @@ SPreDecr.    	Stmt1 	::= 	"--" Ident ";" ;
 
 --SExp.		Stmt 	::=	Exp ";" ;
 
-SIf.		Stmt	::=	"if" BExp "then" Stmt ;
-SIfElse.	Stmt	::=	"if" BExp "then" Stmt "else" Stmt;
+SIf.			Stmt	::= IfStmt;
+SimpleIf.		IfStmt	::= "if" BExp "then" Stmt ;
+IfElse.			IfStmt1	::= "if" BExp "then" Stmt "else" Stmt;
+IfElif.			IfStmt2	::= "if" BExp "then" Stmt "elif" Stmt;
+IfElifElse.		IfStmt3	::= "if" BExp "then" Stmt "elif" Stmt "else" Stmt;
+
+--SIf.			Stmt	::=	"if" BExp "then" Stmt ElIfBlock ElseBlock;
+--BlankEsleBlock.		ElseBlock::=	;
+--NBlankElseBlock. 	ElseBlock::=	"else" Stmt;
+--BlankEsIfBlock.		ElIfBlock::=	;
+--NBlankElIfBlock. 	ElIfBlock::=	"elif" Stmt;
+
+--SElseBlock.	ElseBlock::=	[ElseIf] Else ;
+--		ElseIf	::=		
+
 
 SWhile.		Stmt	::=	"while" BExp "do" Stmt ; 
 SFor.       	Stmt 	::= 	"for" Ident ":=" Exp "to" Exp "do" Stmt;

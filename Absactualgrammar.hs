@@ -55,12 +55,18 @@ data Stmt =
  | SAssSub Ident Exp
  | SPreIncr Ident
  | SPreDecr Ident
- | SIf BExp Stmt
- | SIfElse BExp Stmt Stmt
+ | SIf IfStmt
  | SWhile BExp Stmt
  | SFor Ident Exp Exp Stmt
  | SPrintId Ident
  | SPrint LitVal
+  deriving (Eq,Ord,Show)
+
+data IfStmt =
+   SimpleIf BExp Stmt
+ | IfElse BExp Stmt Stmt
+ | IfElif BExp Stmt Stmt
+ | IfElifElse BExp Stmt Stmt Stmt
   deriving (Eq,Ord,Show)
 
 data Exp =

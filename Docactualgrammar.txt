@@ -43,9 +43,10 @@ The set of reserved words is the set of terminals appearing in the grammar. Thos
 The reserved words used in actualgrammar are the following:
   | ``Boolean`` | ``Char`` | ``Double`` | ``False``
   | ``Integer`` | ``String`` | ``True`` | ``begin``
-  | ``const`` | ``do`` | ``else`` | ``end``
-  | ``for`` | ``if`` | ``print`` | ``program``
-  | ``then`` | ``to`` | ``var`` | ``while``
+  | ``const`` | ``do`` | ``elif`` | ``else``
+  | ``end`` | ``for`` | ``if`` | ``print``
+  | ``program`` | ``then`` | ``to`` | ``var``
+  | ``while`` |  |  | 
 
 The symbols used in actualgrammar are the following:
   | . | ; | : | ,
@@ -95,8 +96,7 @@ All other symbols are terminals.
   |  |  **|**  | //Ident// ``/=`` //Exp// ``;`` 
   |  |  **|**  | //Ident// ``+=`` //Exp// ``;`` 
   |  |  **|**  | //Ident// ``-=`` //Exp// ``;`` 
-  |  |  **|**  | ``if`` //BExp// ``then`` //Stmt// 
-  |  |  **|**  | ``if`` //BExp// ``then`` //Stmt// ``else`` //Stmt// 
+  |  |  **|**  | //IfStmt// 
   |  |  **|**  | ``while`` //BExp// ``do`` //Stmt// 
   |  |  **|**  | ``for`` //Ident// ``:=`` //Exp// ``to`` //Exp// ``do`` //Stmt// 
   |  |  **|**  | ``print`` //Ident// ``;`` 
@@ -105,6 +105,10 @@ All other symbols are terminals.
   | //Stmt1// | -> | ``++`` //Ident// ``;`` 
   |  |  **|**  | ``--`` //Ident// ``;`` 
   |  |  **|**  | //Stmt2// 
+  | //IfStmt// | -> | ``if`` //BExp// ``then`` //Stmt// 
+  | //IfStmt1// | -> | ``if`` //BExp// ``then`` //Stmt// ``else`` //Stmt// 
+  | //IfStmt2// | -> | ``if`` //BExp// ``then`` //Stmt// ``elif`` //Stmt// 
+  | //IfStmt3// | -> | ``if`` //BExp// ``then`` //Stmt// ``elif`` //Stmt// ``else`` //Stmt// 
   | //Exp// | -> | //Exp// ``+`` //Exp1// 
   |  |  **|**  | //Exp// ``-`` //Exp1// 
   |  |  **|**  | //Exp1// 

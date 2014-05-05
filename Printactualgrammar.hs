@@ -153,8 +153,7 @@ instance Print Stmt where
    SAssSub id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "-=") , prt 0 exp , doc (showString ";")])
    SPreIncr id -> prPrec i 1 (concatD [doc (showString "++") , prt 0 id , doc (showString ";")])
    SPreDecr id -> prPrec i 1 (concatD [doc (showString "--") , prt 0 id , doc (showString ";")])
-   SIf bexp stmt -> prPrec i 0 (concatD [doc (showString "if") , prt 0 bexp , doc (showString "then") , prt 0 stmt])
-   SIfElse bexp stmt0 stmt -> prPrec i 0 (concatD [doc (showString "if") , prt 0 bexp , doc (showString "then") , prt 0 stmt0 , doc (showString "else") , prt 0 stmt])
+   SIf ifstmt -> prPrec i 0 (concatD [prt 0 ifstmt])
    SWhile bexp stmt -> prPrec i 0 (concatD [doc (showString "while") , prt 0 bexp , doc (showString "do") , prt 0 stmt])
    SFor id exp0 exp stmt -> prPrec i 0 (concatD [doc (showString "for") , prt 0 id , doc (showString ":=") , prt 0 exp0 , doc (showString "to") , prt 0 exp , doc (showString "do") , prt 0 stmt])
    SPrintId id -> prPrec i 0 (concatD [doc (showString "print") , prt 0 id , doc (showString ";")])
@@ -163,6 +162,14 @@ instance Print Stmt where
   prtList es = case es of
    [] -> (concatD [])
    x:xs -> (concatD [prt 0 x , prt 0 xs])
+
+instance Print IfStmt where
+  prt i e = case e of
+   SimpleIf bexp stmt -> prPrec i 0 (concatD [doc (showString "if") , prt 0 bexp , doc (showString "then") , prt 0 stmt])
+   IfElse bexp stmt0 stmt -> prPrec i 1 (concatD [doc (showString "if") , prt 0 bexp , doc (showString "then") , prt 0 stmt0 , doc (showString "else") , prt 0 stmt])
+   IfElif bexp stmt0 stmt -> prPrec i 2 (concatD [doc (showString "if") , prt 0 bexp , doc (showString "then") , prt 0 stmt0 , doc (showString "elif") , prt 0 stmt])
+   IfElifElse bexp stmt0 stmt1 stmt -> prPrec i 3 (concatD [doc (showString "if") , prt 0 bexp , doc (showString "then") , prt 0 stmt0 , doc (showString "elif") , prt 0 stmt1 , doc (showString "else") , prt 0 stmt])
+
 
 instance Print Exp where
   prt i e = case e of

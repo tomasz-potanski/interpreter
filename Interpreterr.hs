@@ -169,12 +169,17 @@ interpretStmt stmt s = case stmt of
 			M.insert x (TTInt (valL - 1)) s
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
-    SIf b stmt ->
-        let cond = (interpretBExp b s)
-        in if cond then (interpretStmt stmt s) else s
-    SIfElse b stmt1 stmt2 ->
-        let cond = (interpretBExp b s)
-        in if cond then (interpretStmt stmt1 s) else (interpretStmt stmt2 s)
+--    SIf b stmt ->
+--        let cond = (interpretBExp b s)
+--        in if cond then (interpretStmt stmt s) else s
+    SIf kind = case kind of
+	SimpleIf b stmt ->
+            let cond = (interpretBExp b s)
+            in if cond then (interpretStmt stmt s) else s
+	IfElse b stmt1 stmt2 ->
+            let cond = (interpretBExp b s)
+            in if cond then (interpretStmt stmt1 s) else (interpretStmt stmt2 s)
+
     SWhile b i ->
         let cond = (interpretBExp b s)
         in if cond then (interpretStmt stmt (interpretStmt i s)) else s
