@@ -18,10 +18,13 @@ import Debug.Trace
 
 ----types-------------
 --data TTypes = TTInt Integer | TTBoolean Bool | TTString String | TTChar Char | TTDouble Double deriving (Eq, Show)
-data TTypes = TTInt Integer | TTBoolean Bool | TTArray Integer Integer Type (M.Map Integer TTypes) deriving (Eq, Show)
+data TTypes = TTInt Integer | TTBoolean Bool | TTString String | TTArray Integer Integer Type (M.Map Integer TTypes) deriving (Eq, Show)
 -- nazwa zmiennej -> wartosc
 type TState = M.Map String TTypes
 --type ProcMap = M.Map String ([Stmts], [Arg])
+
+extractString :: TTypes -> String
+extractString (TTString s) = s
 
 extractInt :: TTypes -> Integer
 extractInt (TTInt a) = a
