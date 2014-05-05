@@ -27,7 +27,7 @@ transProgramNameHeader x = case x of
 
 transBlock :: Block -> Result
 transBlock x = case x of
-  Blockk procdeclaration variabledeclaration stmt  -> failure x
+  Blockk variabledeclaration procdeclaration stmt  -> failure x
 
 
 transProcDeclaration :: ProcDeclaration -> Result

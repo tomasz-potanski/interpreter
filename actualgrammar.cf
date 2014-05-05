@@ -16,7 +16,7 @@ ProgNameHeaderBlank.	ProgramNameHeader 	::=  ;
 
 
 --Blockk.		Block	::= ProcDeclaration ConstantDeclaration VariableDeclaration "begin" [Stmt] "end" ;
-Blockk.		Block	::= ProcDeclaration VariableDeclaration Stmt2 ;
+Blockk.		Block	::= VariableDeclaration ProcDeclaration Stmt2 ;
 
 terminator Stmt "" ;
 

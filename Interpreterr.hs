@@ -483,5 +483,5 @@ declareNewVariables vars state = case vars of
 -------------INTERPRET FILE------------
 interpretFile :: Program -> TState3
 --interpretFile (Programm programNameHeader (Blockk variableDeclaration stmts)) = interpretStmt stmts (declareNewVariables variableDeclaration (M.empty, M.empty, M.empty))
-interpretFile (Programm programNameHeader (Blockk procDecl variableDeclaration stmts)) = interpretStmt stmts (declareNewVariables variableDeclaration (M.empty, M.empty))
+interpretFile (Programm programNameHeader (Blockk variableDeclaration procDecl stmts)) = interpretStmt stmts (declareNewVariables variableDeclaration (M.empty, M.empty))
 --interpretFile :: Program -> TState

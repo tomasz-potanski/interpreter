@@ -99,7 +99,7 @@ instance Print ProgramNameHeader where
 
 instance Print Block where
   prt i e = case e of
-   Blockk procdeclaration variabledeclaration stmt -> prPrec i 0 (concatD [prt 0 procdeclaration , prt 0 variabledeclaration , prt 2 stmt])
+   Blockk variabledeclaration procdeclaration stmt -> prPrec i 0 (concatD [prt 0 variabledeclaration , prt 0 procdeclaration , prt 2 stmt])
 
 
 instance Print ProcDeclaration where

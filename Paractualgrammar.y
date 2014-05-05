@@ -101,7 +101,7 @@ ProgramNameHeader : 'program' Ident ';' { ProgNameHeaderNotBlank $2 }
 
 
 Block :: { Block }
-Block : ProcDeclaration VariableDeclaration Stmt2 { Blockk $1 $2 $3 } 
+Block : VariableDeclaration ProcDeclaration Stmt2 { Blockk $1 $2 $3 } 
 
 
 ListStmt :: { [Stmt] }
