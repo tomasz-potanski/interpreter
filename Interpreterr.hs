@@ -186,6 +186,13 @@ interpretStmt stmt s = case stmt of
 	     in
 		if cond1 then (interpretStmt stmt1 s) else 
 		(if cond2 then (interpretStmt stmt2 s) else s)
+	IfElifElse b1 stmt1 b2 stmt2 stmt3 ->
+	    let
+	        cond1 = (interpretBExp b1 s)
+	        cond2 = (interpretBExp b2 s)
+	     in
+		if cond1 then (interpretStmt stmt1 s) else 
+		(if cond2 then (interpretStmt stmt2 s) else (interpretStmt stmt3 s))
 
     SWhile b i ->
         let cond = (interpretBExp b s)
