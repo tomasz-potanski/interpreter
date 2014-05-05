@@ -15,6 +15,6 @@ begin
 //	dwa:="Zly napis";
 	
 
-//	jeden:=table[5];
+	jeden:=table[5];
 //	print table[5];
 end.
