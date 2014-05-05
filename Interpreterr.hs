@@ -124,6 +124,14 @@ interpretBExp b s = case b of
 	BLit boolLit -> case boolLit of 
 		BoolLitTrue -> True
 		BoolLitFalse -> False
+	BExp (Ident x) -> case (checkifVarExists (Ident x) s) of
+		True -> case (M.lookup x s) of 
+		    Just n -> case n of
+			TTBoolean b -> b
+			TTInt i -> if i == 0 then False else True
+			otherwise -> False
+		    Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+		False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 	BRel exp1 relOp exp2 -> case relOp of
 		LTH -> (interpretExp exp1 s) < (interpretExp exp2 s)
 		LE -> (interpretExp exp1 s) <= (interpretExp exp2 s)

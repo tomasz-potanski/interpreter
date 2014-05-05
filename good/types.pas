@@ -1,6 +1,6 @@
+var
+	b : Boolean;
 begin
-
-	if True then print "OK" ;
-	if False then print "OK" ;
-
+	b := True;
+	if b then print "OK";
 end.
