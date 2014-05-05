@@ -152,12 +152,12 @@ interpretStmt stmt s = case stmt of
 		otherwise -> error("Error - variable is not an array!")
 	False 	-> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
-    SAssBoolLit (Ident x) bLit -> case (checkifVarExists (Ident x) s) of  
-	True ->
-		case bLit of
-			BoolLitTrue -> M.insert x (TTBoolean True) s
-			BoolLitFalse -> M.insert x (TTBoolean False) s
-	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+--    SAssBoolLit (Ident x) bLit -> case (checkifVarExists (Ident x) s) of  
+--	True ->
+--		case bLit of
+--			BoolLitTrue -> M.insert x (TTBoolean True) s
+--			BoolLitFalse -> M.insert x (TTBoolean False) s
+--	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
     SAssBool (Ident x) bexp -> case (checkifVarExists (Ident x) s) of  
 	True ->
 		case (interpretBExp bexp s) of 
