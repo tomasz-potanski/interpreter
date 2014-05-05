@@ -165,10 +165,10 @@ instance Print Stmt where
 
 instance Print IfStmt where
   prt i e = case e of
-   SimpleIf bexp stmt -> prPrec i 0 (concatD [doc (showString "if") , prt 0 bexp , doc (showString "then") , prt 0 stmt])
-   IfElse bexp stmt0 stmt -> prPrec i 1 (concatD [doc (showString "if") , prt 0 bexp , doc (showString "then") , prt 0 stmt0 , doc (showString "else") , prt 0 stmt])
-   IfElif bexp stmt0 stmt -> prPrec i 2 (concatD [doc (showString "if") , prt 0 bexp , doc (showString "then") , prt 0 stmt0 , doc (showString "elif") , prt 0 stmt])
-   IfElifElse bexp stmt0 stmt1 stmt -> prPrec i 3 (concatD [doc (showString "if") , prt 0 bexp , doc (showString "then") , prt 0 stmt0 , doc (showString "elif") , prt 0 stmt1 , doc (showString "else") , prt 0 stmt])
+   SimpleIf bexp stmt -> prPrec i 3 (concatD [doc (showString "if") , prt 0 bexp , doc (showString "then") , prt 0 stmt])
+   IfElse bexp stmt0 stmt -> prPrec i 2 (concatD [doc (showString "if") , prt 0 bexp , doc (showString "then") , prt 0 stmt0 , doc (showString "else") , prt 0 stmt])
+   IfElif bexp stmt0 stmt -> prPrec i 1 (concatD [doc (showString "if") , prt 0 bexp , doc (showString "then") , prt 0 stmt0 , doc (showString "elif") , prt 0 stmt])
+   IfElifElse bexp stmt0 stmt1 stmt -> prPrec i 0 (concatD [doc (showString "if") , prt 0 bexp , doc (showString "then") , prt 0 stmt0 , doc (showString "elif") , prt 0 stmt1 , doc (showString "else") , prt 0 stmt])
 
 
 instance Print Exp where
