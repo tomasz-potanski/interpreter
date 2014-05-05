@@ -72,6 +72,7 @@ transStmt x = case x of
   SAssBoolLit id boollit  -> failure x
   SAssString id str  -> failure x
   SAssStrToInt id str  -> failure x
+  SAzs id n  -> failure x
   SAssArrayBool id n bexp  -> failure x
   SAssArrayBoolLit id n boollit  -> failure x
   SAssMult id exp  -> failure x

@@ -52,6 +52,7 @@ data Stmt =
  | SAssBoolLit Ident BoolLit
  | SAssString Ident String
  | SAssStrToInt Ident String
+ | SAzs Ident Integer
  | SAssArrayBool Ident Integer BExp
  | SAssArrayBoolLit Ident Integer BoolLit
  | SAssMult Ident Exp

@@ -59,6 +59,7 @@ SAssBoolLit.		Stmt	::=	Ident ":=" BoolLit ";" ;
 
 SAssString.		Stmt	::=	Ident ":=" String ";" ;
 SAssStrToInt.		Stmt	::=	Ident ":=" "strToInt" String ";" ;
+SAzs.			Stmt	::=	Ident ":=" "intToStr" Integer ";" ;
 SAssArrayBool.		Stmt	::=	Ident "[" Integer "]" ":=" BExp ";" ;
 SAssArrayBoolLit.	Stmt	::=	Ident "[" Integer "]" ":=" BoolLit ";" ;
 

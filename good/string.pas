@@ -1,6 +1,10 @@
 var
-	s:String;
+	s, nr:String;
+	i:Integer;
 begin
 	s := " ALA MA KTAAA " ;
-	print s;
+	
+	//print s;
+	i:=strToInt "1234" ;
+	nr:=intToStr 2345 ;
 end.

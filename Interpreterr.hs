@@ -213,6 +213,18 @@ interpretStmt stmt s = case stmt of
 			Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
+    SAzs (Ident x) (Integer intt) -> case (checkifVarExists (Ident x) s) of  
+	True -> let val = (intToStr intt)
+        	in 
+		    case (M.lookup x s) of
+			Just n -> case n of
+				TTInt _ ->  error("Error - incorrect types")
+				TTString _ -> (M.insert x (TTString val) s) 
+				TTBoolean _ -> error("Error - incorrect types")
+				otherwise -> error("Error - incorrect types")
+			Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+
     SAssString (Ident x) str -> case (checkifVarExists (Ident x) s) of  
 	True -> case (M.lookup x s) of
 	    Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")

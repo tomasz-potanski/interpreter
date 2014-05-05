@@ -150,6 +150,7 @@ instance Print Stmt where
    SAssBoolLit id boollit -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 boollit , doc (showString ";")])
    SAssString id str -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 str , doc (showString ";")])
    SAssStrToInt id str -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , doc (showString "strToInt") , prt 0 str , doc (showString ";")])
+   SAzs id n -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , doc (showString "intToStr") , prt 0 n , doc (showString ";")])
    SAssArrayBool id n bexp -> prPrec i 0 (concatD [prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ":=") , prt 0 bexp , doc (showString ";")])
    SAssArrayBoolLit id n boollit -> prPrec i 0 (concatD [prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ":=") , prt 0 boollit , doc (showString ";")])
    SAssMult id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "*=") , prt 0 exp , doc (showString ";")])

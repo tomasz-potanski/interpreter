@@ -59,15 +59,16 @@ import ErrM
  'end' { PT _ (TS _ 42) }
  'for' { PT _ (TS _ 43) }
  'if' { PT _ (TS _ 44) }
- 'of' { PT _ (TS _ 45) }
- 'print' { PT _ (TS _ 46) }
- 'program' { PT _ (TS _ 47) }
- 'strToInt' { PT _ (TS _ 48) }
- 'then' { PT _ (TS _ 49) }
- 'to' { PT _ (TS _ 50) }
- 'var' { PT _ (TS _ 51) }
- 'while' { PT _ (TS _ 52) }
- '||' { PT _ (TS _ 53) }
+ 'intToStr' { PT _ (TS _ 45) }
+ 'of' { PT _ (TS _ 46) }
+ 'print' { PT _ (TS _ 47) }
+ 'program' { PT _ (TS _ 48) }
+ 'strToInt' { PT _ (TS _ 49) }
+ 'then' { PT _ (TS _ 50) }
+ 'to' { PT _ (TS _ 51) }
+ 'var' { PT _ (TS _ 52) }
+ 'while' { PT _ (TS _ 53) }
+ '||' { PT _ (TS _ 54) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -157,6 +158,7 @@ Stmt : Ident ':=' Exp ';' { SAss $1 $3 }
   | Ident ':=' BoolLit ';' { SAssBoolLit $1 $3 }
   | Ident ':=' String ';' { SAssString $1 $3 }
   | Ident ':=' 'strToInt' String ';' { SAssStrToInt $1 $4 }
+  | Ident ':=' 'intToStr' Integer ';' { SAzs $1 $4 }
   | Ident '[' Integer ']' ':=' BExp ';' { SAssArrayBool $1 $3 $6 }
   | Ident '[' Integer ']' ':=' BoolLit ';' { SAssArrayBoolLit $1 $3 $6 }
   | Ident '*=' Exp ';' { SAssMult $1 $3 }
