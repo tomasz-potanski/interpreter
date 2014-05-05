@@ -148,7 +148,7 @@ instance Print Stmt where
    SAssArray id n exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ":=") , prt 0 exp , doc (showString ";")])
    SAssBool id bexp -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 bexp , doc (showString ";")])
    SAssBoolLit id boollit -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 boollit , doc (showString ";")])
-   SAssString id str -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , doc (showString "'") , prt 0 str , doc (showString "'") , doc (showString ";")])
+   SAssString id strlit -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 strlit , doc (showString ";")])
    SAssArrayBool id n bexp -> prPrec i 0 (concatD [prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ":=") , prt 0 bexp , doc (showString ";")])
    SAssArrayBoolLit id n boollit -> prPrec i 0 (concatD [prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ":=") , prt 0 boollit , doc (showString ";")])
    SAssMult id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "*=") , prt 0 exp , doc (showString ";")])
@@ -166,6 +166,11 @@ instance Print Stmt where
   prtList es = case es of
    [] -> (concatD [])
    x:xs -> (concatD [prt 0 x , prt 0 xs])
+
+instance Print StrLit where
+  prt i e = case e of
+   AtrStrLit str -> prPrec i 0 (concatD [doc (showString "'") , prt 0 str , doc (showString "'")])
+
 
 instance Print IfStmt where
   prt i e = case e of

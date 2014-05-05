@@ -94,7 +94,7 @@ All other symbols are terminals.
   |  |  **|**  | //Ident// ``[`` //Integer// ``]`` ``:=`` //Exp// ``;`` 
   |  |  **|**  | //Ident// ``:=`` //BExp// ``;`` 
   |  |  **|**  | //Ident// ``:=`` //BoolLit// ``;`` 
-  |  |  **|**  | //Ident// ``:=`` ``'`` //String// ``'`` ``;`` 
+  |  |  **|**  | //Ident// ``:=`` //StrLit// ``;`` 
   |  |  **|**  | //Ident// ``[`` //Integer// ``]`` ``:=`` //BExp// ``;`` 
   |  |  **|**  | //Ident// ``[`` //Integer// ``]`` ``:=`` //BoolLit// ``;`` 
   |  |  **|**  | //Ident// ``*=`` //Exp// ``;`` 
@@ -107,6 +107,7 @@ All other symbols are terminals.
   |  |  **|**  | ``print`` //Exp// ``;`` 
   |  |  **|**  | ``print`` //LitVal// ``;`` 
   |  |  **|**  | //Stmt1// 
+  | //StrLit// | -> | ``'`` //String// ``'`` 
   | //Stmt1// | -> | ``++`` //Ident// ``;`` 
   |  |  **|**  | ``--`` //Ident// ``;`` 
   |  |  **|**  | //Stmt2// 
