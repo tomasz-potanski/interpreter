@@ -29,6 +29,9 @@ extractInt (TTInt a) = a
 extractBool :: TTypes -> Bool
 extractBool (TTBoolean a) = a
 
+extractArray :: TTypes -> (Integer, Integer, Type, (M.Map Integer TTypes))
+extractArray (TTArray minn maxx typee mapp) = (minn, maxx, typee, mapp)
+
 --extractString :: TTypes -> String
 --extractString (TTString a) = a
 
@@ -119,6 +122,17 @@ interpretStmt stmt s = case stmt of
         	let val = (interpretExp exp s)
         	in M.insert x (TTInt val) s
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+    SAssArray (Ident x) index exp -> case (checkifVarExistsAndIsArray (Ident x) s) of  
+	True 	-> case (M.lookup x s) of 
+	    Just n -> case n of
+		TTArray minn maxx typee mapp -> 
+		    if (index >= minn) && (index <= maxx) then
+			M.insert x (TTArray minn maxx typee (M.insert index (TTInt (interpretExp exp s)) mapp)) s
+		    else 
+			error("Error - index out of bound!")
+		otherwise -> error("Error - variable is not an array!")
+	False 	-> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+
     SAssBoolLit (Ident x) bLit -> case (checkifVarExists (Ident x) s) of  
 	True ->
 		case bLit of
@@ -223,12 +237,23 @@ checkifVarExists (Ident ident) state = case M.lookup ident state of
 	Just n 	-> True
 	Nothing	-> False
 
+checkifVarExistsAndIsArray :: Ident -> TState -> Bool
+checkifVarExistsAndIsArray (Ident ident) state = case M.lookup ident state of
+	Just n 	-> case n of
+			TTArray _ _ _ _	-> True
+			otherwise 	-> False
+	Nothing	-> False
+
 addOneVariable :: Ident -> Type -> TState -> TState
 addOneVariable (Ident ident) typee state = case typee of
 		TInt -> M.insert ident (TTInt 0) state
 		TBool -> M.insert ident (TTBoolean False) state
-		TArray minn maxx typee -> M.insert ident (TTArray minn maxx typee M.empty) state
-
+		TArray minn maxx typee -> 
+			if (minn < maxx) && (minn >= 0) then 
+				M.insert ident (TTArray minn maxx typee M.empty) state
+			else 
+				error("Error - incorrect table index range!")	
+	
 addManyVariables :: [Ident] -> Type -> TState -> TState
 addManyVariables [] typee state = state 
 addManyVariables ((Ident ident):tl) typee state = 
