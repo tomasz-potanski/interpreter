@@ -23,7 +23,11 @@ terminator Stmt "" ;
 --------------(Proc Declaration)-----------
 PExists.		ProcDeclaration ::= "proc" [ProcDeclLine] ;
 PDoesntExist.		ProcDeclaration ::= ;
-PLine.			ProcDeclLine ::= "procedure" Ident "(" VarDeclarationLine ")" ";" VariableDeclaration Stmt2;
+
+ProcDecR.		ProcDeclLine ::= ProcDeclLine ;
+
+PLineNonArg.		ProcDeclLine ::= "procedure" Ident "(" ")" ";" VariableDeclaration Stmt2;
+PLineArg.		ProcDeclLine ::= "procedure" Ident "(" VarDeclarationLine ")" ";" VariableDeclaration Stmt2;
 terminator ProcDeclLine "";
 
 -------------(Variables Declaration)---------------
@@ -109,6 +113,7 @@ SPrintExp.	Stmt	::=	"print" "<-" "(" Exp ")" ";" ;
 SPrintBExp.	Stmt	::=	"print" "<-" "(" BExp ")" ";" ;
 SPrintCharLit.	Stmt	::=	"print" "<-" "(" Char ")" ";" ;
 
+SProcCall.		Stmt	::=	Ident "(" ")" ";" ;
 SProcCallId.		Stmt	::=	Ident "(" Ident ")" ";" ;
 SProcCallExp.		Stmt	::=	Ident "(" Exp ")" ";" ;
 SProcCallBExp.		Stmt	::=	Ident "(" BExp ")" ";" ;

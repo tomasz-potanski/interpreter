@@ -23,7 +23,9 @@ data ProcDeclaration =
   deriving (Eq,Ord,Show)
 
 data ProcDeclLine =
-   PLine Ident VarDeclarationLine VariableDeclaration Stmt
+   ProcDecR ProcDeclLine
+ | PLineNonArg Ident VariableDeclaration Stmt
+ | PLineArg Ident VarDeclarationLine VariableDeclaration Stmt
   deriving (Eq,Ord,Show)
 
 data VariableDeclaration =
@@ -81,6 +83,7 @@ data Stmt =
  | SPrintExp Exp
  | SPrintBExp BExp
  | SPrintCharLit Char
+ | SProcCall Ident
  | SProcCallId Ident Ident
  | SProcCallExp Ident Exp
  | SProcCallBExp Ident BExp

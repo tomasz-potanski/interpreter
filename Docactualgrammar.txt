@@ -76,7 +76,9 @@ All other symbols are terminals.
   |  |  **|**  | //Stmt// //[Stmt]// 
   | //ProcDeclaration// | -> | ``proc`` //[ProcDeclLine]// 
   |  |  **|**  | **eps**
-  | //ProcDeclLine// | -> | ``procedure`` //Ident// ``(`` //VarDeclarationLine// ``)`` ``;`` //VariableDeclaration// //Stmt2// 
+  | //ProcDeclLine// | -> | //ProcDeclLine// 
+  |  |  **|**  | ``procedure`` //Ident// ``(`` ``)`` ``;`` //VariableDeclaration// //Stmt2// 
+  |  |  **|**  | ``procedure`` //Ident// ``(`` //VarDeclarationLine// ``)`` ``;`` //VariableDeclaration// //Stmt2// 
   | //[ProcDeclLine]// | -> | **eps**
   |  |  **|**  | //ProcDeclLine// //[ProcDeclLine]// 
   | //VariableDeclaration// | -> | ``var`` //[VarDeclarationLine]// 
@@ -120,6 +122,7 @@ All other symbols are terminals.
   |  |  **|**  | ``print`` ``<-`` ``(`` //Exp// ``)`` ``;`` 
   |  |  **|**  | ``print`` ``<-`` ``(`` //BExp// ``)`` ``;`` 
   |  |  **|**  | ``print`` ``<-`` ``(`` //Char// ``)`` ``;`` 
+  |  |  **|**  | //Ident// ``(`` ``)`` ``;`` 
   |  |  **|**  | //Ident// ``(`` //Ident// ``)`` ``;`` 
   |  |  **|**  | //Ident// ``(`` //Exp// ``)`` ``;`` 
   |  |  **|**  | //Ident// ``(`` //BExp// ``)`` ``;`` 

@@ -432,7 +432,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
         True -> showToUser "True" s
         False -> showToUser "False" s
     SPrintCharLit str -> (showToUser [str] s)
-	
+    SProcCall (Ident x) ->
 
 
 --type TState2 = (TLoc, TEnv, TFuncMap)

@@ -115,7 +115,9 @@ ProcDeclaration : 'proc' ListProcDeclLine { PExists (reverse $2) }
 
 
 ProcDeclLine :: { ProcDeclLine }
-ProcDeclLine : 'procedure' Ident '(' VarDeclarationLine ')' ';' VariableDeclaration Stmt2 { PLine $2 $4 $7 $8 } 
+ProcDeclLine : ProcDeclLine { ProcDecR $1 } 
+  | 'procedure' Ident '(' ')' ';' VariableDeclaration Stmt2 { PLineNonArg $2 $6 $7 }
+  | 'procedure' Ident '(' VarDeclarationLine ')' ';' VariableDeclaration Stmt2 { PLineArg $2 $4 $7 $8 }
 
 
 ListProcDeclLine :: { [ProcDeclLine] }
@@ -195,6 +197,7 @@ Stmt : Ident ':=' Exp ';' { SAss $1 $3 }
   | 'print' '<-' '(' Exp ')' ';' { SPrintExp $4 }
   | 'print' '<-' '(' BExp ')' ';' { SPrintBExp $4 }
   | 'print' '<-' '(' Char ')' ';' { SPrintCharLit $4 }
+  | Ident '(' ')' ';' { SProcCall $1 }
   | Ident '(' Ident ')' ';' { SProcCallId $1 $3 }
   | Ident '(' Exp ')' ';' { SProcCallExp $1 $3 }
   | Ident '(' BExp ')' ';' { SProcCallBExp $1 $3 }
