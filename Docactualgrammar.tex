@@ -37,14 +37,14 @@ String literals \nonterminal{String}\ have the form
 except \terminal{"}\ unless preceded by \verb6\6.
 
 
+Character literals \nonterminal{Char}\ have the form
+\terminal{'}$c$\terminal{'}, where $c$ is any single character.
+
+
 Double-precision float literals \nonterminal{Double}\ have the structure
 indicated by the regular expression $\nonterminal{digit}+ \mbox{{\it `.'}} \nonterminal{digit}+ (\mbox{{\it `e'}} \mbox{{\it `-'}}? \nonterminal{digit}+)?$ i.e.\
 two sequences of digits separated by a decimal point, optionally
 followed by an unsigned or negative exponent.
-
-
-Character literals \nonterminal{Char}\ have the form
-\terminal{'}$c$\terminal{'}, where $c$ is any single character.
 
 
 
@@ -180,6 +180,7 @@ All other symbols are terminals.\\
  & {\delimit}  &{\terminal{print}} {\terminal{{$<$}{$-$}{$-$}}} {\terminal{(}} {\nonterminal{Ident}} {\terminal{[}} {\nonterminal{Integer}} {\terminal{]}} {\terminal{)}} {\terminal{;}}  \\
  & {\delimit}  &{\terminal{print}} {\terminal{{$<$}{$-$}}} {\terminal{(}} {\nonterminal{Exp}} {\terminal{)}} {\terminal{;}}  \\
  & {\delimit}  &{\terminal{print}} {\terminal{{$<$}{$-$}}} {\terminal{(}} {\nonterminal{BExp}} {\terminal{)}} {\terminal{;}}  \\
+ & {\delimit}  &{\terminal{print}} {\terminal{{$<$}{$-$}}} {\terminal{(}} {\nonterminal{Char}} {\terminal{)}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Stmt1}}  \\
 \end{tabular}\\
 

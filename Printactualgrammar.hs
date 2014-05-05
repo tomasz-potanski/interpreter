@@ -169,6 +169,7 @@ instance Print Stmt where
    SPrintArray id n -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<--") , doc (showString "(") , prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ")") , doc (showString ";")])
    SPrintExp exp -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<-") , doc (showString "(") , prt 0 exp , doc (showString ")") , doc (showString ";")])
    SPrintBExp bexp -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<-") , doc (showString "(") , prt 0 bexp , doc (showString ")") , doc (showString ";")])
+   SPrintCharLit c -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<-") , doc (showString "(") , prt 0 c , doc (showString ")") , doc (showString ";")])
 
   prtList es = case es of
    [] -> (concatD [])

@@ -71,6 +71,7 @@ data Stmt =
  | SPrintArray Ident Integer
  | SPrintExp Exp
  | SPrintBExp BExp
+ | SPrintCharLit Char
   deriving (Eq,Ord,Show)
 
 data IfStmt =

@@ -426,6 +426,7 @@ interpretStmt stmt s = case stmt of
     SPrintBExp bexp -> case (interpretBExp bexp s) of
         True -> showToUser "True" s
         False -> showToUser "False" s
+    SPrintCharLit str -> (showToUser str s)
 	
 --    SPrintId (Ident x) -> case (checkifVarExists (Ident x) s) of
 --	True -> showToUser (show (variableValueInt (Ident x) s)) s

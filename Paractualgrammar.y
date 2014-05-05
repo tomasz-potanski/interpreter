@@ -76,8 +76,8 @@ import ErrM
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
 L_quoted { PT _ (TL $$) }
-L_doubl  { PT _ (TD $$) }
 L_charac { PT _ (TC $$) }
+L_doubl  { PT _ (TD $$) }
 L_err    { _ }
 
 
@@ -86,8 +86,8 @@ L_err    { _ }
 Ident   :: { Ident }   : L_ident  { Ident $1 }
 Integer :: { Integer } : L_integ  { (read ( $1)) :: Integer }
 String  :: { String }  : L_quoted {  $1 }
-Double  :: { Double }  : L_doubl  { (read ( $1)) :: Double }
 Char    :: { Char }    : L_charac { (read ( $1)) :: Char }
+Double  :: { Double }  : L_doubl  { (read ( $1)) :: Double }
 
 Program :: { Program }
 Program : ProgramNameHeader Block '.' { Programm $1 $2 } 
@@ -178,6 +178,7 @@ Stmt : Ident ':=' Exp ';' { SAss $1 $3 }
   | 'print' '<--' '(' Ident '[' Integer ']' ')' ';' { SPrintArray $4 $6 }
   | 'print' '<-' '(' Exp ')' ';' { SPrintExp $4 }
   | 'print' '<-' '(' BExp ')' ';' { SPrintBExp $4 }
+  | 'print' '<-' '(' Char ')' ';' { SPrintCharLit $4 }
   | Stmt1 { $1 }
 
 

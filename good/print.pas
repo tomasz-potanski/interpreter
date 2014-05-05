@@ -37,6 +37,7 @@ begin
 	print <- (x+2);
 	print <- (3*7);
 	print <- (False);
+	print <- ('a');
 
 
 end.

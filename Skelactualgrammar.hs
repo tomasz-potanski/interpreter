@@ -91,6 +91,7 @@ transStmt x = case x of
   SPrintArray id n  -> failure x
   SPrintExp exp  -> failure x
   SPrintBExp bexp  -> failure x
+  SPrintCharLit c  -> failure x
 
 
 transIfStmt :: IfStmt -> Result
