@@ -161,9 +161,7 @@ Stmt : Ident ':=' Exp ';' { SAss $1 $3 }
   | IfStmt { SIf $1 }
   | 'while' BExp 'do' Stmt { SWhile $2 $4 }
   | 'for' Ident ':=' Exp 'to' Exp 'do' Stmt { SFor $2 $4 $6 $8 }
-  | 'print' Ident ';' { SPrintId $2 }
-  | 'print' Exp ';' { SPrintExp $2 }
-  | 'print' LitVal ';' { SPrint $2 }
+  | 'print' Printalbe ';' { SPrint $2 }
   | Stmt1 { $1 }
 
 
@@ -191,6 +189,23 @@ IfStmt2 : 'if' BExp 'then' Stmt 'elif' BExp 'then' Stmt { IfElif $2 $4 $6 $8 }
 IfStmt3 :: { IfStmt }
 IfStmt3 : 'if' BExp 'then' Stmt 'elif' BExp 'then' Stmt 'else' Stmt { IfElifElse $2 $4 $6 $8 $10 } 
   | '(' IfStmt ')' { $2 }
+
+
+Printalbe :: { Printalbe }
+Printalbe : Exp { SPExp $1 } 
+
+
+Printable2 :: { Printable }
+Printable2 : Ident { SPId $1 } 
+  | '(' Printable ')' { $2 }
+
+
+Printable :: { Printable }
+Printable : Printable1 { $1 } 
+
+
+Printable1 :: { Printable }
+Printable1 : Printable2 { $1 } 
 
 
 Exp :: { Exp }

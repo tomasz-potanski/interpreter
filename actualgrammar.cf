@@ -88,7 +88,7 @@ SWhile.		Stmt	::=	"while" BExp "do" Stmt ;
 SFor.       	Stmt 	::= 	"for" Ident ":=" Exp "to" Exp "do" Stmt;
 
 SPrint.		Stmt	::=	"print" Printalbe ";" ;
-SPExp.		Printable::=	Exp;
+SPExp.		Printalbe::=	Exp;
 SPId.		Printable2::=	Ident ;
 coercions Printable 2;
 

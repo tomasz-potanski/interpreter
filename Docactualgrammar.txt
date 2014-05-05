@@ -101,9 +101,7 @@ All other symbols are terminals.
   |  |  **|**  | //IfStmt// 
   |  |  **|**  | ``while`` //BExp// ``do`` //Stmt// 
   |  |  **|**  | ``for`` //Ident// ``:=`` //Exp// ``to`` //Exp// ``do`` //Stmt// 
-  |  |  **|**  | ``print`` //Ident// ``;`` 
-  |  |  **|**  | ``print`` //Exp// ``;`` 
-  |  |  **|**  | ``print`` //LitVal// ``;`` 
+  |  |  **|**  | ``print`` //Printalbe// ``;`` 
   |  |  **|**  | //Stmt1// 
   | //Stmt1// | -> | ``++`` //Ident// ``;`` 
   |  |  **|**  | ``--`` //Ident// ``;`` 
@@ -116,6 +114,11 @@ All other symbols are terminals.
   |  |  **|**  | //IfStmt3// 
   | //IfStmt3// | -> | ``if`` //BExp// ``then`` //Stmt// ``elif`` //BExp// ``then`` //Stmt// ``else`` //Stmt// 
   |  |  **|**  | ``(`` //IfStmt// ``)`` 
+  | //Printalbe// | -> | //Exp// 
+  | //Printable2// | -> | //Ident// 
+  |  |  **|**  | ``(`` //Printable// ``)`` 
+  | //Printable// | -> | //Printable1// 
+  | //Printable1// | -> | //Printable2// 
   | //Exp// | -> | //Exp// ``+`` //Exp1// 
   |  |  **|**  | //Exp// ``-`` //Exp1// 
   |  |  **|**  | //Exp1// 
