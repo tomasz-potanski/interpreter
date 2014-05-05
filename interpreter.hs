@@ -38,7 +38,6 @@ main = do
 --    (filePath:_) <- getArgs
 	args 	<-	getArgs
 	let fileContent = getFileContent args
-	in do
 --    fileHandler <- openFile filePath ReadMode
 --   fileContent <- hGetContents fileHandler
 --    fileContent <- getContents	
