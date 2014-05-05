@@ -242,13 +242,14 @@ interpretStmt stmt s = case stmt of
     SBlock (i:is) -> 
         (interpretStmts is (interpretStmt i s))
 	-- !! ZROBIĆ PRINT INACZEJ
-      SPrintExp exp -> showToUser (show (interpretExp exp s)) s
+    SPrintExp exp -> 
+	showToUser (show (interpretExp exp s)) s
 --    SPrintId (Ident x) -> case (checkifVarExists (Ident x) s) of
 --	True -> showToUser (show (variableValueInt (Ident x) s)) s
 --	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
     SPrint a -> case a of
 		LiteralValueString ss -> showToUser ss s
-		LiteralValueInteger ii -> showToUser (show ii) s  
+--		LiteralValueInteger ii -> showToUser (show ii) s  
 		LiteralValueChar ss -> showToUser [ss] s
 		LiteralValueDouble ii -> showToUser (show ii) s 
 
