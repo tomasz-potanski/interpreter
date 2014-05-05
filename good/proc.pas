@@ -9,5 +9,5 @@ proc
 	end
 
 begin
-
+	moja(2);
 end.

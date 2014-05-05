@@ -81,6 +81,11 @@ data Stmt =
  | SPrintExp Exp
  | SPrintBExp BExp
  | SPrintCharLit Char
+ | SProcCallId Ident Ident
+ | SProcCallExp Ident Exp
+ | SProcCallBExp Ident BExp
+ | SProcCallString Ident String
+ | SProcCallInteger Ident Integer
   deriving (Eq,Ord,Show)
 
 data IfStmt =

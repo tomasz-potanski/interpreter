@@ -184,6 +184,11 @@ instance Print Stmt where
    SPrintExp exp -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<-") , doc (showString "(") , prt 0 exp , doc (showString ")") , doc (showString ";")])
    SPrintBExp bexp -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<-") , doc (showString "(") , prt 0 bexp , doc (showString ")") , doc (showString ";")])
    SPrintCharLit c -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<-") , doc (showString "(") , prt 0 c , doc (showString ")") , doc (showString ";")])
+   SProcCallId id0 id -> prPrec i 0 (concatD [prt 0 id0 , doc (showString "(") , prt 0 id , doc (showString ")") , doc (showString ";")])
+   SProcCallExp id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 exp , doc (showString ")") , doc (showString ";")])
+   SProcCallBExp id bexp -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 bexp , doc (showString ")") , doc (showString ";")])
+   SProcCallString id str -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 str , doc (showString ")") , doc (showString ";")])
+   SProcCallInteger id n -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 n , doc (showString ")") , doc (showString ";")])
 
   prtList es = case es of
    [] -> (concatD [])
