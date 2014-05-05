@@ -256,22 +256,33 @@ interpretStmt stmt s = case stmt of
     SBlock (i:is) -> 
         (interpretStmts is (interpretStmt i s))
 	-- !! ZROBIĆ PRINT INACZEJ
-    SPrintExp exp -> 
-	showToUser (show (interpretExp exp s)) s
-    SPrintId (Ident x) -> case (checkifVarExists (Ident x) s) of
-	True -> --showToUser (show (variableValueInt (Ident x) s)) s
-	    case (M.lookup x s) of
+
+    SPrint printable -> case printable of
+	SPId (Ident x) 	-> case (checkifVarExists (Ident x) s) of
+	    False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+	    True -> case (M.lookup x s) of
 		TTInt i 	-> showToUser (show i) s
 		TTBoolean b 	-> 
 			if b then showToUser "True" s
 			else showToUser "False" s
-	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
-    SPrint a -> case a of
-		LiteralValueString ss -> showToUser ss s
---		LiteralValueInteger ii -> showToUser (show ii) s  
-		LiteralValueChar ss -> showToUser [ss] s
-		LiteralValueDouble ii -> showToUser (show ii) s 
+	SPExp exp 	-> showToUser (show (interpretExp exp s)) s
 
+--    SPrintExp exp -> 
+--	
+--    SPrintId (Ident x) -> case (checkifVarExists (Ident x) s) of
+--	True -> --showToUser (show (variableValueInt (Ident x) s)) s
+--	    case (M.lookup x s) of
+--		TTInt i 	-> showToUser (show i) s
+--		TTBoolean b 	-> 
+--			if b then showToUser "True" s
+--			else showToUser "False" s
+--	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+ --   SPrint a -> case a of
+--		LiteralValueString ss -> showToUser ss s
+--		LiteralValueInteger ii -> showToUser (show ii) s  
+--		LiteralValueChar ss -> showToUser [ss] s
+--		LiteralValueDouble ii -> showToUser (show ii) s 
+--
 checkifVarExists :: Ident -> TState -> Bool
 checkifVarExists (Ident ident) state = case M.lookup ident state of
 	Just n 	-> True
