@@ -114,9 +114,12 @@ All other symbols are terminals.
   |  |  **|**  | //IfStmt3// 
   | //IfStmt3// | -> | ``if`` //BExp// ``then`` //Stmt// ``elif`` //BExp// ``then`` //Stmt// ``else`` //Stmt// 
   |  |  **|**  | ``(`` //IfStmt// ``)`` 
-  | //Printable1// | -> | //Ident// 
+  | //Printable3// | -> | //Ident// 
   |  |  **|**  | ``(`` //Printable// ``)`` 
-  | //Printable// | -> | //Printable1// 
+  | //Printable// | -> | //Exp2// 
+  |  |  **|**  | //Printable1// 
+  | //Printable1// | -> | //Printable2// 
+  | //Printable2// | -> | //Printable3// 
   | //Exp// | -> | //Exp// ``+`` //Exp1// 
   |  |  **|**  | //Exp// ``-`` //Exp1// 
   |  |  **|**  | //Exp1// 

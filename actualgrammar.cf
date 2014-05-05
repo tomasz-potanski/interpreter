@@ -88,9 +88,9 @@ SWhile.		Stmt	::=	"while" BExp "do" Stmt ;
 SFor.       	Stmt 	::= 	"for" Ident ":=" Exp "to" Exp "do" Stmt;
 
 SPrint.		Stmt	::=	"print" Printable ";" ;
-SPId.		Printable1::=	Ident ;
---SPExp.		Printable::=	Exp2;
-coercions Printable 1;
+SPId.		Printable3::=	Ident ;
+SPExp.	Printable::=	Exp2;
+coercions Printable 3;
 
 --SPrintId.	Stmt	::=	"print" Ident ";" ;
 --SPrintArray.	Stmt	::=	"print" Ident "[" Integer "]" ";" ;
@@ -119,6 +119,8 @@ EArray. Exp2	::= 	Ident "[" Integer "]" ;
 --EBool.  Exp2	::=	BExp ;
 coercions 	Exp 	2 	;
 --EAss.		Exp 	::=	Ident "=" Exp ;
+
+
 
 ----------------(Bool Expressions)----------
 BOr.  	BExp   	::= BExp "||" BExp1 ;
