@@ -68,8 +68,8 @@ transStmt x = case x of
   SBlock stmts  -> failure x
   SAss id exp  -> failure x
   SAssArray id n exp  -> failure x
-  SAssBoolLit id boollit  -> failure x
-  SAssArrayBoolLit id n boollit  -> failure x
+  SAssBool id bexp  -> failure x
+  SAssArrayBool id n bexp  -> failure x
   SAssMult id exp  -> failure x
   SAssDiv id exp  -> failure x
   SAssAdd id exp  -> failure x
@@ -79,7 +79,8 @@ transStmt x = case x of
   SIf ifstmt  -> failure x
   SWhile bexp stmt  -> failure x
   SFor id exp1 exp2 stmt3  -> failure x
-  SPrint printable  -> failure x
+  SPrintExp exp  -> failure x
+  SPrint litval  -> failure x
 
 
 transIfStmt :: IfStmt -> Result
@@ -88,11 +89,6 @@ transIfStmt x = case x of
   IfElse bexp stmt1 stmt2  -> failure x
   IfElif bexp1 stmt2 bexp3 stmt4  -> failure x
   IfElifElse bexp1 stmt2 bexp3 stmt4 stmt5  -> failure x
-
-
-transPrintable :: Printable -> Result
-transPrintable x = case x of
-  SPExp exp  -> failure x
 
 
 transExp :: Exp -> Result
@@ -111,6 +107,7 @@ transBExp x = case x of
   BOr bexp1 bexp2  -> failure x
   BAnd bexp1 bexp2  -> failure x
   BRel exp1 relop2 exp3  -> failure x
+  BBLit boollit  -> failure x
 
 
 transRelOp :: RelOp -> Result

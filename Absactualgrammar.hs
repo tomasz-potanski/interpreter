@@ -48,8 +48,8 @@ data Stmt =
    SBlock [Stmt]
  | SAss Ident Exp
  | SAssArray Ident Integer Exp
- | SAssBoolLit Ident BoolLit
- | SAssArrayBoolLit Ident Integer BoolLit
+ | SAssBool Ident BExp
+ | SAssArrayBool Ident Integer BExp
  | SAssMult Ident Exp
  | SAssDiv Ident Exp
  | SAssAdd Ident Exp
@@ -59,7 +59,8 @@ data Stmt =
  | SIf IfStmt
  | SWhile BExp Stmt
  | SFor Ident Exp Exp Stmt
- | SPrint Printable
+ | SPrintExp Exp
+ | SPrint LitVal
   deriving (Eq,Ord,Show)
 
 data IfStmt =
@@ -67,10 +68,6 @@ data IfStmt =
  | IfElse BExp Stmt Stmt
  | IfElif BExp Stmt BExp Stmt
  | IfElifElse BExp Stmt BExp Stmt Stmt
-  deriving (Eq,Ord,Show)
-
-data Printable =
-   SPExp Exp
   deriving (Eq,Ord,Show)
 
 data Exp =
@@ -87,6 +84,7 @@ data BExp =
    BOr BExp BExp
  | BAnd BExp BExp
  | BRel Exp RelOp Exp
+ | BBLit BoolLit
   deriving (Eq,Ord,Show)
 
 data RelOp =

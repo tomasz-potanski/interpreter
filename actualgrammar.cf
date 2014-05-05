@@ -52,10 +52,10 @@ SBlock.		Stmt2	::=	"begin" [Stmt] "end" ;
 SAss.		Stmt	::=	Ident ":=" Exp ";" ;
 SAssArray.	Stmt	::=	Ident "[" Integer "]" ":=" Exp ";" ;
 
---SAssBool.		Stmt	::=	Ident ":=" BExp ";" ;
-SAssBoolLit.		Stmt	::=	Ident ":=" BoolLit ";" ;
---SAssArrayBool.		Stmt	::=	Ident "[" Integer "]" ":=" BExp ";" ;
-SAssArrayBoolLit.	Stmt	::=	Ident "[" Integer "]" ":=" BoolLit ";" ;
+SAssBool.		Stmt	::=	Ident ":=" BExp ";" ;
+--SAssBoolLit.		Stmt	::=	Ident ":=" BoolLit ";" ;
+SAssArrayBool.		Stmt	::=	Ident "[" Integer "]" ":=" BExp ";" ;
+--SAssArrayBoolLit.	Stmt	::=	Ident "[" Integer "]" ":=" BoolLit ";" ;
 
 SAssMult.    	Stmt 	::= 	Ident "*=" Exp ";" ; 
 SAssDiv.    	Stmt 	::= 	Ident "/=" Exp ";" ; 
@@ -86,16 +86,10 @@ coercions 	IfStmt 	3;
 
 SWhile.		Stmt	::=	"while" BExp "do" Stmt ; 
 SFor.       	Stmt 	::= 	"for" Ident ":=" Exp "to" Exp "do" Stmt;
-
-SPrint.		Stmt	::=	"print" Printable ";" ;
---SPId.		Printable::=	Ident ;
-SPExp.		Printable::=	Exp;
---coercions Printable 3;
-
 --SPrintId.	Stmt	::=	"print" Ident ";" ;
 --SPrintArray.	Stmt	::=	"print" Ident "[" Integer "]" ";" ;
---SPrintExp.	Stmt	::=	"print" Exp ";" ;
---SPrint.		Stmt	::=	"print" LitVal ";" ;
+SPrintExp.	Stmt	::=	"print" Exp ";" ;
+SPrint.		Stmt	::=	"print" LitVal ";" ;
 
 --SPrintString.	Stmt	::=	"print" String ";" ;
 --SPrintInt.	Stmt	::=	"print" Integer ";" ;
@@ -120,13 +114,11 @@ EArray. Exp2	::= 	Ident "[" Integer "]" ;
 coercions 	Exp 	2 	;
 --EAss.		Exp 	::=	Ident "=" Exp ;
 
-
-
 ----------------(Bool Expressions)----------
 BOr.  	BExp   	::= BExp "||" BExp1 ;
 BAnd. 	BExp1  	::= BExp1 "&&" BExp2 ;
 BRel.  	BExp2  	::= Exp RelOp Exp ;
---BBLit.	BExp2	::= BoolLit ;
+BBLit.	BExp2	::= BoolLit ;
 --BTExp.	BExp	::= Exp ;	
 
 coercions BExp 2 ;

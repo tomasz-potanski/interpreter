@@ -146,8 +146,8 @@ instance Print Stmt where
    SBlock stmts -> prPrec i 2 (concatD [doc (showString "begin") , prt 0 stmts , doc (showString "end")])
    SAss id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 exp , doc (showString ";")])
    SAssArray id n exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ":=") , prt 0 exp , doc (showString ";")])
-   SAssBoolLit id boollit -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 boollit , doc (showString ";")])
-   SAssArrayBoolLit id n boollit -> prPrec i 0 (concatD [prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ":=") , prt 0 boollit , doc (showString ";")])
+   SAssBool id bexp -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 bexp , doc (showString ";")])
+   SAssArrayBool id n bexp -> prPrec i 0 (concatD [prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ":=") , prt 0 bexp , doc (showString ";")])
    SAssMult id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "*=") , prt 0 exp , doc (showString ";")])
    SAssDiv id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "/=") , prt 0 exp , doc (showString ";")])
    SAssAdd id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "+=") , prt 0 exp , doc (showString ";")])
@@ -157,7 +157,8 @@ instance Print Stmt where
    SIf ifstmt -> prPrec i 0 (concatD [prt 0 ifstmt])
    SWhile bexp stmt -> prPrec i 0 (concatD [doc (showString "while") , prt 0 bexp , doc (showString "do") , prt 0 stmt])
    SFor id exp0 exp stmt -> prPrec i 0 (concatD [doc (showString "for") , prt 0 id , doc (showString ":=") , prt 0 exp0 , doc (showString "to") , prt 0 exp , doc (showString "do") , prt 0 stmt])
-   SPrint printable -> prPrec i 0 (concatD [doc (showString "print") , prt 0 printable , doc (showString ";")])
+   SPrintExp exp -> prPrec i 0 (concatD [doc (showString "print") , prt 0 exp , doc (showString ";")])
+   SPrint litval -> prPrec i 0 (concatD [doc (showString "print") , prt 0 litval , doc (showString ";")])
 
   prtList es = case es of
    [] -> (concatD [])
@@ -169,11 +170,6 @@ instance Print IfStmt where
    IfElse bexp stmt0 stmt -> prPrec i 1 (concatD [doc (showString "if") , prt 0 bexp , doc (showString "then") , prt 0 stmt0 , doc (showString "else") , prt 0 stmt])
    IfElif bexp0 stmt1 bexp stmt -> prPrec i 2 (concatD [doc (showString "if") , prt 0 bexp0 , doc (showString "then") , prt 0 stmt1 , doc (showString "elif") , prt 0 bexp , doc (showString "then") , prt 0 stmt])
    IfElifElse bexp0 stmt1 bexp stmt2 stmt -> prPrec i 3 (concatD [doc (showString "if") , prt 0 bexp0 , doc (showString "then") , prt 0 stmt1 , doc (showString "elif") , prt 0 bexp , doc (showString "then") , prt 0 stmt2 , doc (showString "else") , prt 0 stmt])
-
-
-instance Print Printable where
-  prt i e = case e of
-   SPExp exp -> prPrec i 0 (concatD [prt 0 exp])
 
 
 instance Print Exp where
@@ -192,6 +188,7 @@ instance Print BExp where
    BOr bexp0 bexp -> prPrec i 0 (concatD [prt 0 bexp0 , doc (showString "||") , prt 1 bexp])
    BAnd bexp0 bexp -> prPrec i 1 (concatD [prt 1 bexp0 , doc (showString "&&") , prt 2 bexp])
    BRel exp0 relop exp -> prPrec i 2 (concatD [prt 0 exp0 , prt 0 relop , prt 0 exp])
+   BBLit boollit -> prPrec i 2 (concatD [prt 0 boollit])
 
 
 instance Print RelOp where
