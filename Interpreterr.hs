@@ -121,9 +121,9 @@ interpretBExp :: BExp -> TState -> Bool
 interpretBExp b s = case b of
 	BOr bexp1 bexp2 -> (interpretBExp bexp1 s) || (interpretBExp bexp2 s) 
 	BAnd bexp1 bexp2 -> (interpretBExp bexp1 s) && (interpretBExp bexp2 s) 
-	BBLit bl -> case bl of
-		BoolLitTrue -> True
-		BoolLitFalse -> False
+--	BBLit bl -> case bl of
+--		BoolLitTrue -> True
+--		BoolLitFalse -> False
 	BRel exp1 relOp exp2 -> case relOp of
 		LTH -> (interpretExp exp1 s) < (interpretExp exp2 s)
 		LE -> (interpretExp exp1 s) <= (interpretExp exp2 s)
@@ -161,12 +161,12 @@ interpretStmt stmt s = case stmt of
 --			BoolLitTrue -> M.insert x (TTBoolean True) s
 --			BoolLitFalse -> M.insert x (TTBoolean False) s
 --	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
-    SAssBool (Ident x) bexp -> case (checkifVarExists (Ident x) s) of  
-	True ->
-		case (interpretBExp bexp s) of 
-			True -> M.insert x (TTBoolean True) s
-			False -> M.insert x (TTBoolean False) s
-	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+--    SAssBool (Ident x) bexp -> case (checkifVarExists (Ident x) s) of  
+--	True ->
+--		case (interpretBExp bexp s) of 
+--			True -> M.insert x (TTBoolean True) s
+--			False -> M.insert x (TTBoolean False) s
+--	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
 --    SAssArrayBool (Ident x) index bexp -> case (checkifVarExistsAndIsArray (Ident x) s) of  
 --	True 	-> case (M.lookup x s) of 
