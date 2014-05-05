@@ -66,7 +66,7 @@ SIf.			Stmt	::= IfStmt;
 SimpleIf.		IfStmt	::= "if" BExp "then" Stmt ;
 IfElse.			IfStmt1	::= "if" BExp "then" Stmt "else" Stmt;
 IfElif.			IfStmt2	::= "if" BExp "then" Stmt "elif" BExp Stmt;
-IfElifElse.		IfStmt3	::= "if" BExp "then" Stmt "elif" Bexp Stmt "else" Stmt;
+IfElifElse.		IfStmt3	::= "if" BExp "then" Stmt "elif" BExp Stmt "else" Stmt;
 coercions 	IfStmt 	3; 
 
 --SIf.			Stmt	::=	"if" BExp "then" Stmt ElIfBlock ElseBlock;

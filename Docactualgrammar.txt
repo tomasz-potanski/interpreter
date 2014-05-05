@@ -109,9 +109,9 @@ All other symbols are terminals.
   |  |  **|**  | //IfStmt1// 
   | //IfStmt1// | -> | ``if`` //BExp// ``then`` //Stmt// ``else`` //Stmt// 
   |  |  **|**  | //IfStmt2// 
-  | //IfStmt2// | -> | ``if`` //BExp// ``then`` //Stmt// ``elif`` //Stmt// 
+  | //IfStmt2// | -> | ``if`` //BExp// ``then`` //Stmt// ``elif`` //BExp// //Stmt// 
   |  |  **|**  | //IfStmt3// 
-  | //IfStmt3// | -> | ``if`` //BExp// ``then`` //Stmt// ``elif`` //Stmt// ``else`` //Stmt// 
+  | //IfStmt3// | -> | ``if`` //BExp// ``then`` //Stmt// ``elif`` //BExp// //Stmt// ``else`` //Stmt// 
   |  |  **|**  | ``(`` //IfStmt// ``)`` 
   | //Exp// | -> | //Exp// ``+`` //Exp1// 
   |  |  **|**  | //Exp// ``-`` //Exp1// 
