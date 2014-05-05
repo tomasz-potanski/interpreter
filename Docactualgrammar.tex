@@ -168,8 +168,7 @@ All other symbols are terminals.\\
  & {\delimit}  &{\nonterminal{IfStmt}}  \\
  & {\delimit}  &{\terminal{while}} {\nonterminal{BExp}} {\terminal{do}} {\nonterminal{Stmt}}  \\
  & {\delimit}  &{\terminal{for}} {\nonterminal{Ident}} {\terminal{:{$=$}}} {\nonterminal{Exp}} {\terminal{to}} {\nonterminal{Exp}} {\terminal{do}} {\nonterminal{Stmt}}  \\
- & {\delimit}  &{\terminal{print}} {\nonterminal{Ident}} {\terminal{;}}  \\
- & {\delimit}  &{\terminal{print}} {\nonterminal{Ident}} {\terminal{[}} {\nonterminal{Integer}} {\terminal{]}} {\terminal{;}}  \\
+ & {\delimit}  &{\terminal{print}} {\nonterminal{Exp}} {\terminal{;}}  \\
  & {\delimit}  &{\terminal{print}} {\nonterminal{LitVal}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Stmt1}}  \\
 \end{tabular}\\
@@ -216,6 +215,7 @@ All other symbols are terminals.\\
 {\nonterminal{Exp2}} & {\arrow}  &{\nonterminal{Integer}}  \\
  & {\delimit}  &{\nonterminal{Ident}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{[}} {\nonterminal{Integer}} {\terminal{]}}  \\
+ & {\delimit}  &{\nonterminal{BExp}}  \\
  & {\delimit}  &{\terminal{(}} {\nonterminal{Exp}} {\terminal{)}}  \\
 \end{tabular}\\
 
@@ -262,8 +262,7 @@ All other symbols are terminals.\\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{LitVal}} & {\arrow}  &{\nonterminal{Integer}}  \\
- & {\delimit}  &{\nonterminal{String}}  \\
+{\nonterminal{LitVal}} & {\arrow}  &{\nonterminal{String}}  \\
  & {\delimit}  &{\nonterminal{Double}}  \\
  & {\delimit}  &{\nonterminal{Char}}  \\
 \end{tabular}\\

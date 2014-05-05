@@ -25,6 +25,10 @@ type TState = M.Map String TTypes
 
 extractInt :: TTypes -> Integer
 extractInt (TTInt a) = a
+extractInt (TTBoolean a) = case a of
+	False -> 0
+	True -> 1 
+extractInt (TTArray _ _ _ _) = 0
 
 extractBool :: TTypes -> Bool
 extractBool (TTBoolean a) = a
@@ -76,6 +80,21 @@ interpretExp x s = case x of
 			False -> 0
 			True -> 1
 	Nothing	-> error ("Error - Variable: " ++ (show x) ++ " has not been declared!") -- !!rzuc blad
+  EArray (Ident x) index -> case (M.lookup x s) of
+	Just n -> case n of
+		TTArray minn maxx typee mapp -> 
+		    if (index >= minn) && (index <= maxx) then
+			case (M.lookup index mapp) of 
+			    Just val -> 
+				(extractInt val)
+			    Nothing -> 0
+		    else 
+			error("Error - index out of bound!")
+		otherwise -> error("Error - variable is not an array!")
+	Nothing -> error ("Error - Variable: " ++ (show x) ++ " has not been declared!")
+  EBool b -> case (interpretBExp b s) of 
+		True -> True
+		False -> False
 
 --  EId (Ident x) -> case M.lookup x s of
 --	Just n 	-> n
@@ -223,9 +242,10 @@ interpretStmt stmt s = case stmt of
     SBlock (i:is) -> 
         (interpretStmts is (interpretStmt i s))
 	-- !! ZROBIĆ PRINT INACZEJ
-    SPrintId (Ident x) -> case (checkifVarExists (Ident x) s) of
-	True -> showToUser (show (variableValueInt (Ident x) s)) s
-	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+      SPrintExp exp -> showToUser (show (interpret exp s)) s
+--    SPrintId (Ident x) -> case (checkifVarExists (Ident x) s) of
+--	True -> showToUser (show (variableValueInt (Ident x) s)) s
+--	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
     SPrint a -> case a of
 		LiteralValueString ss -> showToUser ss s
 		LiteralValueInteger ii -> showToUser (show ii) s  

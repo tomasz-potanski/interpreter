@@ -61,8 +61,7 @@ data Stmt =
  | SIf IfStmt
  | SWhile BExp Stmt
  | SFor Ident Exp Exp Stmt
- | SPrintId Ident
- | SPrintArray Ident Integer
+ | SPrintExp Exp
  | SPrint LitVal
   deriving (Eq,Ord,Show)
 
@@ -81,6 +80,7 @@ data Exp =
  | EInt Integer
  | EId Ident
  | EArray Ident Integer
+ | EBool BExp
   deriving (Eq,Ord,Show)
 
 data BExp =
@@ -108,8 +108,7 @@ data Type =
   deriving (Eq,Ord,Show)
 
 data LitVal =
-   LiteralValueInteger Integer
- | LiteralValueString String
+   LiteralValueString String
  | LiteralValueDouble Double
  | LiteralValueChar Char
   deriving (Eq,Ord,Show)

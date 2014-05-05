@@ -163,8 +163,7 @@ Stmt : Ident ':=' Exp ';' { SAss $1 $3 }
   | IfStmt { SIf $1 }
   | 'while' BExp 'do' Stmt { SWhile $2 $4 }
   | 'for' Ident ':=' Exp 'to' Exp 'do' Stmt { SFor $2 $4 $6 $8 }
-  | 'print' Ident ';' { SPrintId $2 }
-  | 'print' Ident '[' Integer ']' ';' { SPrintArray $2 $4 }
+  | 'print' Exp ';' { SPrintExp $2 }
   | 'print' LitVal ';' { SPrint $2 }
   | Stmt1 { $1 }
 
@@ -211,6 +210,7 @@ Exp2 :: { Exp }
 Exp2 : Integer { EInt $1 } 
   | Ident { EId $1 }
   | Ident '[' Integer ']' { EArray $1 $3 }
+  | BExp { EBool $1 }
   | '(' Exp ')' { $2 }
 
 
@@ -257,8 +257,7 @@ Type1 : Type2 { $1 }
 
 
 LitVal :: { LitVal }
-LitVal : Integer { LiteralValueInteger $1 } 
-  | String { LiteralValueString $1 }
+LitVal : String { LiteralValueString $1 } 
   | Double { LiteralValueDouble $1 }
   | Char { LiteralValueChar $1 }
 

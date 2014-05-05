@@ -81,8 +81,7 @@ transStmt x = case x of
   SIf ifstmt  -> failure x
   SWhile bexp stmt  -> failure x
   SFor id exp1 exp2 stmt3  -> failure x
-  SPrintId id  -> failure x
-  SPrintArray id n  -> failure x
+  SPrintExp exp  -> failure x
   SPrint litval  -> failure x
 
 
@@ -103,6 +102,7 @@ transExp x = case x of
   EInt n  -> failure x
   EId id  -> failure x
   EArray id n  -> failure x
+  EBool bexp  -> failure x
 
 
 transBExp :: BExp -> Result
@@ -134,7 +134,6 @@ transType x = case x of
 
 transLitVal :: LitVal -> Result
 transLitVal x = case x of
-  LiteralValueInteger n  -> failure x
   LiteralValueString str  -> failure x
   LiteralValueDouble d  -> failure x
   LiteralValueChar c  -> failure x

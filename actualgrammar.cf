@@ -86,8 +86,9 @@ coercions 	IfStmt 	3;
 
 SWhile.		Stmt	::=	"while" BExp "do" Stmt ; 
 SFor.       	Stmt 	::= 	"for" Ident ":=" Exp "to" Exp "do" Stmt;
-SPrintId.	Stmt	::=	"print" Ident ";" ;
-SPrintArray.	Stmt	::=	"print" Ident "[" Integer "]" ";" ;
+--SPrintId.	Stmt	::=	"print" Ident ";" ;
+--SPrintArray.	Stmt	::=	"print" Ident "[" Integer "]" ";" ;
+SPrintExp.	Stmt	::=	"print" Exp ";" ;
 SPrint.		Stmt	::=	"print" LitVal ";" ;
 
 --SPrintString.	Stmt	::=	"print" String ";" ;
@@ -109,6 +110,7 @@ EDiv. 	Exp1 	::= 	Exp1 	"/" 	Exp2 	;
 EInt. 	Exp2 	::= 	Integer 	;
 EId.	Exp2	::=	Ident	;
 EArray. Exp2	::= 	Ident "[" Integer "]" ;
+EBool.  Exp2	::=	BExp ;
 coercions 	Exp 	2 	;
 --EAss.		Exp 	::=	Ident "=" Exp ;
 
@@ -140,7 +142,7 @@ coercions Type 2 ;
 --tablica_imion : Array[1..10] of string;
 
 ------(Literals)-----------
-LiteralValueInteger.			LitVal	::=	Integer ;
+--LiteralValueInteger.			LitVal	::=	Integer ;
 LiteralValueString.			LitVal	::=	String ;
 LiteralValueDouble.			LitVal	::=	Double ;
 LiteralValueChar.			LitVal	::=	Char ;

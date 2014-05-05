@@ -16,5 +16,5 @@ begin
 	
 
 	jeden:=table[5];
-//	print table[5];
+	print table[5];
 end.
