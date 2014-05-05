@@ -33,6 +33,11 @@ extractInt (TTArray _ _ _ _) = 0
 extractBool :: TTypes -> Bool
 extractBool (TTBoolean a) = a
 
+extractBoolLit :: BoolLit -> Bool
+extractBoolLit b = case b of
+	BoolLitTrue -> True
+	BoolLitFalse -> False
+
 extractArray :: TTypes -> (Integer, Integer, Type, (M.Map Integer TTypes))
 extractArray (TTArray minn maxx typee mapp) = (minn, maxx, typee, mapp)
 
@@ -203,6 +208,18 @@ interpretStmt stmt s = case stmt of
 			error("Error - index out of bound!")
 		otherwise -> error("Error - variable is not an array!")
 	False 	-> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+
+    SAssArrayBoolLit (Ident x) index boolLit -> case (checkifVarExistsAndIsArray (Ident x) s) of  
+	True 	-> case (M.lookup x s) of 
+	    Just n -> case n of
+		TTArray minn maxx typee mapp -> 
+		    if (index >= minn) && (index <= maxx) then
+			M.insert x (TTArray minn maxx typee (M.insert index (TTBoolean (extractBoolLit boolLit)) mapp)) s
+		    else 
+			error("Error - index out of bound!")
+		otherwise -> error("Error - variable is not an array!")
+	False 	-> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+
     SAssMult (Ident x) exp -> case (checkifVarExists (Ident x) s) of     
 	True ->
 		let valR = (interpretExp exp s)
