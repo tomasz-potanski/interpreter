@@ -168,16 +168,16 @@ interpretStmt stmt s = case stmt of
 			False -> M.insert x (TTBoolean False) s
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
-    SAssArrayBool (Ident x) index bexp -> case (checkifVarExistsAndIsArray (Ident x) s) of  
-	True 	-> case (M.lookup x s) of 
-	    Just n -> case n of
-		TTArray minn maxx typee mapp -> 
-		    if (index >= minn) && (index <= maxx) then
-			M.insert x (TTArray minn maxx typee (M.insert index (TTBoolean (interpretBExp bexp s)) mapp)) s
-		    else 
-			error("Error - index out of bound!")
-		otherwise -> error("Error - variable is not an array!")
-	False 	-> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+--    SAssArrayBool (Ident x) index bexp -> case (checkifVarExistsAndIsArray (Ident x) s) of  
+--	True 	-> case (M.lookup x s) of 
+--	    Just n -> case n of
+--		TTArray minn maxx typee mapp -> 
+--		    if (index >= minn) && (index <= maxx) then
+--			M.insert x (TTArray minn maxx typee (M.insert index (TTBoolean (interpretBExp bexp s)) mapp)) s
+--		    else 
+--			error("Error - index out of bound!")
+--		otherwise -> error("Error - variable is not an array!")
+--	False 	-> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
     SAssMult (Ident x) exp -> case (checkifVarExists (Ident x) s) of     
 	True ->
 		let valR = (interpretExp exp s)
