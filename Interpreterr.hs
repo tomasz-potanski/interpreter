@@ -18,7 +18,7 @@ import Debug.Trace
 
 ----types-------------
 --data TTypes = TTInt Integer | TTBoolean Bool | TTString String | TTChar Char | TTDouble Double deriving (Eq, Show)
-data TTypes = TTInt Integer | TTBoolean Bool | TTArray Integer TTypes M deriving (Eq, Show)
+data TTypes = TTInt Integer | TTBoolean Bool | TTArray Integer Type (M.Map Integer TTypes) deriving (Eq, Show)
 -- nazwa zmiennej -> wartosc
 type TState = M.Map String TTypes
 --type ProcMap = M.Map String ([Stmts], [Arg])
@@ -227,7 +227,7 @@ addOneVariable :: Ident -> Type -> TState -> TState
 addOneVariable (Ident ident) typee state = case typee of
 		TInt -> M.insert ident (TTInt 0) state
 		TBool -> M.insert ident (TTBoolean False) state
-		TArray maxx typee -> M.insert ident (TTArray (maxx, type, M.empty)) state
+		TArray maxx typee -> M.insert ident (TTArray maxx typee M.empty) state
 
 addManyVariables :: [Ident] -> Type -> TState -> TState
 addManyVariables [] typee state = state 
