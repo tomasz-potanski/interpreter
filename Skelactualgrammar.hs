@@ -92,8 +92,8 @@ transIfStmt x = case x of
 
 transPrintable :: Printable -> Result
 transPrintable x = case x of
-  SPExp exp  -> failure x
   SPId id  -> failure x
+  SPExp exp  -> failure x
 
 
 transExp :: Exp -> Result

@@ -70,8 +70,8 @@ data IfStmt =
   deriving (Eq,Ord,Show)
 
 data Printable =
-   SPExp Exp
- | SPId Ident
+   SPId Ident
+ | SPExp Exp
   deriving (Eq,Ord,Show)
 
 data Exp =
