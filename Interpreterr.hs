@@ -175,6 +175,14 @@ interpretStmt stmt s = case stmt of
     SWhile b i ->
         let cond = (interpretBExp b s)
         in if cond then (interpretStmt stmt (interpretStmt i s)) else s
+    SFor (Ident ident) exp0 exp1 stmt ->
+	let
+	  v1 = interpretExp exp0 s
+	  v2 = interpretExp exp1 s
+	  new_state = M.insert ident (TTInt v1) s
+	  forfor n s = if (n < 0) then s else forfor (n-1) (interpretStmt stmt (M.insert ident (TTInt (v2 - n)) s)))
+	in
+   	  if (v1 < v2) then forfor (v2 - v1) new_state else s    
     SBlock [] -> s
     SBlock (i:is) -> 
         (interpretStmts is (interpretStmt i s))

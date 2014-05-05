@@ -51,13 +51,15 @@ import ErrM
  'const' { PT _ (TS _ 34) }
  'do' { PT _ (TS _ 35) }
  'end' { PT _ (TS _ 36) }
- 'if' { PT _ (TS _ 37) }
- 'print' { PT _ (TS _ 38) }
- 'program' { PT _ (TS _ 39) }
- 'then' { PT _ (TS _ 40) }
- 'var' { PT _ (TS _ 41) }
- 'while' { PT _ (TS _ 42) }
- '||' { PT _ (TS _ 43) }
+ 'for' { PT _ (TS _ 37) }
+ 'if' { PT _ (TS _ 38) }
+ 'print' { PT _ (TS _ 39) }
+ 'program' { PT _ (TS _ 40) }
+ 'then' { PT _ (TS _ 41) }
+ 'to' { PT _ (TS _ 42) }
+ 'var' { PT _ (TS _ 43) }
+ 'while' { PT _ (TS _ 44) }
+ '||' { PT _ (TS _ 45) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -150,6 +152,7 @@ Stmt : Ident ':=' Exp ';' { SAss $1 $3 }
   | Ident '-=' Exp ';' { SAssSub $1 $3 }
   | 'if' BExp 'then' Stmt { SIf $2 $4 }
   | 'while' BExp 'do' Stmt { SWhile $2 $4 }
+  | 'for' Ident ':=' Exp 'to' Exp 'do' Stmt { SFor $2 $4 $6 $8 }
   | 'print' Ident ';' { SPrintId $2 }
   | 'print' LitVal ';' { SPrint $2 }
   | Stmt1 { $1 }
