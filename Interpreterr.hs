@@ -194,15 +194,8 @@ interpretStmt stmt s = case stmt of
 
     SAssBoolLit (Ident x) bLit -> case (checkifVarExists (Ident x) s) of  
 	True ->
-		let boolVal = extractBoolLit bLit
-		in
-		case typee of
-		    TBool -> M.insert x (TTBoolean boolVal) s
-		    TInt -> error("Error - mapa przechowuje Inty - nie chcemy rzutowac")
-		    otherwise -> error("Error - niepoprawny typ")
---		case bLit of
---			BoolLitTrue -> M.insert x (TTBoolean True) s
---			BoolLitFalse -> M.insert x (TTBoolean False) s
+			BoolLitTrue -> M.insert x (TTBoolean True) s
+			BoolLitFalse -> M.insert x (TTBoolean False) s
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
     SAssBool (Ident x) bexp -> case (checkifVarExists (Ident x) s) of  
 	True ->
@@ -227,7 +220,14 @@ interpretStmt stmt s = case stmt of
 	    Just n -> case n of
 		TTArray minn maxx typee mapp -> 
 		    if (index >= minn) && (index <= maxx) then
-			M.insert x (TTArray minn maxx typee (M.insert index (TTBoolean (extractBoolLit boolLit)) mapp)) s
+			let boolVal = extractBoolLit bLit
+			in
+			case typee of
+		    	   TBool -> M.insert x (TTBoolean boolVal) s
+		    	   TInt -> error("Error - mapa przechowuje Inty - nie chcemy rzutowac")
+		    	   otherwise -> error("Error - niepoprawny typ")
+--		case bLit of
+--			M.insert x (TTArray minn maxx typee (M.insert index (TTBoolean (extractBoolLit boolLit)) mapp)) s
 		    else 
 			error("Error - index out of bound!")
 		otherwise -> error("Error - variable is not an array!")
