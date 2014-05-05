@@ -89,8 +89,8 @@ SFor.       	Stmt 	::= 	"for" Ident ":=" Exp "to" Exp "do" Stmt;
 
 SPrint.		Stmt	::=	"print" Printable ";" ;
 SPExp.		Printable::=	Exp;
-SPId.		Printable2::=	Ident ;
-coercions Printable 2;
+SPId.		Printable1::=	Ident ;
+coercions Printable 1;
 
 --SPrintId.	Stmt	::=	"print" Ident ";" ;
 --SPrintArray.	Stmt	::=	"print" Ident "[" Integer "]" ";" ;

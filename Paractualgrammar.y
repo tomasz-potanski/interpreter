@@ -196,13 +196,9 @@ Printable : Exp { SPExp $1 }
   | Printable1 { $1 }
 
 
-Printable2 :: { Printable }
-Printable2 : Ident { SPId $1 } 
-  | '(' Printable ')' { $2 }
-
-
 Printable1 :: { Printable }
-Printable1 : Printable2 { $1 } 
+Printable1 : Ident { SPId $1 } 
+  | '(' Printable ')' { $2 }
 
 
 Exp :: { Exp }

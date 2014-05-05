@@ -174,7 +174,7 @@ instance Print IfStmt where
 instance Print Printable where
   prt i e = case e of
    SPExp exp -> prPrec i 0 (concatD [prt 0 exp])
-   SPId id -> prPrec i 2 (concatD [prt 0 id])
+   SPId id -> prPrec i 1 (concatD [prt 0 id])
 
 
 instance Print Exp where

@@ -116,9 +116,8 @@ All other symbols are terminals.
   |  |  **|**  | ``(`` //IfStmt// ``)`` 
   | //Printable// | -> | //Exp// 
   |  |  **|**  | //Printable1// 
-  | //Printable2// | -> | //Ident// 
+  | //Printable1// | -> | //Ident// 
   |  |  **|**  | ``(`` //Printable// ``)`` 
-  | //Printable1// | -> | //Printable2// 
   | //Exp// | -> | //Exp// ``+`` //Exp1// 
   |  |  **|**  | //Exp// ``-`` //Exp1// 
   |  |  **|**  | //Exp1// 
