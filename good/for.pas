@@ -1,3 +1,4 @@
+//	Program pokazuje działanie pętli for
 var
 	x, d, g : Integer;
 begin

@@ -50,16 +50,17 @@ import ErrM
  'begin' { PT _ (TS _ 33) }
  'const' { PT _ (TS _ 34) }
  'do' { PT _ (TS _ 35) }
- 'end' { PT _ (TS _ 36) }
- 'for' { PT _ (TS _ 37) }
- 'if' { PT _ (TS _ 38) }
- 'print' { PT _ (TS _ 39) }
- 'program' { PT _ (TS _ 40) }
- 'then' { PT _ (TS _ 41) }
- 'to' { PT _ (TS _ 42) }
- 'var' { PT _ (TS _ 43) }
- 'while' { PT _ (TS _ 44) }
- '||' { PT _ (TS _ 45) }
+ 'else' { PT _ (TS _ 36) }
+ 'end' { PT _ (TS _ 37) }
+ 'for' { PT _ (TS _ 38) }
+ 'if' { PT _ (TS _ 39) }
+ 'print' { PT _ (TS _ 40) }
+ 'program' { PT _ (TS _ 41) }
+ 'then' { PT _ (TS _ 42) }
+ 'to' { PT _ (TS _ 43) }
+ 'var' { PT _ (TS _ 44) }
+ 'while' { PT _ (TS _ 45) }
+ '||' { PT _ (TS _ 46) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -151,6 +152,7 @@ Stmt : Ident ':=' Exp ';' { SAss $1 $3 }
   | Ident '+=' Exp ';' { SAssAdd $1 $3 }
   | Ident '-=' Exp ';' { SAssSub $1 $3 }
   | 'if' BExp 'then' Stmt { SIf $2 $4 }
+  | 'if' BExp 'then' Stmt 'else' Stmt { SIfElse $2 $4 $6 }
   | 'while' BExp 'do' Stmt { SWhile $2 $4 }
   | 'for' Ident ':=' Exp 'to' Exp 'do' Stmt { SFor $2 $4 $6 $8 }
   | 'print' Ident ';' { SPrintId $2 }

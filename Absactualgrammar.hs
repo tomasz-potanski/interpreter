@@ -56,6 +56,7 @@ data Stmt =
  | SPreIncr Ident
  | SPreDecr Ident
  | SIf BExp Stmt
+ | SIfElse BExp Stmt Stmt
  | SWhile BExp Stmt
  | SFor Ident Exp Exp Stmt
  | SPrintId Ident

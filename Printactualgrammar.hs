@@ -154,6 +154,7 @@ instance Print Stmt where
    SPreIncr id -> prPrec i 1 (concatD [doc (showString "++") , prt 0 id , doc (showString ";")])
    SPreDecr id -> prPrec i 1 (concatD [doc (showString "--") , prt 0 id , doc (showString ";")])
    SIf bexp stmt -> prPrec i 0 (concatD [doc (showString "if") , prt 0 bexp , doc (showString "then") , prt 0 stmt])
+   SIfElse bexp stmt0 stmt -> prPrec i 0 (concatD [doc (showString "if") , prt 0 bexp , doc (showString "then") , prt 0 stmt0 , doc (showString "else") , prt 0 stmt])
    SWhile bexp stmt -> prPrec i 0 (concatD [doc (showString "while") , prt 0 bexp , doc (showString "do") , prt 0 stmt])
    SFor id exp0 exp stmt -> prPrec i 0 (concatD [doc (showString "for") , prt 0 id , doc (showString ":=") , prt 0 exp0 , doc (showString "to") , prt 0 exp , doc (showString "do") , prt 0 stmt])
    SPrintId id -> prPrec i 0 (concatD [doc (showString "print") , prt 0 id , doc (showString ";")])

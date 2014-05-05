@@ -51,7 +51,7 @@ Wymaganie na 16 pkt.
 
 Dwa sposór następujących
 6. Operatory preinkrementacji, +=, -=, /= itp.		OK 	
-7. Pętla for						Brak
+7. Pętla for						OK
 8. String, literały napisowe, rzutowanie napis <> int	Brak
 9. Dwa sposoby przekazywa param (zmienna/wartosc)	Brak
 

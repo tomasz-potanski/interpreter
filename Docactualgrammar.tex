@@ -58,10 +58,10 @@ The reserved words used in actualgrammar are the following: \\
 {\reserved{Boolean}} &{\reserved{Char}} &{\reserved{Double}} \\
 {\reserved{False}} &{\reserved{Integer}} &{\reserved{String}} \\
 {\reserved{True}} &{\reserved{begin}} &{\reserved{const}} \\
-{\reserved{do}} &{\reserved{end}} &{\reserved{for}} \\
-{\reserved{if}} &{\reserved{print}} &{\reserved{program}} \\
-{\reserved{then}} &{\reserved{to}} &{\reserved{var}} \\
-{\reserved{while}} & & \\
+{\reserved{do}} &{\reserved{else}} &{\reserved{end}} \\
+{\reserved{for}} &{\reserved{if}} &{\reserved{print}} \\
+{\reserved{program}} &{\reserved{then}} &{\reserved{to}} \\
+{\reserved{var}} &{\reserved{while}} & \\
 \end{tabular}\\
 
 The symbols used in actualgrammar are the following: \\
@@ -161,6 +161,7 @@ All other symbols are terminals.\\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{{$+$}{$=$}}} {\nonterminal{Exp}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{{$-$}{$=$}}} {\nonterminal{Exp}} {\terminal{;}}  \\
  & {\delimit}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}}  \\
+ & {\delimit}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}} {\terminal{else}} {\nonterminal{Stmt}}  \\
  & {\delimit}  &{\terminal{while}} {\nonterminal{BExp}} {\terminal{do}} {\nonterminal{Stmt}}  \\
  & {\delimit}  &{\terminal{for}} {\nonterminal{Ident}} {\terminal{:{$=$}}} {\nonterminal{Exp}} {\terminal{to}} {\nonterminal{Exp}} {\terminal{do}} {\nonterminal{Stmt}}  \\
  & {\delimit}  &{\terminal{print}} {\nonterminal{Ident}} {\terminal{;}}  \\
