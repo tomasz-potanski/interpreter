@@ -191,14 +191,14 @@ IfStmt3 : 'if' BExp 'then' Stmt 'elif' BExp 'then' Stmt 'else' Stmt { IfElifElse
   | '(' IfStmt ')' { $2 }
 
 
-Printable1 :: { Printable }
-Printable1 : Exp { SPExp $1 } 
-  | '(' Printable ')' { $2 }
-
-
 Printable :: { Printable }
-Printable : Ident { SPId $1 } 
+Printable : Exp2 { SPExp $1 } 
   | Printable1 { $1 }
+
+
+Printable1 :: { Printable }
+Printable1 : Ident { SPId $1 } 
+  | '(' Printable ')' { $2 }
 
 
 Exp :: { Exp }
