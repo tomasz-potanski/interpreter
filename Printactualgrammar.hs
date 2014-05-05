@@ -147,9 +147,7 @@ instance Print Stmt where
    SAss id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 exp , doc (showString ";")])
    SAssArray id n exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ":=") , prt 0 exp , doc (showString ";")])
    SAssBool id bexp -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 bexp , doc (showString ";")])
-   SAssBoolLit id boollit -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 boollit , doc (showString ";")])
    SAssArrayBool id n bexp -> prPrec i 0 (concatD [prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ":=") , prt 0 bexp , doc (showString ";")])
-   SAssArrayBoolLit id n boollit -> prPrec i 0 (concatD [prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ":=") , prt 0 boollit , doc (showString ";")])
    SAssMult id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "*=") , prt 0 exp , doc (showString ";")])
    SAssDiv id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "/=") , prt 0 exp , doc (showString ";")])
    SAssAdd id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "+=") , prt 0 exp , doc (showString ";")])
@@ -190,6 +188,7 @@ instance Print BExp where
    BOr bexp0 bexp -> prPrec i 0 (concatD [prt 0 bexp0 , doc (showString "||") , prt 1 bexp])
    BAnd bexp0 bexp -> prPrec i 1 (concatD [prt 1 bexp0 , doc (showString "&&") , prt 2 bexp])
    BRel exp0 relop exp -> prPrec i 2 (concatD [prt 0 exp0 , prt 0 relop , prt 0 exp])
+   BBLit boollit -> prPrec i 2 (concatD [prt 0 boollit])
 
 
 instance Print RelOp where

@@ -25,8 +25,8 @@ begin
 	print table[6];
 	print table[7];
 
-	tableBool[1] := True;
-	tableBool[2] := False;
+	tableBool[1] := 2 > 1;
+	tableBool[2] := 4 == 4;
 	print tableBool[1];
 	print tableBool[2];
 end.
