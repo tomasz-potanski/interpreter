@@ -3,6 +3,7 @@ var
 	table : Array[1..10] of Integer ;
 	tableBool : Array[1..10] of Boolean;
 	jeden, dwa : Integer;
+	b1, b2 : Boolean;
 
 begin
 	jeden := 1;
