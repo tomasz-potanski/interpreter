@@ -92,9 +92,9 @@ interpretExp x s = case x of
 			error("Error - index out of bound!")
 		otherwise -> error("Error - variable is not an array!")
 	Nothing -> error ("Error - Variable: " ++ (show x) ++ " has not been declared!")
-  EBool b -> case (interpretBExp b s) of 
-		True -> True
-		False -> False
+--  EBool b -> case (interpretBExp b s) of 
+--		True -> True
+--		False -> False
 
 --  EId (Ident x) -> case M.lookup x s of
 --	Just n 	-> n
@@ -242,7 +242,7 @@ interpretStmt stmt s = case stmt of
     SBlock (i:is) -> 
         (interpretStmts is (interpretStmt i s))
 	-- !! ZROBIĆ PRINT INACZEJ
-      SPrintExp exp -> showToUser (show (interpret exp s)) s
+      SPrintExp exp -> showToUser (show (interpretExp exp s)) s
 --    SPrintId (Ident x) -> case (checkifVarExists (Ident x) s) of
 --	True -> showToUser (show (variableValueInt (Ident x) s)) s
 --	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
