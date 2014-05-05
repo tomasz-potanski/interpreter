@@ -18,13 +18,18 @@ import Debug.Trace
 
 ----types-------------
 
-data TTypes = TTInt Integer | TTBoolean Bool | TTString String | TTArray Integer Integer Type (M.Map Integer TTypes) deriving (Eq, Show)
+data TTypes = TTInt Integer | TTBoolean Bool | TTVoid | TTString String | TTArray Integer Integer Type (M.Map Integer TTypes) deriving (Eq, Show)
 -- nazwa zmiennej -> wartosc
-type TState = M.Map String TTypes
---type ProcMap = M.Map String ([Stmts], [Arg])
+type TStateOld = M.Map String TTypes
+type TState2 = (TLoc, TEnv, TFuncMap)
+type TState3 = (TStateOld, TFuncMap)
+
+-- statements, arguments, return type, Env, Decl)
+type TFuncMap = M.Map String ([Stmt], VarDeclarationLine, TTypes, TEnv, TStore)
 type TLoc = Integer
 type TEnv = M.Map String TLoc
 type TStore = M.Map TLoc TTypes
+
 
 
 ---------helpful funcitons--------
@@ -62,13 +67,13 @@ intToStr i = (show i)
 strToInt :: String -> Integer
 strToInt s = read s :: Integer
 
-variableValueBool :: Ident -> TState -> Bool
-variableValueBool (Ident x) s = case M.lookup x s of
+variableValueBool :: Ident -> TState3 -> Bool
+variableValueBool (Ident x) (s, funcMap) = case M.lookup x s of
 	Just n 	-> (extractBool n) 
 	Nothing	-> error ("Error - Variable: " ++ (show x) ++ " has not been declared!") -- !!rzuc blad
 
-variableValueInt :: Ident -> TState -> Integer
-variableValueInt (Ident x) s = case M.lookup x s of
+variableValueInt :: Ident -> TState3 -> Integer
+variableValueInt (Ident x) (s, funcMap) = case M.lookup x s of
 	Just n 	-> case n of
 		TTInt a -> a
 		TTBoolean b -> case b of
@@ -93,13 +98,13 @@ extractArray (TTArray minn maxx typee mapp) = (minn, maxx, typee, mapp)
 --import Control.Monad.State
 --import Control.Monad.Error
 
-checkifVarExists :: Ident -> TState -> Bool
-checkifVarExists (Ident ident) state = case M.lookup ident state of
+checkifVarExists :: Ident -> TState3 -> Bool
+checkifVarExists (Ident ident) (state, funcMap) = case M.lookup ident state of
 	Just n 	-> True
 	Nothing	-> False
 
-checkifVarExistsAndIsArray :: Ident -> TState -> Bool
-checkifVarExistsAndIsArray (Ident ident) state = case M.lookup ident state of
+checkifVarExistsAndIsArray :: Ident -> TState3 -> Bool
+checkifVarExistsAndIsArray (Ident ident) (state, funcMap) = case M.lookup ident state of
 	Just n 	-> case n of
 			TTArray _ _ _ _	-> True
 			otherwise 	-> False
@@ -119,8 +124,8 @@ showToUser string expr = unsafePerformIO $ do
 
 
 -----------------EXPRESSIONS--------------------
-interpretExp :: Exp -> TState -> Integer
-interpretExp x s = case x of
+interpretExp :: Exp -> TState3 -> Integer
+interpretExp x s@(state, funcMap) = case x of
   EAdd exp0 exp  -> (interpretExp exp0 s) + (interpretExp exp s)
   ESub exp0 exp  -> (interpretExp exp0 s) - (interpretExp exp s)
   EMul exp0 exp  -> (interpretExp exp0 s) * (interpretExp exp s)
@@ -129,14 +134,16 @@ interpretExp x s = case x of
 				0 -> error("Division by zero!")
 				otherwise -> (interpretExp exp0 s) `div` r -- !! SPRAWDZ DZIELENIE PRZEZ ZERO
   EInt n  -> n
-  EId (Ident x) -> case M.lookup x s of
+  EId (Ident x) -> case M.lookup x state of
 	Just n 	-> case n of
 		TTInt a -> a
 		TTBoolean b -> case b of
 			False -> 0
 			True -> 1
+		TTString _ -> 0
+		TTArray _ _ _ _ -> 0
 	Nothing	-> error ("Error - Variable: " ++ (show x) ++ " has not been declared!") -- !!rzuc blad
-  EArray (Ident x) index -> case (M.lookup x s) of
+  EArray (Ident x) index -> case (M.lookup x state) of
 	Just n -> case n of
 		TTArray minn maxx typee mapp -> 
 		    if (index >= minn) && (index <= maxx) then
@@ -151,8 +158,8 @@ interpretExp x s = case x of
 
 
 ----------------BOOLEAN EXPRESSIONS-------------
-interpretBExp :: BExp -> TState -> Bool
-interpretBExp b s = case b of
+interpretBExp :: BExp -> TState3 -> Bool
+interpretBExp b s@(state, funcMap) = case b of
 	BOr bexp1 bexp2 -> (interpretBExp bexp1 s) || (interpretBExp bexp2 s) 
 	BAnd bexp1 bexp2 -> (interpretBExp bexp1 s) && (interpretBExp bexp2 s) 
 	BTExp exp -> error("Error - specjalnie nie obsuguje rzutowania")
@@ -160,7 +167,7 @@ interpretBExp b s = case b of
 		BoolLitTrue -> True
 		BoolLitFalse -> False
 	BIdent (Ident x) -> case (checkifVarExists (Ident x) s) of
-		True -> case (M.lookup x s) of 
+		True -> case (M.lookup x state) of 
 		    Just n -> case n of
 			TTBoolean b -> b
 			TTInt i -> if i == 0 then False else True
@@ -169,7 +176,7 @@ interpretBExp b s = case b of
 		False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
 	BExpArray (Ident x) index -> case (checkifVarExistsAndIsArray (Ident x) s) of
-		True -> case (M.lookup x s) of 
+		True -> case (M.lookup x state) of 
 		    Just n -> case n of
 			TTArray minn maxx typee mapp -> 
 				if (index >= minn) && (index <= maxx) then
@@ -193,26 +200,26 @@ interpretBExp b s = case b of
 		NE -> (interpretExp exp1 s) /= (interpretExp exp2 s)
 		
 -----------------STATEMETNS----------------
-interpretStmts :: [Stmt] -> TState -> TState
+interpretStmts :: [Stmt] -> TState3 -> TState3
 interpretStmts [] s = s
 interpretStmts (h:tl) s = (interpretStmts tl (interpretStmt h s))
 
-interpretStmt :: Stmt -> TState -> TState
-interpretStmt stmt s = case stmt of
+interpretStmt :: Stmt -> TState3 -> TState3
+interpretStmt stmt s@(extState, funcMap) = case stmt of
     SAss (Ident x) exp -> case (checkifVarExists (Ident x) s) of  
 	True ->
         	let val = (interpretExp exp s)
-        	in M.insert x (TTInt val) s
+        	in (M.insert x (TTInt val) extState, funcMap)
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
     SAssStrToInt (Ident x) str -> case (checkifVarExists (Ident x) s) of  
 	True -> let val = (strToInt str)
         	in 
-		    case (M.lookup x s) of
+		    case (M.lookup x extState) of
 			Just n -> case n of
-				TTInt _ -> (M.insert x (TTInt val) s)
+				TTInt _ -> ((M.insert x (TTInt val) s), funcMap)
 				TTString _ -> error("Error - incorrect types")
 				TTBoolean _ -> if (val == 0) || (val == 1) then
-					(M.insert x (TTBoolean (intToBool val)) s) else s
+					((M.insert x (TTBoolean (intToBool val)) extState), funcMap) else s
 				otherwise -> error("Error - incorrect types")
 			Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
@@ -220,32 +227,32 @@ interpretStmt stmt s = case stmt of
     SAzs (Ident x) intt -> case (checkifVarExists (Ident x) s) of  
 	True -> let val = (intToStr intt)
         	in 
-		    case (M.lookup x s) of
+		    case (M.lookup x extState) of
 			Just n -> case n of
 				TTInt _ ->  error("Error - incorrect types")
-				TTString _ -> (M.insert x (TTString val) s) 
+				TTString _ -> ((M.insert x (TTString val) extState), funcMap)
 				TTBoolean _ -> error("Error - incorrect types")
 				otherwise -> error("Error - incorrect types")
 			Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
     SAssString (Ident x) str -> case (checkifVarExists (Ident x) s) of  
-	True -> case (M.lookup x s) of
+	True -> case (M.lookup x extState) of
 	    Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 	    Just m -> case m of
-	        TTString _ -> M.insert x (TTString str) s
+	        TTString _ -> (M.insert x (TTString str) extState), funcMap)
 	        otherwise -> error("Error - incorrect type - nie rzutujemy")
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
     SAssArray (Ident x) index exp -> case (checkifVarExistsAndIsArray (Ident x) s) of  
-	True 	-> case (M.lookup x s) of 
+	True 	-> case (M.lookup x extState) of 
 	    Just n -> case n of
 		TTArray minn maxx typee mapp -> 
 		    if (index >= minn) && (index <= maxx) then
 			let val = (interpretExp exp s)
 			in
 			  case typee of
-			     TInt -> M.insert x (TTArray minn maxx typee (M.insert index (TTInt val) mapp)) s
-			     TBool -> if (val == 0) || (val == 1) then M.insert x (TTArray minn maxx typee (M.insert index (TTInt val) mapp)) s
+			     TInt -> (M.insert x (TTArray minn maxx typee (M.insert index (TTInt val) mapp)) extState, funcMap)
+			     TBool -> if (val == 0) || (val == 1) then (M.insert x (TTArray minn maxx typee (M.insert index (TTInt val) mapp)) extState, funcMap)
 					else error("Error - incorrect type")
 			     otherwise -> error("Error - incorrect type")		  
 			  else 
@@ -255,36 +262,36 @@ interpretStmt stmt s = case stmt of
 
     SAssBoolLit (Ident x) bLit -> case (checkifVarExists (Ident x) s) of  
 	True -> case bLit of
-			BoolLitTrue -> M.insert x (TTBoolean True) s
-			BoolLitFalse -> M.insert x (TTBoolean False) s
+			BoolLitTrue -> (M.insert x (TTBoolean True) extState, funcMap)
+			BoolLitFalse -> )M.insert x (TTBoolean False) extState, funcMap)
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
     SAssBool (Ident x) bexp -> case (checkifVarExists (Ident x) s) of  
 	True ->
 		case (interpretBExp bexp s) of 
-			True -> M.insert x (TTBoolean True) s
-			False -> M.insert x (TTBoolean False) s
+			True -> (M.insert x (TTBoolean True) extState, funcMap)
+			False -> (M.insert x (TTBoolean False) extState, funcMap)
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
     SAssArrayBool (Ident x) index bexp -> case (checkifVarExistsAndIsArray (Ident x) s) of  
-	True 	-> case (M.lookup x s) of 
+	True 	-> case (M.lookup x extState) of 
 	    Just n -> case n of
 		TTArray minn maxx typee mapp -> 
 		    if (index >= minn) && (index <= maxx) then
-			M.insert x (TTArray minn maxx typee (M.insert index (TTBoolean (interpretBExp bexp s)) mapp)) s
+			(M.insert x (TTArray minn maxx typee (M.insert index (TTBoolean (interpretBExp bexp s)) mapp)) extState, funcMap)
 		    else 
 			error("Error - index out of bound!")
 		otherwise -> error("Error - variable is not an array!")
 	False 	-> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
     SAssArrayBoolLit (Ident x) index boolLit -> case (checkifVarExistsAndIsArray (Ident x) s) of  
-	True 	-> case (M.lookup x s) of 
+	True 	-> case (M.lookup x extState) of 
 	    Just n -> case n of
 		TTArray minn maxx typee mapp -> 
 		    if (index >= minn) && (index <= maxx) then
 			let boolVal = extractBoolLit boolLit
 			in
 			case typee of
-		    	   TBool -> M.insert x (TTArray minn maxx typee (M.insert index (TTBoolean (extractBoolLit boolLit)) mapp)) s
+		    	   TBool -> (M.insert x (TTArray minn maxx typee (M.insert index (TTBoolean (extractBoolLit boolLit)) mapp)) extState, funcMap)
 		    	   TInt -> error("Error - mapa przechowuje Inty - nie chcemy rzutowac")
 		    	   otherwise -> error("Error - niepoprawny typ")
 		    else 
@@ -293,11 +300,11 @@ interpretStmt stmt s = case stmt of
 	False 	-> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
     SAssArrayString (Ident x) index str -> case (checkifVarExistsAndIsArray (Ident x) s) of  
-	True 	-> case (M.lookup x s) of 
+	True 	-> case (M.lookup x extState) of 
 	    Just n -> case n of
 		TTArray minn maxx typee mapp -> 
 		    if (index >= minn) && (index <= maxx) then
-                        if typee == TString then M.insert x (TTArray minn maxx typee (M.insert index (TTString str) mapp)) s
+                        if typee == TString then (M.insert x (TTArray minn maxx typee (M.insert index (TTString str) mapp)) extState, funcMap)
 			else error("Error - incorrect assignment type")
 		    else 
 			error("Error - index out of bound!")
@@ -308,7 +315,7 @@ interpretStmt stmt s = case stmt of
 	True ->
 		let valR = (interpretExp exp s)
 		in let valL = (variableValueInt (Ident x) s)
-		in M.insert x (TTInt (valL*valR)) s
+		in (M.insert x (TTInt (valL*valR)) extState, funcMap)
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
     SAssDiv (Ident x) exp -> case (checkifVarExists (Ident x) s) of                -- !! SPRAWDZ DZIELENIE PRZEZ ZERO
 	True ->
@@ -316,30 +323,30 @@ interpretStmt stmt s = case stmt of
 		in let valL = (variableValueInt (Ident x) s)
 		in case valL of
 			0 -> error ("Division by zero!")
-			otherwise -> M.insert x (TTInt (valL `div` valR)) s
+			otherwise -> (M.insert x (TTInt (valL `div` valR)) extState, funcMap)
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
     SAssAdd (Ident x) exp -> case (checkifVarExists (Ident x) s) of
 	True ->
 		let valR = (interpretExp exp s)
 		in let valL = (variableValueInt (Ident x) s)
-		in M.insert x (TTInt (valL + valR)) s
+		in (M.insert x (TTInt (valL + valR)) s, funcMap)
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
     SAssSub (Ident x) exp -> case (checkifVarExists (Ident x) s) of
 	True ->
 		let valR = (interpretExp exp s)
 		in let valL = (variableValueInt (Ident x) s)
-		in M.insert x (TTInt (valL - valR)) s
+		in (M.insert x (TTInt (valL - valR)) extState, funcMap)
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
     SPreIncr (Ident x) -> case (checkifVarExists (Ident x) s) of
 	True -> let valL = (variableValueInt (Ident x) s)
 		in 
-			M.insert x (TTInt (valL + 1)) s
+			(M.insert x (TTInt (valL + 1)) s, funcMap)
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
     SPreDecr (Ident x) -> case (checkifVarExists (Ident x) s) of
 	True -> let valL = (variableValueInt (Ident x) s)
 		in 
-			M.insert x (TTInt (valL - 1)) s
+			(M.insert x (TTInt (valL - 1)) s, funcMap)
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
     SIf kind -> case kind of
@@ -371,8 +378,8 @@ interpretStmt stmt s = case stmt of
 	let
 	  v1 = interpretExp exp0 s
 	  v2 = interpretExp exp1 s
-	  new_state = M.insert ident (TTInt v1) s
-	  forfor n s = if (n < 0) then s else forfor (n-1) (interpretStmt stmt (M.insert ident (TTInt (v2 - n)) s))
+	  new_state = (M.insert ident (TTInt v1) extState, funcMap)
+	  forfor n s = if (n < 0) then s else forfor (n-1) (interpretStmt stmt ((M.insert ident (TTInt (v2 - n)) s), funcMap))
 	in
    	  if (v1 < v2) then forfor (v2 - v1) new_state else s    
     SBlock [] -> s
@@ -428,25 +435,42 @@ interpretStmt stmt s = case stmt of
 	
 
 
+--type TState2 = (TLoc, TEnv, TFuncMap)
+
+simpleAddOneVar :: Ident -> TTypes -> TState3 -> TState3
+--simpleAddOneVar (Ident x) value (loc, env, funcMap) = ((M.insert loc), env, funcMap) 
+simpleAddOneVar (Ident x) value (state, funcMap) = ((M.insert x value state), funcMap)
 
 -------------------BEGINNING, DECLARATIONS, ...---------------
-addOneVariable :: Ident -> Type -> TState -> TState
+addOneVariable :: Ident -> Type -> TState3 -> TState3
 addOneVariable (Ident ident) typee state = case typee of
-		TInt -> M.insert ident (TTInt 0) state
-		TBool -> M.insert ident (TTBoolean False) state
-		TString -> M.insert ident (TTString "") state
+		TInt -> simpleAddOneVar ident (TTInt 0) state
+		TBool -> simpleAddOneVar ident (TTBoolean False) state
+		TString -> simpleAddOneVar ident (TTString "") state
 		TArray minn maxx typee -> 
 			if (minn < maxx) && (minn >= 0) then 
-				M.insert ident (TTArray minn maxx typee M.empty) state
+				simpleAddOneVar ident (TTArray minn maxx typee M.empty) state
 			else 
 				error("Error - incorrect table index range!")	
-	
-addManyVariables :: [Ident] -> Type -> TState -> TState
+
+--addOneVariable (Ident ident) typee state = case typee of
+--		TInt -> M.insert ident (TTInt 0) state
+--		TBool -> M.insert ident (TTBoolean False) state
+--		TString -> M.insert ident (TTString "") state
+--		TArray minn maxx typee -> 
+--			if (minn < maxx) && (minn >= 0) then 
+--				M.insert ident (TTArray minn maxx typee M.empty) state
+--			else 
+--				error("Error - incorrect table index range!")	
+
+
+
+addManyVariables :: [Ident] -> Type -> TState3 -> TState3
 addManyVariables [] typee state = state 
 addManyVariables ((Ident ident):tl) typee state = 
 	addManyVariables tl typee (addOneVariable (Ident ident) typee state)
 
-declareNewVariables :: VariableDeclaration -> TState -> TState
+declareNewVariables :: VariableDeclaration -> TStat3 -> TState3
 declareNewVariables vars state = case vars of
 	VBDoesntExists -> state
 	VBExists [] -> state
@@ -455,7 +479,9 @@ declareNewVariables vars state = case vars of
 		in
 			declareNewVariables (VBExists tl) s
 
+
 -------------INTERPRET FILE------------
-interpretFile :: Program -> TState
+interpretFile :: Program -> TState3
+--interpretFile (Programm programNameHeader (Blockk variableDeclaration stmts)) = interpretStmt stmts (declareNewVariables variableDeclaration (M.empty, M.empty, M.empty))
 interpretFile (Programm programNameHeader (Blockk variableDeclaration stmts)) = interpretStmt stmts (declareNewVariables variableDeclaration M.empty)
 --interpretFile :: Program -> TState
