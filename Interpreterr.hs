@@ -172,7 +172,7 @@ interpretStmt stmt s = case stmt of
 --    SIf b stmt ->
 --        let cond = (interpretBExp b s)
 --        in if cond then (interpretStmt stmt s) else s
-    SIf kind = case kind of
+    SIf kind -> case kind of
 	SimpleIf b stmt ->
             let cond = (interpretBExp b s)
             in if cond then (interpretStmt stmt s) else s
