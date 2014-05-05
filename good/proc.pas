@@ -5,7 +5,7 @@ proc
 	var
 		locX : Integer ;
 	begin
-		print "Dzialam!" ;
+		print <- ("Dzialam!") ;
 	end
 
 begin
