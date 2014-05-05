@@ -50,11 +50,14 @@ main = do
     	    Bad s -> do 
 		 hPutStrLn stderr "Error"
 		 hPutStrLn stderr s
+--            Ok i -> return()
             Ok i -> putStrLn (show (M.toList (interpretFile i)))
+
     else do
 	fileContent <- getContents
     	case pProgram (myLexer fileContent) of
     	    Bad s -> do 
 		 hPutStrLn stderr "Error"
 		 hPutStrLn stderr s
+--            Ok i -> return()
             Ok i -> putStrLn (show (M.toList (interpretFile i)))
