@@ -79,7 +79,7 @@ transStmt x = case x of
   SIf ifstmt  -> failure x
   SWhile bexp stmt  -> failure x
   SFor id exp1 exp2 stmt3  -> failure x
-  SPrint printalbe  -> failure x
+  SPrint printable  -> failure x
 
 
 transIfStmt :: IfStmt -> Result
@@ -90,13 +90,9 @@ transIfStmt x = case x of
   IfElifElse bexp1 stmt2 bexp3 stmt4 stmt5  -> failure x
 
 
-transPrintalbe :: Printalbe -> Result
-transPrintalbe x = case x of
-  SPExp exp  -> failure x
-
-
 transPrintable :: Printable -> Result
 transPrintable x = case x of
+  SPExp exp  -> failure x
   SPId id  -> failure x
 
 

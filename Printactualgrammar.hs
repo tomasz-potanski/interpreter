@@ -157,7 +157,7 @@ instance Print Stmt where
    SIf ifstmt -> prPrec i 0 (concatD [prt 0 ifstmt])
    SWhile bexp stmt -> prPrec i 0 (concatD [doc (showString "while") , prt 0 bexp , doc (showString "do") , prt 0 stmt])
    SFor id exp0 exp stmt -> prPrec i 0 (concatD [doc (showString "for") , prt 0 id , doc (showString ":=") , prt 0 exp0 , doc (showString "to") , prt 0 exp , doc (showString "do") , prt 0 stmt])
-   SPrint printalbe -> prPrec i 0 (concatD [doc (showString "print") , prt 0 printalbe , doc (showString ";")])
+   SPrint printable -> prPrec i 0 (concatD [doc (showString "print") , prt 0 printable , doc (showString ";")])
 
   prtList es = case es of
    [] -> (concatD [])
@@ -171,13 +171,9 @@ instance Print IfStmt where
    IfElifElse bexp0 stmt1 bexp stmt2 stmt -> prPrec i 3 (concatD [doc (showString "if") , prt 0 bexp0 , doc (showString "then") , prt 0 stmt1 , doc (showString "elif") , prt 0 bexp , doc (showString "then") , prt 0 stmt2 , doc (showString "else") , prt 0 stmt])
 
 
-instance Print Printalbe where
-  prt i e = case e of
-   SPExp exp -> prPrec i 0 (concatD [prt 0 exp])
-
-
 instance Print Printable where
   prt i e = case e of
+   SPExp exp -> prPrec i 0 (concatD [prt 0 exp])
    SPId id -> prPrec i 2 (concatD [prt 0 id])
 
 

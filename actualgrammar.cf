@@ -87,8 +87,8 @@ coercions 	IfStmt 	3;
 SWhile.		Stmt	::=	"while" BExp "do" Stmt ; 
 SFor.       	Stmt 	::= 	"for" Ident ":=" Exp "to" Exp "do" Stmt;
 
-SPrint.		Stmt	::=	"print" Printalbe ";" ;
-SPExp.		Printalbe::=	Exp;
+SPrint.		Stmt	::=	"print" Printable ";" ;
+SPExp.		Printable::=	Exp;
 SPId.		Printable2::=	Ident ;
 coercions Printable 2;
 

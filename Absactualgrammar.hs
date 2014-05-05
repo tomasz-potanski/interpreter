@@ -59,7 +59,7 @@ data Stmt =
  | SIf IfStmt
  | SWhile BExp Stmt
  | SFor Ident Exp Exp Stmt
- | SPrint Printalbe
+ | SPrint Printable
   deriving (Eq,Ord,Show)
 
 data IfStmt =
@@ -69,12 +69,9 @@ data IfStmt =
  | IfElifElse BExp Stmt BExp Stmt Stmt
   deriving (Eq,Ord,Show)
 
-data Printalbe =
-   SPExp Exp
-  deriving (Eq,Ord,Show)
-
 data Printable =
-   SPId Ident
+   SPExp Exp
+ | SPId Ident
   deriving (Eq,Ord,Show)
 
 data Exp =
