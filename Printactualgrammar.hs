@@ -210,7 +210,7 @@ instance Print Type where
    TString  -> prPrec i 0 (concatD [doc (showString "String")])
    TChar  -> prPrec i 0 (concatD [doc (showString "Char")])
    TDouble  -> prPrec i 0 (concatD [doc (showString "Double")])
-   TArray n0 n type' -> prPrec i 2 (concatD [doc (showString "Array") , doc (showString "[") , prt 0 n0 , doc (showString "..") , prt 0 n , doc (showString "]") , doc (showString "of") , prt 0 type'])
+   TArray n type' -> prPrec i 2 (concatD [doc (showString "Array") , doc (showString "[") , doc (showString "1") , doc (showString "..") , prt 0 n , doc (showString "]") , doc (showString "of") , prt 0 type'])
 
 
 instance Print LitVal where
