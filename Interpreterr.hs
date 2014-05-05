@@ -372,7 +372,19 @@ interpretStmt stmt s = case stmt of
     SPrintBLit bLit -> case bLit of
 	BoolLitTrue -> showToUser "True" s
 	BoolLitFalse -> showToUser "False" s
+    SPrintId (Ident x) -> case (checkifVarExists (Ident x) s) of
+	True -> case (M.lookup x s) of
+	    Just mm -> case mm of
+	        TTInt val -> (showToUser (intToStr val) s)
+		TTBoolean val -> case val of
+                    True -> (showToUser "True" s)
+                    False -> (showToUser "False" s)
+		TTString val -> (showToUser val s)
+		otherwise -> error("Error - Variable: " ++ (show x) ++ " is unprintable!")
+	    Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
+--showToUser (show (variableValueInt (Ident x) s)) s
+	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 --    SPrintExp exp -> 
 --	showToUser (show (interpretExp exp s)) s
 --    SPrintId (Ident x) -> case (checkifVarExists (Ident x) s) of

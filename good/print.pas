@@ -4,14 +4,21 @@
 
 var
 	x : Integer ;
+	y : String;
+	z : Boolean;
 
 begin
 	print <- ("Ala ma kota!");
 	print <- (True);
 	print <- (False);
 	x := 0;
-/*	print <-- (x);
-	x := 1;
+	y := "... ale Ola jest ładniejsza ;)";
+	z := True;
+	print <-- (x);
+	print <-- (y);
+	print <-- (z);
+
+/*	x := 1;
 	print <-- (x);
 
 	x := 2;
