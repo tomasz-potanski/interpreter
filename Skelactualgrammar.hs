@@ -69,7 +69,9 @@ transStmt x = case x of
   SAss id exp  -> failure x
   SAssArray id n exp  -> failure x
   SAssBool id bexp  -> failure x
+  SAssBoolLit id boollit  -> failure x
   SAssArrayBool id n bexp  -> failure x
+  SAssArrayBoolLit id n boollit  -> failure x
   SAssMult id exp  -> failure x
   SAssDiv id exp  -> failure x
   SAssAdd id exp  -> failure x
@@ -107,7 +109,6 @@ transBExp x = case x of
   BOr bexp1 bexp2  -> failure x
   BAnd bexp1 bexp2  -> failure x
   BRel exp1 relop2 exp3  -> failure x
-  BBLit boollit  -> failure x
 
 
 transRelOp :: RelOp -> Result

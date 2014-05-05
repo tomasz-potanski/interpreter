@@ -49,7 +49,9 @@ data Stmt =
  | SAss Ident Exp
  | SAssArray Ident Integer Exp
  | SAssBool Ident BExp
+ | SAssBoolLit Ident BoolLit
  | SAssArrayBool Ident Integer BExp
+ | SAssArrayBoolLit Ident Integer BoolLit
  | SAssMult Ident Exp
  | SAssDiv Ident Exp
  | SAssAdd Ident Exp
@@ -84,7 +86,6 @@ data BExp =
    BOr BExp BExp
  | BAnd BExp BExp
  | BRel Exp RelOp Exp
- | BBLit BoolLit
   deriving (Eq,Ord,Show)
 
 data RelOp =

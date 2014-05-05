@@ -93,7 +93,9 @@ All other symbols are terminals.
   | //Stmt// | -> | //Ident// ``:=`` //Exp// ``;`` 
   |  |  **|**  | //Ident// ``[`` //Integer// ``]`` ``:=`` //Exp// ``;`` 
   |  |  **|**  | //Ident// ``:=`` //BExp// ``;`` 
+  |  |  **|**  | //Ident// ``:=`` //BoolLit// ``;`` 
   |  |  **|**  | //Ident// ``[`` //Integer// ``]`` ``:=`` //BExp// ``;`` 
+  |  |  **|**  | //Ident// ``[`` //Integer// ``]`` ``:=`` //BoolLit// ``;`` 
   |  |  **|**  | //Ident// ``*=`` //Exp// ``;`` 
   |  |  **|**  | //Ident// ``/=`` //Exp// ``;`` 
   |  |  **|**  | //Ident// ``+=`` //Exp// ``;`` 
@@ -130,7 +132,6 @@ All other symbols are terminals.
   | //BExp1// | -> | //BExp1// ``&&`` //BExp2// 
   |  |  **|**  | //BExp2// 
   | //BExp2// | -> | //Exp// //RelOp// //Exp// 
-  |  |  **|**  | //BoolLit// 
   |  |  **|**  | ``(`` //BExp// ``)`` 
   | //RelOp// | -> | ``<`` 
   |  |  **|**  | ``<=`` 
