@@ -220,7 +220,7 @@ interpretStmt stmt s = case stmt of
 	    Just n -> case n of
 		TTArray minn maxx typee mapp -> 
 		    if (index >= minn) && (index <= maxx) then
-			let boolVal = extractBoolLit bLit
+			let boolVal = extractBoolLit boolLit
 			in
 			case typee of
 		    	   TBool -> M.insert x (TTBoolean boolVal) s
