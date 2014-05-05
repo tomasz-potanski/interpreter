@@ -267,7 +267,7 @@ interpretStmt stmt s = case stmt of
 --				if b then showToUser "True" s
 --				else showToUser "False" s
 --		Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
-	SPExp exp 	-> showToUser (show (interpretExp exp s)) s
+--	SPExp exp 	-> showToUser (show (interpretExp exp s)) s
 
 --    SPrintExp exp -> 
 --	
