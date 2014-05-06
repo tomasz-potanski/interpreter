@@ -441,8 +441,10 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
             ( (fst (interpretStmt stmt ((M.union tStateOld extState) , funcMap))) , funcMap)
     SProcCallInteger (Ident x) int -> case (M.lookup x funcMap) of
         Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
-        Just (stmt, varDeclarationLine@(DLList ((Ident x):_) typee), tTypes, tStateOld) -> 
-            ( (fst (interpretStmt stmt (M.insert x int (M.union tStateOld extState) , funcMap))) , funcMap)
+        Just (stmt, varDeclarationLine, tTypes, tStateOld) -> case varDeclarationLine of
+	    NonEmptyArgs v -> case v of
+	         DLList identList@((Ident ident):_) typee -> ( (fst (interpretStmt stmt ((M.insert ident (TTInt int) (M.union tStateOld extState)) , funcMap))) , funcMap)
+	    EmptyArgs -> error ("Error - arguments were given!")
 
 --type TFuncDef = (Stmt, VarDeclarationLine, TTypes, TStateOld)
 --type TFuncMap = M.Map String TFuncDef

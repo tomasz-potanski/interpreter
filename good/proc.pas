@@ -30,7 +30,12 @@ proc
 		end
 		endif
 	end
-
+	procedure wart ( zm : Integer; ) ;
+	var
+		locX : Integer ;
+	begin
+		print <-- (zm);
+	end
 begin
 	print <- ("+++++=!") ;
 	moja();
@@ -41,4 +46,5 @@ begin
 		--x;
 		moja3();
 	end
+	wart(999);
 end.

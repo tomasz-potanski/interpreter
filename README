@@ -35,7 +35,7 @@ Cały komplet na 8 punktów:
 
 -----------------------------------------
 Na 12 pkt:
-7. Funkcje lub procedury z				Brak 			
+7. Funkcje lub procedury z				OK 			
    parametrami przez wartość, rekurencja
 
 ----------------------------
@@ -46,7 +46,7 @@ Wymaganie na 16 pkt.
 1. Dwa typy wartości: Integer i Boolean			OK
 2. Arytmetyka, porównania				OK
 3. While, if (if _ elif _ else _ endif)			OK
-4. Funkcje/procedury bez zagnieżdżania, rekurencja	Brak
+4. Funkcje/procedury bez zagnieżdżania, rekurencja	OK
 5. Jawne wypisywanie wartości na wyjście: print/write	OK
 
 Dwa sposór następujących
