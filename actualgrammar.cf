@@ -123,6 +123,9 @@ SPrintExp.	Stmt	::=	"print" "<-" "(" Exp ")" ";" ;
 SPrintBExp.	Stmt	::=	"print" "<-" "(" BExp ")" ";" ;
 SPrintCharLit.	Stmt	::=	"print" "<-" "(" Char ")" ";" ;
 
+SPrintFun.	Stmt 	::=	"print" "<-" "(" SProcCall ")" ";" ;
+
+
 SProcCall.		Stmt	::=	Ident "(" ")" ";" ;
 SProcCallInteger.	Stmt	::=	Ident "(" Integer ")" ";" ;
 SProcCallId.		Stmt	::=	Ident "(" Ident ")" ";" ;
