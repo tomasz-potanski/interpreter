@@ -1,7 +1,7 @@
 var
 	globA : Integer ;
 proc
-	procedure moja ( x : Integer ; ) ;
+	procedure moja ( ) ;
 	var
 		locX : Integer ;
 	begin
@@ -9,5 +9,5 @@ proc
 	end
 
 begin
-	moja(2);
+	moja();
 end.

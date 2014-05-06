@@ -20,6 +20,8 @@ Blockk.		Block	::= VariableDeclaration ProcDeclaration Stmt2 ;
 
 terminator Stmt "" ;
 
+		
+
 --------------(Proc Declaration)-----------
 PExists.		ProcDeclaration ::= "proc" [ProcDeclLine] ;
 PDoesntExist.		ProcDeclaration ::= ;
@@ -29,6 +31,9 @@ ProcDecR.		ProcDeclLine ::= ProcDeclLine ;
 PLineNonArg.		ProcDeclLine ::= "procedure" Ident "(" ")" ";" VariableDeclaration Stmt2;
 PLineArg.		ProcDeclLine ::= "procedure" Ident "(" VarDeclarationLine ")" ";" VariableDeclaration Stmt2;
 terminator ProcDeclLine "";
+
+NonEmptyArgs.		FuncArg ::= VarDeclarationLine ;
+EmptyArgs.		FuncArg ::= ;
 
 -------------(Variables Declaration)---------------
 VBExists.		VariableDeclaration ::=	"var" [VarDeclarationLine] ;

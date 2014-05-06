@@ -118,6 +118,12 @@ instance Print ProcDeclLine where
    [] -> (concatD [])
    x:xs -> (concatD [prt 0 x , prt 0 xs])
 
+instance Print FuncArg where
+  prt i e = case e of
+   NonEmptyArgs vardeclarationline -> prPrec i 0 (concatD [prt 0 vardeclarationline])
+   EmptyArgs  -> prPrec i 0 (concatD [])
+
+
 instance Print VariableDeclaration where
   prt i e = case e of
    VBExists vardeclarationlines -> prPrec i 0 (concatD [doc (showString "var") , prt 0 vardeclarationlines])

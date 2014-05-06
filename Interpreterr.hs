@@ -25,7 +25,9 @@ type TState2 = (TLoc, TEnv, TFuncMap)
 type TState3 = (TStateOld, TFuncMap)
 
 -- statements, arguments, return type, Env, Decl)
-type TFuncMap = M.Map String ([Stmt], VarDeclarationLine, TTypes, TEnv, TStore)
+type TFuncDef2 = (Stmt, VarDeclarationLine, TTypes, TEnv, TStore)
+type TFuncDef = (Stmt, FuncArg, TTypes, TStateOld)
+type TFuncMap = M.Map String TFuncDef
 type TLoc = Integer
 type TEnv = M.Map String TLoc
 type TStore = M.Map TLoc TTypes
@@ -432,10 +434,19 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
         True -> showToUser "True" s
         False -> showToUser "False" s
     SPrintCharLit str -> (showToUser [str] s)
-    SProcCall (Ident x) ->
 
+    SProcCall (Ident x) -> case (M.lookup x funcMap) of
+        Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
+        Just (stmt, varDeclarationLine, tTypes, tStateOld) -> 
+            (changeStateToSecond (fst (interpretStmt stmt ((M.union tStateOld extState) , funcMap))) extState, funcMap)
+
+--type TFuncDef = (Stmt, VarDeclarationLine, TTypes, TStateOld)
+--type TFuncMap = M.Map String TFuncDef
 
 --type TState2 = (TLoc, TEnv, TFuncMap)
+
+changeStateToSecond :: TStateOld -> TStateOld -> TStateOld
+changeStateToSecond _ a = a
 
 simpleAddOneVar :: Ident -> TTypes -> TState3 -> TState3
 --simpleAddOneVar (Ident x) value (loc, env, funcMap) = ((M.insert loc), env, funcMap) 
@@ -479,9 +490,22 @@ declareNewVariables vars state = case vars of
 		in
 			declareNewVariables (VBExists tl) s
 
+--type TFuncDef = (Stmt, VarDeclarationLine, TTypes, TStateOld)
+--type TFuncMap = M.Map String TFuncDef
+addOneFunction :: ProcDecLine -> TFuncMap -> TFuncMap
+addOneFunction h funcMap = case h of
+    PLineNonArg -> M.insert x (stmt, EmptyArgs, TTVoid, (M.empty, M.empty)) funcMap 
+    PLineArg	(Ident x) args varDecls stmt  -> M.insert x (stmt, (NonEmptyArgs varDecls), TTVoid, (fst (declareNewVariables varDecls (M.empty, M.empty)))) funcMap 
+
+prepareFunctions :: ProcDeclaration -> TState3 -> TState3
+prepareFunctions funs state@(s, funcMap) = case funs of
+    PDoesntExist -> state
+    PExists [] -> state
+    PExists listOfProcDecl@(h:tl) ->
+            prepareFuntions (PExists tl) (s, addOneFunction h funcMap)
 
 -------------INTERPRET FILE------------
 interpretFile :: Program -> TState3
 --interpretFile (Programm programNameHeader (Blockk variableDeclaration stmts)) = interpretStmt stmts (declareNewVariables variableDeclaration (M.empty, M.empty, M.empty))
-interpretFile (Programm programNameHeader (Blockk variableDeclaration procDecl stmts)) = interpretStmt stmts (declareNewVariables variableDeclaration (M.empty, M.empty))
+interpretFile (Programm programNameHeader (Blockk variableDeclaration procDecl stmts)) = interpretStmt stmts (prepareFunctions procDecl (declareNewVariables variableDeclaration (M.empty, M.empty)))
 --interpretFile :: Program -> TState

@@ -81,6 +81,8 @@ All other symbols are terminals.
   |  |  **|**  | ``procedure`` //Ident// ``(`` //VarDeclarationLine// ``)`` ``;`` //VariableDeclaration// //Stmt2// 
   | //[ProcDeclLine]// | -> | **eps**
   |  |  **|**  | //ProcDeclLine// //[ProcDeclLine]// 
+  | //FuncArg// | -> | //VarDeclarationLine// 
+  |  |  **|**  | **eps**
   | //VariableDeclaration// | -> | ``var`` //[VarDeclarationLine]// 
   |  |  **|**  | **eps**
   | //VarDeclarationLine// | -> | //[Ident]// ``:`` //Type// ``;`` 

@@ -28,6 +28,11 @@ data ProcDeclLine =
  | PLineArg Ident VarDeclarationLine VariableDeclaration Stmt
   deriving (Eq,Ord,Show)
 
+data FuncArg =
+   NonEmptyArgs VarDeclarationLine
+ | EmptyArgs
+  deriving (Eq,Ord,Show)
+
 data VariableDeclaration =
    VBExists [VarDeclarationLine]
  | VBDoesntExists

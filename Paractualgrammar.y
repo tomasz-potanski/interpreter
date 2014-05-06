@@ -125,6 +125,11 @@ ListProcDeclLine : {- empty -} { [] }
   | ListProcDeclLine ProcDeclLine { flip (:) $1 $2 }
 
 
+FuncArg :: { FuncArg }
+FuncArg : VarDeclarationLine { NonEmptyArgs $1 } 
+  | {- empty -} { EmptyArgs }
+
+
 VariableDeclaration :: { VariableDeclaration }
 VariableDeclaration : 'var' ListVarDeclarationLine { VBExists $2 } 
   | {- empty -} { VBDoesntExists }

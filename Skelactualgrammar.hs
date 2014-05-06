@@ -43,6 +43,12 @@ transProcDeclLine x = case x of
   PLineArg id vardeclarationline variabledeclaration stmt  -> failure x
 
 
+transFuncArg :: FuncArg -> Result
+transFuncArg x = case x of
+  NonEmptyArgs vardeclarationline  -> failure x
+  EmptyArgs  -> failure x
+
+
 transVariableDeclaration :: VariableDeclaration -> Result
 transVariableDeclaration x = case x of
   VBExists vardeclarationlines  -> failure x
