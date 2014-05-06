@@ -438,7 +438,11 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
     SProcCall (Ident x) -> case (M.lookup x funcMap) of
         Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
         Just (stmt, varDeclarationLine, tTypes, tStateOld) -> 
-            (changeStateToSecond (fst (interpretStmt stmt ((M.union tStateOld extState) , funcMap))) extState, funcMap)
+            ( (fst (interpretStmt stmt ((M.union tStateOld extState) , funcMap))) , funcMap)
+    SProcCallInteger (Ident x) int -> case (M.lookup x funcMap) of
+        Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
+        Just (stmt, varDeclarationLine@(DLList ((Ident x):_) typee), tTypes, tStateOld) -> 
+            ( (fst (interpretStmt stmt (M.insert x int (M.union tStateOld extState) , funcMap))) , funcMap)
 
 --type TFuncDef = (Stmt, VarDeclarationLine, TTypes, TStateOld)
 --type TFuncMap = M.Map String TFuncDef
@@ -492,17 +496,17 @@ declareNewVariables vars state = case vars of
 
 --type TFuncDef = (Stmt, VarDeclarationLine, TTypes, TStateOld)
 --type TFuncMap = M.Map String TFuncDef
-addOneFunction :: ProcDecLine -> TFuncMap -> TFuncMap
+addOneFunction :: ProcDeclLine -> TFuncMap -> TFuncMap
 addOneFunction h funcMap = case h of
-    PLineNonArg -> M.insert x (stmt, EmptyArgs, TTVoid, (M.empty, M.empty)) funcMap 
-    PLineArg	(Ident x) args varDecls stmt  -> M.insert x (stmt, (NonEmptyArgs varDecls), TTVoid, (fst (declareNewVariables varDecls (M.empty, M.empty)))) funcMap 
+    PLineNonArg (Ident x) varDecls stmt  -> M.insert x (stmt, EmptyArgs, TTVoid, (fst (declareNewVariables varDecls (M.empty, M.empty)))) funcMap 
+    PLineArg	(Ident x) args varDecls stmt  -> M.insert x (stmt, (NonEmptyArgs args), TTVoid, (fst (declareNewVariables varDecls (M.empty, M.empty)))) funcMap 
 
 prepareFunctions :: ProcDeclaration -> TState3 -> TState3
 prepareFunctions funs state@(s, funcMap) = case funs of
     PDoesntExist -> state
     PExists [] -> state
     PExists listOfProcDecl@(h:tl) ->
-            prepareFuntions (PExists tl) (s, addOneFunction h funcMap)
+            prepareFunctions (PExists tl) (s, addOneFunction h funcMap)
 
 -------------INTERPRET FILE------------
 interpretFile :: Program -> TState3

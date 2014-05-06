@@ -112,11 +112,11 @@ transStmt x = case x of
   SPrintBExp bexp  -> failure x
   SPrintCharLit c  -> failure x
   SProcCall id  -> failure x
+  SProcCallInteger id n  -> failure x
   SProcCallId id1 id2  -> failure x
   SProcCallExp id exp  -> failure x
   SProcCallBExp id bexp  -> failure x
   SProcCallString id str  -> failure x
-  SProcCallInteger id n  -> failure x
 
 
 transIfStmt :: IfStmt -> Result
