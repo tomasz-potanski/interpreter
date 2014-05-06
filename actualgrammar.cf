@@ -24,6 +24,7 @@ terminator Stmt "" ;
 
 --------------(Proc Declaration)-----------
 PExists.		ProcDeclaration ::= "proc" [ProcDeclLine] ;
+FExists.		ProcDeclaration ::= "proc" [FuncDeclLine] ;
 PDoesntExist.		ProcDeclaration ::= ;
 
 ProcDecR.		ProcDeclLine ::= ProcDeclLine ;
@@ -31,6 +32,10 @@ ProcDecR.		ProcDeclLine ::= ProcDeclLine ;
 PLineNonArg.		ProcDeclLine ::= "procedure" Ident "(" ")" ";" VariableDeclaration Stmt2;
 PLineArg.		ProcDeclLine ::= "procedure" Ident "(" VarDeclarationLine ")" ";" VariableDeclaration Stmt2;
 terminator ProcDeclLine "";
+
+FLineNonArg.		FuncDeclLine ::= "function" Ident "(" ")" ":" Type ";" VariableDeclaration Stmt2;
+FLineArg.		FuncDeclLine ::= "function" Ident "(" VarDeclarationLine ")" ":" Type ";" VariableDeclaration Stmt2;
+terminator FuncDeclLine "";
 
 NonEmptyArgs.		FuncArg ::= VarDeclarationLine ;
 EmptyArgs.		FuncArg ::= ;
@@ -71,7 +76,7 @@ SAssArray.	Stmt	::=	Ident "[" Integer "]" ":=" Exp ";" ;
 SAssBool.		Stmt	::=	Ident ":=" BExp ";" ;
 SAssBoolLit.		Stmt	::=	Ident ":=" BoolLit ";" ;
 
-
+SReturn.		Stmt	::=	"return" Integer ";" ";" ;
 
 SAssString.		Stmt	::=	Ident ":=" String ";" ;
 SAssStrToInt.		Stmt	::=	Ident ":=" "strToInt" String ";" ;

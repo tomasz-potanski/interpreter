@@ -10,6 +10,15 @@ Interpretuje język imperatywny bazujący na pascalu.
 
 Rozwiązanie celuje w 16 punktów
 
+Nietypowe konstrukcje:
+print <-- (zmienna);
+print <- (exp/bexp/String/Integer)
+
+średnik na końcu argumentów procedury:
+	procedure wart ( zm : Integer; ) ;
+
+if (wraz z odmianami) kończy się endifem
+
 -----------------------------------------------
 Funkcjonalności zrealizowane (część pierwsza)
 
@@ -57,8 +66,10 @@ Dwa sposór następujących
 
 -----------------------
 Wymagania na 20 puntków:
-1. Przesłanianie identyfikatorów ze statycznym 		Brak
-   ich wiązaniem
+1. Przesłanianie identyfikatorów ze statycznym 		OK (powiedziałbym, że 
+   ich wiązaniem					   działa - patrz: przesProc.pas -
+							  natiomiast nieprofesjonalnie)
+
 2. Statyczne typowanie					Brak
 3. Jawne obsłużenie dynamicznych błędów wykonania	OK
 4. Funkcje zwracające wartość				Brak

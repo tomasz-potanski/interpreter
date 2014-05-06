@@ -33,6 +33,7 @@ transBlock x = case x of
 transProcDeclaration :: ProcDeclaration -> Result
 transProcDeclaration x = case x of
   PExists procdecllines  -> failure x
+  FExists funcdecllines  -> failure x
   PDoesntExist  -> failure x
 
 
@@ -41,6 +42,12 @@ transProcDeclLine x = case x of
   ProcDecR procdeclline  -> failure x
   PLineNonArg id variabledeclaration stmt  -> failure x
   PLineArg id vardeclarationline variabledeclaration stmt  -> failure x
+
+
+transFuncDeclLine :: FuncDeclLine -> Result
+transFuncDeclLine x = case x of
+  FLineNonArg id type' variabledeclaration stmt  -> failure x
+  FLineArg id vardeclarationline type' variabledeclaration stmt  -> failure x
 
 
 transFuncArg :: FuncArg -> Result
@@ -89,6 +96,7 @@ transStmt x = case x of
   SAssArray id n exp  -> failure x
   SAssBool id bexp  -> failure x
   SAssBoolLit id boollit  -> failure x
+  SReturn n  -> failure x
   SAssString id str  -> failure x
   SAssStrToInt id str  -> failure x
   SAzs id n  -> failure x

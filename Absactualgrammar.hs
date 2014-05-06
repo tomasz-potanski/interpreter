@@ -19,6 +19,7 @@ data Block =
 
 data ProcDeclaration =
    PExists [ProcDeclLine]
+ | FExists [FuncDeclLine]
  | PDoesntExist
   deriving (Eq,Ord,Show)
 
@@ -26,6 +27,11 @@ data ProcDeclLine =
    ProcDecR ProcDeclLine
  | PLineNonArg Ident VariableDeclaration Stmt
  | PLineArg Ident VarDeclarationLine VariableDeclaration Stmt
+  deriving (Eq,Ord,Show)
+
+data FuncDeclLine =
+   FLineNonArg Ident Type VariableDeclaration Stmt
+ | FLineArg Ident VarDeclarationLine Type VariableDeclaration Stmt
   deriving (Eq,Ord,Show)
 
 data FuncArg =
@@ -66,6 +72,7 @@ data Stmt =
  | SAssArray Ident Integer Exp
  | SAssBool Ident BExp
  | SAssBoolLit Ident BoolLit
+ | SReturn Integer
  | SAssString Ident String
  | SAssStrToInt Ident String
  | SAzs Ident Integer

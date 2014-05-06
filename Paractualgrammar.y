@@ -61,19 +61,21 @@ import ErrM
  'end' { PT _ (TS _ 44) }
  'endif' { PT _ (TS _ 45) }
  'for' { PT _ (TS _ 46) }
- 'if' { PT _ (TS _ 47) }
- 'intToStr' { PT _ (TS _ 48) }
- 'of' { PT _ (TS _ 49) }
- 'print' { PT _ (TS _ 50) }
- 'proc' { PT _ (TS _ 51) }
- 'procedure' { PT _ (TS _ 52) }
- 'program' { PT _ (TS _ 53) }
- 'strToInt' { PT _ (TS _ 54) }
- 'then' { PT _ (TS _ 55) }
- 'to' { PT _ (TS _ 56) }
- 'var' { PT _ (TS _ 57) }
- 'while' { PT _ (TS _ 58) }
- '||' { PT _ (TS _ 59) }
+ 'function' { PT _ (TS _ 47) }
+ 'if' { PT _ (TS _ 48) }
+ 'intToStr' { PT _ (TS _ 49) }
+ 'of' { PT _ (TS _ 50) }
+ 'print' { PT _ (TS _ 51) }
+ 'proc' { PT _ (TS _ 52) }
+ 'procedure' { PT _ (TS _ 53) }
+ 'program' { PT _ (TS _ 54) }
+ 'return' { PT _ (TS _ 55) }
+ 'strToInt' { PT _ (TS _ 56) }
+ 'then' { PT _ (TS _ 57) }
+ 'to' { PT _ (TS _ 58) }
+ 'var' { PT _ (TS _ 59) }
+ 'while' { PT _ (TS _ 60) }
+ '||' { PT _ (TS _ 61) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -111,6 +113,7 @@ ListStmt : {- empty -} { [] }
 
 ProcDeclaration :: { ProcDeclaration }
 ProcDeclaration : 'proc' ListProcDeclLine { PExists (reverse $2) } 
+  | 'proc' ListFuncDeclLine { FExists (reverse $2) }
   | {- empty -} { PDoesntExist }
 
 
@@ -123,6 +126,16 @@ ProcDeclLine : ProcDeclLine { ProcDecR $1 }
 ListProcDeclLine :: { [ProcDeclLine] }
 ListProcDeclLine : {- empty -} { [] } 
   | ListProcDeclLine ProcDeclLine { flip (:) $1 $2 }
+
+
+FuncDeclLine :: { FuncDeclLine }
+FuncDeclLine : 'function' Ident '(' ')' ':' Type ';' VariableDeclaration Stmt2 { FLineNonArg $2 $6 $8 $9 } 
+  | 'function' Ident '(' VarDeclarationLine ')' ':' Type ';' VariableDeclaration Stmt2 { FLineArg $2 $4 $7 $9 $10 }
+
+
+ListFuncDeclLine :: { [FuncDeclLine] }
+ListFuncDeclLine : {- empty -} { [] } 
+  | ListFuncDeclLine FuncDeclLine { flip (:) $1 $2 }
 
 
 FuncArg :: { FuncArg }
@@ -182,6 +195,7 @@ Stmt : Ident ':=' Exp ';' { SAss $1 $3 }
   | Ident '[' Integer ']' ':=' Exp ';' { SAssArray $1 $3 $6 }
   | Ident ':=' BExp ';' { SAssBool $1 $3 }
   | Ident ':=' BoolLit ';' { SAssBoolLit $1 $3 }
+  | 'return' Integer ';' ';' { SReturn $2 }
   | Ident ':=' String ';' { SAssString $1 $3 }
   | Ident ':=' 'strToInt' String ';' { SAssStrToInt $1 $4 }
   | Ident ':=' 'intToStr' Integer ';' { SAzs $1 $4 }

@@ -105,6 +105,7 @@ instance Print Block where
 instance Print ProcDeclaration where
   prt i e = case e of
    PExists procdecllines -> prPrec i 0 (concatD [doc (showString "proc") , prt 0 procdecllines])
+   FExists funcdecllines -> prPrec i 0 (concatD [doc (showString "proc") , prt 0 funcdecllines])
    PDoesntExist  -> prPrec i 0 (concatD [])
 
 
@@ -113,6 +114,15 @@ instance Print ProcDeclLine where
    ProcDecR procdeclline -> prPrec i 0 (concatD [prt 0 procdeclline])
    PLineNonArg id variabledeclaration stmt -> prPrec i 0 (concatD [doc (showString "procedure") , prt 0 id , doc (showString "(") , doc (showString ")") , doc (showString ";") , prt 0 variabledeclaration , prt 2 stmt])
    PLineArg id vardeclarationline variabledeclaration stmt -> prPrec i 0 (concatD [doc (showString "procedure") , prt 0 id , doc (showString "(") , prt 0 vardeclarationline , doc (showString ")") , doc (showString ";") , prt 0 variabledeclaration , prt 2 stmt])
+
+  prtList es = case es of
+   [] -> (concatD [])
+   x:xs -> (concatD [prt 0 x , prt 0 xs])
+
+instance Print FuncDeclLine where
+  prt i e = case e of
+   FLineNonArg id type' variabledeclaration stmt -> prPrec i 0 (concatD [doc (showString "function") , prt 0 id , doc (showString "(") , doc (showString ")") , doc (showString ":") , prt 0 type' , doc (showString ";") , prt 0 variabledeclaration , prt 2 stmt])
+   FLineArg id vardeclarationline type' variabledeclaration stmt -> prPrec i 0 (concatD [doc (showString "function") , prt 0 id , doc (showString "(") , prt 0 vardeclarationline , doc (showString ")") , doc (showString ":") , prt 0 type' , doc (showString ";") , prt 0 variabledeclaration , prt 2 stmt])
 
   prtList es = case es of
    [] -> (concatD [])
@@ -170,6 +180,7 @@ instance Print Stmt where
    SAssArray id n exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ":=") , prt 0 exp , doc (showString ";")])
    SAssBool id bexp -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 bexp , doc (showString ";")])
    SAssBoolLit id boollit -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 boollit , doc (showString ";")])
+   SReturn n -> prPrec i 0 (concatD [doc (showString "return") , prt 0 n , doc (showString ";") , doc (showString ";")])
    SAssString id str -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 str , doc (showString ";")])
    SAssStrToInt id str -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , doc (showString "strToInt") , prt 0 str , doc (showString ";")])
    SAzs id n -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , doc (showString "intToStr") , prt 0 n , doc (showString ";")])

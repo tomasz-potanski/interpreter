@@ -45,9 +45,10 @@ The reserved words used in actualgrammar are the following:
   | ``False`` | ``Integer`` | ``String`` | ``True``
   | ``begin`` | ``const`` | ``do`` | ``elif``
   | ``else`` | ``end`` | ``endif`` | ``for``
-  | ``if`` | ``intToStr`` | ``of`` | ``print``
-  | ``proc`` | ``procedure`` | ``program`` | ``strToInt``
-  | ``then`` | ``to`` | ``var`` | ``while``
+  | ``function`` | ``if`` | ``intToStr`` | ``of``
+  | ``print`` | ``proc`` | ``procedure`` | ``program``
+  | ``return`` | ``strToInt`` | ``then`` | ``to``
+  | ``var`` | ``while`` |  | 
 
 The symbols used in actualgrammar are the following:
   | . | ; | ( | )
@@ -75,12 +76,17 @@ All other symbols are terminals.
   | //[Stmt]// | -> | **eps**
   |  |  **|**  | //Stmt// //[Stmt]// 
   | //ProcDeclaration// | -> | ``proc`` //[ProcDeclLine]// 
+  |  |  **|**  | ``proc`` //[FuncDeclLine]// 
   |  |  **|**  | **eps**
   | //ProcDeclLine// | -> | //ProcDeclLine// 
   |  |  **|**  | ``procedure`` //Ident// ``(`` ``)`` ``;`` //VariableDeclaration// //Stmt2// 
   |  |  **|**  | ``procedure`` //Ident// ``(`` //VarDeclarationLine// ``)`` ``;`` //VariableDeclaration// //Stmt2// 
   | //[ProcDeclLine]// | -> | **eps**
   |  |  **|**  | //ProcDeclLine// //[ProcDeclLine]// 
+  | //FuncDeclLine// | -> | ``function`` //Ident// ``(`` ``)`` ``:`` //Type// ``;`` //VariableDeclaration// //Stmt2// 
+  |  |  **|**  | ``function`` //Ident// ``(`` //VarDeclarationLine// ``)`` ``:`` //Type// ``;`` //VariableDeclaration// //Stmt2// 
+  | //[FuncDeclLine]// | -> | **eps**
+  |  |  **|**  | //FuncDeclLine// //[FuncDeclLine]// 
   | //FuncArg// | -> | //VarDeclarationLine// 
   |  |  **|**  | **eps**
   | //VariableDeclaration// | -> | ``var`` //[VarDeclarationLine]// 
@@ -104,6 +110,7 @@ All other symbols are terminals.
   |  |  **|**  | //Ident// ``[`` //Integer// ``]`` ``:=`` //Exp// ``;`` 
   |  |  **|**  | //Ident// ``:=`` //BExp// ``;`` 
   |  |  **|**  | //Ident// ``:=`` //BoolLit// ``;`` 
+  |  |  **|**  | ``return`` //Integer// ``;`` ``;`` 
   |  |  **|**  | //Ident// ``:=`` //String// ``;`` 
   |  |  **|**  | //Ident// ``:=`` ``strToInt`` //String// ``;`` 
   |  |  **|**  | //Ident// ``:=`` ``intToStr`` //Integer// ``;`` 
