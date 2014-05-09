@@ -8,7 +8,10 @@ tomasz@potanski.pl
 
 Interpretuje język imperatywny bazujący na pascalu.
 
-Rozwiązanie celuje w 16 punktów
+Rozwiązanie celuje w 16 - 18 punktów, tzn. zdaje mi się, 
+że zrealizowałem wszystko, co było wymagane na 16 
+a dodatkowo zrobiłem ok. 4 funkcjonalności
+z listy zadań z treści zadania. 
 
 Nietypowe konstrukcje:
 print <-- (zmienna);
