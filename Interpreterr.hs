@@ -641,7 +641,7 @@ addOneFunction h funcMap = case h of
     FLineNonArg (Ident x) typee varDecls stmt  -> case varDecls of
         VBDoesntExists ->
             M.insert x (stmt, EmptyArgs, TTVoid, (fst (declareNewVariables varDecls (M.empty, M.empty)))) funcMap
-        VBExists ->
+        VBExists listOfVarDecl ->
             M.insert x (stmt, EmptyArgs, TTVoid, (fst (declareNewVariables varDecls (M.empty, M.empty)))) funcMap
     FLineArg	(Ident x) typee args varDecls stmt  -> M.insert x (stmt, (NonEmptyArgs args), (TTInt 0), (fst (declareNewVariables varDecls (M.empty, M.empty)))) funcMap
 
