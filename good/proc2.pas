@@ -4,7 +4,7 @@ var
 	x : Integer;
 	s : String;
 proc
-	procedure wart ( zm : Integer; ) ;
+	procedure wart ( zm : Boolean; ) ;
 	var
 		locX : Integer ;
 	begin
@@ -12,6 +12,6 @@ proc
 	end
 begin
 	s:= "Ala mam kota";
-	wart(s);	
-	//wart(999*2);
+	//wart(s);	
+	wart(3*12);
 end.
