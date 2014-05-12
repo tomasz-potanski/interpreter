@@ -13,5 +13,5 @@ proc
 begin
 	s:= "Ala mam kota";
 	//wart(s);	
-	wart("Ala ma kota");
+	wart(3*2);
 end.
