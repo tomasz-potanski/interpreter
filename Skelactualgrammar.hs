@@ -123,6 +123,7 @@ transStmt x = case x of
   SProcCall id  -> failure x
   SProcCallInteger id n  -> failure x
   SProcCallId id1 id2  -> failure x
+  SProcCallIdArray id1 id2 n3  -> failure x
   SProcCallExp id exp  -> failure x
   SProcCallBExp id bexp  -> failure x
   SProcCallString id str  -> failure x

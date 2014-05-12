@@ -572,11 +572,30 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	                DLList identList@((Ident ident):_) typee -> case (M.lookup argIdent extState) of
 	                    Nothing     -> error("Error - variable has not been inicialized!")
 	                    Just vvvv   -> if typeCheck vvvv typee then
---	                        case typee of
 	                            ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident vvvv (M.union tStateOld extState) , funcMap))) globals) extState, funcMap)
 	                         else
 	                            error("Error - incorrect types!")
---	                        otherwise -> error("Error - incorrect type")
+	            EmptyArgs -> error ("Error - arguments were given!")
+
+
+
+    SProcCallIdArray (Ident x) (Ident argIdent) int -> case (M.lookup x funcMap) of
+        Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
+        Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
+            let globals = M.intersection extState tStateOld
+            in
+	        case varDeclarationLine of
+	            NonEmptyArgs v -> case v of
+	                DLList identList@((Ident ident):_) typee -> case (M.lookup argIdent extState) of
+	                    Nothing     -> error("Error - variable has not been inicialized!")
+	                    Just (TTArray minn maxx ofType arrayMap)   ->
+	                        if typeCheck typee ofType then
+	                            case (M.lookup int arrayMap) of
+	                                Nothing -> error("Error - variable out of bound or not declared")
+	                                Just nm ->
+	                                    ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident nm (M.union tStateOld extState) , funcMap))) globals) extState, funcMap)
+	                         else
+	                            error("Error - incorrect types!")
 	            EmptyArgs -> error ("Error - arguments were given!")
 
 --type TFuncDef = (Stmt, VarDeclarationLine, TTypes, TStateOld)

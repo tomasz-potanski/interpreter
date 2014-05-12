@@ -99,6 +99,7 @@ data Stmt =
  | SProcCall Ident
  | SProcCallInteger Ident Integer
  | SProcCallId Ident Ident
+ | SProcCallIdArray Ident Ident Integer
  | SProcCallExp Ident Exp
  | SProcCallBExp Ident BExp
  | SProcCallString Ident String

@@ -127,9 +127,10 @@ SPrintCharLit.	Stmt	::=	"print" "<-" "(" Char ")" ";" ;
 SPrintFun.	Stmt 	::=	"print" "<--" "(" Ident "(" ")" ";" ")" ";" ;
 
 
-SProcCall.		Stmt	::=	Ident "(" ")" ";" ;
+SProcCall.		    Stmt	::=	Ident "(" ")" ";" ;
 SProcCallInteger.	Stmt	::=	Ident "(" Integer ")" ";" ;
 SProcCallId.		Stmt	::=	Ident "(" Ident ")" ";" ;
+SProcCallIdArray.	Stmt	::=	Ident "(" Ident "[" Integer "]" ")" ";" ;
 SProcCallExp.		Stmt	::=	Ident "(" Exp ")" ";" ;
 SProcCallBExp.		Stmt	::=	Ident "(" BExp ")" ";" ;
 SProcCallString.	Stmt	::=	Ident "(" String ")" ";" ;

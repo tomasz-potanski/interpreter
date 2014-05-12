@@ -1,3 +1,4 @@
+
 Jezyki i paradygmaty programowania
 Zad 2 (lab), interpreter
 ---------
@@ -75,7 +76,7 @@ Wymagania na 20 puntków:
 
 2. Statyczne typowanie					Brak
 3. Jawne obsłużenie dynamicznych błędów wykonania	OK
-4. Funkcje zwracające wartość				Brak
+4. Funkcje zwracające wartość				OK
 
 Dwie dodatkowe rzeczy z listy:
 1. rekordy						Brak
