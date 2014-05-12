@@ -37,8 +37,8 @@ type TStore = M.Map TLoc TTypes
 ---------helpful funcitons--------
 
 
-idAndTypeToVarDecl :: Ident -> Type ->
-idAndTypeToVarDecl (Ident x) typee
+--idAndTypeToVarDecl :: Ident -> Type ->
+--idAndTypeToVarDecl (Ident x) typee
 
 typeToDefaultTType :: Type -> TTypes
 typeToDefaultTType typee = case typee of
