@@ -40,7 +40,6 @@ type TStore = M.Map TLoc TTypes
 --idAndTypeToVarDecl :: Ident -> Type ->
 --idAndTypeToVarDecl (Ident x) typee
 
-
 typeToDefaultTType :: Type -> TTypes
 typeToDefaultTType typee = case typee of
     TInt -> TTInt 0
@@ -641,11 +640,11 @@ addOneFunction :: FuncDeclLine -> TFuncMap -> TFuncMap
 addOneFunction h funcMap = case h of
     FLineNonArg (Ident x) typee varDecls stmt  -> case varDecls of
         VBDoesntExists ->
-            M.insert x (stmt, EmptyArgs, (typeToDefaultTType typee), (fst (declareNewVariables (VBExists (DLList (Ident x):[] typee):[]) (M.empty, M.empty)))) funcMap
+            M.insert x (stmt, EmptyArgs, (TTIn 0), (fst (declareNewVariables (VBExists (DLList (Ident x):[] typee):[]) (M.empty, M.empty)))) funcMap
         VBExists ->
-            M.insert x (stmt, EmptyArgs, (typeToDefaultTType typee), (fst (declareNewVariables (VBExists (DLList (Ident x):[] typee):[]):varDecls (M.empty, M.empty)))) funcMap
+            M.insert x (stmt, EmptyArgs, (TTInt 0), (fst (declareNewVariables (VBExists (DLList (Ident x):[] typee):[]):varDecls (M.empty, M.empty)))) funcMap
     FLineArg	(Ident x) args  typee varDecls stmt  -> case varDecls of
-        M.insert x (stmt, (NonEmptyArgs args), (typeToDefaultTType typee), (fst (declareNewVariables ((idAndTypeToVarDecl (Ident x) typee):varDecls) (M.empty, M.empty)))) funcMap
+        M.insert x (stmt, (NonEmptyArgs args), (TTInt 0), (fst (declareNewVariables ((idAndTypeToVarDecl (Ident x) typee):varDecls) (M.empty, M.empty)))) funcMap
 
 
 prepareFunctions :: ProcDeclaration -> TState3 -> TState3
