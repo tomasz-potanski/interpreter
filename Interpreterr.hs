@@ -640,7 +640,7 @@ addOneFunction :: FuncDeclLine -> TFuncMap -> TFuncMap
 addOneFunction h funcMap = case h of
     FLineNonArg (Ident x) typee varDecls stmt  -> case varDecls of
         VBDoesntExists ->
-            M.insert x (stmt, EmptyArgs, (TTInt 0), (fst (declareNewVariables (VBExists (DLList (Ident x):[] typee):[]) (M.empty, M.empty)))) funcMap
+            M.insert x (stmt, EmptyArgs, (TTInt 0), (fst (declareNewVariables (VBExists (DLList (Ident x):[] typee):[]):[] (M.empty, M.empty)))) funcMap
         VBExists ->
             M.insert x (stmt, EmptyArgs, (TTInt 0), (fst (declareNewVariables (VBExists (DLList (Ident x):[] typee):[]):varDecls (M.empty, M.empty)))) funcMap
     FLineArg	(Ident x) typee args varDecls stmt  -> M.insert x (stmt, (NonEmptyArgs args), (TTInt 0), (fst (declareNewVariables varDecls (M.empty, M.empty)))) funcMap
