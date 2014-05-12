@@ -40,6 +40,7 @@ type TStore = M.Map TLoc TTypes
 --idAndTypeToVarDecl :: Ident -> Type ->
 --idAndTypeToVarDecl (Ident x) typee
 
+
 typeToDefaultTType :: Type -> TTypes
 typeToDefaultTType typee = case typee of
     TInt -> TTInt 0
