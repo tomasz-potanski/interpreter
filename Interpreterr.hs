@@ -589,7 +589,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	                DLList identList@((Ident ident):_) typee -> case (M.lookup argIdent extState) of
 	                    Nothing     -> error("Error - variable has not been inicialized!")
 	                    Just (TTArray minn maxx ofType arrayMap)   ->
-	                        if typeCheck typee ofType then
+	                        if typeCheck ofType typee then
 	                            case (M.lookup int arrayMap) of
 	                                Nothing -> error("Error - variable out of bound or not declared")
 	                                Just nm ->
