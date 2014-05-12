@@ -72,6 +72,9 @@ typeCheck ttype typee = case ttype of
         TArray _ _ ofType2 -> if ofType == ofType2 then True else False
         otherwise -> False
 
+genericTypeCheck :: Type -> Type -> Bool
+genericTypeCheck t1 t2 = if t1 == t2 then True else False
+
 extractString :: TTypes -> String
 extractString (TTString s) = s
 
@@ -589,7 +592,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	                DLList identList@((Ident ident):_) typee -> case (M.lookup argIdent extState) of
 	                    Nothing     -> error("Error - variable has not been inicialized!")
 	                    Just (TTArray minn maxx ofType arrayMap)   ->
-	                        if typeCheck ofType typee then
+	                        if genericTypeCheck ofType typee then
 	                            case (M.lookup int arrayMap) of
 	                                Nothing -> error("Error - variable out of bound or not declared")
 	                                Just nm ->
