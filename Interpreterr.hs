@@ -644,7 +644,7 @@ addOneFunction h funcMap = case h of
         VBExists ->
             M.insert x (stmt, EmptyArgs, (TTInt 0), (fst (declareNewVariables (VBExists (DLList (Ident x):[] typee):[]):varDecls (M.empty, M.empty)))) funcMap
     FLineArg	(Ident x) args  typee varDecls stmt  -> case varDecls of
-        M.insert x (stmt, (NonEmptyArgs args), (TTInt 0), (fst (declareNewVariables ((VBExists (DLList (Ident x):[] typee):[]):varDecls) (M.empty, M.empty)))) funcMap
+        M.insert x (stmt, (NonEmptyArgs args), (TTInt 0), (fst (declareNewVariables (VBExists (DLList (Ident x):[] typee):[]):varDecls (M.empty, M.empty)))) funcMap
 
 
 prepareFunctions :: ProcDeclaration -> TState3 -> TState3
