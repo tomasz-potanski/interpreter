@@ -450,7 +450,9 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
         Just (stmt, varDeclarationLine, tTypes, tStateOld) -> 
             let globals = M.intersection extState tStateOld
             in
-               ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , funcMap))) globals) extState, funcMap)
+            case varDeclarationLine of
+               EmptyArgs -> ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , funcMap))) globals) extState, funcMap)
+               NonEmptyArgs _ -> error("Error - function/procedure needs arguemnt")
     SProcCallInteger (Ident x) int -> case (M.lookup x funcMap) of
         Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
         Just (stmt, varDeclarationLine, tTypes, tStateOld) -> 

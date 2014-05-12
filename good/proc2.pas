@@ -3,8 +3,9 @@ var
 	globB : Integer;
 	x : Integer;
 	s : String;
+	b : Boolean;
 proc
-	procedure wart ( zm : String; ) ;
+	procedure wart ( zm : Boolean; ) ;
 	var
 		locX : Integer ;
 	begin
@@ -12,6 +13,8 @@ proc
 	end
 begin
 	s:= "Ala mam kota";
-	//wart(s);	
-	wart(3*2);
+	x:= 3;
+	b := True;
+	wart();	
+	//wart(3*2);
 end.
