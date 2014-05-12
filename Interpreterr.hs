@@ -463,19 +463,22 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
     SPrintCharLit str -> (showToUser [str] s)
 
 
-
 	SPrintFun (Ident x) -> case (M.lookup x funcMap) of
 	    Nothing -> error("Error - funciton: " ++ (show x) ++ " does not exist!")
-	    Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
-            let globals = M.intersection extState tStateOld
-            in
-            case varDeclarationLine of
-               EmptyArgs -> case tTypes of
-                    TTVoid -> error("Error - function must return sth...")
-                    otherwise -> let stateAfterFunctionCall = (interpretStmt stmt ((M.union tStateOld extState) , funcMap))
-                    in
-                    showToUser (identToString (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
-               NonEmptyArgs _ -> error("Error - function/procedure needs arguemnt")
+	    Just (stmt, varDeclarationLine, tTypes, tStateOld) -> error("Not implemnted")
+
+--	SPrintFun (Ident x) -> case (M.lookup x funcMap) of
+--	    Nothing -> error("Error - funciton: " ++ (show x) ++ " does not exist!")
+--	    Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
+--            let globals = M.intersection extState tStateOld
+--            in
+--            case varDeclarationLine of
+--               EmptyArgs -> case tTypes of
+--                    TTVoid -> error("Error - function must return sth...")
+--                    otherwise -> let stateAfterFunctionCall = (interpretStmt stmt ((M.union tStateOld extState) , funcMap))
+--                    in
+--                    showToUser (identToString (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+--               NonEmptyArgs _ -> error("Error - function/procedure needs arguemnt")
 
     SProcCall (Ident x) -> case (M.lookup x funcMap) of
         Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
