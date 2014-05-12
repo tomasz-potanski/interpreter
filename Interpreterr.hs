@@ -472,7 +472,8 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 
 
     SPrintFun (Ident x) -> case (M.lookup x funcMap) of
-        Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
+        Nothing ->
+            error("Error - Functin/procedure: "++ (show x)++" has not been found!")
 	    Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
             let globals = M.intersection extState tStateOld
             in
