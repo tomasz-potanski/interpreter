@@ -630,6 +630,7 @@ prepareFunctions :: ProcDeclaration -> TState3 -> TState3
 prepareFunctions funs state@(s, funcMap) = case funs of
     PDoesntExist -> state
     PExists [] -> state
+    FExists [] -> state
     PFExists [] [] -> state
     PExists listOfProcDecl@(h:tl) ->
             prepareFunctions (PExists tl) (s, addOneProc h funcMap)
