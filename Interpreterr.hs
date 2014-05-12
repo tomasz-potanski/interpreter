@@ -464,8 +464,8 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 
 
 
-	SPrintFun (Ident funId) -> case (M.lookup funId funcMap) of
-	    Nothing -> error("Error - funciton: " ++ (show funId) ++ " does not exist!")
+	SPrintFun (Ident x) -> case (M.lookup x funcMap) of
+	    Nothing -> error("Error - funciton: " ++ (show x) ++ " does not exist!")
 	    Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
             let globals = M.intersection extState tStateOld
             in
@@ -474,7 +474,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                     TTVoid -> error("Error - function must return sth...")
                     otherwise -> let stateAfterFunctionCall = (interpretStmt stmt ((M.union tStateOld extState) , funcMap))
                     in
-                    showToUser (identToString (Ident funId stateAfterFunctionCall)) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+                    showToUser (identToString (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                NonEmptyArgs _ -> error("Error - function/procedure needs arguemnt")
 
     SProcCall (Ident x) -> case (M.lookup x funcMap) of
