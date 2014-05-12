@@ -463,9 +463,9 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
     SPrintCharLit str -> (showToUser [str] s)
 
 
-	SPrintFun (Ident x) -> case (M.lookup x funcMap) of
-	    Nothing -> error("Error - funciton: " ++ (show x) ++ " does not exist!")
-	    Just (stmt, varDeclarationLine, tTypes, tStateOld) -> error("Not implemnted")
+    SPrintFun (Ident x) -> case (M.lookup x funcMap) of
+        Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
+        Just (stmt, varDeclarationLine, tTypes, tStateOld) -> error("Not implemented yet!")
 
 --	SPrintFun (Ident x) -> case (M.lookup x funcMap) of
 --	    Nothing -> error("Error - funciton: " ++ (show x) ++ " does not exist!")
