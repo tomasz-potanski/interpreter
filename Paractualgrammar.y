@@ -215,7 +215,7 @@ Stmt : Ident ':=' Exp ';' { SAss $1 $3 }
   | 'print' '<-' '(' Exp ')' ';' { SPrintExp $4 }
   | 'print' '<-' '(' BExp ')' ';' { SPrintBExp $4 }
   | 'print' '<-' '(' Char ')' ';' { SPrintCharLit $4 }
-  | 'print' '<-' '(' Ident '(' ')' ')' ';' { SPrintFun $4 }
+  | 'print' '<--' '(' Ident '(' ')' ')' ';' { SPrintFun $4 }
   | Ident '(' ')' ';' { SProcCall $1 }
   | Ident '(' Integer ')' ';' { SProcCallInteger $1 $3 }
   | Ident '(' Ident ')' ';' { SProcCallId $1 $3 }

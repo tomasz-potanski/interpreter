@@ -6,6 +6,7 @@ proc
 		locX : Integer ;
 	begin
 	//	return 3;
+		zwracam := 3;
 	end
 
 begin
