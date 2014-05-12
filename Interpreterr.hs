@@ -510,7 +510,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	            NonEmptyArgs v -> case v of
 	                DLList identList@((Ident ident):_) typee -> case (M.lookup argIdent extState) of
 	                    Nothing     -> error("Error - variable has not been inicialized!")
-	                    Just vvvv   -> if typeCheck vvv typee then
+	                    Just vvvv   -> if typeCheck vvvv typee then
 --	                        case typee of
 	                            ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident vvvv (M.union tStateOld extState) , funcMap))) globals) extState, funcMap)
 	                         else
