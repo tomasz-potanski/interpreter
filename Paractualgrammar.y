@@ -118,8 +118,7 @@ ProcDeclaration : 'proc' ListProcDeclLine { PExists (reverse $2) }
 
 
 ProcDeclLine :: { ProcDeclLine }
-ProcDeclLine : ProcDeclLine { ProcDecR $1 } 
-  | 'procedure' Ident '(' ')' ';' VariableDeclaration Stmt2 { PLineNonArg $2 $6 $7 }
+ProcDeclLine : 'procedure' Ident '(' ')' ';' VariableDeclaration Stmt2 { PLineNonArg $2 $6 $7 } 
   | 'procedure' Ident '(' VarDeclarationLine ')' ';' VariableDeclaration Stmt2 { PLineArg $2 $4 $7 $8 }
 
 

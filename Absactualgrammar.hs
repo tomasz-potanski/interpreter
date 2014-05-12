@@ -24,8 +24,7 @@ data ProcDeclaration =
   deriving (Eq,Ord,Show)
 
 data ProcDeclLine =
-   ProcDecR ProcDeclLine
- | PLineNonArg Ident VariableDeclaration Stmt
+   PLineNonArg Ident VariableDeclaration Stmt
  | PLineArg Ident VarDeclarationLine VariableDeclaration Stmt
   deriving (Eq,Ord,Show)
 

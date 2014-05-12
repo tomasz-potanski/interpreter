@@ -111,7 +111,6 @@ instance Print ProcDeclaration where
 
 instance Print ProcDeclLine where
   prt i e = case e of
-   ProcDecR procdeclline -> prPrec i 0 (concatD [prt 0 procdeclline])
    PLineNonArg id variabledeclaration stmt -> prPrec i 0 (concatD [doc (showString "procedure") , prt 0 id , doc (showString "(") , doc (showString ")") , doc (showString ";") , prt 0 variabledeclaration , prt 2 stmt])
    PLineArg id vardeclarationline variabledeclaration stmt -> prPrec i 0 (concatD [doc (showString "procedure") , prt 0 id , doc (showString "(") , prt 0 vardeclarationline , doc (showString ")") , doc (showString ";") , prt 0 variabledeclaration , prt 2 stmt])
 

@@ -5,16 +5,16 @@ var
 	s : String;
 	b : Boolean;
 proc
-	procedure wart ( zm : Boolean; ) ;
+	procedure wart () ;
 	var
 		locX : Integer ;
 	begin
-		print <-- (zm);
+		print <- ("DRUK....");
 	end
 begin
 	s:= "Ala mam kota";
 	x:= 3;
 	b := True;
-	wart();	
+	wart(b);	
 	//wart(3*2);
 end.

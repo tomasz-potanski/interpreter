@@ -5,7 +5,7 @@ proc
 	var
 		locX : Integer ;
 	begin
-		return 3;
+	//	return 3;
 	end
 
 begin

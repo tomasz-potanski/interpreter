@@ -39,7 +39,6 @@ transProcDeclaration x = case x of
 
 transProcDeclLine :: ProcDeclLine -> Result
 transProcDeclLine x = case x of
-  ProcDecR procdeclline  -> failure x
   PLineNonArg id variabledeclaration stmt  -> failure x
   PLineArg id vardeclarationline variabledeclaration stmt  -> failure x
 
