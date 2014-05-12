@@ -471,7 +471,9 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
             in
 	        case varDeclarationLine of
 	            NonEmptyArgs v -> case v of
-	                DLList identList@((Ident ident):_) typee -> ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident (TTBoolean (interpretBExp bexp s)) (M.union tStateOld extState) , funcMap))) globals) extState, funcMap)
+	                DLList identList@((Ident ident):_) typee -> case typee of
+	                TBool -> ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident (TTBoolean (interpretBExp bexp s)) (M.union tStateOld extState) , funcMap))) globals) extState, funcMap)
+	                otherwise -> error("Error - incorrect type")
 	            EmptyArgs -> error ("Error - arguments were given!")
 --type TFuncDef = (Stmt, VarDeclarationLine, TTypes, TStateOld)
 --type TFuncMap = M.Map String TFuncDef

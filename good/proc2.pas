@@ -2,6 +2,7 @@ var
 	globA : Integer ;
 	globB : Integer;
 	x : Integer;
+	s : String;
 proc
 	procedure wart ( zm : Integer; ) ;
 	var
@@ -10,5 +11,7 @@ proc
 		print <-- (zm);
 	end
 begin
-	wart(999*2);
+	s:= "Ala mam kota";
+	wart(s);	
+	//wart(999*2);
 end.
