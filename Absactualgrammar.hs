@@ -19,6 +19,7 @@ data Block =
 
 data ProcDeclaration =
    PExists [ProcDeclLine]
+ | PFExists [ProcDeclLine] [FuncDeclLine]
  | FExists [FuncDeclLine]
  | PDoesntExist
   deriving (Eq,Ord,Show)

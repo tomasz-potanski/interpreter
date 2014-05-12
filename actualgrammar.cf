@@ -24,6 +24,7 @@ terminator Stmt "" ;
 
 --------------(Proc Declaration)-----------
 PExists.		    ProcDeclaration ::= "proc" [ProcDeclLine] ;
+PFExists.		    ProcDeclaration ::= "proc" [ProcDeclLine] [FuncDeclLine];
 FExists.		    ProcDeclaration ::= "proc" [FuncDeclLine] ;
 PDoesntExist.		ProcDeclaration ::= ;
 

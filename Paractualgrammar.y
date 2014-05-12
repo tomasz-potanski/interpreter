@@ -113,6 +113,7 @@ ListStmt : {- empty -} { [] }
 
 ProcDeclaration :: { ProcDeclaration }
 ProcDeclaration : 'proc' ListProcDeclLine { PExists (reverse $2) } 
+  | 'proc' ListProcDeclLine ListFuncDeclLine { PFExists (reverse $2) (reverse $3) }
   | 'proc' ListFuncDeclLine { FExists (reverse $2) }
   | {- empty -} { PDoesntExist }
 

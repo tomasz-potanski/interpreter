@@ -33,6 +33,7 @@ transBlock x = case x of
 transProcDeclaration :: ProcDeclaration -> Result
 transProcDeclaration x = case x of
   PExists procdecllines  -> failure x
+  PFExists procdecllines funcdecllines  -> failure x
   FExists funcdecllines  -> failure x
   PDoesntExist  -> failure x
 

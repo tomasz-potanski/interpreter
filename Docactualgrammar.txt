@@ -76,6 +76,7 @@ All other symbols are terminals.
   | //[Stmt]// | -> | **eps**
   |  |  **|**  | //Stmt// //[Stmt]// 
   | //ProcDeclaration// | -> | ``proc`` //[ProcDeclLine]// 
+  |  |  **|**  | ``proc`` //[ProcDeclLine]// //[FuncDeclLine]// 
   |  |  **|**  | ``proc`` //[FuncDeclLine]// 
   |  |  **|**  | **eps**
   | //ProcDeclLine// | -> | ``procedure`` //Ident// ``(`` ``)`` ``;`` //VariableDeclaration// //Stmt2// 

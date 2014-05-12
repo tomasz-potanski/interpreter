@@ -10,5 +10,5 @@ proc
 	end
 
 begin
-	print <-- ( zwracam(); );
+	//print <-- ( zwracam(); );
 end.

@@ -105,6 +105,7 @@ instance Print Block where
 instance Print ProcDeclaration where
   prt i e = case e of
    PExists procdecllines -> prPrec i 0 (concatD [doc (showString "proc") , prt 0 procdecllines])
+   PFExists procdecllines funcdecllines -> prPrec i 0 (concatD [doc (showString "proc") , prt 0 procdecllines , prt 0 funcdecllines])
    FExists funcdecllines -> prPrec i 0 (concatD [doc (showString "proc") , prt 0 funcdecllines])
    PDoesntExist  -> prPrec i 0 (concatD [])
 

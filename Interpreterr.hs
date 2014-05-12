@@ -36,6 +36,14 @@ type TStore = M.Map TLoc TTypes
 
 ---------helpful funcitons--------
 
+typeToDefaultTType :: Type -> TTypes
+typeToDefaultTType typee = case typee of
+    TInt -> TTInt 0
+    TBool -> TTBoolean False
+    TString -> TTString ""
+    TArray minn maxx ofType -> TTArray minn maxx ofType M.empty
+
+
 identToString :: Ident -> TState3 -> String
 identToString (Ident ident) s@(stateOld, funcMap) =
     case (M.lookup ident stateOld) of
@@ -607,17 +615,30 @@ declareNewVariables vars state = case vars of
 
 --type TFuncDef = (Stmt, VarDeclarationLine, TTypes, TStateOld)
 --type TFuncMap = M.Map String TFuncDef
-addOneFunction :: ProcDeclLine -> TFuncMap -> TFuncMap
-addOneFunction h funcMap = case h of
+addOneProc :: ProcDeclLine -> TFuncMap -> TFuncMap
+addOneProc h funcMap = case h of
     PLineNonArg (Ident x) varDecls stmt  -> M.insert x (stmt, EmptyArgs, TTVoid, (fst (declareNewVariables varDecls (M.empty, M.empty)))) funcMap 
     PLineArg	(Ident x) args varDecls stmt  -> M.insert x (stmt, (NonEmptyArgs args), TTVoid, (fst (declareNewVariables varDecls (M.empty, M.empty)))) funcMap 
+
+addOneFunction :: FuncDeclLine -> TFuncMap -> TFuncMap
+addOneFunction h funcMap = case h of
+    FLineNonArg (Ident x) typee varDecls stmt  -> M.insert x (stmt, EmptyArgs, (typeToDefaultTType typee), (fst (declareNewVariables varDecls (M.empty, M.empty)))) funcMap
+    FLineArg	(Ident x) args  typee varDecls stmt  -> M.insert x (stmt, (NonEmptyArgs args), (typeToDefaultTType typee), (fst (declareNewVariables varDecls (M.empty, M.empty)))) funcMap
+
 
 prepareFunctions :: ProcDeclaration -> TState3 -> TState3
 prepareFunctions funs state@(s, funcMap) = case funs of
     PDoesntExist -> state
     PExists [] -> state
+    PFExists [] [] -> state
     PExists listOfProcDecl@(h:tl) ->
-            prepareFunctions (PExists tl) (s, addOneFunction h funcMap)
+            prepareFunctions (PExists tl) (s, addOneProc h funcMap)
+    FExists listOfFuncDecl@(h:tl) ->
+            prepareFunctions (FExists tl) (s, addOneFunction h funcMap)
+    PFExists [] listOfFuncDecl@(hf:tlf) ->
+            prepareFunctions (PFExists [] tlf) (s, addOneFunction hf funcMap)
+    PFExists listOfProcDecl@(hp:tlp) listOfFuncDecl@(hf:tlf) ->
+            prepareFunctions (PFExists tlp listOfFuncDecl) (s, addOneProc hp funcMap)
 
 -------------INTERPRET FILE------------
 interpretFile :: Program -> TState3
