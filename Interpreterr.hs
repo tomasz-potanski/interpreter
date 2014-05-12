@@ -464,7 +464,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	            EmptyArgs -> error ("Error - arguments were given!")
 
 
-    SProcCallExp (Ident x) bexp -> case (M.lookup x funcMap) of
+    SProcCallBExp (Ident x) bexp -> case (M.lookup x funcMap) of
         Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
         Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
             let globals = M.intersection extState tStateOld
