@@ -36,6 +36,21 @@ type TStore = M.Map TLoc TTypes
 
 ---------helpful funcitons--------
 
+identToString :: Ident -> State3 -> String
+identToString (Ident ident) s@(stateOld, funcMap) =
+    case (M.lookup ident stateOld) of
+        Nothing -> error("Error - variable has not been found!")
+        Just n -> case n of
+            TTString s  -> s
+            TTInt i     -> (show i)
+            TTBoolean b -> if b == True then "True" else "False"
+            TTArray minn maxx ofType values -> case (M.lookup minn values) of
+                Nothing -> error("Error - value has not been found!")
+                Just nn -> case nn of
+                    TTString ss  -> ss
+                    TTInt ii     -> (show ii)
+                    TTBoolean bb -> if bb == True then "True" else "False"
+
 typeCheck :: TTypes -> Type -> Bool
 typeCheck ttype typee = case ttype of
     TTBoolean _     ->  if typee == TBool then True else False
@@ -402,6 +417,8 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
     SPrintBLit bLit -> case bLit of
 	BoolLitTrue -> showToUser "True" s
 	BoolLitFalse -> showToUser "False" s
+
+
     SPrintId (Ident x) -> case (checkifVarExists (Ident x) s) of
 	True -> case (M.lookup x extState) of
 	    Just mm -> case mm of
@@ -444,6 +461,21 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
         True -> showToUser "True" s
         False -> showToUser "False" s
     SPrintCharLit str -> (showToUser [str] s)
+
+
+
+	SPrintFun (Ident funId) -> case (M.lookup funId funcMap) of
+	    Nothing -> error("Error - funciton: " ++ (show funId) ++ " does not exist!")
+	    Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
+            let globals = M.intersection extState tStateOld
+            in
+            case varDeclarationLine of
+               EmptyArgs -> case tTypes of
+                    TTVoid -> error("Error - function must return sth...")
+                    otherwise -> let stateAfterFunctionCall = (interpretStmt stmt ((M.union tStateOld extState) , funcMap))
+                    in
+                    showToUser (identToString (Ident funId stateAfterFunctionCall)) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+               NonEmptyArgs _ -> error("Error - function/procedure needs arguemnt")
 
     SProcCall (Ident x) -> case (M.lookup x funcMap) of
         Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
