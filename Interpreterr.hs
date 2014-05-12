@@ -36,7 +36,7 @@ type TStore = M.Map TLoc TTypes
 
 ---------helpful funcitons--------
 
-identToString :: Ident -> State3 -> String
+identToString :: Ident -> TState3 -> String
 identToString (Ident ident) s@(stateOld, funcMap) =
     case (M.lookup ident stateOld) of
         Nothing -> error("Error - variable has not been found!")
