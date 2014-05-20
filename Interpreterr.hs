@@ -674,22 +674,24 @@ addOneFunction h funcMap = case h of
 
 prepareFunctions :: ProcDeclaration -> TState3 -> TState3
 prepareFunctions funs state@(s, funcMap) = case funs of
-    PDoesntExist -> state
-    PExists [] -> state
-    PExists listOfProcDecl@(h:tl) ->
-            prepareFunctions (PExists tl) (s, addOneFunction h funcMap)
 --    PDoesntExist -> state
 --    PExists [] -> state
 --    PExists listOfProcDecl@(h:tl) ->
 --            prepareFunctions (PExists tl) (s, addOneProc h funcMap)
---    FExists [] -> state
---    PFExists [] [] -> state
---    FExists listOfFuncDecl@(h:tl) ->
---            prepareFunctions (FExists tl) (s, addOneFunction h funcMap)
---    PFExists [] listOfFuncDecl@(hf:tlf) ->
---            prepareFunctions (PFExists [] tlf) (s, addOneFunction hf funcMap)
---    PFExists listOfProcDecl@(hp:tlp) listOfFuncDecl@(hf:tlf) ->
---            prepareFunctions (PFExists tlp listOfFuncDecl) (s, addOneProc hp funcMap)
+    PDoesntExist -> state
+    PExists [] -> state
+    PExists listOfProcDecl@(h:tl) ->
+            prepareFunctions (PExists tl) (s, addOneProc h funcMap)
+    FExists [] -> state
+    PFExists [] [] -> state
+    FExists listOfFuncDecl@(h:tl) ->
+            prepareFunctions (FExists tl) (s, addOneFunction h funcMap)
+    PFExists [] listOfFuncDecl@(hf:tlf) ->
+            prepareFunctions (PFExists [] tlf) (s, addOneFunction hf funcMap)
+    PFExists listOfProcDecl@(hp:tlp) [] ->
+            prepareFunctions (PFExists tlp []) (s, addOneProc hp funcMap)
+    PFExists listOfProcDecl@(hp:tlp) listOfFuncDecl@(hf:tlf) ->
+            prepareFunctions (PFExists tlp listOfFuncDecl) (s, addOneProc hp funcMap)
 
 -------------INTERPRET FILE------------
 interpretFile :: Program -> TState3
