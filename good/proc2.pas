@@ -13,9 +13,9 @@ proc
 		print <- ("DRUK....");
 	end
 begin
-	//s:= "Ala mam kota";
-	//x:= 3;
-	//b := True;
-	//wart(b);	
-	//wart(3*2);
+	s:= "Ala mam kota";
+	x:= 3;
+	b := True;
+	wart(b);	
+	wart(3*2);
 end.
