@@ -1,10 +1,10 @@
 var
 	a : Integer;
-	table : Array[0..10] of Integer;
+	table : Array[0..10] of String;
 proc
-	procedure p( x : Integer ;);
+	procedure p( x : Array[0..10] of String ;);
 	begin
-		print <-- (x);
+		print <-- (x[1]);
 	end
 
 	function zwracam() : Boolean ;
@@ -17,7 +17,7 @@ proc
 
 begin
 	//print <-- ( zwracam(); );
-	table[0]:=7;
+	table[1]:="MMM";
 	//print <--(table[0]);
-	p(table[0]);
+	p(table);
 end.
