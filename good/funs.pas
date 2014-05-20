@@ -16,7 +16,7 @@ proc
 	end
 
 begin
-	print <-- ( 3*zwracam(); );
+	print <-- ( 3*zwracam() );
 	//table[1]:="MMM";
 	//print <--(table[0]);
 	//p(table);
