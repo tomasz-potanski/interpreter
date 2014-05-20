@@ -145,6 +145,7 @@ transExp x = case x of
   EDiv exp1 exp2  -> failure x
   EInt n  -> failure x
   EId id  -> failure x
+  EFunNonArg id  -> failure x
   EArray id n  -> failure x
 
 

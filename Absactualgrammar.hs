@@ -119,6 +119,7 @@ data Exp =
  | EDiv Exp Exp
  | EInt Integer
  | EId Ident
+ | EFunNonArg Ident
  | EArray Ident Integer
   deriving (Eq,Ord,Show)
 

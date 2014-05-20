@@ -161,6 +161,7 @@ EMul. 	Exp1 	::= 	Exp1 	"*" 	Exp2 	;
 EDiv. 	Exp1 	::= 	Exp1 	"/" 	Exp2 	;
 EInt. 	Exp2 	::= 	Integer 	;
 EId.	Exp2	::=	Ident	;
+EFunNonArg.	Exp2	::=	Ident "(" ")"	;
 EArray. Exp2	::= 	Ident "[" Integer "]" ;
 --EBool.  Exp2	::=	BExp ;
 coercions 	Exp 	2 	;

@@ -159,6 +159,7 @@ All other symbols are terminals.
   |  |  **|**  | //Exp2// 
   | //Exp2// | -> | //Integer// 
   |  |  **|**  | //Ident// 
+  |  |  **|**  | //Ident// ``(`` ``)`` 
   |  |  **|**  | //Ident// ``[`` //Integer// ``]`` 
   |  |  **|**  | ``(`` //Exp// ``)`` 
   | //BExp// | -> | //BExp// ``||`` //BExp1// 

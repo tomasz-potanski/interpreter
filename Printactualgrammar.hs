@@ -232,6 +232,7 @@ instance Print Exp where
    EDiv exp0 exp -> prPrec i 1 (concatD [prt 1 exp0 , doc (showString "/") , prt 2 exp])
    EInt n -> prPrec i 2 (concatD [prt 0 n])
    EId id -> prPrec i 2 (concatD [prt 0 id])
+   EFunNonArg id -> prPrec i 2 (concatD [prt 0 id , doc (showString "(") , doc (showString ")")])
    EArray id n -> prPrec i 2 (concatD [prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]")])
 
 

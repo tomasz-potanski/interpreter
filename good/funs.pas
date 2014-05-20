@@ -7,17 +7,17 @@ proc
 		print <-- (x[1]);
 	end
 
-	function zwracam() : Boolean ;
+	function zwracam() : Integer ;
 	var
 		locX : Integer ;
 	begin
 	//	return 3;
-		zwracam := True;
+		zwracam := 3;
 	end
 
 begin
-	//print <-- ( zwracam(); );
-	table[1]:="MMM";
+	print <-- ( 3*zwracam(); );
+	//table[1]:="MMM";
 	//print <--(table[0]);
-	p(table);
+	//p(table);
 end.
