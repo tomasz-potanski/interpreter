@@ -271,6 +271,7 @@ Exp2 : Integer { EInt $1 }
   | Ident '(' Ident ')' { EFunId $1 $3 }
   | Ident '(' Exp ')' { EFunExp $1 $3 }
   | Ident '(' BExp ')' { EFunBExp $1 $3 }
+  | Ident '(' String ')' { Exp2EFunString $1 $3 }
   | Ident '[' Integer ']' { EArray $1 $3 }
   | '(' Exp ')' { $2 }
 

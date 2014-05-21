@@ -122,6 +122,7 @@ data Exp =
  | EFunId Ident Ident
  | EFunExp Ident Exp
  | EFunBExp Ident BExp
+ | Exp2EFunString Ident String
  | EArray Ident Integer
   deriving (Eq,Ord,Show)
 
