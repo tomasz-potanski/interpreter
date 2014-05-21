@@ -16,7 +16,8 @@ proc
 	end
 
 begin
-	print <-- ( zwracam() );
+	//print <-- ( zwracam() );
+	print <- ( zwracam() );
 	//table[1]:="MMM";
 	//print <--(table[0]);
 	//p(table);
