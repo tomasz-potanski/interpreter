@@ -270,6 +270,7 @@ Exp2 : Integer { EInt $1 }
   | Ident { EId $1 }
   | Ident '(' ')' { EFunNonArg $1 }
   | Ident '(' Integer ')' { EFunInteger $1 $3 }
+  | Ident '(' Ident ')' { EFunId $1 $3 }
   | Ident '[' Integer ']' { EArray $1 $3 }
   | '(' Exp ')' { $2 }
 

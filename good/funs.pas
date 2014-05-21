@@ -22,7 +22,8 @@ proc
 
 begin
 	//print <-- ( zwracam() );
-	print <- ( 2*zwracam(1) - 1 );
+	a := 1;
+	print <- ( 2*zwracam(a) - 1 );
 	//table[1]:="MMM";
 	//print <--(table[0]);
 	//p(table);

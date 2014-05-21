@@ -121,6 +121,7 @@ data Exp =
  | EId Ident
  | EFunNonArg Ident
  | EFunInteger Ident Integer
+ | EFunId Ident Ident
  | EArray Ident Integer
   deriving (Eq,Ord,Show)
 
