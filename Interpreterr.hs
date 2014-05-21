@@ -417,7 +417,7 @@ interpretBExp b s@(state, funcMap) = case b of
 			TTInt _ -> error("Error - type mismatch")
 			TTVoid -> error("Error - type mismatch")
 			TTArray _ _ _ _ -> error("Error - type mismatch")
-			TString str2 -> if str == str2 then True else False
+			TTString str2 -> if str == str2 then True else False
 		    Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 		False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
