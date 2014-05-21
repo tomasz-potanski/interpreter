@@ -211,6 +211,12 @@ instance Print Stmt where
    SProcCallExp id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 exp , doc (showString ")") , doc (showString ";")])
    SProcCallBExp id bexp -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 bexp , doc (showString ")") , doc (showString ";")])
    SProcCallString id str -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 str , doc (showString ")") , doc (showString ";")])
+   EFunInteger id n -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 n , doc (showString ")") , doc (showString ";")])
+   EFunId id0 id -> prPrec i 0 (concatD [prt 0 id0 , doc (showString "(") , prt 0 id , doc (showString ")") , doc (showString ";")])
+   EFunIdArray id0 id n -> prPrec i 0 (concatD [prt 0 id0 , doc (showString "(") , prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ")") , doc (showString ";")])
+   EFunExp id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 exp , doc (showString ")") , doc (showString ";")])
+   EFunBExp id bexp -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 bexp , doc (showString ")") , doc (showString ";")])
+   EFunString id str -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 str , doc (showString ")") , doc (showString ";")])
 
   prtList es = case es of
    [] -> (concatD [])
@@ -233,6 +239,7 @@ instance Print Exp where
    EInt n -> prPrec i 2 (concatD [prt 0 n])
    EId id -> prPrec i 2 (concatD [prt 0 id])
    EFunNonArg id -> prPrec i 2 (concatD [prt 0 id , doc (showString "(") , doc (showString ")")])
+   EFunArg id -> prPrec i 2 (concatD [prt 0 id , doc (showString "(") , doc (showString ")")])
    EArray id n -> prPrec i 2 (concatD [prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]")])
 
 
