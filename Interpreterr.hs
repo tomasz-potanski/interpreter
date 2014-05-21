@@ -226,8 +226,8 @@ interpretExp x s@(state, funcMap) = case x of
         let globals = M.intersection state tStateOld
         in
         case varDeclarationLine of
-            NonEmptyArgs _ -> error("Error - function/procedure need argument")
-            EmptyArgs -> case tTypes of
+            EmptyArgs  -> error("Error - function/procedure need argument")
+            NonEmptyArgs _ -> case tTypes of
                 TTVoid -> error("Error - function must return Int or Boolean...")
                 TTInt _ ->
                     let stateAfterFunctionCall = (interpretStmt stmt ((M.union tStateOld state) , funcMap))
