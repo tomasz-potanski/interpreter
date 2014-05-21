@@ -103,12 +103,7 @@ data Stmt =
  | SProcCallExp Ident Exp
  | SProcCallBExp Ident BExp
  | SProcCallString Ident String
- | EFunInteger Ident Integer
- | EFunId Ident Ident
- | EFunIdArray Ident Ident Integer
- | EFunExp Ident Exp
- | EFunBExp Ident BExp
- | EFunString Ident String
+ | Exp2EFunString Ident String
   deriving (Eq,Ord,Show)
 
 data IfStmt =
@@ -127,6 +122,11 @@ data Exp =
  | EId Ident
  | EFunNonArg Ident
  | EFunArg Ident
+ | EFunInteger Ident Integer
+ | EFunId Ident Ident
+ | EFunIdArray Ident Ident Integer
+ | EFunExp Ident Exp
+ | EFunBExp Ident BExp
  | EArray Ident Integer
   deriving (Eq,Ord,Show)
 
