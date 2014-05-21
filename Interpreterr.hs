@@ -211,7 +211,7 @@ interpretExp x s@(state, funcMap) = case x of
             EmptyArgs -> case tTypes of
                 TTVoid -> error("Error - function must return Int or Boolean...")
                 TTString _ -> error("Error - function must return Int or Boolean...")
-                TTArray _ _ _ _ _ -> error("Error - function must return Int or Boolean...")
+                TTArray _ _ _ _  -> error("Error - function must return Int or Boolean...")
                 TTInt _ ->
                     let stateAfterFunctionCall = (interpretStmt stmt ((M.union tStateOld state) , funcMap))
                     in
@@ -232,7 +232,7 @@ interpretExp x s@(state, funcMap) = case x of
 	                DLList identList@((Ident identArg):_) typee -> case tTypes of
                             TTVoid -> error("Error - function must return Int or Boolean...")
                             TTString _ -> error("Error - function must return Int or Boolean...")
-                            TTArray _ _ _ _ _ -> error("Error - function must return Int or Boolean...")
+                            TTArray _ _ _ _ -> error("Error - function must return Int or Boolean...")
                             TTInt _ ->
                                 let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt int) (M.union tStateOld state) , funcMap))
                                 in
@@ -259,7 +259,7 @@ interpretExp x s@(state, funcMap) = case x of
                                 case tTypes of
                                         TTVoid -> error("Error - function must return Int or Boolean...")
                                         TTString _ -> error("Error - function must return Int or Boolean...")
-                                        TTArray _ _ _ _ _ -> error("Error - function must return Int or Boolean...")
+                                        TTArray _ _ _ _ -> error("Error - function must return Int or Boolean...")
                                         TTInt _ ->
                                             let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg vvvv (M.union tStateOld state) , funcMap))
                                             in
