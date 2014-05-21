@@ -204,14 +204,14 @@ interpretExp x s@(state, funcMap) = case x of
   EFunNonArg (Ident x) -> case (M.lookup x funcMap) of
     Nothing -> error("Error - invalid function name!");
     Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
-        let globals = M.intersection extState tStateOld
+        let globals = M.intersection state tStateOld
         in
         case varDeclarationLine of
             NonEmptyArgs _ -> error("Error - function/procedure need argument")
             EmptyArgs -> case tTypes of
                 TTVoid -> error("Error - function must return Int or Boolean...")
                 TTInt _ ->
-                    let stateAfterFunctionCall = (interpretStmt stmt ((M.union tStateOld extState) , funcMap))
+                    let stateAfterFunctionCall = (interpretStmt stmt ((M.union tStateOld state) , funcMap))
                     in
                     (identToInt (Ident x) stateAfterFunctionCall)
 
