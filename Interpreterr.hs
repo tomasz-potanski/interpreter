@@ -210,7 +210,12 @@ interpretExp x s@(state, funcMap) = case x of
             NonEmptyArgs _ -> error("Error - function/procedure need argument")
             EmptyArgs -> case tTypes of
                 TTVoid -> error("Error - function must return Int or Boolean...")
-                TTInt _ | TTBoolean _ ->
+                TTInt _ ->
+                    let stateAfterFunctionCall = (interpretStmt stmt ((M.union tStateOld state) , funcMap))
+                    in
+                    (identToInt (Ident x) stateAfterFunctionCall)
+--              Sorry for the code repetition, I don't know how to handle it better ;)
+                TTBoolean _ ->
                     let stateAfterFunctionCall = (interpretStmt stmt ((M.union tStateOld state) , funcMap))
                     in
                     (identToInt (Ident x) stateAfterFunctionCall)
