@@ -181,6 +181,7 @@ coercions 	Exp 	2 	;
 BOr.  	BExp   	::= BExp "||" BExp1 ;
 BAnd. 	BExp1  	::= BExp1 "&&" BExp2 ;
 BRel.  	BExp2  	::= Exp RelOp Exp ;
+BStringRel.  	BExp2  	::= Ident "==" String ;
 BLit.	BExp2	::= BoolLit;
 BIdent.	BExp2	::= Ident ;
 BExpArray.	BExp2	::= Ident "[" Integer "]";

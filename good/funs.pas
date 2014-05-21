@@ -7,13 +7,13 @@ proc
 		print <-- (x[1]);
 	end
 
-	function zwracam(zm : Integer;) : Boolean ;
+	function zwracam(zm : String;) : Boolean ;
 	var
 		locX : Integer ;
 	begin
 	//	return 3;
 		//zwracam := 3;
-		if (zm == 1) then
+		if (zm == "1") then
 			zwracam := True;
 		else
 			zwracam := False;
@@ -23,7 +23,9 @@ proc
 begin
 	//print <-- ( zwracam() );
 	a := 2;
-	print <- ( 2*zwracam(2>3) - 1 );
+
+	//print <- ( 2*zwracam("1") - 1 );
+	
 	//table[1]:="MMM";
 	//print <--(table[0]);
 	//p(table);

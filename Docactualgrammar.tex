@@ -78,8 +78,8 @@ The symbols used in actualgrammar are the following: \\
 {\symb{{$-$}{$-$}}} &{\symb{{$<$}{$-$}}} &{\symb{{$<$}{$-$}{$-$}}} \\
 {\symb{{$+$}}} &{\symb{{$-$}}} &{\symb{*}} \\
 {\symb{/}} &{\symb{{$|$}{$|$}}} &{\symb{\&\&}} \\
-{\symb{{$<$}}} &{\symb{{$<$}{$=$}}} &{\symb{{$>$}}} \\
-{\symb{{$>$}{$=$}}} &{\symb{{$=$}{$=$}}} &{\symb{!{$=$}}} \\
+{\symb{{$=$}{$=$}}} &{\symb{{$<$}}} &{\symb{{$<$}{$=$}}} \\
+{\symb{{$>$}}} &{\symb{{$>$}{$=$}}} &{\symb{!{$=$}}} \\
 {\symb{..}} & & \\
 \end{tabular}\\
 
@@ -288,6 +288,7 @@ All other symbols are terminals.\\
 
 \begin{tabular}{lll}
 {\nonterminal{BExp2}} & {\arrow}  &{\nonterminal{Exp}} {\nonterminal{RelOp}} {\nonterminal{Exp}}  \\
+ & {\delimit}  &{\nonterminal{Ident}} {\terminal{{$=$}{$=$}}} {\nonterminal{String}}  \\
  & {\delimit}  &{\nonterminal{BoolLit}}  \\
  & {\delimit}  &{\nonterminal{Ident}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{[}} {\nonterminal{Integer}} {\terminal{]}}  \\
