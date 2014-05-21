@@ -230,12 +230,12 @@ interpretExp x s@(state, funcMap) = case x of
 	                DLList identList@((Ident identArg):_) typee -> case tTypes of
                             TTVoid -> error("Error - function must return Int or Boolean...")
                             TTInt _ ->
-                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt int) (M.union tStateOld state) , funcMap))
+                                let stateAfterFunctionCall = (interpretStmt stmt ( (M.union tStateOld state) , funcMap))
                                 in
                                 (identToInt (Ident x) stateAfterFunctionCall)
             --              Sorry for the code repetition, I don't know how to handle it better ;)
                             TTBoolean _ ->
-                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt int) (M.union tStateOld state) , funcMap))
+                                let stateAfterFunctionCall = (interpretStmt stmt ( (M.union tStateOld state) , funcMap))
                                 in
                                 (identToInt (Ident x) stateAfterFunctionCall)
 --	                ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident (TTInt int) (M.union tStateOld extState) , funcMap))) globals) extState, funcMap)
