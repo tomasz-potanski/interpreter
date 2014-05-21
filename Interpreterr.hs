@@ -627,15 +627,15 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
             case varDeclarationLine of
                EmptyArgs -> ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , funcMap))) globals) extState, funcMap)
                NonEmptyArgs _ -> error("Error - function/procedure needs arguemnt")
-    SProcCallInteger (Ident x) int -> case (M.lookup x funcMap) of
-        Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
-        Just (stmt, varDeclarationLine, tTypes, tStateOld) -> 
-            let globals = M.intersection extState tStateOld
-            in
-	        case varDeclarationLine of
-	            NonEmptyArgs v -> case v of
-	                DLList identList@((Ident ident):_) typee -> ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident (TTInt int) (M.union tStateOld extState) , funcMap))) globals) extState, funcMap)
-	            EmptyArgs -> error ("Error - arguments were given!")
+--    SProcCallInteger (Ident x) int -> case (M.lookup x funcMap) of
+--        Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
+--        Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
+--            let globals = M.intersection extState tStateOld
+--            in
+--	        case varDeclarationLine of
+--	            NonEmptyArgs v -> case v of
+--	                DLList identList@((Ident ident):_) typee -> ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident (TTInt int) (M.union tStateOld extState) , funcMap))) globals) extState, funcMap)
+--	            EmptyArgs -> error ("Error - arguments were given!")
 
     SProcCallExp (Ident x) exp -> case (M.lookup x funcMap) of
         Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
