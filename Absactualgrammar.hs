@@ -120,7 +120,6 @@ data Exp =
  | EInt Integer
  | EId Ident
  | EFunNonArg Ident
- | EFunInteger Ident Integer
  | EFunId Ident Ident
  | EFunExp Ident Exp
  | EArray Ident Integer
