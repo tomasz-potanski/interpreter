@@ -10,10 +10,12 @@ proc
 	function zwracam(zm : String;) : Boolean ;
 	var
 		locX : Integer ;
+		str : String;
 	begin
 	//	return 3;
 		//zwracam := 3;
-		if ("1".equals(zm)) then
+		str := "1";
+		if (str.equals(zm)) then
 			zwracam := True;
 		else
 			zwracam := False;
@@ -24,7 +26,7 @@ begin
 	//print <-- ( zwracam() );
 	a := 2;
 
-	print <- ( 2*zwracam("1") - 1 );
+	print <- ( 2*zwracam("1dsfd") - 1 );
 	
 	//table[1]:="MMM";
 	//print <--(table[0]);

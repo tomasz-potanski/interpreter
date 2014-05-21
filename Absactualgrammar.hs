@@ -132,6 +132,7 @@ data BExp =
  | BRel Exp RelOp Exp
  | BStringRel Ident String
  | BStringRel2 String Ident
+ | BStringRel3 Ident Ident
  | BLit BoolLit
  | BIdent Ident
  | BExpArray Ident Integer

@@ -183,6 +183,7 @@ BAnd. 	BExp1  	::= BExp1 "&&" BExp2 ;
 BRel.  	BExp2  	::= Exp RelOp Exp ;
 BStringRel.  	BExp2  	::= Ident ".equals" "(" String ")" ;
 BStringRel2.  	BExp2  	::= String ".equals" "(" Ident ")" ;
+BStringRel3.  	BExp2  	::= Ident ".equals" "(" Ident ")" ;
 BLit.	BExp2	::= BoolLit;
 BIdent.	BExp2	::= Ident ;
 BExpArray.	BExp2	::= Ident "[" Integer "]";
