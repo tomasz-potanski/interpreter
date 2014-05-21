@@ -227,8 +227,7 @@ interpretExp x s@(state, funcMap) = case x of
         in
         case varDeclarationLine of
             NonEmptyArgs v -> case v of
-	                DLList identList@((Ident ident):_) typee ->
-                        case tTypes of
+	                DLList identList@((Ident ident):_) typee -> case tTypes of
                             TTVoid -> error("Error - function must return Int or Boolean...")
                             TTInt _ ->
                                 let stateAfterFunctionCall = (interpretStmt stmt (M.insert ident (TTInt int) (M.union tStateOld state) , funcMap))
