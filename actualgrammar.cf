@@ -164,11 +164,12 @@ EFunNonArg.	Exp2	::=	Ident "(" ")"	;
 --EFunArg.	Exp2	::=	Ident "(" ")"	;
 
 
-EFunInteger.	    Exp2	::=	Ident "(" Integer ")" ";" ;
---EFunId.		        Exp2	::=	Ident "(" Ident ")" ";" ;
---EFunIdArray.	    Exp2	::=	Ident "(" Ident "[" Integer "]" ")" ";" ;
---EFunExp.		    Exp2	::=	Ident "(" Exp ")" ";" ;
---EFunBExp.		    Exp2	::=	Ident "(" BExp ")" ";" ;Exp2EFunString.	        Stmt	::=	Ident "(" String ")" ";" ;
+EFunInteger.	    Exp2	::=	Ident "(" Integer ")" ;
+--EFunId.		        Exp2	::=	Ident "(" Ident ")"  ;
+--EFunIdArray.	    Exp2	::=	Ident "(" Ident "[" Integer "]" ")"  ;
+--EFunExp.		    Exp2	::=	Ident "(" Exp ")"  ;
+--EFunBExp.		    Exp2	::=	Ident "(" BExp ")"  ;
+--Exp2EFunString.	Exp2	::=	Ident "(" String ")"  ;
 
 EArray. Exp2	::= 	Ident "[" Integer "]" ;
 --EBool.  Exp2	::=	BExp ;
