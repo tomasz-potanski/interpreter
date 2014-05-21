@@ -143,6 +143,7 @@ transExp x = case x of
   EMul exp1 exp2  -> failure x
   EDiv exp1 exp2  -> failure x
   EInt n  -> failure x
+  EBool bexp  -> failure x
   EId id  -> failure x
   EFunNonArg id  -> failure x
   EFunId id1 id2  -> failure x
