@@ -226,18 +226,31 @@ interpretExp x s@(state, funcMap) = case x of
         let globals = M.intersection state tStateOld
         in
         case varDeclarationLine of
-            EmptyArgs  -> error("Error - function/procedure need argument")
-            NonEmptyArgs _ -> case tTypes of
-                TTVoid -> error("Error - function must return Int or Boolean...")
-                TTInt _ ->
-                    let stateAfterFunctionCall = (interpretStmt stmt ((M.union tStateOld state) , funcMap))
-                    in
-                    (identToInt (Ident x) stateAfterFunctionCall)
---              Sorry for the code repetition, I don't know how to handle it better ;)
-                TTBoolean _ ->
-                    let stateAfterFunctionCall = (interpretStmt stmt ((M.union tStateOld state) , funcMap))
-                    in
-                    (identToInt (Ident x) stateAfterFunctionCall)
+            NonEmptyArgs v -> case v of
+	                DLList identList@((Ident identArg):_) typee -> case tTypes of
+                            TTVoid -> error("Error - function must return Int or Boolean...")
+                            TTInt _ ->
+                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt int) (M.union tStateOld state) , funcMap))
+                                in
+                                (identToInt (Ident x) stateAfterFunctionCall)
+            --              Sorry for the code repetition, I don't know how to handle it better ;)
+                            TTBoolean _ ->
+                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt int) (M.union tStateOld state) , funcMap))
+                                in
+                                (identToInt (Ident x) stateAfterFunctionCall)
+--	                ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident (TTInt int) (M.union tStateOld extState) , funcMap))) globals) extState, funcMap)
+            EmptyArgs -> error("Error - function/procedure need argument")
+--                case tTypes of
+--                TTVoid -> error("Error - function must return Int or Boolean...")
+--                TTInt _ ->
+--                    let stateAfterFunctionCall = (interpretStmt stmt ((M.union tStateOld state) , funcMap))
+--                    in
+--                    (identToInt (Ident x) stateAfterFunctionCall)
+----              Sorry for the code repetition, I don't know how to handle it better ;)
+--                TTBoolean _ ->
+--                    let stateAfterFunctionCall = (interpretStmt stmt ((M.union tStateOld state) , funcMap))
+--                    in
+--                    (identToInt (Ident x) stateAfterFunctionCall)
 
   EArray (Ident x) index -> case (M.lookup x state) of
 	Just n -> case n of
