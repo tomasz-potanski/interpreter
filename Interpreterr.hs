@@ -267,7 +267,7 @@ interpretExp x s@(state, funcMap) = case x of
             EmptyArgs -> error("Error - function/procedure need argument")
 
 
-  EFunExp (Ident x) bexp -> case (M.lookup x funcMap) of
+  EFunBExp (Ident x) bexp -> case (M.lookup x funcMap) of
     Nothing -> error("Error - invalid function name!");
     Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
         let globals = M.intersection state tStateOld
