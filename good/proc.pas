@@ -23,7 +23,7 @@ proc
 		locY : Integer ;
 	begin
 		print <- ("Dzialam!") ;
-		if globA == 0 then 
+		if (globA == 0) then 
 		begin		
 			globA:= 1;
 			moja2();

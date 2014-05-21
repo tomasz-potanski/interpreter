@@ -289,7 +289,6 @@ BExp1 : BExp1 '&&' BExp2 { BAnd $1 $3 }
 
 BExp2 :: { BExp }
 BExp2 : Exp RelOp Exp { BRel $1 $2 $3 } 
-  | Ident '==' String { BStringRel $1 $3 }
   | BoolLit { BLit $1 }
   | Ident { BIdent $1 }
   | Ident '[' Integer ']' { BExpArray $1 $3 }
