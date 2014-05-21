@@ -220,7 +220,7 @@ interpretExp x s@(state, funcMap) = case x of
                     in
                     (identToInt (Ident x) stateAfterFunctionCall)
 
-  EFunNonInteger (Ident x) int -> case (M.lookup x funcMap) of
+  EFunInteger (Ident x) int -> case (M.lookup x funcMap) of
     Nothing -> error("Error - invalid function name!");
     Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
         let globals = M.intersection state tStateOld
