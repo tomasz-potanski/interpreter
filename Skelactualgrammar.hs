@@ -127,7 +127,6 @@ transStmt x = case x of
   SProcCallExp id exp  -> failure x
   SProcCallBExp id bexp  -> failure x
   SProcCallString id str  -> failure x
-  Exp2EFunString id str  -> failure x
 
 
 transIfStmt :: IfStmt -> Result
@@ -149,10 +148,6 @@ transExp x = case x of
   EFunNonArg id  -> failure x
   EFunArg id  -> failure x
   EFunInteger id n  -> failure x
-  EFunId id1 id2  -> failure x
-  EFunIdArray id1 id2 n3  -> failure x
-  EFunExp id exp  -> failure x
-  EFunBExp id bexp  -> failure x
   EArray id n  -> failure x
 
 

@@ -225,7 +225,6 @@ Stmt : Ident ':=' Exp ';' { SAss $1 $3 }
   | Ident '(' BExp ')' ';' { SProcCallBExp $1 $3 }
   | Ident '(' String ')' ';' { SProcCallString $1 $3 }
   | Stmt1 { $1 }
-  | Ident '(' String ')' ';' { Exp2EFunString $1 $3 }
 
 
 Stmt1 :: { Stmt }
@@ -272,10 +271,6 @@ Exp2 : Integer { EInt $1 }
   | Ident '(' ')' { EFunNonArg $1 }
   | Ident '(' ')' { EFunArg $1 }
   | Ident '(' Integer ')' ';' { EFunInteger $1 $3 }
-  | Ident '(' Ident ')' ';' { EFunId $1 $3 }
-  | Ident '(' Ident '[' Integer ']' ')' ';' { EFunIdArray $1 $3 $5 }
-  | Ident '(' Exp ')' ';' { EFunExp $1 $3 }
-  | Ident '(' BExp ')' ';' { EFunBExp $1 $3 }
   | Ident '[' Integer ']' { EArray $1 $3 }
   | '(' Exp ')' { $2 }
 
