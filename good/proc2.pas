@@ -16,6 +16,6 @@ begin
 	s:= "Ala mam kota";
 	x:= 3;
 	b := True;
-	wart(b);	
-	wart(3*2);
+	//wart(b);	
+	//wart(3*2);
 end.
