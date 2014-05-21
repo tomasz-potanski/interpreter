@@ -130,6 +130,7 @@ data BExp =
    BOr BExp BExp
  | BAnd BExp BExp
  | BRel Exp RelOp Exp
+ | BStringRel Ident String
  | BLit BoolLit
  | BIdent Ident
  | BExpArray Ident Integer

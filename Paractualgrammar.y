@@ -60,22 +60,23 @@ import ErrM
  'else' { PT _ (TS _ 43) }
  'end' { PT _ (TS _ 44) }
  'endif' { PT _ (TS _ 45) }
- 'for' { PT _ (TS _ 46) }
- 'function' { PT _ (TS _ 47) }
- 'if' { PT _ (TS _ 48) }
- 'intToStr' { PT _ (TS _ 49) }
- 'of' { PT _ (TS _ 50) }
- 'print' { PT _ (TS _ 51) }
- 'proc' { PT _ (TS _ 52) }
- 'procedure' { PT _ (TS _ 53) }
- 'program' { PT _ (TS _ 54) }
- 'return' { PT _ (TS _ 55) }
- 'strToInt' { PT _ (TS _ 56) }
- 'then' { PT _ (TS _ 57) }
- 'to' { PT _ (TS _ 58) }
- 'var' { PT _ (TS _ 59) }
- 'while' { PT _ (TS _ 60) }
- '||' { PT _ (TS _ 61) }
+ 'equals' { PT _ (TS _ 46) }
+ 'for' { PT _ (TS _ 47) }
+ 'function' { PT _ (TS _ 48) }
+ 'if' { PT _ (TS _ 49) }
+ 'intToStr' { PT _ (TS _ 50) }
+ 'of' { PT _ (TS _ 51) }
+ 'print' { PT _ (TS _ 52) }
+ 'proc' { PT _ (TS _ 53) }
+ 'procedure' { PT _ (TS _ 54) }
+ 'program' { PT _ (TS _ 55) }
+ 'return' { PT _ (TS _ 56) }
+ 'strToInt' { PT _ (TS _ 57) }
+ 'then' { PT _ (TS _ 58) }
+ 'to' { PT _ (TS _ 59) }
+ 'var' { PT _ (TS _ 60) }
+ 'while' { PT _ (TS _ 61) }
+ '||' { PT _ (TS _ 62) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -289,6 +290,7 @@ BExp1 : BExp1 '&&' BExp2 { BAnd $1 $3 }
 
 BExp2 :: { BExp }
 BExp2 : Exp RelOp Exp { BRel $1 $2 $3 } 
+  | Ident 'equals' String { BStringRel $1 $3 }
   | BoolLit { BLit $1 }
   | Ident { BIdent $1 }
   | Ident '[' Integer ']' { BExpArray $1 $3 }

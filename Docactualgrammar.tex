@@ -60,11 +60,12 @@ The reserved words used in actualgrammar are the following: \\
 {\reserved{String}} &{\reserved{True}} &{\reserved{begin}} \\
 {\reserved{const}} &{\reserved{do}} &{\reserved{elif}} \\
 {\reserved{else}} &{\reserved{end}} &{\reserved{endif}} \\
-{\reserved{for}} &{\reserved{function}} &{\reserved{if}} \\
-{\reserved{intToStr}} &{\reserved{of}} &{\reserved{print}} \\
-{\reserved{proc}} &{\reserved{procedure}} &{\reserved{program}} \\
-{\reserved{return}} &{\reserved{strToInt}} &{\reserved{then}} \\
-{\reserved{to}} &{\reserved{var}} &{\reserved{while}} \\
+{\reserved{equals}} &{\reserved{for}} &{\reserved{function}} \\
+{\reserved{if}} &{\reserved{intToStr}} &{\reserved{of}} \\
+{\reserved{print}} &{\reserved{proc}} &{\reserved{procedure}} \\
+{\reserved{program}} &{\reserved{return}} &{\reserved{strToInt}} \\
+{\reserved{then}} &{\reserved{to}} &{\reserved{var}} \\
+{\reserved{while}} & & \\
 \end{tabular}\\
 
 The symbols used in actualgrammar are the following: \\
@@ -288,6 +289,7 @@ All other symbols are terminals.\\
 
 \begin{tabular}{lll}
 {\nonterminal{BExp2}} & {\arrow}  &{\nonterminal{Exp}} {\nonterminal{RelOp}} {\nonterminal{Exp}}  \\
+ & {\delimit}  &{\nonterminal{Ident}} {\terminal{equals}} {\nonterminal{String}}  \\
  & {\delimit}  &{\nonterminal{BoolLit}}  \\
  & {\delimit}  &{\nonterminal{Ident}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{[}} {\nonterminal{Integer}} {\terminal{]}}  \\
