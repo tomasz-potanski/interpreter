@@ -230,7 +230,6 @@ instance Print Exp where
    EMul exp0 exp -> prPrec i 1 (concatD [prt 1 exp0 , doc (showString "*") , prt 2 exp])
    EDiv exp0 exp -> prPrec i 1 (concatD [prt 1 exp0 , doc (showString "/") , prt 2 exp])
    EInt n -> prPrec i 2 (concatD [prt 0 n])
-   EBool bexp -> prPrec i 2 (concatD [prt 0 bexp])
    EId id -> prPrec i 2 (concatD [prt 0 id])
    EFunNonArg id -> prPrec i 2 (concatD [prt 0 id , doc (showString "(") , doc (showString ")")])
    EFunId id0 id -> prPrec i 2 (concatD [prt 0 id0 , doc (showString "(") , prt 0 id , doc (showString ")")])

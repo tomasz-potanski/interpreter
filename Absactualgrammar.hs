@@ -117,7 +117,6 @@ data Exp =
  | EMul Exp Exp
  | EDiv Exp Exp
  | EInt Integer
- | EBool BExp
  | EId Ident
  | EFunNonArg Ident
  | EFunId Ident Ident
