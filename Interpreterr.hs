@@ -266,6 +266,29 @@ interpretExp x s@(state, funcMap) = case x of
                                 (identToInt (Ident x) stateAfterFunctionCall)
             EmptyArgs -> error("Error - function/procedure need argument")
 
+
+  EFunExp (Ident x) bexp -> case (M.lookup x funcMap) of
+    Nothing -> error("Error - invalid function name!");
+    Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
+        let globals = M.intersection state tStateOld
+        in
+        case varDeclarationLine of
+            NonEmptyArgs v -> case v of
+	                DLList identList@((Ident identArg):_) typee -> case tTypes of
+                            TTVoid -> error("Error - function must return Int or Boolean...")
+                            TTString _ -> error("Error - function must return Int or Boolean...")
+                            TTArray _ _ _ _ -> error("Error - function must return Int or Boolean...")
+                            TTInt _ ->
+                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (interpretBExp bexp s)) (M.union tStateOld state) , funcMap))
+                                in
+                                (identToInt (Ident x) stateAfterFunctionCall)
+            --              Sorry for the code repetition, I don't know how to handle it better ;)
+                            TTBoolean _ ->
+                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (interpretBExp bexp s)) (M.union tStateOld state) , funcMap))
+                                in
+                                (identToInt (Ident x) stateAfterFunctionCall)
+            EmptyArgs -> error("Error - function/procedure need argument")
+
   EFunId (Ident x) (Ident argIdent) -> case (M.lookup x funcMap) of
     Nothing -> error("Error - invalid function name!");
     Just (stmt, varDeclarationLine, tTypes, tStateOld) ->

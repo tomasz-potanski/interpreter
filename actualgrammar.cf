@@ -169,7 +169,7 @@ EFunNonArg.	Exp2	::=	Ident "(" ")"	;
 EFunId.		        Exp2	::=	Ident "(" Ident ")"  ;
 --EFunIdArray.	    Exp2	::=	Ident "(" Ident "[" Integer "]" ")"  ;
 EFunExp.		    Exp2	::=	Ident "(" Exp ")"  ;
---EFunBExp.		    Exp2	::=	Ident "(" BExp ")"  ;
+EFunBExp.		    Exp2	::=	Ident "(" BExp ")"  ;
 --Exp2EFunString.	Exp2	::=	Ident "(" String ")"  ;
 
 EArray. Exp2	::= 	Ident "[" Integer "]" ;
