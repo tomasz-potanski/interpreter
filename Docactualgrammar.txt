@@ -160,7 +160,6 @@ All other symbols are terminals.
   | //Exp2// | -> | //Integer// 
   |  |  **|**  | //Ident// 
   |  |  **|**  | //Ident// ``(`` ``)`` 
-  |  |  **|**  | //Ident// ``(`` ``)`` 
   |  |  **|**  | //Ident// ``(`` //Integer// ``)`` ``;`` 
   |  |  **|**  | //Ident// ``[`` //Integer// ``]`` 
   |  |  **|**  | ``(`` //Exp// ``)`` 

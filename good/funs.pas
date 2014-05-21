@@ -7,17 +7,17 @@ proc
 		print <-- (x[1]);
 	end
 
-	function zwracam(zm : Integer;) : Boolean ;
+	function zwracam() : Boolean ;
 	var
 		locX : Integer ;
 	begin
 	//	return 3;
 		//zwracam := 3;
-		if (zm == 1) then
+		//if (zm == 1) then
 			zwracam := True;
-		else
-			zwracam := False;
-		endif
+		//else
+		//	zwracam := False;
+		//endif
 	end
 
 begin

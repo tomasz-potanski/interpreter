@@ -161,7 +161,7 @@ EDiv. 	Exp1 	::= 	Exp1 	"/" 	Exp2 	;
 EInt. 	Exp2 	::= 	Integer 	;
 EId.	Exp2	::=	Ident	;
 EFunNonArg.	Exp2	::=	Ident "(" ")"	;
-EFunArg.	Exp2	::=	Ident "(" ")"	;
+--EFunArg.	Exp2	::=	Ident "(" ")"	;
 
 
 EFunInteger.	    Exp2	::=	Ident "(" Integer ")" ";" ;
