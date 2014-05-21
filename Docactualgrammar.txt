@@ -44,11 +44,11 @@ The reserved words used in actualgrammar are the following:
   | ``Array`` | ``Boolean`` | ``Char`` | ``Double``
   | ``False`` | ``Integer`` | ``String`` | ``True``
   | ``begin`` | ``const`` | ``do`` | ``elif``
-  | ``else`` | ``end`` | ``endif`` | ``equals``
-  | ``for`` | ``function`` | ``if`` | ``intToStr``
-  | ``of`` | ``print`` | ``proc`` | ``procedure``
-  | ``program`` | ``return`` | ``strToInt`` | ``then``
-  | ``to`` | ``var`` | ``while`` | 
+  | ``else`` | ``end`` | ``endif`` | ``for``
+  | ``function`` | ``if`` | ``intToStr`` | ``of``
+  | ``print`` | ``proc`` | ``procedure`` | ``program``
+  | ``return`` | ``strToInt`` | ``then`` | ``to``
+  | ``var`` | ``while`` |  | 
 
 The symbols used in actualgrammar are the following:
   | . | ; | ( | )
@@ -57,8 +57,8 @@ The symbols used in actualgrammar are the following:
   | += | -= | ++ | --
   | <- | <-- | + | -
   | * | / | || | &&
-  | < | <= | > | >=
-  | == | != | .. | 
+  | .equals | < | <= | >
+  | >= | == | != | ..
 
 ===Comments===
 Single-line comments begin with //, #.Multiple-line comments are  enclosed with /* and */, { and }, {* and *}.
@@ -171,7 +171,7 @@ All other symbols are terminals.
   | //BExp1// | -> | //BExp1// ``&&`` //BExp2// 
   |  |  **|**  | //BExp2// 
   | //BExp2// | -> | //Exp// //RelOp// //Exp// 
-  |  |  **|**  | //Ident// ``equals`` //String// 
+  |  |  **|**  | //Ident// ``.equals`` //String// 
   |  |  **|**  | //BoolLit// 
   |  |  **|**  | //Ident// 
   |  |  **|**  | //Ident// ``[`` //Integer// ``]`` 
