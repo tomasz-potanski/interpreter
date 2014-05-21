@@ -251,19 +251,36 @@ interpretExp x s@(state, funcMap) = case x of
         in
         case varDeclarationLine of
             NonEmptyArgs v -> case v of
-	                DLList identList@((Ident identArg):_) typee -> case tTypes of
-                            TTVoid -> error("Error - function must return Int or Boolean...")
-                            TTString _ -> error("Error - function must return Int or Boolean...")
-                            TTArray _ _ _ _ -> error("Error - function must return Int or Boolean...")
-                            TTInt _ ->
-                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (interpretExp exp s)) (M.union tStateOld state) , funcMap))
-                                in
-                                (identToInt (Ident x) stateAfterFunctionCall)
-            --              Sorry for the code repetition, I don't know how to handle it better ;)
-                            TTBoolean _ ->
-                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (interpretExp exp s)) (M.union tStateOld state) , funcMap))
-                                in
-                                (identToInt (Ident x) stateAfterFunctionCall)
+	                DLList identList@((Ident identArg):_) typee ->
+	                    case typee of
+	                        TString -> error("Error - type mismatch")
+	                        TArray _ _ _ -> error("Error - type mismatch")
+	                        TInt -> case tTypes of
+                                TTVoid -> error("Error - function must return Int or Boolean...")
+                                TTString _ -> error("Error - function must return Int or Boolean...")
+                                TTArray _ _ _ _ -> error("Error - function must return Int or Boolean...")
+                                TTInt _ ->
+                                    let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (interpretExp exp s)) (M.union tStateOld state) , funcMap))
+                                    in
+                                    (identToInt (Ident x) stateAfterFunctionCall)
+                --              Sorry for the code repetition, I don't know how to handle it better ;)
+                                TTBoolean _ ->
+                                    let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (interpretExp exp s)) (M.union tStateOld state) , funcMap))
+                                    in
+                                    (identToInt (Ident x) stateAfterFunctionCall)
+	                        TBool -> case tTypes of
+                                TTVoid -> error("Error - function must return Int or Boolean...")
+                                TTString _ -> error("Error - function must return Int or Boolean...")
+                                TTArray _ _ _ _ -> error("Error - function must return Int or Boolean...")
+                                TTInt _ ->
+                                    let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTBoolean (intToBool (interpretExp exp s))) (M.union tStateOld state) , funcMap))
+                                    in
+                                    (identToInt (Ident x) stateAfterFunctionCall)
+                --              Sorry for the code repetition, I don't know how to handle it better ;)
+                                TTBoolean _ ->
+                                    let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTBoolean (intToBool (interpretExp exp s))) (M.union tStateOld state) , funcMap))
+                                    in
+                                    (identToInt (Ident x) stateAfterFunctionCall)
             EmptyArgs -> error("Error - function/procedure need argument")
 
 
