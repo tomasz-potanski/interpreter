@@ -13,7 +13,7 @@ proc
 	begin
 	//	return 3;
 		//zwracam := 3;
-		if (zm.equals("1")) then
+		if ("1".equals(zm)) then
 			zwracam := True;
 		else
 			zwracam := False;
