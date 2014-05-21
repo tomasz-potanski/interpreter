@@ -252,7 +252,7 @@ interpretExp x s@(state, funcMap) = case x of
         in
         case varDeclarationLine of
             NonEmptyArgs v -> case v of
-	                DLList identList@((Ident identArg):_) typee -> case (M.lookup argIdent extState) of
+	                DLList identList@((Ident identArg):_) typee -> case (M.lookup argIdent state) of
 	                    Nothing     -> error("Error - variable has not been inicialized!")
 	                    Just vvvv   ->
 	                        if typeCheck vvvv typee then
