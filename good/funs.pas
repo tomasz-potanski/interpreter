@@ -24,7 +24,7 @@ begin
 	//print <-- ( zwracam() );
 	a := 2;
 
-	print <- ( 2*zwracam("1fdsf") - 1 );
+	print <- ( 2*zwracam("1") - 1 );
 	
 	//table[1]:="MMM";
 	//print <--(table[0]);

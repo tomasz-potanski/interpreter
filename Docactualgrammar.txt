@@ -172,6 +172,7 @@ All other symbols are terminals.
   |  |  **|**  | //BExp2// 
   | //BExp2// | -> | //Exp// //RelOp// //Exp// 
   |  |  **|**  | //Ident// ``.equals`` ``(`` //String// ``)`` 
+  |  |  **|**  | //String// ``.equals`` ``(`` //Ident// ``)`` 
   |  |  **|**  | //BoolLit// 
   |  |  **|**  | //Ident// 
   |  |  **|**  | //Ident// ``[`` //Integer// ``]`` 
