@@ -63,6 +63,21 @@ identToString (Ident ident) s@(stateOld, funcMap) =
                     TTInt ii     -> (show ii)
                     TTBoolean bb -> if bb == True then "True" else "False"
 
+identToInt :: Ident -> TState3 -> Integer
+identToInt (Ident ident) s@(stateOld, funcMap) =
+    case (M.lookup ident stateOld) of
+        Nothing -> error("Error - variable has not been found!")
+        Just n -> case n of
+            TTString s  -> error("Error - Integer or Boolean was expected!")
+            TTInt i     -> i
+            TTBoolean b -> if b == True then 1 else 0
+            TTArray minn maxx ofType values -> case (M.lookup minn values) of
+                Nothing -> error("Error - value has not been found!")
+                Just nn -> case nn of
+                    TTString ss  -> error("Error - integer or boolean was expected")
+                    TTInt ii     -> ii
+                    TTBoolean bb -> if bb == True then 1 else 0
+
 typeCheck :: TTypes -> Type -> Bool
 typeCheck ttype typee = case ttype of
     TTBoolean _     ->  if typee == TBool then True else False
@@ -185,6 +200,22 @@ interpretExp x s@(state, funcMap) = case x of
 		TTString _ -> 0
 		TTArray _ _ _ _ -> 0
 	Nothing	-> error ("Error - Variable: " ++ (show x) ++ " has not been declared!") -- !!rzuc blad
+
+  EFunNonArg (Ident x) -> case (M.lookup x funcMap) of
+    Nothing -> error("Error - invalid function name!");
+    Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
+        let globals = M.intersection extState tStateOld
+        in
+        case varDeclarationLine of
+            NonEmptyArgs _ -> error("Error - function/procedure need argument")
+            EmptyArgs -> case tTypes of
+                TTVoid -> error("Error - function must return Int or Boolean...")
+                TTInt _ ->
+                    let stateAfterFunctionCall = (interpretStmt stmt ((M.union tStateOld extState) , funcMap))
+                    in
+                    (identToInt (Ident x) stateAfterFunctionCall)
+
+
   EArray (Ident x) index -> case (M.lookup x state) of
 	Just n -> case n of
 		TTArray minn maxx typee mapp -> 
