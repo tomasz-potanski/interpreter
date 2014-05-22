@@ -42,7 +42,7 @@ begin
 
 	tab[1] := drukuj;
 	//wart(drukuj);
-	f:= zwroc(tab[1]);
+	f:= zwroc(drukuj);
 
 	zwroc(f);
 //	zwroc(drukuj);
