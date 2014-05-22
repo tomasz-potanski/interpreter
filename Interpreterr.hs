@@ -96,7 +96,7 @@ identToString (Ident ident) s@(stateOld, funcMap) =
 
 
 
-identToTType :: Ident -> TState3 -> TTypes
+identToTType :: Ident -> TState3 -> TType
 identToTType (Ident ident) s@(stateOld, funcMap) =
     case (M.lookup ident stateOld) of
         Nothing -> error("Error - variable " ++ (show ident) ++ " has not been found!")
@@ -778,7 +778,7 @@ sRunFunIdArray (Ident x) (Ident argIdent) int s@(extState, funcMap) = case (M.lo
 
 
 
-sRunFunExp (Ident x) s@(extState, funcMap) exp = case (M.lookup x funcMap) of
+sRunFunExp (Ident x) exp s@(extState, funcMap) exp = case (M.lookup x funcMap) of
     Nothing -> error("Error - invalid function name!");
     Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
         let globals = M.intersection extState tStateOld
@@ -842,7 +842,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	                        error("Error - type mismatch!")
 	    Just vy -> if genericTTypeCheck vx vy then
 	                    case vy of
-	                        TTFuncDef def -> ((M.insert x vy extState), (M.insert x vy funcMap))
+	                        TTFuncDef def -> ((M.insert x vy extState), (M.insert x def funcMap))
 	                        otherwise ->  ((M.insert x vy extState), funcMap)
 	                else
 	                    error("Error - type mismatch!")
