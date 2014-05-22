@@ -778,7 +778,7 @@ sRunFunIdArray (Ident x) (Ident argIdent) int s@(extState, funcMap) = case (M.lo
 
 
 
-sRunFunExp (Ident x) exp s@(extState, funcMap) exp = case (M.lookup x funcMap) of
+sRunFunExp (Ident x) exp s@(extState, funcMap) = case (M.lookup x funcMap) of
     Nothing -> error("Error - invalid function name!");
     Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
         let globals = M.intersection extState tStateOld
