@@ -87,6 +87,8 @@ identToString (Ident ident) s@(stateOld, funcMap) =
                     TTString ss  -> ss
                     TTInt ii     -> (show ii)
                     TTBoolean bb -> if bb == True then "True" else "False"
+            TTFuncDef _ -> "Variable is a funciton..."
+            otherwise -> error("Variable was not implemented sufficiently")
 
 
 
