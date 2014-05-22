@@ -40,6 +40,8 @@ type TStore = M.Map TLoc TTypes
 --idAndTypeToVarDecl :: Ident -> Type ->
 --idAndTypeToVarDecl (Ident x) typee
 
+
+
 insertVariable:: Ident -> (TTypes, TState3) -> TState3
 insertVariable (Ident x) (varTType, s@(extState, funcMap)) = case varTType of
     TTFuncDef tFuncDef -> ((M.insert x varTType extState) , (M.insert x tFuncDef funcMap))
@@ -708,7 +710,7 @@ sRunFunId (Ident x) (Ident argIdent) s@(extState, funcMap) = case (M.lookup x fu
                                         TTVoid -> error("Error - function must return Int or Boolean...")
                                         otherwise -> case typee of
                                             fdef@(TFunc _ _) ->
-                                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg vvvv (M.union tStateOld extState) , (M.insert identArg fdef funcMap)))
+                                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg vvvv (M.union tStateOld extState) , (M.insert identArg (typeToDefaultTType fdef) funcMap)))
                                                 in
                                                 ((identToTType (Ident x) stateAfterFunctionCall), ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap))
                                             otherwise ->
