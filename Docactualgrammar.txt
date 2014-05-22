@@ -42,13 +42,13 @@ The set of reserved words is the set of terminals appearing in the grammar. Thos
 
 The reserved words used in actualgrammar are the following:
   | ``Array`` | ``Boolean`` | ``Char`` | ``Double``
-  | ``False`` | ``Integer`` | ``String`` | ``True``
-  | ``begin`` | ``const`` | ``do`` | ``elif``
-  | ``else`` | ``end`` | ``endif`` | ``for``
-  | ``function`` | ``if`` | ``intToStr`` | ``of``
-  | ``print`` | ``proc`` | ``procedure`` | ``program``
-  | ``return`` | ``strToInt`` | ``then`` | ``to``
-  | ``var`` | ``while`` |  | 
+  | ``False`` | ``Function`` | ``Integer`` | ``String``
+  | ``True`` | ``Void`` | ``begin`` | ``const``
+  | ``do`` | ``elif`` | ``else`` | ``end``
+  | ``endif`` | ``for`` | ``function`` | ``if``
+  | ``intToStr`` | ``of`` | ``print`` | ``proc``
+  | ``procedure`` | ``program`` | ``return`` | ``strToInt``
+  | ``then`` | ``to`` | ``var`` | ``while``
 
 The symbols used in actualgrammar are the following:
   | . | ; | ( | )
@@ -194,11 +194,13 @@ All other symbols are terminals.
   |  |  **|**  | ``>=`` 
   |  |  **|**  | ``==`` 
   |  |  **|**  | ``!=`` 
-  | //Type// | -> | ``Integer`` 
+  | //Type// | -> | ``Void`` 
+  |  |  **|**  | ``Integer`` 
   |  |  **|**  | ``Boolean`` 
   |  |  **|**  | ``String`` 
   |  |  **|**  | ``Char`` 
   |  |  **|**  | ``Double`` 
+  |  |  **|**  | ``Function`` ``(`` //Type// ``)`` ``:`` //Type// 
   |  |  **|**  | //Type1// 
   | //Type2// | -> | ``Array`` ``[`` //Integer// ``..`` //Integer// ``]`` ``of`` //Type// 
   |  |  **|**  | ``(`` //Type// ``)`` 

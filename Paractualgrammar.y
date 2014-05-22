@@ -49,34 +49,36 @@ import ErrM
  'Char' { PT _ (TS _ 32) }
  'Double' { PT _ (TS _ 33) }
  'False' { PT _ (TS _ 34) }
- 'Integer' { PT _ (TS _ 35) }
- 'String' { PT _ (TS _ 36) }
- 'True' { PT _ (TS _ 37) }
- '[' { PT _ (TS _ 38) }
- ']' { PT _ (TS _ 39) }
- 'begin' { PT _ (TS _ 40) }
- 'const' { PT _ (TS _ 41) }
- 'do' { PT _ (TS _ 42) }
- 'elif' { PT _ (TS _ 43) }
- 'else' { PT _ (TS _ 44) }
- 'end' { PT _ (TS _ 45) }
- 'endif' { PT _ (TS _ 46) }
- 'for' { PT _ (TS _ 47) }
- 'function' { PT _ (TS _ 48) }
- 'if' { PT _ (TS _ 49) }
- 'intToStr' { PT _ (TS _ 50) }
- 'of' { PT _ (TS _ 51) }
- 'print' { PT _ (TS _ 52) }
- 'proc' { PT _ (TS _ 53) }
- 'procedure' { PT _ (TS _ 54) }
- 'program' { PT _ (TS _ 55) }
- 'return' { PT _ (TS _ 56) }
- 'strToInt' { PT _ (TS _ 57) }
- 'then' { PT _ (TS _ 58) }
- 'to' { PT _ (TS _ 59) }
- 'var' { PT _ (TS _ 60) }
- 'while' { PT _ (TS _ 61) }
- '||' { PT _ (TS _ 62) }
+ 'Function' { PT _ (TS _ 35) }
+ 'Integer' { PT _ (TS _ 36) }
+ 'String' { PT _ (TS _ 37) }
+ 'True' { PT _ (TS _ 38) }
+ 'Void' { PT _ (TS _ 39) }
+ '[' { PT _ (TS _ 40) }
+ ']' { PT _ (TS _ 41) }
+ 'begin' { PT _ (TS _ 42) }
+ 'const' { PT _ (TS _ 43) }
+ 'do' { PT _ (TS _ 44) }
+ 'elif' { PT _ (TS _ 45) }
+ 'else' { PT _ (TS _ 46) }
+ 'end' { PT _ (TS _ 47) }
+ 'endif' { PT _ (TS _ 48) }
+ 'for' { PT _ (TS _ 49) }
+ 'function' { PT _ (TS _ 50) }
+ 'if' { PT _ (TS _ 51) }
+ 'intToStr' { PT _ (TS _ 52) }
+ 'of' { PT _ (TS _ 53) }
+ 'print' { PT _ (TS _ 54) }
+ 'proc' { PT _ (TS _ 55) }
+ 'procedure' { PT _ (TS _ 56) }
+ 'program' { PT _ (TS _ 57) }
+ 'return' { PT _ (TS _ 58) }
+ 'strToInt' { PT _ (TS _ 59) }
+ 'then' { PT _ (TS _ 60) }
+ 'to' { PT _ (TS _ 61) }
+ 'var' { PT _ (TS _ 62) }
+ 'while' { PT _ (TS _ 63) }
+ '||' { PT _ (TS _ 64) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -319,11 +321,13 @@ RelOp : '<' { LTH }
 
 
 Type :: { Type }
-Type : 'Integer' { TInt } 
+Type : 'Void' { TVoid } 
+  | 'Integer' { TInt }
   | 'Boolean' { TBool }
   | 'String' { TString }
   | 'Char' { TChar }
   | 'Double' { TDouble }
+  | 'Function' '(' Type ')' ':' Type { TFunc $3 $6 }
   | Type1 { $1 }
 
 

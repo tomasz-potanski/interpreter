@@ -275,12 +275,14 @@ instance Print RelOp where
 
 instance Print Type where
   prt i e = case e of
+   TVoid  -> prPrec i 0 (concatD [doc (showString "Void")])
    TInt  -> prPrec i 0 (concatD [doc (showString "Integer")])
    TBool  -> prPrec i 0 (concatD [doc (showString "Boolean")])
    TString  -> prPrec i 0 (concatD [doc (showString "String")])
    TChar  -> prPrec i 0 (concatD [doc (showString "Char")])
    TDouble  -> prPrec i 0 (concatD [doc (showString "Double")])
    TArray n0 n type' -> prPrec i 2 (concatD [doc (showString "Array") , doc (showString "[") , prt 0 n0 , doc (showString "..") , prt 0 n , doc (showString "]") , doc (showString "of") , prt 0 type'])
+   TFunc type'0 type' -> prPrec i 0 (concatD [doc (showString "Function") , doc (showString "(") , prt 0 type'0 , doc (showString ")") , doc (showString ":") , prt 0 type'])
 
 
 instance Print LitVal where

@@ -159,12 +159,14 @@ data RelOp =
   deriving (Eq,Ord,Show)
 
 data Type =
-   TInt
+   TVoid
+ | TInt
  | TBool
  | TString
  | TChar
  | TDouble
  | TArray Integer Integer Type
+ | TFunc Type Type
   deriving (Eq,Ord,Show)
 
 data LitVal =

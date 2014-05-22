@@ -188,12 +188,14 @@ transRelOp x = case x of
 
 transType :: Type -> Result
 transType x = case x of
+  TVoid  -> failure x
   TInt  -> failure x
   TBool  -> failure x
   TString  -> failure x
   TChar  -> failure x
   TDouble  -> failure x
   TArray n1 n2 type'3  -> failure x
+  TFunc type'1 type'2  -> failure x
 
 
 transLitVal :: LitVal -> Result

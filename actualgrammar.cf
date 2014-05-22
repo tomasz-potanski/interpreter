@@ -212,12 +212,14 @@ NE.        RelOp ::= "!=" ;
 
 ---------(types)-----------
 
+TVoid.      Type    ::= "Void";
 TInt.		Type	::=	"Integer" ;
 TBool.		Type 	::=	"Boolean" ;
 TString.	Type	::=	"String" ;
 TChar.		Type	::=	"Char" ;
 TDouble.	Type 	::=	"Double" ;
 TArray.		Type2	::=	"Array" "[" Integer ".." Integer "]" "of" Type ;
+TFunc.      Type    ::= "Function" "(" Type ")" ":" Type ;
 coercions Type 2 ;
 --tablica_imion : Array[1..10] of string;
 

@@ -56,15 +56,16 @@ The reserved words used in actualgrammar are the following: \\
 
 \begin{tabular}{lll}
 {\reserved{Array}} &{\reserved{Boolean}} &{\reserved{Char}} \\
-{\reserved{Double}} &{\reserved{False}} &{\reserved{Integer}} \\
-{\reserved{String}} &{\reserved{True}} &{\reserved{begin}} \\
-{\reserved{const}} &{\reserved{do}} &{\reserved{elif}} \\
-{\reserved{else}} &{\reserved{end}} &{\reserved{endif}} \\
-{\reserved{for}} &{\reserved{function}} &{\reserved{if}} \\
-{\reserved{intToStr}} &{\reserved{of}} &{\reserved{print}} \\
-{\reserved{proc}} &{\reserved{procedure}} &{\reserved{program}} \\
-{\reserved{return}} &{\reserved{strToInt}} &{\reserved{then}} \\
-{\reserved{to}} &{\reserved{var}} &{\reserved{while}} \\
+{\reserved{Double}} &{\reserved{False}} &{\reserved{Function}} \\
+{\reserved{Integer}} &{\reserved{String}} &{\reserved{True}} \\
+{\reserved{Void}} &{\reserved{begin}} &{\reserved{const}} \\
+{\reserved{do}} &{\reserved{elif}} &{\reserved{else}} \\
+{\reserved{end}} &{\reserved{endif}} &{\reserved{for}} \\
+{\reserved{function}} &{\reserved{if}} &{\reserved{intToStr}} \\
+{\reserved{of}} &{\reserved{print}} &{\reserved{proc}} \\
+{\reserved{procedure}} &{\reserved{program}} &{\reserved{return}} \\
+{\reserved{strToInt}} &{\reserved{then}} &{\reserved{to}} \\
+{\reserved{var}} &{\reserved{while}} & \\
 \end{tabular}\\
 
 The symbols used in actualgrammar are the following: \\
@@ -317,11 +318,13 @@ All other symbols are terminals.\\
 \end{tabular}\\
 
 \begin{tabular}{lll}
-{\nonterminal{Type}} & {\arrow}  &{\terminal{Integer}}  \\
+{\nonterminal{Type}} & {\arrow}  &{\terminal{Void}}  \\
+ & {\delimit}  &{\terminal{Integer}}  \\
  & {\delimit}  &{\terminal{Boolean}}  \\
  & {\delimit}  &{\terminal{String}}  \\
  & {\delimit}  &{\terminal{Char}}  \\
  & {\delimit}  &{\terminal{Double}}  \\
+ & {\delimit}  &{\terminal{Function}} {\terminal{(}} {\nonterminal{Type}} {\terminal{)}} {\terminal{:}} {\nonterminal{Type}}  \\
  & {\delimit}  &{\nonterminal{Type1}}  \\
 \end{tabular}\\
 
