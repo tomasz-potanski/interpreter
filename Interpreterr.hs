@@ -638,7 +638,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 			Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
-
+    SBlank -> s
 
     SAttr (Ident x) (Ident y) -> case (M.lookup x extState) of
 	Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
