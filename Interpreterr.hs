@@ -707,14 +707,14 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 
     SProcAttr (Ident x) procc -> case (M.lookup x extState) of
 	Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
-	Just vx -> if genericTTypeCheck vx (proccToReturnType procc) then
+	Just vx -> if genericTTypeCheck vx (proccToReturnType procc s) then
                     case procc of
-                        ProcCall (Ident fid) -> (insertVariable (Ident x) (sRunFun fid s))
---                        ProcCallId (Ident fid) (Ident varId) -> (insertVariable (Ident x) (sRunFunId fid varId s))
---                        ProcCallIdArray (Ident fid) (Ident arrayId) index -> (insertVariable (Ident x) (sRunFunIdArray fid arrayId index s))
---                        ProcCallExp (Ident fid) exp -> (insertVariable (Ident x) (sRunFunExp fid exp s))
---                        ProcCallBExp (Ident fid) bexp -> (insertVariable (Ident x) (sRunFunBExp fid bexp s))
---                        ProcCallString (Ident fid) str -> (insertVariable (Ident x) (sRunFunString fid str s))
+                        ProcCall (Ident fid) -> (insertVariable (Ident x) (sRunFun (Ident fid) s))
+--                        ProcCallId (Ident fid) (Ident varId) -> (insertVariable (Ident x) (sRunFunId (Ident fid) (Ident varId) s))
+--                        ProcCallIdArray (Ident fid) (Ident arrayId) index -> (insertVariable (Ident x) (sRunFunIdArray (Ident fid) (Ident arrayId) index s))
+--                        ProcCallExp (Ident fid) exp -> (insertVariable (Ident x) (sRunFunExp (Ident fid) exp s))
+--                        ProcCallBExp (Ident fid) bexp -> (insertVariable (Ident x) (sRunFunBExp (Ident fid) bexp s))
+--                        ProcCallString (Ident fid) str -> (insertVariable (Ident x) (sRunFunString (Ident fid) str s))
 	           else
 	                error("Error - type mismatch")
 
