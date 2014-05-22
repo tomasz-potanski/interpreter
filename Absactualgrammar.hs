@@ -103,7 +103,6 @@ data Stmt =
  | SPrintFunIdArray Ident Ident Integer
  | SProcCall Ident
  | SProcCallId Ident Ident
- | SProcCallIdFunc Ident Ident Ident
  | SProcCallIdArray Ident Ident Integer
  | SProcCallExp Ident Exp
  | SProcCallBExp Ident BExp

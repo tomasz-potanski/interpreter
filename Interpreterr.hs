@@ -18,7 +18,7 @@ import Debug.Trace
 
 ----types-------------
 
-data TTypes = TTInt Integer | TTBoolean Bool | TTVoid | TTString String | TTArray Integer Integer Type (M.Map Integer TTypes) | TTTuple Integer (M.Map Integer TTypes) deriving (Eq, Show)
+data TTypes = TTInt Integer | TTBoolean Bool | TTVoid | TTString String | TTArray Integer Integer Type (M.Map Integer TTypes) | TTTuple Integer (M.Map Integer TTypes) | TFuncDef deriving (Eq, Show)
 -- nazwa zmiennej -> wartosc
 type TStateOld = M.Map String TTypes
 type TState2 = (TLoc, TEnv, TFuncMap)
@@ -86,6 +86,13 @@ typeCheck ttype typee = case ttype of
     TTArray _ _ ofType _ -> case typee of
         TArray _ _ ofType2 -> if ofType == ofType2 then True else False
         otherwise -> False
+    TFuncDef stmts funcArg tTypes tStateOldFunc -> case typee of
+        TFunc argType retType -> if (tTypes == retType) then
+                                    True
+                                 else False
+        otherwise -> False
+
+--type TFuncDef = (Stmt, FuncArg, TTypes, TStateOld)
 
 genericTypeCheck :: Type -> Type -> Bool
 genericTypeCheck t1 t2 = if t1 == t2 then True else False
@@ -1060,6 +1067,22 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	            EmptyArgs -> error ("Error - arguments were given!")
 
 
+--    SProcCallIdFunc (Ident x) (Ident functionNameArg) -> case (M.lookup x funcMap) of
+--        Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
+--        Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
+--            let globals = M.intersection extState tStateOld
+--            in
+--	        case varDeclarationLine of
+--	            NonEmptyArgs v -> case v of
+--	                DLList identList@((Ident ident):_) typee -> case (M.lookup functionNameArg funcMap) of
+--	                    Nothing     -> error("Error - function has not been inicialized!")
+--	                    Just secFun@(stmts, funcArg@(NonEmptyArgs varDeclarationLine2@(DLList identList@((Ident ident2):_) typee2 )), tTypes, tOldStateFromFunction)   -> case (M.lookup argIdent extState) of
+--                            Nothing     -> error("Error - varibable has not been inicialized!")
+--	                        Just vvvv   -> if typeCheck vvvv typee2 then
+--	                            ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident vvvv (M.union tStateOld extState) , M.insert ident secFun funcMap))) globals) extState, funcMap)
+--	                         else
+--	                            error("Error - incorrect types!")
+--	            EmptyArgs -> error ("Error - arguments were given!")
 
     SProcCallIdArray (Ident x) (Ident argIdent) int -> case (M.lookup x funcMap) of
         Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
