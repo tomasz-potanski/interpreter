@@ -56,6 +56,9 @@ typeToDefaultTType typee = case typee of
     TArray minn maxx ofType -> TTArray minn maxx ofType M.empty
     TFunc argType retType -> TTFuncDef (SBlank,  (NonEmptyArgs (DLList ((Ident "arg"):[]) argType )), (typeToDefaultTType retType), M.empty)
 
+tTFunDefToTFunDef :: TTFuncDef -> TFuncDef
+tTFunDefToTFunDef tT@(TTFuncDef def) = def
+
 
 ttypeToType :: TTypes -> Type
 ttypeToType typee = case typee of
@@ -710,7 +713,7 @@ sRunFunId (Ident x) (Ident argIdent) s@(extState, funcMap) = case (M.lookup x fu
                                         TTVoid -> error("Error - function must return Int or Boolean...")
                                         otherwise -> case typee of
                                             fdef@(TFunc _ _) ->
-                                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg vvvv (M.union tStateOld extState) , (M.insert identArg (typeToDefaultTType fdef) funcMap)))
+                                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg vvvv (M.union tStateOld extState) , (M.insert identArg (tTFunDefToTFunDef (typeToDefaultTType fdef)) funcMap)))
                                                 in
                                                 ((identToTType (Ident x) stateAfterFunctionCall), ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap))
                                             otherwise ->
