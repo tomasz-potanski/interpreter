@@ -708,7 +708,7 @@ sRunFunId (Ident x) (Ident argIdent) s@(extState, funcMap) = case (M.lookup x fu
                                         TTVoid -> error("Error - function must return Int or Boolean...")
                                         otherwise -> case typee of
                                             TFunc _ _ ->
-                                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg vvvv (M.union tStateOld extState) , (M.insert identArg (TTFuncDef typee) funcMap)))
+                                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg vvvv (M.union tStateOld extState) , (M.insert identArg typee funcMap)))
                                                 in
                                                 ((identToTType (Ident x) stateAfterFunctionCall), ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap))
                                             otherwise ->
