@@ -61,7 +61,7 @@ ttypeToType typee = case typee of
     TTString _ -> TString
 --    TArray minn maxx ofType -> TTArray minn maxx ofType M.empty
     TTArray _ _ ofType _ -> TArray 0 10 ofType
-    TTFunc (_, argType, retType, _ ) -> case argType of
+    TTFuncDef (_, argType, retType, _ ) -> case argType of
         EmptyArgs -> TFunc TVoid retType
         NonEmptyArgs (DLList _ arggType) -> TFunc arggType retType
 
