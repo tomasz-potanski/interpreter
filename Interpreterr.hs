@@ -388,7 +388,7 @@ interpretExp x s@(state, funcMap) = case x of
 	                DLList identList@((Ident identArg):_) typee -> case (M.lookup argIdent state) of
 	                    Nothing     -> error("Error - variable has not been inicialized!")
 	                    Just (TTArray minn maxx arrayType arrayMap)   -> case (M.lookup int arrayMap) of {
-                            Nothing     -> error("Error - variable has not been inicialized!")
+                            Nothing     -> error("Error - variable has not been inicialized!");
                             Just vvvv ->;
                                 if typeCheck (typeToDefaultTType arrayType) typee then;
                                     case tTypes of;
