@@ -897,6 +897,46 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                 EmptyArgs -> error("Error - function/procedure need argument")
 
 
+    SPrintFunExp (Ident x) bexp -> case (M.lookup x funcMap) of
+        Nothing -> error("Error - invalid function name!");
+        Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
+            let globals = M.intersection extState tStateOld
+            in
+            case varDeclarationLine of
+                NonEmptyArgs v -> case v of
+                        DLList identList@((Ident identArg):_) typee ->
+                            case typee of
+                                TString -> error("Error - type mismatch")
+                                TArray _ _ _ -> error("Error - type mismatch")
+                                TInt -> case tTypes of
+                                        TTVoid -> error("Error - function must return Int or Boolean...")
+                                        TTString _ -> error("Error - function must return Int or Boolean...")
+                                        TTArray _ _ _ _ -> error("Error - function must return Int or Boolean...")
+                                        TTInt _ ->
+                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (boolToInt (interpretBExp exp s))) (M.union tStateOld extState) , funcMap))
+                                            in
+                                            showToUser (identToString (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+                        --              Sorry for the code repetition, I don't know how to handle it better ;)
+                                        TTBoolean _ ->
+                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (boolToInt (interpretBExp exp s))) (M.union tStateOld extState) , funcMap))
+                                            in
+                                            showToUser (identToString (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+                                TBool -> case tTypes of
+                                        TTVoid -> error("Error - function must return Int or Boolean...")
+                                        TTString _ -> error("Error - function must return Int or Boolean...")
+                                        TTArray _ _ _ _ -> error("Error - function must return Int or Boolean...")
+                                        TTInt _ ->
+                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTBoolean (interpretBExp exp s)) (M.union tStateOld extState) , funcMap))
+                                            in
+                                            showToUser (identToString (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+                        --              Sorry for the code repetition, I don't know how to handle it better ;)
+                                        TTBoolean _ ->
+                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTBoolean (interpretBExp exp s)) (M.union tStateOld extState) , funcMap))
+                                            in
+                                            showToUser (identToString (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+                EmptyArgs -> error("Error - function/procedure need argument")
+
+
 --	SPrintFun (Ident x) -> case (M.lookup x funcMap) of
 --	    Nothing -> error("Error - funciton: " ++ (show x) ++ " does not exist!")
 --	    Just (stmt, varDeclarationLine, tTypes, tStateOld) ->

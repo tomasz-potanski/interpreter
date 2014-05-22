@@ -2,10 +2,10 @@ proc
 
 	function druk(zm : Integer ;) : Boolean;
 	begin
-		//print <-- (a);
+		print <-- (zm);
 		druk := True;
 	end
 
 begin
-	print <-- ( druk(2) );
+	print <-- ( druk(33) );
 end.
