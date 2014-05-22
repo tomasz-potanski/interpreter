@@ -794,7 +794,7 @@ sRunFunExp (Ident x) s@(extState, funcMap) exp = case (M.lookup x funcMap) of
                                     otherwise ->
                                         let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (interpretExp exp s)) (M.union tStateOld extState) , funcMap))
                                         in
-                                        showToUser (identToString (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+                                        ((identToType (Ident x) stateAfterFunctionCall), ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap))
                             TBool -> case tTypes of
                                     TTVoid -> error("Error - function must return Int or Boolean...")
                                     otherwise ->
