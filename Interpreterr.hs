@@ -1059,11 +1059,15 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	        case varDeclarationLine of
 	            NonEmptyArgs v -> case v of
 	                DLList identList@((Ident ident):_) typee -> case (M.lookup argIdent extState) of
-	                    Nothing     -> error("Error - variable " ++ (argIdent) ++ " has not been inicialized!")
+	                    Nothing     -> case (M.lookup argIdent funcMap) of
+	                            Nothing -> error("Error - variable " ++ (argIdent) ++ " has not been inicialized!")
+	                            Just myFun@(TTFuncDef defOfFun) ->  if typeCheck myFun typee
+	                                            ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , (M.insert argIdent defOfFun funcMap)))) globals) extState, funcMap)
+                                         else
+                                            error("Error - incorrect types!")
+
 	                    Just vvvv   -> if typeCheck vvvv typee then
-	                                    case vvvv of
-	                                    TTFuncDef defOfFun ->  ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , (M.insert argIdent defOfFun funcMap)))) globals) extState, funcMap)
-	                                    otherwise -> ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident vvvv (M.union tStateOld extState) , funcMap))) globals) extState, funcMap)
+	                                    ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident vvvv (M.union tStateOld extState) , funcMap))) globals) extState, funcMap)
 	                         else
 	                            error("Error - incorrect types!")
 	            EmptyArgs -> error ("Error - arguments were given!")
