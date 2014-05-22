@@ -104,9 +104,8 @@ All other symbols are terminals.
   |  |  **|**  | //ConstDeclLine// //[ConstDeclLine]// 
   | //BoolLit// | -> | ``True`` 
   |  |  **|**  | ``False`` 
-  | //Stmt2// | -> | ``begin`` //[Stmt]// ``end`` 
-  |  |  **|**  | ``(`` //Stmt// ``)`` 
-  | //Stmt// | -> | //Ident// ``:=`` //Ident// ``;`` 
+  | //Stmt// | -> | ``;`` 
+  |  |  **|**  | //Ident// ``:=`` //Ident// ``;`` 
   |  |  **|**  | //Ident// ``:=`` //Exp// ``;`` 
   |  |  **|**  | //Ident// ``[`` //Integer// ``]`` ``:=`` //Exp// ``;`` 
   |  |  **|**  | //Ident// ``:=`` //BExp// ``;`` 
@@ -145,6 +144,8 @@ All other symbols are terminals.
   |  |  **|**  | //Ident// ``(`` //BExp// ``)`` ``;`` 
   |  |  **|**  | //Ident// ``(`` //String// ``)`` ``;`` 
   |  |  **|**  | //Stmt1// 
+  | //Stmt2// | -> | ``begin`` //[Stmt]// ``end`` 
+  |  |  **|**  | ``(`` //Stmt// ``)`` 
   | //Stmt1// | -> | ``++`` //Ident// ``;`` 
   |  |  **|**  | ``--`` //Ident// ``;`` 
   |  |  **|**  | //Stmt2// 

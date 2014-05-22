@@ -69,6 +69,7 @@ BoolLitFalse.	BoolLit	::=	"False" ;
 
 ------------(statements)-------
 
+SBlank.     Stmt    ::= ";" ;
 SBlock.		Stmt2	::=	"begin" [Stmt] "end" ;
 
 SAttr.      Stmt    ::= Ident ":=" Ident ";";

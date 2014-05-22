@@ -67,7 +67,8 @@ data BoolLit =
   deriving (Eq,Ord,Show)
 
 data Stmt =
-   SBlock [Stmt]
+   SBlank
+ | SBlock [Stmt]
  | SAttr Ident Ident
  | SAss Ident Exp
  | SAssArray Ident Integer Exp

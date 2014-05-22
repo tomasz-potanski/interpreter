@@ -188,13 +188,9 @@ BoolLit : 'True' { BoolLitTrue }
   | 'False' { BoolLitFalse }
 
 
-Stmt2 :: { Stmt }
-Stmt2 : 'begin' ListStmt 'end' { SBlock (reverse $2) } 
-  | '(' Stmt ')' { $2 }
-
-
 Stmt :: { Stmt }
-Stmt : Ident ':=' Ident ';' { SAttr $1 $3 } 
+Stmt : ';' { SBlank } 
+  | Ident ':=' Ident ';' { SAttr $1 $3 }
   | Ident ':=' Exp ';' { SAss $1 $3 }
   | Ident '[' Integer ']' ':=' Exp ';' { SAssArray $1 $3 $6 }
   | Ident ':=' BExp ';' { SAssBool $1 $3 }
@@ -233,6 +229,11 @@ Stmt : Ident ':=' Ident ';' { SAttr $1 $3 }
   | Ident '(' BExp ')' ';' { SProcCallBExp $1 $3 }
   | Ident '(' String ')' ';' { SProcCallString $1 $3 }
   | Stmt1 { $1 }
+
+
+Stmt2 :: { Stmt }
+Stmt2 : 'begin' ListStmt 'end' { SBlock (reverse $2) } 
+  | '(' Stmt ')' { $2 }
 
 
 Stmt1 :: { Stmt }

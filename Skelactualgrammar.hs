@@ -91,6 +91,7 @@ transBoolLit x = case x of
 
 transStmt :: Stmt -> Result
 transStmt x = case x of
+  SBlank  -> failure x
   SBlock stmts  -> failure x
   SAttr id1 id2  -> failure x
   SAss id exp  -> failure x
