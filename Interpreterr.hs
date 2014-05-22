@@ -744,7 +744,7 @@ sRunFunIdArray (Ident x) (Ident argIdent) int s@(extState, funcMap) = case (M.lo
                                             TTVoid -> error("Error - function must return Int or Boolean...")
                                             otherwise -> case vvvv of
                                                 TTFuncDef tFunD ->
-                                                    let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg vvvv (M.union tStateOld extState) , (M.insert identArg vvvv funcMap)))
+                                                    let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg vvvv (M.union tStateOld extState) , (M.insert identArg tFunD funcMap)))
                                                     in
                                                     ((identToTType (Ident x) stateAfterFunctionCall), ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap))
                                                 otherwise ->
