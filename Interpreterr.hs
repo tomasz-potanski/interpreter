@@ -47,7 +47,7 @@ typeToDefaultTType typee = case typee of
     TBool -> TTBoolean False
     TString -> TTString ""
     TArray minn maxx ofType -> TTArray minn maxx ofType M.empty
-    TFunc argType retType -> TTFuncDef (SBlank,  (EmptyArgs), (typeToDefaultTType retType), M.empty)
+    TFunc argType retType -> TTFuncDef (SBlank,  (NonEmptyArgs (DLList ((Ident "arg"):[]) argType )), (typeToDefaultTType retType), M.empty)
 
 
 ttypeToType :: TTypes -> Type
@@ -1156,7 +1156,7 @@ addOneVariable (Ident ident) typee state@(tStateOld, funcMap) = case typee of
 		TVoid -> state
 		TBool -> simpleAddOneVar (Ident ident) (TTBoolean False) state
 --		TFunc argType retType -> (tStateOld, addOneFunction (FLineArg (Ident ident) (DLList [] ) retType VariableDeclaration []) funcMap)
-		TFunc argType retType -> simpleAddOneVar (Ident ident) (TTFuncDef (SBlank, (NonEmptyArgs (DLList ((Ident "arg"):[]) argType)), (typeToDefaultTType retType), tStateOld)) state
+		TFunc argType retType -> simpleAddOneVar (Ident ident) (TTFuncDef (SBlank, (NonEmptyArgs (DLList ((Ident "arg"):[]) argType)), (typeToDefaultTType retType), M.empty)) state
 		TString -> simpleAddOneVar (Ident ident) (TTString "") state
 		TArray minn maxx typee -> 
 			if (minn < maxx) && (minn >= 0) then 
