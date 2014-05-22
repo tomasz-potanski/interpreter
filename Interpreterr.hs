@@ -18,7 +18,7 @@ import Debug.Trace
 
 ----types-------------
 
-data TTypes = TTInt Integer | TTBoolean Bool | TTVoid | TTString String | TTArray Integer Integer Type (M.Map Integer TTypes) | TTTuple Integer (M.Map Integer TTypes) | TFuncDef deriving (Eq, Show)
+data TTypes = TTInt Integer | TTBoolean Bool | TTVoid | TTString String | TTArray Integer Integer Type (M.Map Integer TTypes) | TTTuple Integer (M.Map Integer TTypes) | TTFuncDef TFuncDef deriving (Eq, Show)
 -- nazwa zmiennej -> wartosc
 type TStateOld = M.Map String TTypes
 type TState2 = (TLoc, TEnv, TFuncMap)
@@ -86,7 +86,7 @@ typeCheck ttype typee = case ttype of
     TTArray _ _ ofType _ -> case typee of
         TArray _ _ ofType2 -> if ofType == ofType2 then True else False
         otherwise -> False
-    (TFuncDef stmts funcArg tTypes tStateOldFunc) -> case typee of
+    TFuncDef defOfFun@(stmts, funcArg, tTypes, tStateOldFunc) -> case typee of
         TFunc argType retType -> if (tTypes == retType) then
                                     True
                                  else False
