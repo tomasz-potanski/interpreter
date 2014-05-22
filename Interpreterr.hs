@@ -104,7 +104,10 @@ identToTType (Ident ident) s@(stateOld, funcMap) =
             TTString s  -> (TTString s)
             TTInt i     -> (TTInt i)
             TTVoid     -> (TTVoid)
-            TTFuncDef tFuncDef     -> (TTFuncDef tFuncDef)
+            TTFuncDef tFuncDef     -> case (M.lookup ident funcMap) of
+                Nothing -> error("Function has associated variable, but could not be found in map ;-/")
+                Just v -> (TTFuncDef v)
+                --(TTFuncDef tFuncDef)
             TTBoolean b -> (TTBoolean b)
             TTArray minn maxx ofType values -> (TTArray minn maxx ofType values)
 
