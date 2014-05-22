@@ -411,15 +411,15 @@ interpretBExp b s@(state, funcMap) = case b of
 		False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
 	BStringRel (Ident x) str -> case (checkifVarExists (Ident x) s) of
+		False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 		True -> case (M.lookup x state) of
+		    Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 		    Just n -> case n of
 			TTBoolean _ -> error("Error - type mismatch")
 			TTInt _ -> error("Error - type mismatch")
 			TTVoid -> error("Error - type mismatch")
 			TTArray _ _ _ _ -> error("Error - type mismatch")
 			TTString str2 -> if str == str2 then True else False
-		    Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
-		False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
 
 	BStringRel2 str (Ident x) -> case (checkifVarExists (Ident x) s) of
