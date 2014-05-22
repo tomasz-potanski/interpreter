@@ -49,6 +49,16 @@ typeToDefaultTType typee = case typee of
     TArray minn maxx ofType -> TTArray minn maxx ofType M.empty
 
 
+ttypeToType :: TTypes -> Type
+ttypeToType typee = case typee of
+    TTVoid -> TVoid
+    TTInt _ -> TInt
+    TTBoolean _ -> TBool
+    TTString _ -> TString
+--    TArray minn maxx ofType -> TTArray minn maxx ofType M.empty
+    TTArray _ _ ofType _ -> TArray 0 10 ofType M.empty
+
+
 identToString :: Ident -> TState3 -> String
 identToString (Ident ident) s@(stateOld, funcMap) =
     case (M.lookup ident stateOld) of
@@ -100,8 +110,7 @@ genericTypeCheck t1 t2 = if t1 == t2 then True else False
 
 
 genericTTypeCheck :: TTypes -> TTypes -> Bool
---genericTTypeCheck t1 t2 = if t1 == t2 then True else False
-genericTTypeCheck t1 t2 = True
+genericTTypeCheck t1 t2 = typeCheck t1 (ttypeToType t2)
 
 extractString :: TTypes -> String
 extractString (TTString s) = s
