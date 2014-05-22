@@ -875,12 +875,12 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                                         TTInt _ ->
                                             let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (interpretExp exp s)) (M.union tStateOld extState) , funcMap))
                                             in
-                                            showToUser (identToInt (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+                                            showToUser (identToString (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                         --              Sorry for the code repetition, I don't know how to handle it better ;)
                                         TTBoolean _ ->
                                             let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (interpretExp exp s)) (M.union tStateOld extState) , funcMap))
                                             in
-                                            showToUser (identToInt (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+                                            showToUser (identToString (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                                 TBool -> case tTypes of
                                         TTVoid -> error("Error - function must return Int or Boolean...")
                                         TTString _ -> error("Error - function must return Int or Boolean...")
@@ -888,12 +888,12 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                                         TTInt _ ->
                                             let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTBoolean (intToBool (interpretExp exp s))) (M.union tStateOld extState) , funcMap))
                                             in
-                                            showToUser (identToInt (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+                                            showToUser (identToString (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                         --              Sorry for the code repetition, I don't know how to handle it better ;)
                                         TTBoolean _ ->
                                             let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTBoolean (intToBool (interpretExp exp s))) (M.union tStateOld extState) , funcMap))
                                             in
-                                            showToUser (identToInt (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+                                            showToUser (identToString (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                 EmptyArgs -> error("Error - function/procedure need argument")
 
 
