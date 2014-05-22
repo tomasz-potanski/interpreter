@@ -160,6 +160,7 @@ transBExp x = case x of
   BStringRel id str  -> failure x
   BStringRel2 str id  -> failure x
   BStringRel3 id1 id2  -> failure x
+  BStringRel4 str1 str2  -> failure x
   BLit boollit  -> failure x
   BIdent id  -> failure x
   BExpArray id n  -> failure x

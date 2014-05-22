@@ -15,7 +15,7 @@ proc
 	//	return 3;
 		//zwracam := 3;
 		str := "1";
-		if (zm.equals(str)) then
+		if ("1".equals("1")) then
 			zwracam := True;
 		else
 			zwracam := False;

@@ -422,6 +422,8 @@ interpretBExp b s@(state, funcMap) = case b of
                 TTString str2 -> if str == str2 then True else False;
 			}
 
+	BStringRel4 str1 str2 -> if (str1 == str2) then True else False
+
 
 	BStringRel2 str (Ident x) -> case (checkifVarExists (Ident x) s) of
 		True -> case (M.lookup x state) of

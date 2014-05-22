@@ -247,6 +247,7 @@ instance Print BExp where
    BStringRel id str -> prPrec i 2 (concatD [prt 0 id , doc (showString ".equals") , doc (showString "(") , prt 0 str , doc (showString ")")])
    BStringRel2 str id -> prPrec i 2 (concatD [prt 0 str , doc (showString ".equals") , doc (showString "(") , prt 0 id , doc (showString ")")])
    BStringRel3 id0 id -> prPrec i 2 (concatD [prt 0 id0 , doc (showString ".equals") , doc (showString "(") , prt 0 id , doc (showString ")")])
+   BStringRel4 str0 str -> prPrec i 2 (concatD [prt 0 str0 , doc (showString ".equals") , doc (showString "(") , prt 0 str , doc (showString ")")])
    BLit boollit -> prPrec i 2 (concatD [prt 0 boollit])
    BIdent id -> prPrec i 2 (concatD [prt 0 id])
    BExpArray id n -> prPrec i 2 (concatD [prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]")])
