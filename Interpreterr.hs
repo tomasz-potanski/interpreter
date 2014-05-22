@@ -99,7 +99,7 @@ genericTypeCheck :: Type -> Type -> Bool
 genericTypeCheck t1 t2 = if t1 == t2 then True else False
 
 
-genericTTypeCheck :: TType -> TType -> Bool
+genericTTypeCheck :: TTypes -> TTypes -> Bool
 --genericTTypeCheck t1 t2 = if t1 == t2 then True else False
 genericTTypeCheck t1 t2 = True
 
