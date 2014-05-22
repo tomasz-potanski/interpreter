@@ -511,6 +511,34 @@ interpretBExp b s@(state, funcMap) = case b of
 		};
 	}
 
+	BStringRel6 (Ident x) int (Ident y) -> case (checkifVarExists (Ident x) s) of {
+		False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!");
+		True -> case (M.lookup x state) of {;
+		    Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!");;
+		    Just (TTArray minn maxx arrayType arrayMap) -> case (M.lookup int arrayMap) of {;;
+                Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!");;;
+                Just n -> case n of { ;;;
+                    TTBoolean _ -> error("Error - type mismatch");;;;
+                    TTInt _ -> error("Error - type mismatch");;;;
+                    TTVoid -> error("Error - type mismatch");;;;
+                    TTArray _ _ _ _ -> error("Error - type mismatch");;;;
+                    TTString str2 -> case (checkifVarExists (Ident x) s) of {;;;;
+                        False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!");;;;;
+                        True -> case (M.lookup y state) of {;;;;;
+                            Nothing -> error("Error - Variable: " ++ (show y) ++ " has not been declared!");;;;;;
+                            Just n -> case n of {;;;;;;
+                                TTBoolean _ -> error("Error - type mismatch");;;;;;;
+                                TTInt _ -> error("Error - type mismatch");;;;;;;
+                                TTVoid -> error("Error - type mismatch");;;;;;;
+                                TTArray _ _ _ _ -> error("Error - type mismatch");;;;;;;
+                                TTString str -> if str == str2 then True else False;;;;;;;
+                            };;;;;;
+                        };;;;;
+                    };;;;
+                };;;
+			};;
+		};
+	}
 
 --	BStringRel3 (Ident x) (Ident y) -> case (checkifVarExists (Ident x) s) of
 --		False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")

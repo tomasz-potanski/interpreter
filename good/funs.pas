@@ -1,6 +1,7 @@
 var
 	a : Integer;
 	table : Array[0..10] of String;
+	sss : String ;
 proc
 	procedure p( x : Array[0..10] of String ;);
 	begin
@@ -26,7 +27,8 @@ begin
 	//print <-- ( zwracam() );
 	a := 2;
 	table[1]:="1";
-	print <- ( table[1].equals("1") );
+	sss:="1";
+	print <- ( table[1].equals(sss) );
 	//print <- ( 2*zwracam(table) - 1 );
 	
 	//table[1]:="MMM";
