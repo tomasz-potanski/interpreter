@@ -998,7 +998,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                     True -> (showToUser "True" s)
                     False -> (showToUser "False" s)
 		TTString val -> (showToUser val s)
-		TTFuncDef tFunDef -> error("Error - variable represents function and is unprintable ;)")
+		TTFuncDef tFunDef -> error("Error - variable: " ++ (show x) ++ " represents function and is unprintable ;)")
 		otherwise -> error("Error - Variable: " ++ (show x) ++ " is unprintable!")
 	    Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
