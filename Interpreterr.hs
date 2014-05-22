@@ -56,8 +56,8 @@ typeToDefaultTType typee = case typee of
     TArray minn maxx ofType -> TTArray minn maxx ofType M.empty
     TFunc argType retType -> TTFuncDef (SBlank,  (NonEmptyArgs (DLList ((Ident "arg"):[]) argType )), (typeToDefaultTType retType), M.empty)
 
-tTFunDefToTFunDef :: TTFuncDef -> TFuncDef
-tTFunDefToTFunDef tT@(TTFuncDef def) = def
+tTFunDefToTFunDef :: TTypes -> TFuncDef
+tTFunDefToTFunDef (TTFuncDef def) = def
 
 
 ttypeToType :: TTypes -> Type
