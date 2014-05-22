@@ -1155,7 +1155,7 @@ addOneVariable (Ident ident) typee state@(tStateOld, funcMap) = case typee of
 		TVoid -> state
 		TBool -> simpleAddOneVar (Ident ident) (TTBoolean False) state
 --		TFunc argType retType -> (tStateOld, addOneFunction (FLineArg (Ident ident) (DLList [] ) retType VariableDeclaration []) funcMap)
-		TFunc argType retType -> simpleAddOneVar (Ident ident) (TTFuncDef (SBlank, (NonEmptyArgs (DLList (Ident "arg") argType)), retType, state)) state
+		TFunc argType retType -> simpleAddOneVar (Ident ident) (TTFuncDef (SBlank, (NonEmptyArgs (DLList ((Ident "arg"):[]) argType)), (typeToDefaultTType retType), tStateOld)) state
 		TString -> simpleAddOneVar (Ident ident) (TTString "") state
 		TArray minn maxx typee -> 
 			if (minn < maxx) && (minn >= 0) then 
