@@ -15,7 +15,7 @@ proc
 	//	return 3;
 		//zwracam := 3;
 		str := "1";
-		if ("1".equals("1")) then
+		if (zm.equals("1")) then
 			zwracam := True;
 		else
 			zwracam := False;
@@ -25,8 +25,8 @@ proc
 begin
 	//print <-- ( zwracam() );
 	a := 2;
-
-	print <- ( 2*zwracam("1") - 1 );
+	table[1]:="1";
+	print <- ( 2*zwracam(table[1]) - 1 );
 	
 	//table[1]:="MMM";
 	//print <--(table[0]);

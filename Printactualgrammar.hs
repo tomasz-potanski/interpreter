@@ -233,6 +233,7 @@ instance Print Exp where
    EId id -> prPrec i 2 (concatD [prt 0 id])
    EFunNonArg id -> prPrec i 2 (concatD [prt 0 id , doc (showString "(") , doc (showString ")")])
    EFunId id0 id -> prPrec i 2 (concatD [prt 0 id0 , doc (showString "(") , prt 0 id , doc (showString ")")])
+   EFunIdArray id0 id n -> prPrec i 2 (concatD [prt 0 id0 , doc (showString "(") , prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ")")])
    EFunExp id exp -> prPrec i 2 (concatD [prt 0 id , doc (showString "(") , prt 0 exp , doc (showString ")")])
    EFunBExp id bexp -> prPrec i 2 (concatD [prt 0 id , doc (showString "(") , prt 0 bexp , doc (showString ")")])
    EFunString id str -> prPrec i 2 (concatD [prt 0 id , doc (showString "(") , prt 0 str , doc (showString ")")])

@@ -146,6 +146,7 @@ transExp x = case x of
   EId id  -> failure x
   EFunNonArg id  -> failure x
   EFunId id1 id2  -> failure x
+  EFunIdArray id1 id2 n3  -> failure x
   EFunExp id exp  -> failure x
   EFunBExp id bexp  -> failure x
   EFunString id str  -> failure x

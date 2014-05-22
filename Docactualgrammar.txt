@@ -160,6 +160,7 @@ All other symbols are terminals.
   |  |  **|**  | //Ident// 
   |  |  **|**  | //Ident// ``(`` ``)`` 
   |  |  **|**  | //Ident// ``(`` //Ident// ``)`` 
+  |  |  **|**  | //Ident// ``(`` //Ident// ``[`` //Integer// ``]`` ``)`` 
   |  |  **|**  | //Ident// ``(`` //Exp// ``)`` 
   |  |  **|**  | //Ident// ``(`` //BExp// ``)`` 
   |  |  **|**  | //Ident// ``(`` //String// ``)`` 
