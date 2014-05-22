@@ -40,6 +40,9 @@ type TStore = M.Map TLoc TTypes
 --idAndTypeToVarDecl :: Ident -> Type ->
 --idAndTypeToVarDecl (Ident x) typee
 
+insertVariable:: Ident -> (TTypes, TState3) -> TState3
+insertVariable (Ident x) (varTType, s@(extState, funcMap)) = ((M.insert x varTType extState) , funcMap)
+
 typeToDefaultTType :: Type -> TTypes
 typeToDefaultTType typee = case typee of
     TVoid -> TTVoid
@@ -75,6 +78,20 @@ identToString (Ident ident) s@(stateOld, funcMap) =
                     TTInt ii     -> (show ii)
                     TTBoolean bb -> if bb == True then "True" else "False"
 
+
+
+identToTType :: Ident -> TState3 -> String
+identToTType (Ident ident) s@(stateOld, funcMap) =
+    case (M.lookup ident stateOld) of
+        Nothing -> error("Error - variable " ++ (show ident) ++ " has not been found!")
+        Just n -> case n of
+            TTString s  -> (TTString s)
+            TTInt i     -> (TTInt i)
+            TTVoid     -> (TTVoid)
+            TTFuncDef tFuncDef     -> (TTFuncDef tFuncDef)
+            TTBoolean b -> (TTBoolean b)
+            TTArray minn maxx ofType values -> (TTArray minn maxx ofType values)
+
 identToInt :: Ident -> TState3 -> Integer
 identToInt (Ident ident) s@(stateOld, funcMap) =
     case (M.lookup ident stateOld) of
@@ -89,6 +106,28 @@ identToInt (Ident ident) s@(stateOld, funcMap) =
                     TTString ss  -> error("Error - integer or boolean was expected")
                     TTInt ii     -> ii
                     TTBoolean bb -> if bb == True then 1 else 0
+
+proccToReturnType:: Procc -> TState3 -> TTypes
+proccToReturnType procc s@(extState, funcMap) = case procc of
+    ProcCall (Ident fid)  -> case (M.lookup fid funcMap) of
+        Noting -> error("Error - function: " ++ (show fid) ++ "has not been found!")
+        Just (_, _, retTtypes, _) -> retTtypes
+    ProcCallId (Ident fid) (Ident argId) -> case (M.lookup fid funcMap) of
+        Noting -> error("Error - function: " ++ (show fid) ++ "has not been found!")
+        Just (_, _, retTtypes, _) -> retTtypes
+    ProcCallIdArray (Ident fid) (Ident arrayId) index -> case (M.lookup fid funcMap) of
+        Noting -> error("Error - function: " ++ (show fid) ++ "has not been found!")
+        Just (_, _, retTtypes, _) -> retTtypes
+    ProcCallExp (Ident fid) exp -> case (M.lookup fid funcMap) of
+        Noting -> error("Error - function: " ++ (show fid) ++ "has not been found!")
+        Just (_, _, retTtypes, _) -> retTtypes
+    ProcCallBExp (Ident fid) bexp -> case (M.lookup fid funcMap) of
+        Noting -> error("Error - function: " ++ (show fid) ++ "has not been found!")
+        Just (_, _, retTtypes, _) -> retTtypes
+    ProccProcCallString (Ident fid) str -> case (M.lookup fid funcMap) of
+        Noting -> error("Error - function: " ++ (show fid) ++ "has not been found!")
+        Just (_, _, retTtypes, _) -> retTtypes
+
 
 typeCheck :: TTypes -> Type -> Bool
 typeCheck ttype typee = case ttype of
@@ -612,7 +651,24 @@ interpretBExp b s@(state, funcMap) = case b of
 		GE -> (interpretExp exp1 s) >= (interpretExp exp2 s)
 		EQU -> (interpretExp exp1 s) == (interpretExp exp2 s)
 		NE -> (interpretExp exp1 s) /= (interpretExp exp2 s)
-		
+
+---------------------------------------------
+
+sRunFun :: Ident -> TState3 -> (TTypes ,TState3)
+sRunFun (Ident x) s@(extState, funcMap) -> case (M.lookup x funcMap) of
+    Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
+    Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
+        let globals = M.intersection extState tStateOld
+        in
+        case varDeclarationLine of
+            NonEmptyArgs _ -> error("Error - function/procedure need argument")
+            EmptyArgs -> case tTypes of
+                TTVoid -> error("Error - function must return sth...")
+                otherwise ->
+                    let stateAfterFunctionCall = (interpretStmt stmt ((M.union tStateOld extState) , funcMap))
+                    in
+                    ((identToTType (Ident x) stateAfterFunctionCall), ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap))
+
 -----------------STATEMETNS----------------
 interpretStmts :: [Stmt] -> TState3 -> TState3
 interpretStmts [] s = s
@@ -649,6 +705,18 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	                else
 	                    error("Error - type mismatch!")
 
+    SProcAttr (Ident x) procc -> case (M.lookup x extState) of
+	Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+	Just vx -> if genericTTypeCheck vx (proccToReturnType procc) then
+                    case procc of
+                        ProcCall (Ident fid) -> (insertVariable (Ident x) (sRunFun fid s))
+--                        ProcCallId (Ident fid) (Ident varId) -> (insertVariable (Ident x) (sRunFunId fid varId s))
+--                        ProcCallIdArray (Ident fid) (Ident arrayId) index -> (insertVariable (Ident x) (sRunFunIdArray fid arrayId index s))
+--                        ProcCallExp (Ident fid) exp -> (insertVariable (Ident x) (sRunFunExp fid exp s))
+--                        ProcCallBExp (Ident fid) bexp -> (insertVariable (Ident x) (sRunFunBExp fid bexp s))
+--                        ProcCallString (Ident fid) str -> (insertVariable (Ident x) (sRunFunString fid str s))
+	           else
+	                error("Error - type mismatch")
 
     SAzs (Ident x) intt -> case (checkifVarExists (Ident x) s) of  
 	True -> let val = (intToStr intt)
