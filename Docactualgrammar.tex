@@ -219,6 +219,7 @@ All other symbols are terminals.\\
  & {\delimit}  &{\terminal{print}} {\terminal{{$<$}{$-$}{$-$}}} {\terminal{(}} {\nonterminal{Ident}} {\terminal{(}} {\nonterminal{String}} {\terminal{)}} {\terminal{)}} {\terminal{;}}  \\
  & {\delimit}  &{\terminal{print}} {\terminal{{$<$}{$-$}{$-$}}} {\terminal{(}} {\nonterminal{Ident}} {\terminal{(}} {\nonterminal{Ident}} {\terminal{)}} {\terminal{)}} {\terminal{;}}  \\
  & {\delimit}  &{\terminal{print}} {\terminal{{$<$}{$-$}{$-$}}} {\terminal{(}} {\nonterminal{Ident}} {\terminal{(}} {\nonterminal{Ident}} {\terminal{[}} {\nonterminal{Integer}} {\terminal{]}} {\terminal{)}} {\terminal{)}} {\terminal{;}}  \\
+ & {\delimit}  &{\nonterminal{Ident}} {\terminal{:{$=$}}} {\nonterminal{Procc}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{(}} {\terminal{)}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{(}} {\nonterminal{Ident}} {\terminal{)}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{(}} {\nonterminal{Ident}} {\terminal{[}} {\nonterminal{Integer}} {\terminal{]}} {\terminal{)}} {\terminal{;}}  \\
@@ -257,6 +258,15 @@ All other symbols are terminals.\\
 \begin{tabular}{lll}
 {\nonterminal{IfStmt3}} & {\arrow}  &{\terminal{if}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}} {\terminal{elif}} {\nonterminal{BExp}} {\terminal{then}} {\nonterminal{Stmt}} {\terminal{else}} {\nonterminal{Stmt}} {\terminal{endif}}  \\
  & {\delimit}  &{\terminal{(}} {\nonterminal{IfStmt}} {\terminal{)}}  \\
+\end{tabular}\\
+
+\begin{tabular}{lll}
+{\nonterminal{Procc}} & {\arrow}  &{\nonterminal{Ident}} {\terminal{(}} {\terminal{)}} {\terminal{;}}  \\
+ & {\delimit}  &{\nonterminal{Ident}} {\terminal{(}} {\nonterminal{Ident}} {\terminal{)}} {\terminal{;}}  \\
+ & {\delimit}  &{\nonterminal{Ident}} {\terminal{(}} {\nonterminal{Ident}} {\terminal{[}} {\nonterminal{Integer}} {\terminal{]}} {\terminal{)}} {\terminal{;}}  \\
+ & {\delimit}  &{\nonterminal{Ident}} {\terminal{(}} {\nonterminal{Exp}} {\terminal{)}} {\terminal{;}}  \\
+ & {\delimit}  &{\nonterminal{Ident}} {\terminal{(}} {\nonterminal{BExp}} {\terminal{)}} {\terminal{;}}  \\
+ & {\delimit}  &{\nonterminal{Ident}} {\terminal{(}} {\nonterminal{String}} {\terminal{)}} {\terminal{;}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}

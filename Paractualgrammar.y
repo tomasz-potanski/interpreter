@@ -222,6 +222,7 @@ Stmt : ';' { SBlank }
   | 'print' '<--' '(' Ident '(' String ')' ')' ';' { SPrintFunString $4 $6 }
   | 'print' '<--' '(' Ident '(' Ident ')' ')' ';' { SPrintFunId $4 $6 }
   | 'print' '<--' '(' Ident '(' Ident '[' Integer ']' ')' ')' ';' { SPrintFunIdArray $4 $6 $8 }
+  | Ident ':=' Procc { SProcAttr $1 $3 }
   | Ident '(' ')' ';' { SProcCall $1 }
   | Ident '(' Ident ')' ';' { SProcCallId $1 $3 }
   | Ident '(' Ident '[' Integer ']' ')' ';' { SProcCallIdArray $1 $3 $5 }
@@ -260,6 +261,15 @@ IfStmt2 : 'if' BExp 'then' Stmt 'elif' BExp 'then' Stmt 'endif' { IfElif $2 $4 $
 IfStmt3 :: { IfStmt }
 IfStmt3 : 'if' BExp 'then' Stmt 'elif' BExp 'then' Stmt 'else' Stmt 'endif' { IfElifElse $2 $4 $6 $8 $10 } 
   | '(' IfStmt ')' { $2 }
+
+
+Procc :: { Procc }
+Procc : Ident '(' ')' ';' { ProcCall $1 } 
+  | Ident '(' Ident ')' ';' { ProcCallId $1 $3 }
+  | Ident '(' Ident '[' Integer ']' ')' ';' { ProcCallIdArray $1 $3 $5 }
+  | Ident '(' Exp ')' ';' { ProcCallExp $1 $3 }
+  | Ident '(' BExp ')' ';' { ProcCallBExp $1 $3 }
+  | Ident '(' String ')' ';' { ProccProcCallString $1 $3 }
 
 
 Exp :: { Exp }

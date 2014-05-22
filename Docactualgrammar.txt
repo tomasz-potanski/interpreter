@@ -137,6 +137,7 @@ All other symbols are terminals.
   |  |  **|**  | ``print`` ``<--`` ``(`` //Ident// ``(`` //String// ``)`` ``)`` ``;`` 
   |  |  **|**  | ``print`` ``<--`` ``(`` //Ident// ``(`` //Ident// ``)`` ``)`` ``;`` 
   |  |  **|**  | ``print`` ``<--`` ``(`` //Ident// ``(`` //Ident// ``[`` //Integer// ``]`` ``)`` ``)`` ``;`` 
+  |  |  **|**  | //Ident// ``:=`` //Procc// 
   |  |  **|**  | //Ident// ``(`` ``)`` ``;`` 
   |  |  **|**  | //Ident// ``(`` //Ident// ``)`` ``;`` 
   |  |  **|**  | //Ident// ``(`` //Ident// ``[`` //Integer// ``]`` ``)`` ``;`` 
@@ -157,6 +158,12 @@ All other symbols are terminals.
   |  |  **|**  | //IfStmt3// 
   | //IfStmt3// | -> | ``if`` //BExp// ``then`` //Stmt// ``elif`` //BExp// ``then`` //Stmt// ``else`` //Stmt// ``endif`` 
   |  |  **|**  | ``(`` //IfStmt// ``)`` 
+  | //Procc// | -> | //Ident// ``(`` ``)`` ``;`` 
+  |  |  **|**  | //Ident// ``(`` //Ident// ``)`` ``;`` 
+  |  |  **|**  | //Ident// ``(`` //Ident// ``[`` //Integer// ``]`` ``)`` ``;`` 
+  |  |  **|**  | //Ident// ``(`` //Exp// ``)`` ``;`` 
+  |  |  **|**  | //Ident// ``(`` //BExp// ``)`` ``;`` 
+  |  |  **|**  | //Ident// ``(`` //String// ``)`` ``;`` 
   | //Exp// | -> | //Exp// ``+`` //Exp1// 
   |  |  **|**  | //Exp// ``-`` //Exp1// 
   |  |  **|**  | //Exp1// 

@@ -7,5 +7,7 @@ begin
 	s2 := "bbb";
 	i := 2;
 	//s2 := i;
+	;;;;
+	;
 	print <-- (s2);
 end.

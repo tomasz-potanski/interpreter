@@ -211,6 +211,7 @@ instance Print Stmt where
    SPrintFunString id str -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<--") , doc (showString "(") , prt 0 id , doc (showString "(") , prt 0 str , doc (showString ")") , doc (showString ")") , doc (showString ";")])
    SPrintFunId id0 id -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<--") , doc (showString "(") , prt 0 id0 , doc (showString "(") , prt 0 id , doc (showString ")") , doc (showString ")") , doc (showString ";")])
    SPrintFunIdArray id0 id n -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<--") , doc (showString "(") , prt 0 id0 , doc (showString "(") , prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ")") , doc (showString ")") , doc (showString ";")])
+   SProcAttr id procc -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 procc])
    SProcCall id -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , doc (showString ")") , doc (showString ";")])
    SProcCallId id0 id -> prPrec i 0 (concatD [prt 0 id0 , doc (showString "(") , prt 0 id , doc (showString ")") , doc (showString ";")])
    SProcCallIdArray id0 id n -> prPrec i 0 (concatD [prt 0 id0 , doc (showString "(") , prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ")") , doc (showString ";")])
@@ -228,6 +229,16 @@ instance Print IfStmt where
    IfElse bexp stmt0 stmt -> prPrec i 1 (concatD [doc (showString "if") , prt 0 bexp , doc (showString "then") , prt 0 stmt0 , doc (showString "else") , prt 0 stmt , doc (showString "endif")])
    IfElif bexp0 stmt1 bexp stmt -> prPrec i 2 (concatD [doc (showString "if") , prt 0 bexp0 , doc (showString "then") , prt 0 stmt1 , doc (showString "elif") , prt 0 bexp , doc (showString "then") , prt 0 stmt , doc (showString "endif")])
    IfElifElse bexp0 stmt1 bexp stmt2 stmt -> prPrec i 3 (concatD [doc (showString "if") , prt 0 bexp0 , doc (showString "then") , prt 0 stmt1 , doc (showString "elif") , prt 0 bexp , doc (showString "then") , prt 0 stmt2 , doc (showString "else") , prt 0 stmt , doc (showString "endif")])
+
+
+instance Print Procc where
+  prt i e = case e of
+   ProcCall id -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , doc (showString ")") , doc (showString ";")])
+   ProcCallId id0 id -> prPrec i 0 (concatD [prt 0 id0 , doc (showString "(") , prt 0 id , doc (showString ")") , doc (showString ";")])
+   ProcCallIdArray id0 id n -> prPrec i 0 (concatD [prt 0 id0 , doc (showString "(") , prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ")") , doc (showString ";")])
+   ProcCallExp id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 exp , doc (showString ")") , doc (showString ";")])
+   ProcCallBExp id bexp -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 bexp , doc (showString ")") , doc (showString ";")])
+   ProccProcCallString id str -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 str , doc (showString ")") , doc (showString ";")])
 
 
 instance Print Exp where

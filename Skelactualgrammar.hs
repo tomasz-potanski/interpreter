@@ -127,6 +127,7 @@ transStmt x = case x of
   SPrintFunString id str  -> failure x
   SPrintFunId id1 id2  -> failure x
   SPrintFunIdArray id1 id2 n3  -> failure x
+  SProcAttr id procc  -> failure x
   SProcCall id  -> failure x
   SProcCallId id1 id2  -> failure x
   SProcCallIdArray id1 id2 n3  -> failure x
@@ -141,6 +142,16 @@ transIfStmt x = case x of
   IfElse bexp stmt1 stmt2  -> failure x
   IfElif bexp1 stmt2 bexp3 stmt4  -> failure x
   IfElifElse bexp1 stmt2 bexp3 stmt4 stmt5  -> failure x
+
+
+transProcc :: Procc -> Result
+transProcc x = case x of
+  ProcCall id  -> failure x
+  ProcCallId id1 id2  -> failure x
+  ProcCallIdArray id1 id2 n3  -> failure x
+  ProcCallExp id exp  -> failure x
+  ProcCallBExp id bexp  -> failure x
+  ProccProcCallString id str  -> failure x
 
 
 transExp :: Exp -> Result

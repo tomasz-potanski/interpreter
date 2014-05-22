@@ -103,6 +103,7 @@ data Stmt =
  | SPrintFunString Ident String
  | SPrintFunId Ident Ident
  | SPrintFunIdArray Ident Ident Integer
+ | SProcAttr Ident Procc
  | SProcCall Ident
  | SProcCallId Ident Ident
  | SProcCallIdArray Ident Ident Integer
@@ -116,6 +117,15 @@ data IfStmt =
  | IfElse BExp Stmt Stmt
  | IfElif BExp Stmt BExp Stmt
  | IfElifElse BExp Stmt BExp Stmt Stmt
+  deriving (Eq,Ord,Show)
+
+data Procc =
+   ProcCall Ident
+ | ProcCallId Ident Ident
+ | ProcCallIdArray Ident Ident Integer
+ | ProcCallExp Ident Exp
+ | ProcCallBExp Ident BExp
+ | ProccProcCallString Ident String
   deriving (Eq,Ord,Show)
 
 data Exp =
