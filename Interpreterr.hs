@@ -913,12 +913,12 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                                         TTString _ -> error("Error - function must return Int or Boolean...")
                                         TTArray _ _ _ _ -> error("Error - function must return Int or Boolean...")
                                         TTInt _ ->
-                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (boolToInt (interpretBExp exp s))) (M.union tStateOld extState) , funcMap))
+                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (boolToInt (interpretBExp bexp s))) (M.union tStateOld extState) , funcMap))
                                             in
                                             showToUser (identToString (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                         --              Sorry for the code repetition, I don't know how to handle it better ;)
                                         TTBoolean _ ->
-                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (boolToInt (interpretBExp exp s))) (M.union tStateOld extState) , funcMap))
+                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (boolToInt (interpretBExp bexp s))) (M.union tStateOld extState) , funcMap))
                                             in
                                             showToUser (identToString (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                                 TBool -> case tTypes of
@@ -926,12 +926,12 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                                         TTString _ -> error("Error - function must return Int or Boolean...")
                                         TTArray _ _ _ _ -> error("Error - function must return Int or Boolean...")
                                         TTInt _ ->
-                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTBoolean (interpretBExp exp s)) (M.union tStateOld extState) , funcMap))
+                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTBoolean (interpretBExp bexp s)) (M.union tStateOld extState) , funcMap))
                                             in
                                             showToUser (identToString (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                         --              Sorry for the code repetition, I don't know how to handle it better ;)
                                         TTBoolean _ ->
-                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTBoolean (interpretBExp exp s)) (M.union tStateOld extState) , funcMap))
+                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTBoolean (interpretBExp bexp s)) (M.union tStateOld extState) , funcMap))
                                             in
                                             showToUser (identToString (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                 EmptyArgs -> error("Error - function/procedure need argument")
