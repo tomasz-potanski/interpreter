@@ -722,7 +722,8 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	    Nothing -> case (M.lookup y funcMap) of
 	        Nothing -> error("Error - Variable: " ++ (show y) ++ " has not been declared!")
 	        Just fvy -> if genericTTypeCheck (TTFuncDef fvy) vx then
-	                        error("Error - not implemented yet")
+--	                        error("Error - not implemented yet")
+                            ((M.insert x (TTFuncDef fvy) extState), (M.insert x fvy funcMap))
 	                    else
 	                        error("Error - type mismatch!")
 	    Just vy -> if genericTTypeCheck vx vy then
