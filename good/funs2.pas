@@ -1,11 +1,11 @@
 proc
 
-	function druk(zm : Boolean ;) : Boolean;
+	function druk(zm : String ;) : Boolean;
 	begin
 		print <-- (zm);
 		druk := True;
 	end
 
 begin
-	print <-- ( druk(True) );
+	print <-- ( druk("fsdfsdfs") );
 end.
