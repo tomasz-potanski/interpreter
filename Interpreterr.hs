@@ -860,7 +860,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
     SPrintFunExp (Ident x) exp -> case (M.lookup x funcMap) of
         Nothing -> error("Error - invalid function name!");
         Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
-            let globals = M.intersection state tStateOld
+            let globals = M.intersection extState tStateOld
             in
             case varDeclarationLine of
                 NonEmptyArgs v -> case v of
@@ -873,12 +873,12 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                                         TTString _ -> error("Error - function must return Int or Boolean...")
                                         TTArray _ _ _ _ -> error("Error - function must return Int or Boolean...")
                                         TTInt _ ->
-                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (interpretExp exp s)) (M.union tStateOld ExtState) , funcMap))
+                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (interpretExp exp s)) (M.union tStateOld extState) , funcMap))
                                             in
                                             showToUser (identToInt (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                         --              Sorry for the code repetition, I don't know how to handle it better ;)
                                         TTBoolean _ ->
-                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (interpretExp exp s)) (M.union tStateOld ExtState) , funcMap))
+                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (interpretExp exp s)) (M.union tStateOld extState) , funcMap))
                                             in
                                             showToUser (identToInt (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                                 TBool -> case tTypes of
@@ -886,12 +886,12 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                                         TTString _ -> error("Error - function must return Int or Boolean...")
                                         TTArray _ _ _ _ -> error("Error - function must return Int or Boolean...")
                                         TTInt _ ->
-                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTBoolean (intToBool (interpretExp exp s))) (M.union tStateOld ExtState) , funcMap))
+                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTBoolean (intToBool (interpretExp exp s))) (M.union tStateOld extState) , funcMap))
                                             in
                                             showToUser (identToInt (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                         --              Sorry for the code repetition, I don't know how to handle it better ;)
                                         TTBoolean _ ->
-                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTBoolean (intToBool (interpretExp exp s))) (M.union tStateOld ExtState) , funcMap))
+                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTBoolean (intToBool (interpretExp exp s))) (M.union tStateOld extState) , funcMap))
                                             in
                                             showToUser (identToInt (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                 EmptyArgs -> error("Error - function/procedure need argument")
