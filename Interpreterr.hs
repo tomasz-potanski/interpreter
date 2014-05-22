@@ -623,6 +623,26 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 			Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
+
+
+--    SAttr (Ident x) exp -> case (checkifVarExists (Ident x) s) of
+--	True ->
+--        	let val = (interpretExp exp s)
+--        	in (M.insert x (TTInt val) extState, funcMap)
+--	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+--    SAssStrToInt (Ident x) str -> case (checkifVarExists (Ident x) s) of
+--	True -> let val = (strToInt str)
+--        	in
+--		    case (M.lookup x extState) of
+--			Just n -> case n of
+--				TTInt _ -> ((M.insert x (TTInt val) extState), funcMap)
+--				TTString _ -> error("Error - incorrect types")
+--				TTBoolean _ -> if (val == 0) || (val == 1) then
+--					((M.insert x (TTBoolean (intToBool val)) extState), funcMap) else s
+--				otherwise -> error("Error - incorrect types")
+--			Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+--	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+
     SAzs (Ident x) intt -> case (checkifVarExists (Ident x) s) of  
 	True -> let val = (intToStr intt)
         	in 

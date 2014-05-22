@@ -6,4 +6,4 @@ begin
 	s2 := "bbb";
 	s2 := s1;
 	print <-- (s2);
-end
+end.

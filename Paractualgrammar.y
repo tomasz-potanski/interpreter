@@ -194,8 +194,7 @@ Stmt2 : 'begin' ListStmt 'end' { SBlock (reverse $2) }
 
 
 Stmt :: { Stmt }
-Stmt : Ident ':=' Ident ';' { SAttr $1 $3 } 
-  | Ident ':=' Exp ';' { SAss $1 $3 }
+Stmt : Ident ':=' Exp ';' { SAss $1 $3 } 
   | Ident '[' Integer ']' ':=' Exp ';' { SAssArray $1 $3 $6 }
   | Ident ':=' BExp ';' { SAssBool $1 $3 }
   | Ident ':=' BoolLit ';' { SAssBoolLit $1 $3 }
