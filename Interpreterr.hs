@@ -80,7 +80,7 @@ identToString (Ident ident) s@(stateOld, funcMap) =
 
 
 
-identToTType :: Ident -> TState3 -> String
+identToTType :: Ident -> TState3 -> TTypes
 identToTType (Ident ident) s@(stateOld, funcMap) =
     case (M.lookup ident stateOld) of
         Nothing -> error("Error - variable " ++ (show ident) ++ " has not been found!")
