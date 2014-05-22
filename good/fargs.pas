@@ -1,5 +1,5 @@
 var
-	//f : Function ( Integer) : Integer;
+	f : Function ( Integer) : Void;
 	global : Integer;
 
 proc
@@ -8,18 +8,24 @@ proc
 		g(global+1);
 	end
 
+	procedure drukuj10 ( aa : Integer ; );
+	begin
+		print <- (aa*10);
+	end
+
 	function drukuj ( aa : Integer ; ) : Void;
 	begin
 		print <-- (aa);
 	end
 
-	function drukuj10 ( aa : Integer ; ) : Void;
+	function zwroc() : Function ( Integer) : Void;
 	begin
-		print <- (aa*10);
+		zwroc := drukuj10;
 	end
 
 begin
 	global := 8;
+	wart( drukuj );
 	wart( drukuj10 );
-	
+	f:= zwroc();
 end.
