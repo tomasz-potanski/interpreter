@@ -124,8 +124,8 @@ SPrintExp.	Stmt	::=	"print" "<-" "(" Exp ")" ";" ;
 SPrintBExp.	Stmt	::=	"print" "<-" "(" BExp ")" ";" ;
 SPrintCharLit.	Stmt	::=	"print" "<-" "(" Char ")" ";" ;
 
-SPrintFun.	    Stmt 	::=	"print" "<--" "(" Ident "(" ")" ")"  ;
-SPrintFunExp.	Stmt 	::=	"print" "<--" "(" Ident "(" Exp ")" ")"  ;
+SPrintFun.	    Stmt 	::=	"print" "<--" "(" Ident "(" ")" ")" ";" ;
+SPrintFunExp.	Stmt 	::=	"print" "<--" "(" Ident "(" Exp ")" ")" ";"  ;
 
 
 

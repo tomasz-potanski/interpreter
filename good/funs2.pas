@@ -1,11 +1,11 @@
 proc
 
-	function druk(a : String ;) : Integer;
+	function druk() : Integer;
 	begin
-		print <-- (a);
+		//print <-- (a);
 		druk := 1;
 	end
 
 begin
-	print <-- ( druk(); );
+	print <-- ( druk() );
 end.
