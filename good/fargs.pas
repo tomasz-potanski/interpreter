@@ -21,7 +21,7 @@ proc
 		print <-- (aa);
 	end
 
-	function zwroc() : Function ( Integer) : Void;
+	function zwroc( a : Integer;) : Function ( Integer) : Void;
 	begin
 		zwroc := drukuj10;
 	end
@@ -36,9 +36,8 @@ begin
 	wart( drukuj );
 	wart( drukuj10 );
 
-	f:= zwroc();
+	f:= zwroc(global);
 	f(10);
 	wart ( f );
-	b:=test();
-	print <-- (b);
+
 end.
