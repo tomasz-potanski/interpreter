@@ -271,6 +271,7 @@ Exp2 : Integer { EInt $1 }
   | Ident '(' ')' { EFunNonArg $1 }
   | Ident '(' Ident ')' { EFunId $1 $3 }
   | Ident '(' Ident '[' Integer ']' ')' { EFunIdArray $1 $3 $5 }
+  | Ident '(' Ident ')' { EFunIdWholeArray $1 $3 }
   | Ident '(' Exp ')' { EFunExp $1 $3 }
   | Ident '(' BExp ')' { EFunBExp $1 $3 }
   | Ident '(' String ')' { EFunString $1 $3 }
@@ -292,6 +293,8 @@ BExp1 : BExp1 '&&' BExp2 { BAnd $1 $3 }
 BExp2 :: { BExp }
 BExp2 : Exp RelOp Exp { BRel $1 $2 $3 } 
   | Ident '.equals' '(' String ')' { BStringRel $1 $4 }
+  | Ident '[' Integer ']' '.equals' '(' String ')' { BStringRel5 $1 $3 $7 }
+  | Ident '[' Integer ']' '.equals' '(' Ident ')' { BStringRel6 $1 $3 $7 }
   | String '.equals' '(' Ident ')' { BStringRel2 $1 $4 }
   | Ident '.equals' '(' Ident ')' { BStringRel3 $1 $4 }
   | String '.equals' '(' String ')' { BStringRel4 $1 $4 }

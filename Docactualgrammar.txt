@@ -161,6 +161,7 @@ All other symbols are terminals.
   |  |  **|**  | //Ident// ``(`` ``)`` 
   |  |  **|**  | //Ident// ``(`` //Ident// ``)`` 
   |  |  **|**  | //Ident// ``(`` //Ident// ``[`` //Integer// ``]`` ``)`` 
+  |  |  **|**  | //Ident// ``(`` //Ident// ``)`` 
   |  |  **|**  | //Ident// ``(`` //Exp// ``)`` 
   |  |  **|**  | //Ident// ``(`` //BExp// ``)`` 
   |  |  **|**  | //Ident// ``(`` //String// ``)`` 
@@ -173,6 +174,8 @@ All other symbols are terminals.
   |  |  **|**  | //BExp2// 
   | //BExp2// | -> | //Exp// //RelOp// //Exp// 
   |  |  **|**  | //Ident// ``.equals`` ``(`` //String// ``)`` 
+  |  |  **|**  | //Ident// ``[`` //Integer// ``]`` ``.equals`` ``(`` //String// ``)`` 
+  |  |  **|**  | //Ident// ``[`` //Integer// ``]`` ``.equals`` ``(`` //Ident// ``)`` 
   |  |  **|**  | //String// ``.equals`` ``(`` //Ident// ``)`` 
   |  |  **|**  | //Ident// ``.equals`` ``(`` //Ident// ``)`` 
   |  |  **|**  | //String// ``.equals`` ``(`` //String// ``)`` 

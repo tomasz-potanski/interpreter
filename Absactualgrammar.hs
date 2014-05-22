@@ -121,6 +121,7 @@ data Exp =
  | EFunNonArg Ident
  | EFunId Ident Ident
  | EFunIdArray Ident Ident Integer
+ | EFunIdWholeArray Ident Ident
  | EFunExp Ident Exp
  | EFunBExp Ident BExp
  | EFunString Ident String
@@ -132,6 +133,8 @@ data BExp =
  | BAnd BExp BExp
  | BRel Exp RelOp Exp
  | BStringRel Ident String
+ | BStringRel5 Ident Integer String
+ | BStringRel6 Ident Integer Ident
  | BStringRel2 String Ident
  | BStringRel3 Ident Ident
  | BStringRel4 String String
