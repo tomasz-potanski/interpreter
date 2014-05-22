@@ -925,6 +925,29 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                                     showToUser (identToString (Ident x) stateAfterFunctionCall)  ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                 EmptyArgs -> error("Error - function/procedure need argument")
 
+
+    SPrintFunId (Ident x) (Ident argIdent) -> case (M.lookup x funcMap) of
+        Nothing -> error("Error - invalid function name!");
+        Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
+            let globals = M.intersection state tStateOld
+            in
+            case varDeclarationLine of
+                NonEmptyArgs v -> case v of
+                        DLList identList@((Ident identArg):_) typee -> case (M.lookup argIdent state) of
+                            Nothing     -> error("Error - variable has not been inicialized!")
+                            Just vvvv   ->
+                                if typeCheck vvvv typee then
+                                    case tTypes of
+                                            TTVoid -> error("Error - function must return Int or Boolean...")
+                                            otherwise ->
+                                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg vvvv (M.union tStateOld state) , funcMap))
+                                                in
+                                                showToUser (identToInt (Ident x) stateAfterFunctionCall)( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+                                else
+                                    error("Error - incorrect types!")
+                EmptyArgs -> error("Error - function/procedure need argument")
+
+
 --	SPrintFun (Ident x) -> case (M.lookup x funcMap) of
 --	    Nothing -> error("Error - funciton: " ++ (show x) ++ " does not exist!")
 --	    Just (stmt, varDeclarationLine, tTypes, tStateOld) ->

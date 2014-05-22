@@ -99,6 +99,7 @@ data Stmt =
  | SPrintFunExp Ident Exp
  | SPrintFunBExp Ident BExp
  | SPrintFunString Ident String
+ | SPrintFunId Ident Ident
  | SProcCall Ident
  | SProcCallId Ident Ident
  | SProcCallIdArray Ident Ident Integer

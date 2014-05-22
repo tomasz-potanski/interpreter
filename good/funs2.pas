@@ -1,11 +1,11 @@
 proc
 
-	function druk(zm : String;) : String;
+	function druk(zm : Boolean;) : Array[0..10] of String;
 	begin
 		print <-- (zm);
-		druk := "Dzialam";
+		druk[0] := "Dzialam";
 	end
 
 begin
-	print <-- ( druk("ala ma kota!") );
+	print <-- ( druk(3 < 2) );
 end.
