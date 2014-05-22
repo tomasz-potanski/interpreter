@@ -1,11 +1,11 @@
 proc
 
-	function druk() : String;
+	function druk(zm : String;) : String;
 	begin
-		//print <-- (zm);
+		print <-- (zm);
 		druk := "Dzialam";
 	end
 
 begin
-	print <-- ( druk() );
+	print <-- ( druk("ala ma kota!") );
 end.
