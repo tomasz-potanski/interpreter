@@ -4,6 +4,7 @@ var
 	s1, s2 : String;
 	i : Integer;
 	b : Boolean;
+	tab : Array[0..10] of Integer;
 
 proc
 	procedure wart ( g : Function ( Integer) : Void; ) ;
@@ -21,8 +22,9 @@ proc
 		print <-- (aa);
 	end
 
-	function zwroc( a : Integer;) : Function ( Integer) : Void;
+	function zwroc( a : Function ( Integer) : Void;) : Function ( Integer) : Void;
 	begin
+		a(3);
 		zwroc := drukuj10;
 	end
 
@@ -33,10 +35,11 @@ proc
 
 begin
 	global := 8;
-	wart( drukuj );
-	wart( drukuj10 );
+	//wart( drukuj );
+	//wart( drukuj10 );
 
-	f:= zwroc(global);
+	tab[1] := 3;
+	f:= zwroc(drukuj);
 	f(10);
 	wart ( f );
 

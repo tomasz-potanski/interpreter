@@ -706,7 +706,19 @@ sRunFunId (Ident x) (Ident argIdent) s@(extState, funcMap) = case (M.lookup x fu
         case varDeclarationLine of
             NonEmptyArgs v -> case v of
                     DLList identList@((Ident identArg):_) typee -> case (M.lookup argIdent extState) of
-                        Nothing     -> error("Error - variable " ++ (show argIdent) ++ "  has not been inicialized!")
+                        Nothing     -> case (M.lookup argIdent funcMap) of
+                            Nothing -> error("Error - variable/funciton " ++ (show argIdent) ++ "  has not been found!")
+                            Just fvy ->
+                                if typeCheck fvy typee then
+                                    case tTypes of
+                                            TTVoid -> error("Error - function must return Int or Boolean...")
+                                            otherwise -> case typee of
+                                                fdef@(TFunc _ _) ->
+                                                    let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg vvvv (M.union tStateOld extState) , (M.insert identArg (tTFunDefToTFunDef (typeToDefaultTType fdef)) funcMap)))
+                                                    in
+                                                    ((identToTType (Ident x) stateAfterFunctionCall), ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap))
+                                else
+                                    error("Error - incorrect types!")
                         Just vvvv   ->
                             if typeCheck vvvv typee then
                                 case tTypes of
