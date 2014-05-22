@@ -24,6 +24,8 @@ proc
 
 	function zwroc( a : Function ( Integer) : Void;) : Function ( Integer) : Void;
 	begin
+		//print <- ("sdfsdf");
+		print <-- (a);		
 		a(3);
 		zwroc := drukuj10;
 	end
@@ -39,8 +41,9 @@ begin
 	//wart( drukuj10 );
 
 	tab[1] := 3;
+	//wart(drukuj);
 	f:= zwroc(drukuj);
-	f(10);
-	wart ( f );
+	//f(10);
+	//wart ( f );
 
 end.
