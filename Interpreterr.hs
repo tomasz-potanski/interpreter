@@ -897,7 +897,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                 EmptyArgs -> error("Error - function/procedure need argument")
 
 
-    SPrintFunExp (Ident x) bexp -> case (M.lookup x funcMap) of
+    SPrintFunBExp (Ident x) bexp -> case (M.lookup x funcMap) of
         Nothing -> error("Error - invalid function name!");
         Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
             let globals = M.intersection extState tStateOld
