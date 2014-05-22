@@ -44,6 +44,7 @@ begin
 	//wart(drukuj);
 	f:= zwroc(drukuj);
 
+//	wart(drukuj);
 	zwroc(f);
 //	zwroc(drukuj);
 //	zwroc(tab[1]);
