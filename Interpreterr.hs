@@ -814,18 +814,19 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 	Just vx@(TTArray minn maxx arrayType arrayMap) -> case (M.lookup index arrayMap) of
 	    Nothing -> error("Error - varriable don't declared...")
-	    Just vxx -> case (M.lookup y extState) of
-            Nothing -> case (M.lookup y funcMap) of
-                Nothing -> error("Error - Variable or funciton: " ++ (show y) ++ " has not been declared!")
-                Just fvy -> if genericTTypeCheck (TTFuncDef fvy) vxx then
+	    Just vxx -> case (M.lookup y extState) of {
+            Nothing -> case (M.lookup y funcMap) of;
+                Nothing -> error("Error - Variable or funciton: " ++ (show y) ++ " has not been declared!");
+                Just fvy -> if genericTTypeCheck (TTFuncDef fvy) vxx then;
     --	                        error("Error - not implemented yet")
-                                ((extState), (M.insert x (TTArray minn maxx arrayType (M.insert  index fvy arrayMap) funcMap)))
-                            else
-                                error("Error - type mismatch!")
-            Just vy -> if genericTTypeCheck vx vy then
-                            ((M.insert x vy extState), funcMap)
-                        else
-                            error("Error - type mismatch!")
+                                ((extState), (M.insert x (TTArray minn maxx arrayType (M.insert  index fvy arrayMap) funcMap)));
+                            else;
+                                error("Error - type mismatch!");
+            Just vy -> if genericTTypeCheck vx vy then;
+                            ((M.insert x vy extState), funcMap);
+                        else;
+                            error("Error - type mismatch!");
+        }
 
     SProcAttr (Ident x) procc -> case (M.lookup x extState) of
 	Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
