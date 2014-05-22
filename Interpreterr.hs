@@ -66,7 +66,7 @@ identToString (Ident ident) s@(stateOld, funcMap) =
 identToInt :: Ident -> TState3 -> Integer
 identToInt (Ident ident) s@(stateOld, funcMap) =
     case (M.lookup ident stateOld) of
-        Nothing -> error("Error - variable has not been found!")
+        Nothing -> error("Error - variable " ++ (show ident) ++ " has not been found!")
         Just n -> case n of
             TTString s  -> error("Error - Integer or Boolean was expected!")
             TTInt i     -> i
@@ -362,7 +362,7 @@ interpretExp x s@(state, funcMap) = case x of
         case varDeclarationLine of
             NonEmptyArgs v -> case v of
 	                DLList identList@((Ident identArg):_) typee -> case (M.lookup argIdent state) of
-	                    Nothing     -> error("Error - variable has not been inicialized!")
+	                    Nothing     -> error("Error - variable " ++ (show argIdent) ++ " has not been inicialized!")
 	                    Just vvvv   ->
 	                        if typeCheck vvvv typee then
                                 case tTypes of
@@ -393,10 +393,10 @@ interpretExp x s@(state, funcMap) = case x of
         case varDeclarationLine of
             NonEmptyArgs v -> case v of
 	                DLList identList@((Ident identArg):_) typee -> case (M.lookup argIdent state) of
-	                    Nothing     -> error("Error - variable has not been inicialized!")
+	                    Nothing     -> error("Error - variable " ++ (show argIdent) ++ "has not been inicialized!")
 	                    Just (TTArray minn maxx arrayType arrayMap)   ->
 	                        case (M.lookup int arrayMap) of
-                                Nothing     -> error("Error - variable has not been inicialized!")
+                                Nothing     -> error("Error - variable " ++ (show argIdent) ++ "[" ++ (show int) ++ "] has not been inicialized: " ++ (show int) ++ " th/st/nd/rd of array: " ++ (show argIdent))
                                 Just vvvv   ->
                                     if typeCheck (typeToDefaultTType arrayType) typee then
                                         case tTypes of
@@ -941,7 +941,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
             case varDeclarationLine of
                 NonEmptyArgs v -> case v of
                         DLList identList@((Ident identArg):_) typee -> case (M.lookup argIdent extState) of
-                            Nothing     -> error("Error - variable has not been inicialized!")
+                            Nothing     -> error("Error - variable " ++ (show argIdent) ++ "  has not been inicialized!")
                             Just vvvv   ->
                                 if typeCheck vvvv typee then
                                     case tTypes of
@@ -964,7 +964,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
             case varDeclarationLine of
                 NonEmptyArgs v -> case v of
                         DLList identList@((Ident identArg):_) typee -> case (M.lookup argIdent extState) of
-                            Nothing     -> error("Error - variable has not been inicialized!")
+                            Nothing     -> error("Error - variable " ++ (show argIdent) ++ " has not been inicialized!")
                             Just (TTArray minn maxx arrayType arrayMap)   -> case (M.lookup int arrayMap) of
                                 Nothing -> error("Error - variable could not be found in array")
                                 Just vvvv ->
@@ -1059,7 +1059,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	        case varDeclarationLine of
 	            NonEmptyArgs v -> case v of
 	                DLList identList@((Ident ident):_) typee -> case (M.lookup argIdent extState) of
-	                    Nothing     -> error("Error - variable has not been inicialized!")
+	                    Nothing     -> error("Error - variable " ++ (argIdent) ++ " has not been inicialized!")
 	                    Just vvvv   -> if typeCheck vvvv typee then
 	                                    case vvvv of
 	                                    TTFuncDef defOfFun ->  ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , (M.insert argIdent defOfFun funcMap)))) globals) extState, funcMap)
@@ -1094,7 +1094,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	        case varDeclarationLine of
 	            NonEmptyArgs v -> case v of
 	                DLList identList@((Ident ident):_) typee -> case (M.lookup argIdent extState) of
-	                    Nothing     -> error("Error - variable has not been inicialized!")
+	                    Nothing     -> error("Error - variable " ++ (show argIdent) ++ " has not been inicialized!")
 	                    Just (TTArray minn maxx ofType arrayMap)   ->
 	                        if genericTypeCheck ofType typee then
 	                            case (M.lookup int arrayMap) of
