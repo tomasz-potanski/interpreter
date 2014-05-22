@@ -389,7 +389,8 @@ interpretExp x s@(state, funcMap) = case x of
 	                    Nothing     -> error("Error - variable has not been inicialized!")
 	                    Just (TTArray minn maxx arrayType arrayMap)   -> case (M.lookup int arrayMap) of
                             Nothing     -> error("Error - variable has not been inicialized!")
-                            Just vvvv -> if typeCheck (typeToDefaultTType arrayType) typee then
+                            Just vvvv ->
+                                if typeCheck (typeToDefaultTType arrayType) typee then
                                     case tTypes of
                                             TTVoid -> error("Error - function must return Int or Boolean...")
                                             TTString _ -> error("Error - function must return Int or Boolean...")
