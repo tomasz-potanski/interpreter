@@ -249,7 +249,7 @@ instance Print BExp where
    BRel exp0 relop exp -> prPrec i 2 (concatD [prt 0 exp0 , prt 0 relop , prt 0 exp])
    BStringRel id str -> prPrec i 2 (concatD [prt 0 id , doc (showString ".equals") , doc (showString "(") , prt 0 str , doc (showString ")")])
    BStringRel5 id n str -> prPrec i 2 (concatD [prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ".equals") , doc (showString "(") , prt 0 str , doc (showString ")")])
-   BStringRel6 id0 id1 id -> prPrec i 2 (concatD [prt 0 id0 , doc (showString "[") , prt 0 id1 , doc (showString "]") , doc (showString ".equals") , doc (showString "(") , prt 0 id , doc (showString ")")])
+   BStringRel6 id0 n id -> prPrec i 2 (concatD [prt 0 id0 , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ".equals") , doc (showString "(") , prt 0 id , doc (showString ")")])
    BStringRel2 str id -> prPrec i 2 (concatD [prt 0 str , doc (showString ".equals") , doc (showString "(") , prt 0 id , doc (showString ")")])
    BStringRel3 id0 id -> prPrec i 2 (concatD [prt 0 id0 , doc (showString ".equals") , doc (showString "(") , prt 0 id , doc (showString ")")])
    BStringRel4 str0 str -> prPrec i 2 (concatD [prt 0 str0 , doc (showString ".equals") , doc (showString "(") , prt 0 str , doc (showString ")")])
