@@ -26,7 +26,8 @@ begin
 	//print <-- ( zwracam() );
 	a := 2;
 	table[1]:="1";
-	print <- ( 2*zwracam(table) - 1 );
+	print ( table[1].equals("1") );
+	//print <- ( 2*zwracam(table) - 1 );
 	
 	//table[1]:="MMM";
 	//print <--(table[0]);
