@@ -121,6 +121,7 @@ transStmt x = case x of
   SPrintCharLit c  -> failure x
   SPrintFun id  -> failure x
   SPrintFunExp id exp  -> failure x
+  SPrintFunBExp id bexp  -> failure x
   SProcCall id  -> failure x
   SProcCallId id1 id2  -> failure x
   SProcCallIdArray id1 id2 n3  -> failure x

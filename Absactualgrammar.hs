@@ -97,6 +97,7 @@ data Stmt =
  | SPrintCharLit Char
  | SPrintFun Ident
  | SPrintFunExp Ident Exp
+ | SPrintFunBExp Ident BExp
  | SProcCall Ident
  | SProcCallId Ident Ident
  | SProcCallIdArray Ident Ident Integer

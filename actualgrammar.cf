@@ -126,7 +126,7 @@ SPrintCharLit.	Stmt	::=	"print" "<-" "(" Char ")" ";" ;
 
 SPrintFun.	    Stmt 	::=	"print" "<--" "(" Ident "(" ")" ")" ";" ;
 SPrintFunExp.	Stmt 	::=	"print" "<--" "(" Ident "(" Exp ")" ")" ";"  ;
-SPrintFunExp.	Stmt 	::=	"print" "<--" "(" Ident "(" BExp ")" ")" ";"  ;
+SPrintFunBExp.	Stmt 	::=	"print" "<--" "(" Ident "(" BExp ")" ")" ";"  ;
 
 
 
