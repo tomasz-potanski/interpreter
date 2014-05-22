@@ -87,7 +87,7 @@ typeCheck ttype typee = case ttype of
         TArray _ _ ofType2 -> if ofType == ofType2 then True else False
         otherwise -> False
     TTFuncDef defOfFun@(stmts, funcArg, tTypes, tStateOldFunc) -> case typee of
-        TFunc argType retType -> if (tTypes == retType) then
+        TFunc argType retType -> if (tTypes == (typeToDefaultTType retType)) then
                                     True
                                  else False
         otherwise -> False
