@@ -462,12 +462,13 @@ interpretBExp b s@(state, funcMap) = case b of
 		    Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 		    Just (TTArray minn maxx arrayType arrayMap) -> case (M.lookup int arrayMap) of {
                 Nothing -> error("Error - Variable:  has not been declared!");
-                Just vv -> case vv of;
-                    TTBoolean _ -> error("Error - type mismatch");
-                    TTInt _ -> error("Error - type mismatch");
-                    TTVoid -> error("Error - type mismatch");
-                    TTArray _ _ _ _ -> error("Error - type mismatch");
-                    TTString str2 -> if str == str2 then True else False;
+                Just vv -> case vv of {;
+                    TTBoolean _ -> error("Error - type mismatch");;
+                    TTInt _ -> error("Error - type mismatch");;
+                    TTVoid -> error("Error - type mismatch");;
+                    TTArray _ _ _ _ -> error("Error - type mismatch");;
+                    TTString str2 -> if str == str2 then True else False;;
+                }
 			}
 
 	BStringRel4 str1 str2 -> if (str1 == str2) then True else False
