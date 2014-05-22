@@ -10,7 +10,7 @@ proc
 
 	function druk ( aa : Integer ; ) : Integer;
 	begin
-		print <-- (global+1);
+		print <-- (global);
 	end
 
 begin
