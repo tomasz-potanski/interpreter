@@ -655,7 +655,7 @@ interpretBExp b s@(state, funcMap) = case b of
 ---------------------------------------------
 
 sRunFun :: Ident -> TState3 -> (TTypes ,TState3)
-sRunFun (Ident x) s@(extState, funcMap) -> case (M.lookup x funcMap) of
+sRunFun (Ident x) s@(extState, funcMap) = case (M.lookup x funcMap) of
     Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
     Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
         let globals = M.intersection extState tStateOld
