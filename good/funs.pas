@@ -22,13 +22,20 @@ proc
 			zwracam := False;
 		endif
 	end
+	function druk(a : Integer ;) : Integer;
+	begin
+		print <- (a);
+	end
 
 begin
 	//print <-- ( zwracam() );
-	a := 2;
-	table[1]:="1";
-	sss:="1";
-	print <- ( table[1].equals(sss) );
+	//a := 2;
+	//table[1]:="1";
+	//sss:="1";
+	//print <- ( table[1].equals(sss) );
+
+	druk(3);
+
 	//print <- ( 2*zwracam(table) - 1 );
 	
 	//table[1]:="MMM";

@@ -217,7 +217,8 @@ Stmt : Ident ':=' Exp ';' { SAss $1 $3 }
   | 'print' '<-' '(' Exp ')' ';' { SPrintExp $4 }
   | 'print' '<-' '(' BExp ')' ';' { SPrintBExp $4 }
   | 'print' '<-' '(' Char ')' ';' { SPrintCharLit $4 }
-  | 'print' '<--' '(' Ident '(' ')' ')' ';' { SPrintFun $4 }
+  | 'print' '<--' '(' Ident '(' ')' ')' { SPrintFun $4 }
+  | 'print' '<--' '(' Ident '(' Exp ')' ')' { SPrintFunExp $4 $6 }
   | Ident '(' ')' ';' { SProcCall $1 }
   | Ident '(' Ident ')' ';' { SProcCallId $1 $3 }
   | Ident '(' Ident '[' Integer ']' ')' ';' { SProcCallIdArray $1 $3 $5 }
@@ -294,7 +295,7 @@ BExp2 :: { BExp }
 BExp2 : Exp RelOp Exp { BRel $1 $2 $3 } 
   | Ident '.equals' '(' String ')' { BStringRel $1 $4 }
   | Ident '[' Integer ']' '.equals' '(' String ')' { BStringRel5 $1 $3 $7 }
-  | Ident '[' Integer ']' '.equals' '(' Ident ')' { BStringRel6 $1 $3 $7 }
+  | Ident '[' Integer ']' '.equals' '(' Ident ')' { BStringRel8 $1 $3 $7 }
   | String '.equals' '(' Ident ')' { BStringRel2 $1 $4 }
   | Ident '.equals' '(' Ident ')' { BStringRel3 $1 $4 }
   | String '.equals' '(' String ')' { BStringRel4 $1 $4 }

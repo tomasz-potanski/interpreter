@@ -96,6 +96,7 @@ data Stmt =
  | SPrintBExp BExp
  | SPrintCharLit Char
  | SPrintFun Ident
+ | SPrintFunExp Ident Exp
  | SProcCall Ident
  | SProcCallId Ident Ident
  | SProcCallIdArray Ident Ident Integer
@@ -134,7 +135,7 @@ data BExp =
  | BRel Exp RelOp Exp
  | BStringRel Ident String
  | BStringRel5 Ident Integer String
- | BStringRel6 Ident Integer Ident
+ | BStringRel8 Ident Integer Ident
  | BStringRel2 String Ident
  | BStringRel3 Ident Ident
  | BStringRel4 String String
