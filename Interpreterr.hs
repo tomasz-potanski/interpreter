@@ -709,7 +709,7 @@ sRunFunId (Ident x) (Ident argIdent) s@(extState, funcMap) = case (M.lookup x fu
                         Nothing     -> case (M.lookup argIdent funcMap) of
                             Nothing -> error("Error - variable/funciton " ++ (show argIdent) ++ "  has not been found!")
                             Just fvy ->
-                                if typeCheck fvy typee then
+                                if typeCheck (TTFuncDef fvy) typee then
                                     case tTypes of
                                             TTVoid -> error("Error - function must return Int or Boolean...")
                                             otherwise -> case typee of
