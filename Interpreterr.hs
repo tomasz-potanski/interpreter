@@ -857,7 +857,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 --                        in
 --                        showToUser (identToString (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
 
-     SPrintFunExp (Ident x) exp -> case (M.lookup x funcMap) of
+    SPrintFunExp (Ident x) exp -> case (M.lookup x funcMap) of
         Nothing -> error("Error - invalid function name!");
         Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
             let globals = M.intersection state tStateOld
