@@ -44,7 +44,8 @@ type TStore = M.Map TLoc TTypes
 
 insertVariable:: Ident -> (TTypes, TState3) -> TState3
 insertVariable (Ident x) (varTType, s@(extState, funcMap)) = case varTType of
-    TTFuncDef tFuncDef -> showToUser ((show tFuncDef ++ "\n\n")) ((M.insert x varTType extState) , (M.insert x tFuncDef funcMap))
+--    TTFuncDef tFuncDef -> showToUser ((show tFuncDef ++ "\n\n")) ((M.insert x varTType extState) , (M.insert x tFuncDef funcMap))
+    TTFuncDef tFuncDef ->  ((M.insert x varTType extState) , (M.insert x tFuncDef funcMap))
     otherwise -> ((M.insert x varTType extState) , funcMap)
 
 typeToDefaultTType :: Type -> TTypes
@@ -1281,7 +1282,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	                    Nothing     -> case (M.lookup argIdent funcMap) of
 	                            Nothing -> error("Error -- variable " ++ (argIdent) ++ " has not been inicialized!")
 	                            Just myFun ->  if typeCheck (TTFuncDef myFun) typee then
-	                                            ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , (M.insert ident myFun funcMap)))) globals) extState, funcMap)
+	                                            ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident (TTFuncDef myFun) (M.union tStateOld extState) , (M.insert ident myFun funcMap)))) globals) extState, funcMap)
                                          else
                                             error("Error - incorrect types!")
 
