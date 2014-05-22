@@ -136,6 +136,7 @@ SPrintFunIdArray.	Stmt 	::=	"print" "<--" "(" Ident "(" Ident "[" Integer "]"   
 SProcCall.		    Stmt	::=	Ident "(" ")" ";" ;
 --SProcCallInteger.	Stmt	::=	Ident "(" Integer ")" ";" ;
 SProcCallId.		Stmt	::=	Ident "(" Ident ")" ";" ;
+SProcCallIdFunc.	Stmt	::=	Ident "(" Ident "{" Ident "}" ")" ";" ;
 SProcCallIdArray.	Stmt	::=	Ident "(" Ident "[" Integer "]" ")" ";" ;
 SProcCallExp.		Stmt	::=	Ident "(" Exp ")" ";" ;
 SProcCallBExp.		Stmt	::=	Ident "(" BExp ")" ";" ;

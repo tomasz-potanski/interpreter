@@ -78,7 +78,9 @@ import ErrM
  'to' { PT _ (TS _ 61) }
  'var' { PT _ (TS _ 62) }
  'while' { PT _ (TS _ 63) }
- '||' { PT _ (TS _ 64) }
+ '{' { PT _ (TS _ 64) }
+ '||' { PT _ (TS _ 65) }
+ '}' { PT _ (TS _ 66) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -227,6 +229,7 @@ Stmt : Ident ':=' Exp ';' { SAss $1 $3 }
   | 'print' '<--' '(' Ident '(' Ident '[' Integer ']' ')' ')' ';' { SPrintFunIdArray $4 $6 $8 }
   | Ident '(' ')' ';' { SProcCall $1 }
   | Ident '(' Ident ')' ';' { SProcCallId $1 $3 }
+  | Ident '(' Ident '{' Ident '}' ')' ';' { SProcCallIdFunc $1 $3 $5 }
   | Ident '(' Ident '[' Integer ']' ')' ';' { SProcCallIdArray $1 $3 $5 }
   | Ident '(' Exp ')' ';' { SProcCallExp $1 $3 }
   | Ident '(' BExp ')' ';' { SProcCallBExp $1 $3 }

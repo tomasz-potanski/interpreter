@@ -3,17 +3,13 @@ var
 	global : Integer;
 
 proc
-	function drukuj ( aa : Integer;) : Integer ;
-	begin
-		print <-- (aa);
-	end
-
-	procedure wywolaj (g : Function (Integer) : Integer;);
+	procedure wart ( zm : Integer; ) ;
 	begin
 		g(global+1);
 	end
 
 begin
 	global := 8;
+	wart( drukuj{ global } );
 	
 end.
