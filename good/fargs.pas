@@ -4,7 +4,7 @@ var
 	s1, s2 : String;
 	i : Integer;
 	b : Boolean;
-	tab : Array[0..10] of Integer;
+	tab : Array[0..10] of Function ( Integer) : Void;
 
 proc
 	procedure wart ( g : Function ( Integer) : Void; ) ;
@@ -40,9 +40,9 @@ begin
 	//wart( drukuj );
 	//wart( drukuj10 );
 
-	tab[1] := 3;
+	tab[1] := drukuj;
 	//wart(drukuj);
-	f:= zwroc(drukuj);
+	//f:= zwroc(tab[1]);
 	//f(10);
 	//wart ( f );
 

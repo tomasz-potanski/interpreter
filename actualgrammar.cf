@@ -73,6 +73,7 @@ SBlank.     Stmt    ::= ";" ;
 SBlock.		Stmt2	::=	"begin" [Stmt] "end" ;
 
 SAttr.      Stmt    ::= Ident ":=" Ident ";";
+SAttrArray.	Stmt	::=	Ident "[" Integer "]" ":=" Ident ";" ;
 
 SAss.		Stmt	::=	Ident ":=" Exp ";" ;
 SAssArray.	Stmt	::=	Ident "[" Integer "]" ":=" Exp ";" ;

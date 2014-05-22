@@ -106,6 +106,7 @@ All other symbols are terminals.
   |  |  **|**  | ``False`` 
   | //Stmt// | -> | ``;`` 
   |  |  **|**  | //Ident// ``:=`` //Ident// ``;`` 
+  |  |  **|**  | //Ident// ``[`` //Integer// ``]`` ``:=`` //Ident// ``;`` 
   |  |  **|**  | //Ident// ``:=`` //Exp// ``;`` 
   |  |  **|**  | //Ident// ``[`` //Integer// ``]`` ``:=`` //Exp// ``;`` 
   |  |  **|**  | //Ident// ``:=`` //BExp// ``;`` 

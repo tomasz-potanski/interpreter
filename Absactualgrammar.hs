@@ -70,6 +70,7 @@ data Stmt =
    SBlank
  | SBlock [Stmt]
  | SAttr Ident Ident
+ | SAttrArray Ident Integer Ident
  | SAss Ident Exp
  | SAssArray Ident Integer Exp
  | SAssBool Ident BExp

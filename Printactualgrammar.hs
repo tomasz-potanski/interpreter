@@ -178,6 +178,7 @@ instance Print Stmt where
    SBlank  -> prPrec i 0 (concatD [doc (showString ";")])
    SBlock stmts -> prPrec i 2 (concatD [doc (showString "begin") , prt 0 stmts , doc (showString "end")])
    SAttr id0 id -> prPrec i 0 (concatD [prt 0 id0 , doc (showString ":=") , prt 0 id , doc (showString ";")])
+   SAttrArray id0 n id -> prPrec i 0 (concatD [prt 0 id0 , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ":=") , prt 0 id , doc (showString ";")])
    SAss id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 exp , doc (showString ";")])
    SAssArray id n exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ":=") , prt 0 exp , doc (showString ";")])
    SAssBool id bexp -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 bexp , doc (showString ";")])

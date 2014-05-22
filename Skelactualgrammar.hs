@@ -94,6 +94,7 @@ transStmt x = case x of
   SBlank  -> failure x
   SBlock stmts  -> failure x
   SAttr id1 id2  -> failure x
+  SAttrArray id1 n2 id3  -> failure x
   SAss id exp  -> failure x
   SAssArray id n exp  -> failure x
   SAssBool id bexp  -> failure x

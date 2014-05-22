@@ -191,6 +191,7 @@ BoolLit : 'True' { BoolLitTrue }
 Stmt :: { Stmt }
 Stmt : ';' { SBlank } 
   | Ident ':=' Ident ';' { SAttr $1 $3 }
+  | Ident '[' Integer ']' ':=' Ident ';' { SAttrArray $1 $3 $6 }
   | Ident ':=' Exp ';' { SAss $1 $3 }
   | Ident '[' Integer ']' ':=' Exp ';' { SAssArray $1 $3 $6 }
   | Ident ':=' BExp ';' { SAssBool $1 $3 }
