@@ -47,7 +47,7 @@ typeToDefaultTType typee = case typee of
     TBool -> TTBoolean False
     TString -> TTString ""
     TArray minn maxx ofType -> TTArray minn maxx ofType M.empty
-    TFunc argType retType -> TTFuncDef (SBlank,  (NonEmptyArgs (DLList (Ident "arg"):[]) argType), (typeToDefaultTType retType), M.empty)
+    TFunc argType retType -> TTFuncDef (SBlank,  (EmptyArgs), (typeToDefaultTType retType), M.empty)
 
 
 ttypeToType :: TTypes -> Type
