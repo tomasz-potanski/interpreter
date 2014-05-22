@@ -929,18 +929,18 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
     SPrintFunId (Ident x) (Ident argIdent) -> case (M.lookup x funcMap) of
         Nothing -> error("Error - invalid function name!");
         Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
-            let globals = M.intersection state tStateOld
+            let globals = M.intersection extState tStateOld
             in
             case varDeclarationLine of
                 NonEmptyArgs v -> case v of
-                        DLList identList@((Ident identArg):_) typee -> case (M.lookup argIdent state) of
+                        DLList identList@((Ident identArg):_) typee -> case (M.lookup argIdent extState) of
                             Nothing     -> error("Error - variable has not been inicialized!")
                             Just vvvv   ->
                                 if typeCheck vvvv typee then
                                     case tTypes of
                                             TTVoid -> error("Error - function must return Int or Boolean...")
                                             otherwise ->
-                                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg vvvv (M.union tStateOld state) , funcMap))
+                                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg vvvv (M.union tStateOld extState) , funcMap))
                                                 in
                                                 showToUser (identToInt (Ident x) stateAfterFunctionCall)( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                                 else
