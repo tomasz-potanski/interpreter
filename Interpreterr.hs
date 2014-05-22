@@ -88,7 +88,7 @@ typeCheck ttype typee = case ttype of
         otherwise -> False
     TTFuncDef defOfFun@(stmts, funcArg, tTypes, tStateOldFunc) -> case typee of
         TFunc argType retType -> if (tTypes == (typeToDefaultTType retType)) then
-                                    True
+                                    True --TODO - wpradz typ argumentu
                                  else False
         otherwise -> False
     otherwise -> False
@@ -1061,7 +1061,9 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	                DLList identList@((Ident ident):_) typee -> case (M.lookup argIdent extState) of
 	                    Nothing     -> error("Error - variable has not been inicialized!")
 	                    Just vvvv   -> if typeCheck vvvv typee then
-	                            ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident vvvv (M.union tStateOld extState) , funcMap))) globals) extState, funcMap)
+	                                    case vvvv of
+	                                    TTFuncDef defOfFun ->  ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , (M.insert argIdent defOfFun funcMap)))) globals) extState, funcMap)
+	                                    otherwise -> ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident vvvv (M.union tStateOld extState) , funcMap))) globals) extState, funcMap)
 	                         else
 	                            error("Error - incorrect types!")
 	            EmptyArgs -> error ("Error - arguments were given!")
