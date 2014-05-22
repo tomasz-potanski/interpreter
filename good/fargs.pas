@@ -29,5 +29,5 @@ begin
 	wart( drukuj );
 	wart( drukuj10 );
 
-	//f:= zwroc();
+	f:= zwroc();
 end.
