@@ -691,6 +691,33 @@ sRunFun (Ident x) s@(extState, funcMap) = case (M.lookup x funcMap) of
                     in
                     ((identToTType (Ident x) stateAfterFunctionCall), ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap))
 
+
+sRunFunId (Ident x) (Ident argIdent) s@(extState, funcMap) -> case (M.lookup x funcMap) of
+    Nothing -> error("Error - invalid function name!");
+    Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
+        let globals = M.intersection extState tStateOld
+        in
+        case varDeclarationLine of
+            NonEmptyArgs v -> case v of
+                    DLList identList@((Ident identArg):_) typee -> case (M.lookup argIdent extState) of
+                        Nothing     -> error("Error - variable " ++ (show argIdent) ++ "  has not been inicialized!")
+                        Just vvvv   ->
+                            if typeCheck vvvv typee then
+                                case tTypes of
+                                        TTVoid -> error("Error - function must return Int or Boolean...")
+                                        otherwise -> case typee of
+                                            TFunc fffDef ->
+                                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg vvvv (M.union tStateOld extState) , (M.insert identArg (TTFuncDef fffDef) funcMap)))
+                                                in
+                                                ((identToTType (Ident x) stateAfterFunctionCall), ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap))
+                                            otherwise ->
+                                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg vvvv (M.union tStateOld extState) , funcMap))
+                                                in
+                                                ((identToTType (Ident x) stateAfterFunctionCall), ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap))
+                            else
+                                error("Error - incorrect types!")
+            EmptyArgs -> error("Error - function/procedure need argument")
+
 -----------------STATEMETNS----------------
 interpretStmts :: [Stmt] -> TState3 -> TState3
 interpretStmts [] s = s
@@ -738,7 +765,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	Just vx -> if genericTTypeCheck vx (proccToReturnType procc s) then
                     case procc of
                         ProcCall (Ident fid) -> (insertVariable (Ident x) (sRunFun (Ident fid) s))
---                        ProcCallId (Ident fid) (Ident varId) -> (insertVariable (Ident x) (sRunFunId (Ident fid) (Ident varId) s))
+                        ProcCallId (Ident fid) (Ident varId) -> (insertVariable (Ident x) (sRunFunId (Ident fid) (Ident varId) s))
 --                        ProcCallIdArray (Ident fid) (Ident arrayId) index -> (insertVariable (Ident x) (sRunFunIdArray (Ident fid) (Ident arrayId) index s))
 --                        ProcCallExp (Ident fid) exp -> (insertVariable (Ident x) (sRunFunExp (Ident fid) exp s))
 --                        ProcCallBExp (Ident fid) bexp -> (insertVariable (Ident x) (sRunFunBExp (Ident fid) bexp s))

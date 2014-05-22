@@ -2,6 +2,8 @@ var
 	f : Function ( Integer) : Void;
 	global : Integer;
 	s1, s2 : String;
+	i : Integer;
+	b : Boolean;
 
 proc
 	procedure wart ( g : Function ( Integer) : Void; ) ;
@@ -24,6 +26,11 @@ proc
 		zwroc := drukuj10;
 	end
 
+	function test() : Boolean;
+	begin
+		test := True;
+	end
+
 begin
 	global := 8;
 	wart( drukuj );
@@ -32,4 +39,6 @@ begin
 	f:= zwroc();
 	f(10);
 	wart ( f );
+	b:=test();
+	print <-- (b);
 end.
