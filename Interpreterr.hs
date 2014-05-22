@@ -1012,8 +1012,8 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                     True -> (showToUser "True" s)
                     False -> (showToUser "False" s)
 		TTString val -> (showToUser val s)
-		TTFuncDef tFunDef@(stmts, argss, returnType, ooooldState) -> (showToUser "Funcitonn...: " s)
-		    error("Error - variable: " ++ (show x) ++ " represents function and is unprintable ;) " ++ (show stmts))
+		TTFuncDef tFunDef@(stmts, argss, returnType, ooooldState) -> (showToUser ("Funcitonn: " ++ (show tFunDef)) s)
+--		    error("Error - variable: " ++ (show x) ++ " represents function and is unprintable ;) " ++ (show stmts))
 		otherwise -> error("Error - Variable: " ++ (show x) ++ " is unprintable!")
 	    Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 	False -> case (M.lookup x funcMap) of
