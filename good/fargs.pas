@@ -30,6 +30,17 @@ proc
 		zwroc := drukuj10;
 	end
 
+	function zwroc2( ) : Function ( Integer) : Void;
+	begin
+		print <- ("sfsfd");
+		zwroc2 := drukuj10;
+	end
+
+	function rint() : Integer;
+	begin
+		rint := 3;
+	end
+
 	function test() : Boolean;
 	begin
 		test := True;
@@ -39,10 +50,14 @@ begin
 	global := 8;
 	//wart( drukuj );
 	//wart( drukuj10 );
+	
+
+	print <-- (zwroc2());
 
 	tab[1] := drukuj;
 	//wart(drukuj);
-	f:= zwroc(drukuj);
+//	f:= zwroc(drukuj);
+	f := zwroc2();
 
 //	print <-- (drukuj);
 	print <-- (f);
