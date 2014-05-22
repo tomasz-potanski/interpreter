@@ -8,12 +8,12 @@ proc
 		g(global+1);
 	end
 
-	function drukuj ( aa : Integer ; ) : Integer;
+	function drukuj ( aa : Integer ; ) : Void;
 	begin
 		print <-- (aa);
 	end
 
-	function drukuj10 ( aa : Integer ; ) : Integer;
+	function drukuj10 ( aa : Integer ; ) : Void;
 	begin
 		print <- (aa*10);
 	end
