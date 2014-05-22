@@ -98,6 +98,11 @@ typeCheck ttype typee = case ttype of
 genericTypeCheck :: Type -> Type -> Bool
 genericTypeCheck t1 t2 = if t1 == t2 then True else False
 
+
+genericTTypeCheck :: TType -> TType -> Bool
+--genericTTypeCheck t1 t2 = if t1 == t2 then True else False
+genericTTypeCheck t1 t2 = True
+
 extractString :: TTypes -> String
 extractString (TTString s) = s
 
@@ -625,23 +630,15 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 
 
 
---    SAttr (Ident x) exp -> case (checkifVarExists (Ident x) s) of
---	True ->
---        	let val = (interpretExp exp s)
---        	in (M.insert x (TTInt val) extState, funcMap)
---	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
---    SAssStrToInt (Ident x) str -> case (checkifVarExists (Ident x) s) of
---	True -> let val = (strToInt str)
---        	in
---		    case (M.lookup x extState) of
---			Just n -> case n of
---				TTInt _ -> ((M.insert x (TTInt val) extState), funcMap)
---				TTString _ -> error("Error - incorrect types")
---				TTBoolean _ -> if (val == 0) || (val == 1) then
---					((M.insert x (TTBoolean (intToBool val)) extState), funcMap) else s
---				otherwise -> error("Error - incorrect types")
---			Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
---	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+    SAttr (Ident x) (Ident y) -> case (M.lookup x s) of
+	Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+	Just vx -> case (M.lookup y s) of
+	    Nothing -> error("Error - Variable: " ++ (show y) ++ " has not been declared!")
+	    Just vy -> if genericTTypeCheck vx vy then
+	                    ((M.insert x vy extState), funcMap)
+	                else
+	                    error("Error - type mismatch!")
+
 
     SAzs (Ident x) intt -> case (checkifVarExists (Ident x) s) of  
 	True -> let val = (intToStr intt)
