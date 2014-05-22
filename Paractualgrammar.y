@@ -295,7 +295,7 @@ BExp2 :: { BExp }
 BExp2 : Exp RelOp Exp { BRel $1 $2 $3 } 
   | Ident '.equals' '(' String ')' { BStringRel $1 $4 }
   | Ident '[' Integer ']' '.equals' '(' String ')' { BStringRel5 $1 $3 $7 }
-  | Ident '[' Integer ']' '.equals' '(' Ident ')' { BStringRel8 $1 $3 $7 }
+  | Ident '[' Ident ']' '.equals' '(' Ident ')' { BStringRel6 $1 $3 $7 }
   | String '.equals' '(' Ident ')' { BStringRel2 $1 $4 }
   | Ident '.equals' '(' Ident ')' { BStringRel3 $1 $4 }
   | String '.equals' '(' String ')' { BStringRel4 $1 $4 }

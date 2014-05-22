@@ -162,7 +162,7 @@ transBExp x = case x of
   BRel exp1 relop2 exp3  -> failure x
   BStringRel id str  -> failure x
   BStringRel5 id n str  -> failure x
-  BStringRel8 id1 n2 id3  -> failure x
+  BStringRel6 id1 id2 id3  -> failure x
   BStringRel2 str id  -> failure x
   BStringRel3 id1 id2  -> failure x
   BStringRel4 str1 str2  -> failure x

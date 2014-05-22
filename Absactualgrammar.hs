@@ -135,7 +135,7 @@ data BExp =
  | BRel Exp RelOp Exp
  | BStringRel Ident String
  | BStringRel5 Ident Integer String
- | BStringRel8 Ident Integer Ident
+ | BStringRel6 Ident Ident Ident
  | BStringRel2 String Ident
  | BStringRel3 Ident Ident
  | BStringRel4 String String
