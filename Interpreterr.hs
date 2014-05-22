@@ -1318,8 +1318,9 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	                        if genericTypeCheck ofType typee then
 	                            case (M.lookup int arrayMap) of
 	                                Nothing -> error("Error - variable out of bound or not declared")
-	                                Just nm ->
-	                                    ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident nm (M.union tStateOld extState) , funcMap))) globals) extState, funcMap)
+	                                Just nm -> case nm of
+	                                    TTFuncDef fDef -> ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , (M.insert ident fDef funcMap)))) globals) extState, funcMap)
+	                                    otherwise ->  ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident nm (M.union tStateOld extState) , funcMap))) globals) extState, funcMap)
 	                         else
 	                            error("Error - incorrect types!")
 	            EmptyArgs -> error ("Error - arguments were given!")
