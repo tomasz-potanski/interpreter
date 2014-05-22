@@ -438,7 +438,8 @@ interpretBExp b s@(state, funcMap) = case b of
 		True -> case (M.lookup x state) of
 		    Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 		    Just n ->
-		        case n of   (TTBoolean _) -> error("Error - type mismatch")
+		        case n of
+		                    (TTBoolean _) -> error("Error - type mismatch")
                             (TTInt _) -> error("Error - type mismatch")
                             TTVoid -> error("Error - type mismatch")
                             TTArray _ _ _ _ -> error("Error - type mismatch")
