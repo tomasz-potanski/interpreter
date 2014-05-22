@@ -1125,7 +1125,7 @@ simpleAddOneVar (Ident x) value (state, funcMap) = ((M.insert x value state), fu
 -------------------BEGINNING, DECLARATIONS, ...---------------
 addOneVariable :: Ident -> Type -> TState3 -> TState3
 addOneVariable (Ident ident) typee state = case typee of
-        TVoid -> simpleAddOneVar (Ident ident) (TTVoid) state
+        TVoid -> simpleAddOneVar (Ident ident) TTVoid state
 		TInt -> simpleAddOneVar (Ident ident) (TTInt 0) state
 		TBool -> simpleAddOneVar (Ident ident) (TTBoolean False) state
 		TString -> simpleAddOneVar (Ident ident) (TTString "") state
