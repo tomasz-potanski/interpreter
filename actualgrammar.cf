@@ -71,6 +71,8 @@ BoolLitFalse.	BoolLit	::=	"False" ;
 
 SBlock.		Stmt2	::=	"begin" [Stmt] "end" ;
 
+SAttr.      Stmt    ::= Ident ":=" Ident ";";
+
 SAss.		Stmt	::=	Ident ":=" Exp ";" ;
 SAssArray.	Stmt	::=	Ident "[" Integer "]" ":=" Exp ";" ;
 

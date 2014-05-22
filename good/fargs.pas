@@ -28,9 +28,6 @@ begin
 	global := 8;
 	wart( drukuj );
 	wart( drukuj10 );
-	s1 := "aaa";
-	s2 := "bbb";
-	s2 := s1;
-	print <-- (s2);
+
 	//f:= zwroc();
 end.

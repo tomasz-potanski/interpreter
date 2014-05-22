@@ -68,6 +68,7 @@ data BoolLit =
 
 data Stmt =
    SBlock [Stmt]
+ | SAttr Ident Ident
  | SAss Ident Exp
  | SAssArray Ident Integer Exp
  | SAssBool Ident BExp

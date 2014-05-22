@@ -92,6 +92,7 @@ transBoolLit x = case x of
 transStmt :: Stmt -> Result
 transStmt x = case x of
   SBlock stmts  -> failure x
+  SAttr id1 id2  -> failure x
   SAss id exp  -> failure x
   SAssArray id n exp  -> failure x
   SAssBool id bexp  -> failure x
