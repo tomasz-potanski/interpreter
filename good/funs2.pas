@@ -1,9 +1,9 @@
 proc
 
-	function druk(zm : String ;) : Boolean;
+	function druk(zm : String ;) : String;
 	begin
 		print <-- (zm);
-		druk := True;
+		druk := "Dzialam";
 	end
 
 begin

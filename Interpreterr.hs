@@ -947,7 +947,6 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                 NonEmptyArgs v -> case v of
                         DLList identList@((Ident identArg):_) typee -> case tTypes of
                                 TTVoid -> error("Error - function must return Int or Boolean...")
-                                TTString _ -> error("Error - function must return Int or Boolean...")
                                 TTArray _ _ _ _ -> error("Error - function must return Int or Boolean...")
                                 TTInt _ ->
                                     let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTString str) (M.union tStateOld extState) , funcMap))
@@ -955,6 +954,10 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                                     showToUser (identToString (Ident x) stateAfterFunctionCall)  ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                 --              Sorry for the code repetition, I don't know how to handle it better ;)
                                 TTBoolean _ ->
+                                    let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTString str) (M.union tStateOld extState) , funcMap))
+                                    in
+                                    showToUser (identToString (Ident x) stateAfterFunctionCall)  ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+                                TTString _ ->
                                     let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTString str) (M.union tStateOld extState) , funcMap))
                                     in
                                     showToUser (identToString (Ident x) stateAfterFunctionCall)  ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
