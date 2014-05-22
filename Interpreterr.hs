@@ -693,7 +693,7 @@ sRunFun (Ident x) s@(extState, funcMap) = case (M.lookup x funcMap) of
 
 
 sRunFunId :: Ident -> Ident -> TState3 -> (TTypes, TState3)
-sRunFunId (Ident x) (Ident argIdent) s@(extState, funcMap) -> case (M.lookup x funcMap) of
+sRunFunId (Ident x) (Ident argIdent) s@(extState, funcMap) = case (M.lookup x funcMap) of
     Nothing -> error("Error - invalid function name!");
     Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
         let globals = M.intersection extState tStateOld
