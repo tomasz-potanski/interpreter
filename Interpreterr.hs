@@ -110,22 +110,22 @@ identToInt (Ident ident) s@(stateOld, funcMap) =
 proccToReturnType:: Procc -> TState3 -> TTypes
 proccToReturnType procc s@(extState, funcMap) = case procc of
     ProcCall (Ident fid)  -> case (M.lookup fid funcMap) of
-        Noting -> error("Error - function: " ++ (show fid) ++ "has not been found!")
+        Nothing -> error("Error - function: " ++ (show fid) ++ "has not been found!")
         Just (_, _, retTtypes, _) -> retTtypes
     ProcCallId (Ident fid) (Ident argId) -> case (M.lookup fid funcMap) of
-        Noting -> error("Error - function: " ++ (show fid) ++ "has not been found!")
+        Nothing -> error("Error - function: " ++ (show fid) ++ "has not been found!")
         Just (_, _, retTtypes, _) -> retTtypes
     ProcCallIdArray (Ident fid) (Ident arrayId) index -> case (M.lookup fid funcMap) of
-        Noting -> error("Error - function: " ++ (show fid) ++ "has not been found!")
+        Nothing -> error("Error - function: " ++ (show fid) ++ "has not been found!")
         Just (_, _, retTtypes, _) -> retTtypes
     ProcCallExp (Ident fid) exp -> case (M.lookup fid funcMap) of
-        Noting -> error("Error - function: " ++ (show fid) ++ "has not been found!")
+        Nothing -> error("Error - function: " ++ (show fid) ++ "has not been found!")
         Just (_, _, retTtypes, _) -> retTtypes
     ProcCallBExp (Ident fid) bexp -> case (M.lookup fid funcMap) of
-        Noting -> error("Error - function: " ++ (show fid) ++ "has not been found!")
+        Nothing -> error("Error - function: " ++ (show fid) ++ "has not been found!")
         Just (_, _, retTtypes, _) -> retTtypes
     ProccProcCallString (Ident fid) str -> case (M.lookup fid funcMap) of
-        Noting -> error("Error - function: " ++ (show fid) ++ "has not been found!")
+        Nothing -> error("Error - function: " ++ (show fid) ++ "has not been found!")
         Just (_, _, retTtypes, _) -> retTtypes
 
 
