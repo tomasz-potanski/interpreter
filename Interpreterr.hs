@@ -51,7 +51,7 @@ typeToDefaultTType typee = case typee of
 identToString :: Ident -> TState3 -> String
 identToString (Ident ident) s@(stateOld, funcMap) =
     case (M.lookup ident stateOld) of
-        Nothing -> error("Error - variable has not been found!")
+        Nothing -> error("Error - variable " ++ (show ident) ++ " has not been found!")
         Just n -> case n of
             TTString s  -> s
             TTInt i     -> (show i)
