@@ -42,6 +42,7 @@ type TStore = M.Map TLoc TTypes
 
 typeToDefaultTType :: Type -> TTypes
 typeToDefaultTType typee = case typee of
+    TVoid -> TTVoid
     TInt -> TTInt 0
     TBool -> TTBoolean False
     TString -> TTString ""
