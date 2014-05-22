@@ -142,11 +142,11 @@ checkArgTypes arg1 arg2 = case arg1 of
 
 
 
-checkArgTypes :: FuncArg -> Type -> Bool
-checkArgTypes arg1 arg2 = case arg1 of
+checkArgTypes2 :: FuncArg -> Type -> Bool
+checkArgTypes2 arg1 arg2 = case arg1 of
     EmptyArgs -> if arg2 == TVoid then True else False
     NonEmptyArgs (DLList _ argType1) -> if argType1 == arg2 then True else False
-    
+
 
 typeCheck :: TTypes -> Type -> Bool
 typeCheck ttype typee = case ttype of
