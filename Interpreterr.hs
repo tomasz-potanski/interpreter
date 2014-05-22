@@ -818,7 +818,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 --                Just fvy -> if genericTTypeCheck (TTFuncDef fvy) vxx then ((extState), (M.insert x (TTArray minn maxx arrayType (M.insert  index fvy arrayMap)) funcMap)) else error("Error - type mismatch!");;
                 Just fvy -> if genericTTypeCheck (TTFuncDef fvy) (typeToDefaultTType arrayType) then ((M.insert x (TTArray minn maxx arrayType (M.insert index (TTFuncDef fvy) arrayMap)) extState), funcMap) else error("Error +- type mismatch: "++ (show vx) ++ "; " ++ (show fvy));;
             };
-            Just vy -> if genericTTypeCheck vx vy then ((M.insert x vy extState), funcMap) else error("Error -+ type mismatch: " ++ (show vx) ++ "; " ++ (show vy));
+            Just vy -> if genericTTypeCheck (typeToDefaultTType arrayType) vy then ((M.insert x vy extState), funcMap) else error("Error -+ type mismatch: " ++ (show vx) ++ "; " ++ (show vy));
         }
 
     SProcAttr (Ident x) procc -> case (M.lookup x extState) of
