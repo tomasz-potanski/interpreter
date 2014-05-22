@@ -630,9 +630,9 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 
 
 
-    SAttr (Ident x) (Ident y) -> case (M.lookup x s) of
+    SAttr (Ident x) (Ident y) -> case (M.lookup x extState) of
 	Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
-	Just vx -> case (M.lookup y s) of
+	Just vx -> case (M.lookup y extState) of
 	    Nothing -> error("Error - Variable: " ++ (show y) ++ " has not been declared!")
 	    Just vy -> if genericTTypeCheck vx vy then
 	                    ((M.insert x vy extState), funcMap)
