@@ -692,6 +692,7 @@ sRunFun (Ident x) s@(extState, funcMap) = case (M.lookup x funcMap) of
                     ((identToTType (Ident x) stateAfterFunctionCall), ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap))
 
 
+sRunFunId :: Ident -> Ident -> TState3 -> (TTypes, TState3)
 sRunFunId (Ident x) (Ident argIdent) s@(extState, funcMap) -> case (M.lookup x funcMap) of
     Nothing -> error("Error - invalid function name!");
     Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
