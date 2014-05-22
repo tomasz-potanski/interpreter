@@ -208,6 +208,7 @@ instance Print Stmt where
    SPrintFunBExp id bexp -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<--") , doc (showString "(") , prt 0 id , doc (showString "(") , prt 0 bexp , doc (showString ")") , doc (showString ")") , doc (showString ";")])
    SPrintFunString id str -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<--") , doc (showString "(") , prt 0 id , doc (showString "(") , prt 0 str , doc (showString ")") , doc (showString ")") , doc (showString ";")])
    SPrintFunId id0 id -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<--") , doc (showString "(") , prt 0 id0 , doc (showString "(") , prt 0 id , doc (showString ")") , doc (showString ")") , doc (showString ";")])
+   SPrintFunIdArray id0 id n -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<--") , doc (showString "(") , prt 0 id0 , doc (showString "(") , prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ")") , doc (showString ")") , doc (showString ";")])
    SProcCall id -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , doc (showString ")") , doc (showString ";")])
    SProcCallId id0 id -> prPrec i 0 (concatD [prt 0 id0 , doc (showString "(") , prt 0 id , doc (showString ")") , doc (showString ";")])
    SProcCallIdArray id0 id n -> prPrec i 0 (concatD [prt 0 id0 , doc (showString "(") , prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ")") , doc (showString ";")])

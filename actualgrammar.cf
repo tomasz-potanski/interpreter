@@ -129,6 +129,7 @@ SPrintFunExp.	Stmt 	::=	"print" "<--" "(" Ident "(" Exp ")" ")" ";"  ;
 SPrintFunBExp.	Stmt 	::=	"print" "<--" "(" Ident "(" BExp ")" ")" ";"  ;
 SPrintFunString.	Stmt 	::=	"print" "<--" "(" Ident "(" String ")" ")" ";"  ;
 SPrintFunId.	Stmt 	::=	"print" "<--" "(" Ident "(" Ident ")" ")" ";"  ;
+SPrintFunIdArray.	Stmt 	::=	"print" "<--" "(" Ident "(" Ident "[" Integer "]"   ")" ")" ";"  ;
 
 
 

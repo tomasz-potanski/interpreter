@@ -948,6 +948,31 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                 EmptyArgs -> error("Error - function/procedure need argument")
 
 
+
+    SPrintFunIdArray (Ident x) (Ident argIdent) int -> case (M.lookup x funcMap) of
+        Nothing -> error("Error - invalid function name!");
+        Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
+            let globals = M.intersection extState tStateOld
+            in
+            case varDeclarationLine of
+                NonEmptyArgs v -> case v of
+                        DLList identList@((Ident identArg):_) typee -> case (M.lookup argIdent extState) of
+                            Nothing     -> error("Error - variable has not been inicialized!")
+                            Just (TTArray minn maxx arrayType arrayMap)   -> case (M.lookup int arrayMap) of
+                                Nothing -> error("Error - variable could not be found in array")
+                                Just vvvv ->
+                                    if typeCheck (typeToDefaultTType arrayType) typee then
+                                        case tTypes of
+                                                TTVoid -> error("Error - function must return Int or Boolean...")
+                                                otherwise ->
+                                                    let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg vvvv (M.union tStateOld extState) , funcMap))
+                                                    in
+                                                    showToUser (identToString (Ident x) stateAfterFunctionCall)( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+                                    else
+                                        error("Error - incorrect types!")
+                EmptyArgs -> error("Error - function/procedure need argument")
+
+
 --	SPrintFun (Ident x) -> case (M.lookup x funcMap) of
 --	    Nothing -> error("Error - funciton: " ++ (show x) ++ " does not exist!")
 --	    Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
