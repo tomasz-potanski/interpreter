@@ -84,7 +84,7 @@ Dwie dodatkowe rzeczy z listy:
 3. tablice/slowniki indeksowane dowolnymi		Brak
    porównywalnymi wartościami; typ klucza
    należy uwzględnić w typie słownika
-4. krotki z przypisanie jak w Pythonie			Brak
+4. krotki z przypisanie jak w Pythonie			Brak <--- under development
 5. Funkcje jako parametry				Brak
 6. Zwracanie funkcji w wyniku; domkniecie		Brak
    jak w JS
