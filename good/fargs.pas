@@ -1,5 +1,5 @@
 var
-	f : Function ( Integer) : Void;
+	f : Function ( Integer ) : Void;
 	global : Integer;
 	s1, s2 : String;
 	i : Integer;
@@ -51,13 +51,29 @@ begin
 	//wart( drukuj );
 	//wart( drukuj10 );
 	
-	print <-- (zwroc2);
-	print <-- (drukuj10);
-	print <-- (zwroc2());
+//	print <-- (zwroc2);
+//	print <-- (drukuj10);
+//	print <-- (zwroc2());
 
-//	tab[1] := drukuj;
+	tab[1] := drukuj;
+	f:= zwroc(tab[1]);
+	//print <-- (f);
+	f(10);
 	//wart(drukuj);
+
+
+
+//	f := zwroc2();
+//	print <-- (f);
+//	f(3);
+//	f(10);
+
+
+
+
 //	f:= zwroc(drukuj);
+//	f(10);
+//	print <-- (f);
 //	f := zwroc2();
 
 //	print <-- (drukuj);

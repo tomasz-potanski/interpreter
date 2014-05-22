@@ -776,6 +776,33 @@ sRunFunIdArray (Ident x) (Ident argIdent) int s@(extState, funcMap) = case (M.lo
                                     error("Error - incorrect types!")
             EmptyArgs -> error("Error - function/procedure need argument")
 
+
+
+sRunFunExp (Ident x) s@(extState, funcMap) exp -> case (M.lookup x funcMap) of
+    Nothing -> error("Error - invalid function name!");
+    Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
+        let globals = M.intersection extState tStateOld
+        in
+        case varDeclarationLine of
+            NonEmptyArgs v -> case v of
+                    DLList identList@((Ident identArg):_) typee ->
+                        case typee of
+                            TString -> error("Error - type mismatch")
+                            TArray _ _ _ -> error("Error - type mismatch")
+                            TInt -> case tTypes of
+                                    TTVoid -> error("Error - function must return Int or Boolean...")
+                                    otherwise ->
+                                        let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (interpretExp exp s)) (M.union tStateOld extState) , funcMap))
+                                        in
+                                        showToUser (identToString (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+                            TBool -> case tTypes of
+                                    TTVoid -> error("Error - function must return Int or Boolean...")
+                                    otherwise ->
+                                        let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTBoolean (intToBool (interpretExp exp s))) (M.union tStateOld extState) , funcMap))
+                                        in
+                                        ((identToTType (Ident x) stateAfterFunctionCall), ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap))
+            EmptyArgs -> error("Error - function/procedure need argument")
+
 -----------------STATEMETNS----------------
 interpretStmts :: [Stmt] -> TState3 -> TState3
 interpretStmts [] s = s
@@ -799,7 +826,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 					((M.insert x (TTBoolean (intToBool val)) extState), funcMap) else s
 				otherwise -> error("Error - incorrect types")
 			Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
-	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+	 -- s@extState, funcMap()> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
     SBlank -> s
 
@@ -810,11 +837,13 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	        Nothing -> error("Error - Variable: " ++ (show y) ++ " has not been declared!")
 	        Just fvy -> if genericTTypeCheck (TTFuncDef fvy) vx then
 --	                        error("Error - not implemented yet")
-                            ((extState), (M.insert x fvy funcMap))
+                            ((M.insert x (TTFuncDef fvy) extState), (M.insert x fvy funcMap))
 	                    else
 	                        error("Error - type mismatch!")
 	    Just vy -> if genericTTypeCheck vx vy then
-	                    ((M.insert x vy extState), funcMap)
+	                    case vy of
+	                        TTFuncDef def -> ((M.insert x vy extState), (M.insert x vy funcMap))
+	                        otherwise ->  ((M.insert x vy extState), funcMap)
 	                else
 	                    error("Error - type mismatch!")
 
@@ -837,7 +866,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                         ProcCall (Ident fid) -> (insertVariable (Ident x) (sRunFun (Ident fid) s))
                         ProcCallId (Ident fid) (Ident varId) -> (insertVariable (Ident x) (sRunFunId (Ident fid) (Ident varId) s))
                         ProcCallIdArray (Ident fid) (Ident arrayId) index -> (insertVariable (Ident x) (sRunFunIdArray (Ident fid) (Ident arrayId) index s))
---                        ProcCallExp (Ident fid) exp -> (insertVariable (Ident x) (sRunFunExp (Ident fid) exp s))
+                        ProcCallExp (Ident fid) exp -> (insertVariable (Ident x) (sRunFunExp (Ident fid) exp s))
 --                        ProcCallBExp (Ident fid) bexp -> (insertVariable (Ident x) (sRunFunBExp (Ident fid) bexp s))
 --                        ProcCallString (Ident fid) str -> (insertVariable (Ident x) (sRunFunString (Ident fid) str s))
 	           else
