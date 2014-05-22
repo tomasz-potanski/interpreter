@@ -140,6 +140,14 @@ checkArgTypes arg1 arg2 = case arg1 of
         EmptyArgs -> if argType1 == TVoid then True else False
         NonEmptyArgs (DLList _ argType2) -> if genericTypeCheck argType1 argType2 then True else False
 
+
+
+checkArgTypes :: FuncArg -> Type -> Bool
+checkArgTypes arg1 arg2 = case arg1 of
+    EmptyArgs -> if arg2 == TVoid then True else False
+    NonEmptyArgs (DLList _ argType1) -> if argType1 == arg2 then True else False
+    
+
 typeCheck :: TTypes -> Type -> Bool
 typeCheck ttype typee = case ttype of
     TTBoolean _     ->  if typee == TBool then True else False
@@ -151,7 +159,7 @@ typeCheck ttype typee = case ttype of
     TTFuncDef defOfFun@(stmts, funcArg, tTypes, tStateOldFunc) -> case typee of
         TFunc argType retType -> if (tTypes == (typeToDefaultTType retType)) then
 --                                    True --TODO - wpradz typ argumentu
-                                    (checkArgTypes funcArg argType)
+                                    (checkArgTypes2 funcArg argType)
                                  else False
         otherwise -> False
     otherwise -> False
