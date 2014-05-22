@@ -131,6 +131,14 @@ proccToReturnType procc s@(extState, funcMap) = case procc of
         Nothing -> error("Error - function: " ++ (show fid) ++ "has not been found!")
         Just (_, _, retTtypes, _) -> retTtypes
 
+checkArgTypes :: FuncArg -> FuncArg -> Bool
+checkArgTypes arg1 arg2 = case arg1 of
+    EmptyArgs -> case arg2 of
+        EmptyArgs -> True
+        NonEmptyArgs (DLList _ argType2) -> if argType2 = TVoid then True else False
+    NonEmptyArgs (DLList _ argType1) -> case arg2 of
+        EmptyArgs -> if argType1 = TVoid then True else False
+        NonEmptyArgs (DLList _ argType2) -> if genericTypeCheck argType1 argType2 then True else False
 
 typeCheck :: TTypes -> Type -> Bool
 typeCheck ttype typee = case ttype of
@@ -142,7 +150,8 @@ typeCheck ttype typee = case ttype of
         otherwise -> False
     TTFuncDef defOfFun@(stmts, funcArg, tTypes, tStateOldFunc) -> case typee of
         TFunc argType retType -> if (tTypes == (typeToDefaultTType retType)) then
-                                    True --TODO - wpradz typ argumentu
+--                                    True --TODO - wpradz typ argumentu
+                                    (checkArgTypes funcArg argType)
                                  else False
         otherwise -> False
     otherwise -> False
@@ -702,7 +711,12 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
     SAttr (Ident x) (Ident y) -> case (M.lookup x extState) of
 	Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 	Just vx -> case (M.lookup y extState) of
-	    Nothing -> error("Error - Variable: " ++ (show y) ++ " has not been declared!")
+	    Nothing -> case (M.lookup y funcMap) of
+	        Nothing -> error("Error - Variable: " ++ (show y) ++ " has not been declared!")
+	        Just fvy -> if genericTTypeCheck (TTFuncDef fvy) vx then
+	                        error("Error - not implemented yet")
+	                    else
+	                        error("Error - type mismatch!")
 	    Just vy -> if genericTTypeCheck vx vy then
 	                    ((M.insert x vy extState), funcMap)
 	                else
