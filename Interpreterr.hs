@@ -56,7 +56,7 @@ ttypeToType typee = case typee of
     TTBoolean _ -> TBool
     TTString _ -> TString
 --    TArray minn maxx ofType -> TTArray minn maxx ofType M.empty
-    TTArray _ _ ofType _ -> TArray 0 10 ofType M.empty
+    TTArray _ _ ofType _ -> TArray 0 10 ofType
 
 
 identToString :: Ident -> TState3 -> String
