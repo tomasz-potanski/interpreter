@@ -31,5 +31,5 @@ begin
 
 	f:= zwroc();
 	f(10);
-	//wart ( f );
+	wart ( f );
 end.
