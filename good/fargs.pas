@@ -25,7 +25,7 @@ proc
 	function zwroc( a : Function ( Integer) : Void;) : Function ( Integer) : Void;
 	begin
 		//print <- ("sdfsdf");
-		print <-- (a);		
+		//print <-- (a);		
 		a(3);
 		zwroc := drukuj10;
 	end
