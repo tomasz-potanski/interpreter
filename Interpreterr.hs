@@ -939,26 +939,26 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 
 
     SPrintFunString (Ident x) str -> case (M.lookup x funcMap) of
-    Nothing -> error("Error - invalid function name!");
-    Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
-        let globals = M.intersection state tStateOld
-        in
-        case varDeclarationLine of
-            NonEmptyArgs v -> case v of
-	                DLList identList@((Ident identArg):_) typee -> case tTypes of
-                            TTVoid -> error("Error - function must return Int or Boolean...")
-                            TTString _ -> error("Error - function must return Int or Boolean...")
-                            TTArray _ _ _ _ -> error("Error - function must return Int or Boolean...")
-                            TTInt _ ->
-                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTString str) (M.union tStateOld state) , funcMap))
-                                in
-                                showToUser (identToString (Ident x) stateAfterFunctionCall)  ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
-            --              Sorry for the code repetition, I don't know how to handle it better ;)
-                            TTBoolean _ ->
-                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTString str) (M.union tStateOld state) , funcMap))
-                                in
-                                showToUser (identToString (Ident x) stateAfterFunctionCall)  ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
-            EmptyArgs -> error("Error - function/procedure need argument")
+        Nothing -> error("Error - invalid function name!");
+        Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
+            let globals = M.intersection state tStateOld
+            in
+            case varDeclarationLine of
+                NonEmptyArgs v -> case v of
+                        DLList identList@((Ident identArg):_) typee -> case tTypes of
+                                TTVoid -> error("Error - function must return Int or Boolean...")
+                                TTString _ -> error("Error - function must return Int or Boolean...")
+                                TTArray _ _ _ _ -> error("Error - function must return Int or Boolean...")
+                                TTInt _ ->
+                                    let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTString str) (M.union tStateOld state) , funcMap))
+                                    in
+                                    showToUser (identToString (Ident x) stateAfterFunctionCall)  ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+                --              Sorry for the code repetition, I don't know how to handle it better ;)
+                                TTBoolean _ ->
+                                    let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTString str) (M.union tStateOld state) , funcMap))
+                                    in
+                                    showToUser (identToString (Ident x) stateAfterFunctionCall)  ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+                EmptyArgs -> error("Error - function/procedure need argument")
 
 --	SPrintFun (Ident x) -> case (M.lookup x funcMap) of
 --	    Nothing -> error("Error - funciton: " ++ (show x) ++ " does not exist!")
