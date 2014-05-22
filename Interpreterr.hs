@@ -41,7 +41,9 @@ type TStore = M.Map TLoc TTypes
 --idAndTypeToVarDecl (Ident x) typee
 
 insertVariable:: Ident -> (TTypes, TState3) -> TState3
-insertVariable (Ident x) (varTType, s@(extState, funcMap)) = ((M.insert x varTType extState) , funcMap)
+insertVariable (Ident x) (varTType, s@(extState, funcMap)) = case varTType of
+    TTFuncDef tFuncDef -> ((M.insert x varTType extState) , (M.insert x tFuncDef funcMap))
+    otherwise -> ((M.insert x varTType extState) , funcMap)
 
 typeToDefaultTType :: Type -> TTypes
 typeToDefaultTType typee = case typee of

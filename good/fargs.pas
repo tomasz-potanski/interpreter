@@ -30,4 +30,6 @@ begin
 	wart( drukuj10 );
 
 	f:= zwroc();
+	f(10);
+	//wart ( f );
 end.
