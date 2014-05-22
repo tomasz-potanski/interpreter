@@ -819,10 +819,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                 Nothing -> error("Error - Variable or funciton: " ++ (show y) ++ " has not been declared!");;
                 Just fvy -> if genericTTypeCheck (TTFuncDef fvy) vxx then ((extState), (M.insert x (TTArray minn maxx arrayType (M.insert  index fvy arrayMap) funcMap))) else error("Error - type mismatch!");;
             };
-            Just vy -> if genericTTypeCheck vx vy then;
-                            ((M.insert x vy extState), funcMap);
-                        else;
-                            error("Error - type mismatch!");
+            Just vy -> if genericTTypeCheck vx vy then ((M.insert x vy extState), funcMap) else error("Error - type mismatch!");
         }
 
     SProcAttr (Ident x) procc -> case (M.lookup x extState) of
