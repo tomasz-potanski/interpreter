@@ -1126,6 +1126,7 @@ simpleAddOneVar (Ident x) value (state, funcMap) = ((M.insert x value state), fu
 addOneVariable :: Ident -> Type -> TState3 -> TState3
 addOneVariable (Ident ident) typee state = case typee of
 		TInt -> simpleAddOneVar (Ident ident) (TTInt 0) state
+		TVoid -> state
 		TBool -> simpleAddOneVar (Ident ident) (TTBoolean False) state
 		TString -> simpleAddOneVar (Ident ident) (TTString "") state
 		TArray minn maxx typee -> 
