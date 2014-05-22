@@ -1017,7 +1017,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	    Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 	False -> case (M.lookup x funcMap) of
 	    Nothing -> error("Error - Variable / Funciton: " ++ (show x) ++ " has not been declared!")
-	    Just (TTFuncDef def) -> errror("Error - you want to print a function: " ++ (show def))
+	    Just (TTFuncDef def) -> error("Error - you want to print a function: " ++ (show def))
 
 
     SPrintArray (Ident x) index -> case (M.lookup x extState) of
