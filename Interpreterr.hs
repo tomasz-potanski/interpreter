@@ -135,9 +135,9 @@ checkArgTypes :: FuncArg -> FuncArg -> Bool
 checkArgTypes arg1 arg2 = case arg1 of
     EmptyArgs -> case arg2 of
         EmptyArgs -> True
-        NonEmptyArgs (DLList _ argType2) -> if argType2 = TVoid then True else False
+        NonEmptyArgs (DLList _ argType2) -> if argType2 == TVoid then True else False
     NonEmptyArgs (DLList _ argType1) -> case arg2 of
-        EmptyArgs -> if argType1 = TVoid then True else False
+        EmptyArgs -> if argType1 == TVoid then True else False
         NonEmptyArgs (DLList _ argType2) -> if genericTypeCheck argType1 argType2 then True else False
 
 typeCheck :: TTypes -> Type -> Bool
