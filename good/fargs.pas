@@ -44,7 +44,7 @@ begin
 	//wart(drukuj);
 	f:= zwroc(drukuj);
 
-	print <-- (drukuj);
+//	print <-- (drukuj);
 	print <-- (f);
 
 //	wart(drukuj);
