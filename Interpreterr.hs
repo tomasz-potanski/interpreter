@@ -1062,7 +1062,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	                    Nothing     -> case (M.lookup argIdent funcMap) of
 	                            Nothing -> error("Error -- variable " ++ (argIdent) ++ " has not been inicialized!")
 	                            Just myFun ->  if typeCheck (TTFuncDef myFun) typee then
-	                                            ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , (M.insert argIdent myFun funcMap)))) globals) extState, funcMap)
+	                                            ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , (M.insert ident myFun funcMap)))) globals) extState, funcMap)
                                          else
                                             error("Error - incorrect types!")
 

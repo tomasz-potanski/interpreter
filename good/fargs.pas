@@ -8,7 +8,7 @@ proc
 		g(global+1);
 	end
 
-	function druk ( aa : Integer ; ) : Integer;
+	function drukuj ( aa : Integer ; ) : Integer;
 	begin
 		print <-- (global);
 	end
