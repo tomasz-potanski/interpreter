@@ -1,11 +1,11 @@
 proc
 
-	function druk() : Integer;
+	function druk(zm : Integer ;) : Boolean;
 	begin
 		//print <-- (a);
-		druk := 1;
+		druk := True;
 	end
 
 begin
-	print <-- ( druk() );
+	print <-- ( druk(2) );
 end.
