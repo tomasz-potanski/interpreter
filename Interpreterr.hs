@@ -942,7 +942,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                                             otherwise ->
                                                 let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg vvvv (M.union tStateOld extState) , funcMap))
                                                 in
-                                                showToUser (identToInt (Ident x) stateAfterFunctionCall)( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+                                                showToUser (identToString (Ident x) stateAfterFunctionCall)( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                                 else
                                     error("Error - incorrect types!")
                 EmptyArgs -> error("Error - function/procedure need argument")
