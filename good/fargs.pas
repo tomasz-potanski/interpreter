@@ -51,19 +51,20 @@ begin
 	//wart( drukuj );
 	//wart( drukuj10 );
 	
-
+	print <-- (zwroc2);
+	print <-- (drukuj10);
 	print <-- (zwroc2());
 
-	tab[1] := drukuj;
+//	tab[1] := drukuj;
 	//wart(drukuj);
 //	f:= zwroc(drukuj);
-	f := zwroc2();
+//	f := zwroc2();
 
 //	print <-- (drukuj);
-	print <-- (f);
+//	print <-- (f);
 
 //	wart(drukuj);
-	zwroc(f);
+//	zwroc(f);
 //	zwroc(drukuj);
 //	zwroc(tab[1]);
 	

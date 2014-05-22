@@ -88,7 +88,10 @@ identToString (Ident ident) s@(stateOld, funcMap) =
                     TTString ss  -> ss
                     TTInt ii     -> (show ii)
                     TTBoolean bb -> if bb == True then "True" else "False"
-            TTFuncDef def -> "Variable is a funciton..." ++ (show def)
+            TTFuncDef def -> case (M.lookup ident funcMap) of
+                Nothing -> error("Error - variable not found!")
+                Just v -> "Func: " ++ (show v)
+            --"Variable is a funciton..." ++ (show def)
             otherwise -> error("Variable was not implemented sufficiently")
 
 
