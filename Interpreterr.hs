@@ -41,6 +41,21 @@ type TStore = M.Map TLoc TTypes
 --idAndTypeToVarDecl (Ident x) typee
 
 
+isAFunctionType :: Type -> Bool
+isAFunctionType (TFunc _ _) = True
+isAFunctionType _ = False
+
+
+-----TODO
+--funcDeclTypeOK :: FuncDeclLine -> Type -> Bool
+--funcDeclTypeOK fdec (TFunc argType retType) = case fdec of
+--    FLineNonArg (Ident x) fRetType fVarDec fStmt    ->
+--        if argType <> TVoid then
+--            False
+--        else
+--
+--    FLineArg (Ident x) fArg fRetType fVarDec fStmt  ->
+--funcDeclTypeOK fdec _ = false
 
 insertVariable:: Ident -> (TTypes, TState3) -> TState3
 insertVariable (Ident x) (varTType, s@(extState, funcMap)) = case varTType of
@@ -1372,6 +1387,24 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	                         else
 	                            error("Error - incorrect types!")
 	            EmptyArgs -> error ("Error - arguments were given!")
+
+
+----TODO
+--	SProcCallFuncSyg (Ident x) funcDeclLine -> case (M.lookup x funcMap) of
+--	    Nothing -> error("Error - function " ++ (show x) ++ "could not be found!")
+--	    Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
+--	        let globals = M.intersection extState tStateOld
+--	        in
+--	        case varDeclarationLine of
+--	            EmptyArgs -> error("Error - function " ++ (show x) ++ " is supposed to be given arguments.")
+--	            NonEmptyArgs identList@((Ident identArg):_) typee ->
+--	                if not(isAFunctionType(typee)) then
+--	                    error("Error - function " ++ (show x) ++ " is suppose to take a function.")
+--	                else
+--	                    if (funcDeclTypeOK funcDeclLine typee) then
+--	                        error("Error --- type mismatch!")
+--	                    else
+
 
 
 --    SProcCallIdFunc (Ident x) (Ident functionNameArg) -> case (M.lookup x funcMap) of
