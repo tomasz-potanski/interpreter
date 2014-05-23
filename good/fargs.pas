@@ -61,7 +61,7 @@ proc
 begin
 	global := 8;
 	wykonaj (
-		function aa( x : Integer ;) : Void
+		function aa( x : Integer ;) : Void;
 		var
 			c : String;
 		begin
