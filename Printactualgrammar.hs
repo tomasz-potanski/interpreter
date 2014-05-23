@@ -239,7 +239,7 @@ instance Print Procc where
    ProcCallIdArray id0 id n -> prPrec i 0 (concatD [prt 0 id0 , doc (showString "(") , prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ")") , doc (showString ";")])
    ProcCallExp id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 exp , doc (showString ")") , doc (showString ";")])
    ProcCallBExp id bexp -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 bexp , doc (showString ")") , doc (showString ";")])
-   ProccProcCallString id str -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 str , doc (showString ")") , doc (showString ";")])
+   ProcProcCallString id str -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 str , doc (showString ")") , doc (showString ";")])
 
 
 instance Print Exp where

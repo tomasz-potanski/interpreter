@@ -270,7 +270,7 @@ Procc : Ident '(' ')' ';' { ProcCall $1 }
   | Ident '(' Ident '[' Integer ']' ')' ';' { ProcCallIdArray $1 $3 $5 }
   | Ident '(' Exp ')' ';' { ProcCallExp $1 $3 }
   | Ident '(' BExp ')' ';' { ProcCallBExp $1 $3 }
-  | Ident '(' String ')' ';' { ProccProcCallString $1 $3 }
+  | Ident '(' String ')' ';' { ProcProcCallString $1 $3 }
 
 
 Exp :: { Exp }

@@ -126,7 +126,7 @@ data Procc =
  | ProcCallIdArray Ident Ident Integer
  | ProcCallExp Ident Exp
  | ProcCallBExp Ident BExp
- | ProccProcCallString Ident String
+ | ProcProcCallString Ident String
   deriving (Eq,Ord,Show)
 
 data Exp =
