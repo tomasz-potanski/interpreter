@@ -135,6 +135,7 @@ transStmt x = case x of
   SProcCallExp id exp  -> failure x
   SProcCallBExp id bexp  -> failure x
   SProcCallString id str  -> failure x
+  SProcCallFuncSyg id funcsyg  -> failure x
 
 
 transIfStmt :: IfStmt -> Result
@@ -153,6 +154,7 @@ transProcc x = case x of
   ProcCallExp id exp  -> failure x
   ProcCallBExp id bexp  -> failure x
   ProcCallString id str  -> failure x
+  ProcCallFuncSyg id funcsyg  -> failure x
 
 
 transExp :: Exp -> Result
@@ -210,6 +212,11 @@ transType x = case x of
   TDouble  -> failure x
   TArray n1 n2 type'3  -> failure x
   TFunc type'1 type'2  -> failure x
+
+
+transFuncSyg :: FuncSyg -> Result
+transFuncSyg x = case x of
+  TFuncSyg vardeclarationline type' variabledeclaration stmt  -> failure x
 
 
 transLitVal :: LitVal -> Result

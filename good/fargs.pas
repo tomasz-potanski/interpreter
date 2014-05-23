@@ -22,12 +22,12 @@ proc
 		print <-- (aa);
 	end
 
-	function zwroc( aaa : Boolean;) : Function ( Integer) : Void;
+	function zwroc( aaa : String;) : Function ( Integer) : Void;
 	begin
 		//print <- ("sdfsdf");
 		//print <-- (a);		
 		print <-- (aaa);
-		if aaa then
+		if aaa.equals("aaa") then
 			zwroc := drukuj10;
 		else
 			zwroc := drukuj;
@@ -53,9 +53,9 @@ proc
 begin
 	global := 8;
 
-	f:= zwroc(True);
+	f:= zwroc("aaa");
 	f(10);
-	f:= zwroc(False);
+	f:= zwroc("bbb");
 	f(10);
 
 

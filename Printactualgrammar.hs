@@ -219,6 +219,7 @@ instance Print Stmt where
    SProcCallExp id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 exp , doc (showString ")") , doc (showString ";")])
    SProcCallBExp id bexp -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 bexp , doc (showString ")") , doc (showString ";")])
    SProcCallString id str -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 str , doc (showString ")") , doc (showString ";")])
+   SProcCallFuncSyg id funcsyg -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 funcsyg , doc (showString ")") , doc (showString ";")])
 
   prtList es = case es of
    [] -> (concatD [])
@@ -240,6 +241,7 @@ instance Print Procc where
    ProcCallExp id exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 exp , doc (showString ")") , doc (showString ";")])
    ProcCallBExp id bexp -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 bexp , doc (showString ")") , doc (showString ";")])
    ProcCallString id str -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 str , doc (showString ")") , doc (showString ";")])
+   ProcCallFuncSyg id funcsyg -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 funcsyg , doc (showString ")") , doc (showString ";")])
 
 
 instance Print Exp where
@@ -297,6 +299,11 @@ instance Print Type where
    TDouble  -> prPrec i 0 (concatD [doc (showString "Double")])
    TArray n0 n type' -> prPrec i 2 (concatD [doc (showString "Array") , doc (showString "[") , prt 0 n0 , doc (showString "..") , prt 0 n , doc (showString "]") , doc (showString "of") , prt 0 type'])
    TFunc type'0 type' -> prPrec i 0 (concatD [doc (showString "Function") , doc (showString "(") , prt 0 type'0 , doc (showString ")") , doc (showString ":") , prt 0 type'])
+
+
+instance Print FuncSyg where
+  prt i e = case e of
+   TFuncSyg vardeclarationline type' variabledeclaration stmt -> prPrec i 0 (concatD [doc (showString "Function") , doc (showString "(") , prt 0 vardeclarationline , doc (showString ")") , doc (showString ":") , prt 0 type' , prt 0 variabledeclaration , prt 2 stmt])
 
 
 instance Print LitVal where

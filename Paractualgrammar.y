@@ -230,6 +230,7 @@ Stmt : ';' { SBlank }
   | Ident '(' Exp ')' ';' { SProcCallExp $1 $3 }
   | Ident '(' BExp ')' ';' { SProcCallBExp $1 $3 }
   | Ident '(' String ')' ';' { SProcCallString $1 $3 }
+  | Ident '(' FuncSyg ')' ';' { SProcCallFuncSyg $1 $3 }
   | Stmt1 { $1 }
 
 
@@ -271,6 +272,7 @@ Procc : Ident '(' ')' ';' { ProcCall $1 }
   | Ident '(' Exp ')' ';' { ProcCallExp $1 $3 }
   | Ident '(' BExp ')' ';' { ProcCallBExp $1 $3 }
   | Ident '(' String ')' ';' { ProcCallString $1 $3 }
+  | Ident '(' FuncSyg ')' ';' { ProcCallFuncSyg $1 $3 }
 
 
 Exp :: { Exp }
@@ -347,6 +349,10 @@ Type : 'Void' { TVoid }
 Type2 :: { Type }
 Type2 : 'Array' '[' Integer '..' Integer ']' 'of' Type { TArray $3 $5 $8 } 
   | '(' Type ')' { $2 }
+
+
+FuncSyg :: { FuncSyg }
+FuncSyg : 'Function' '(' VarDeclarationLine ')' ':' Type VariableDeclaration Stmt2 { TFuncSyg $3 $6 $7 $8 } 
 
 
 Type1 :: { Type }
