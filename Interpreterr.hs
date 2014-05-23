@@ -830,6 +830,23 @@ sRunFunBExp (Ident x) bexp s@(extState, funcMap) = case (M.lookup x funcMap) of
                                         ((identToTType (Ident x) stateAfterFunctionCall), ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap))
             EmptyArgs -> error("Error - function/procedure need argument")
 
+
+
+sPrintFunString (Ident x) str s@(extState, funcMap) = case (M.lookup x funcMap) of
+    Nothing -> error("Error - invalid function name!");
+    Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
+        let globals = M.intersection extState tStateOld
+        in
+        case varDeclarationLine of
+            NonEmptyArgs v -> case v of
+                    DLList identList@((Ident identArg):_) typee -> case tTypes of
+                            TTVoid -> error("Error - function must return Int or Boolean...")
+                            otherwise ->
+                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTString str) (M.union tStateOld extState) , funcMap))
+                                in
+                                ((identToTType (Ident x) stateAfterFunctionCall),  ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap))
+            EmptyArgs -> error("Error - function/procedure need argument")
+
 -----------------STATEMETNS----------------
 interpretStmts :: [Stmt] -> TState3 -> TState3
 interpretStmts [] s = s
@@ -895,7 +912,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                         ProcCallIdArray (Ident fid) (Ident arrayId) index -> (insertVariable (Ident x) (sRunFunIdArray (Ident fid) (Ident arrayId) index s))
                         ProcCallExp (Ident fid) exp -> (insertVariable (Ident x) (sRunFunExp (Ident fid) exp s))
                         ProcCallBExp (Ident fid) bexp -> (insertVariable (Ident x) (sRunFunBExp (Ident fid) bexp s))
---                        ProcCallString (Ident fid) str -> (insertVariable (Ident x) (sRunFunString (Ident fid) str s))
+                        ProcCallString (Ident fid) str -> (insertVariable (Ident x) (sRunFunString (Ident fid) str s))
 	           else
 	                error("Error - type mismatch")
 
