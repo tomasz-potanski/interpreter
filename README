@@ -85,8 +85,8 @@ Dwie dodatkowe rzeczy z listy:
    porównywalnymi wartościami; typ klucza
    należy uwzględnić w typie słownika
 4. krotki z przypisanie jak w Pythonie			Brak 
-5. Funkcje jako parametry				Brak <--- under development
-6. Zwracanie funkcji w wyniku; domkniecie		Brak <--- under development
+5. Funkcje jako parametry				OK
+6. Zwracanie funkcji w wyniku; domkniecie		OK
    jak w JS
 7. Funkcje anonimowe					Brak
 

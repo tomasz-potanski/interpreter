@@ -22,11 +22,11 @@ proc
 		print <-- (aa);
 	end
 
-	function zwroc( a : Function ( Integer) : Void;) : Function ( Integer) : Void;
+	function zwroc( aaa : Integer;) : Function ( Integer) : Void;
 	begin
 		//print <- ("sdfsdf");
 		//print <-- (a);		
-		a(3);
+		print <-- (aaa);
 		zwroc := drukuj10;
 	end
 
@@ -48,44 +48,9 @@ proc
 
 begin
 	global := 8;
-	//wart( drukuj );
-	//wart( drukuj10 );
-	
-//	print <-- (zwroc2);
-//	print <-- (drukuj10);
-//	print <-- (zwroc2());
 
-	tab[1] := drukuj;
-	f:= zwroc(tab[1]);
-	//print <-- (f);
+	f:= zwroc(2+1);
 	f(10);
-	//wart(drukuj);
 
-
-
-//	f := zwroc2();
-//	print <-- (f);
-//	f(3);
-//	f(10);
-
-
-
-
-//	f:= zwroc(drukuj);
-//	f(10);
-//	print <-- (f);
-//	f := zwroc2();
-
-//	print <-- (drukuj);
-//	print <-- (f);
-
-//	wart(drukuj);
-//	zwroc(f);
-//	zwroc(drukuj);
-//	zwroc(tab[1]);
-	
-
-	//f(10);
-	//wart ( f );
 
 end.
