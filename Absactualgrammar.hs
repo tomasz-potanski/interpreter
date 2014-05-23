@@ -111,7 +111,7 @@ data Stmt =
  | SProcCallExp Ident Exp
  | SProcCallBExp Ident BExp
  | SProcCallString Ident String
- | SProcCallFuncSyg Ident FuncSyg
+ | SProcCallFuncSyg Ident FuncDeclLine
   deriving (Eq,Ord,Show)
 
 data IfStmt =
@@ -128,7 +128,7 @@ data Procc =
  | ProcCallExp Ident Exp
  | ProcCallBExp Ident BExp
  | ProcCallString Ident String
- | ProcCallFuncSyg Ident FuncSyg
+ | ProcCallFuncSyg Ident FuncDeclLine
   deriving (Eq,Ord,Show)
 
 data Exp =
@@ -182,10 +182,6 @@ data Type =
  | TDouble
  | TArray Integer Integer Type
  | TFunc Type Type
-  deriving (Eq,Ord,Show)
-
-data FuncSyg =
-   TFuncSyg VarDeclarationLine Type VariableDeclaration Stmt
   deriving (Eq,Ord,Show)
 
 data LitVal =

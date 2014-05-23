@@ -145,7 +145,7 @@ ProcCallIdArray.	    Procc	::=	Ident "(" Ident "[" Integer "]" ")" ";" ;
 ProcCallExp.		    Procc	::=	Ident "(" Exp ")" ";" ;
 ProcCallBExp.		    Procc	::=	Ident "(" BExp ")" ";" ;
 ProcCallString. 	    Procc	::=	Ident "(" String ")" ";" ;
-ProcCallFuncSyg. 	    Procc	::=	Ident "(" FuncSyg ")" ";" ;
+ProcCallFuncSyg. 	    Procc	::=	Ident "(" FuncDeclLine ")" ";" ;
 
 
 SProcCall.		    Stmt	::=	Ident "(" ")" ";" ;
@@ -155,7 +155,7 @@ SProcCallIdArray.	Stmt	::=	Ident "(" Ident "[" Integer "]" ")" ";" ;
 SProcCallExp.		Stmt	::=	Ident "(" Exp ")" ";" ;
 SProcCallBExp.		Stmt	::=	Ident "(" BExp ")" ";" ;
 SProcCallString.	Stmt	::=	Ident "(" String ")" ";" ;
-SProcCallFuncSyg.	Stmt	::=	Ident "(" FuncSyg ")" ";" ;
+SProcCallFuncSyg.	Stmt	::=	Ident "(" FuncDeclLine ")" ";" ;
 
 --SPrintId.	Stmt	::=	"print" Ident ";" ;
 --SPrintArray.	Stmt	::=	"print" Ident "[" Integer "]" ";" ;
@@ -236,7 +236,7 @@ TChar.		Type	::=	"Char" ;
 TDouble.	Type 	::=	"Double" ;
 TArray.		Type2	::=	"Array" "[" Integer ".." Integer "]" "of" Type ;
 TFunc.      Type    ::= "Function" "(" Type ")" ":" Type ;
-TFuncSyg.   FuncSyg ::= "Function" "(" VarDeclarationLine ")" ":" Type VariableDeclaration Stmt2 ;
+--TFuncSyg.   FuncSyg ::= "Function" "(" VarDeclarationLine ")" ":" Type VariableDeclaration Stmt2 ;
 coercions Type 2 ;
 --tablica_imion : Array[1..10] of string;
 

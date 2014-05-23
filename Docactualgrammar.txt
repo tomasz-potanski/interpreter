@@ -145,7 +145,7 @@ All other symbols are terminals.
   |  |  **|**  | //Ident// ``(`` //Exp// ``)`` ``;`` 
   |  |  **|**  | //Ident// ``(`` //BExp// ``)`` ``;`` 
   |  |  **|**  | //Ident// ``(`` //String// ``)`` ``;`` 
-  |  |  **|**  | //Ident// ``(`` //FuncSyg// ``)`` ``;`` 
+  |  |  **|**  | //Ident// ``(`` //FuncDeclLine// ``)`` ``;`` 
   |  |  **|**  | //Stmt1// 
   | //Stmt2// | -> | ``begin`` //[Stmt]// ``end`` 
   |  |  **|**  | ``(`` //Stmt// ``)`` 
@@ -166,7 +166,7 @@ All other symbols are terminals.
   |  |  **|**  | //Ident// ``(`` //Exp// ``)`` ``;`` 
   |  |  **|**  | //Ident// ``(`` //BExp// ``)`` ``;`` 
   |  |  **|**  | //Ident// ``(`` //String// ``)`` ``;`` 
-  |  |  **|**  | //Ident// ``(`` //FuncSyg// ``)`` ``;`` 
+  |  |  **|**  | //Ident// ``(`` //FuncDeclLine// ``)`` ``;`` 
   | //Exp// | -> | //Exp// ``+`` //Exp1// 
   |  |  **|**  | //Exp// ``-`` //Exp1// 
   |  |  **|**  | //Exp1// 
@@ -216,7 +216,6 @@ All other symbols are terminals.
   |  |  **|**  | //Type1// 
   | //Type2// | -> | ``Array`` ``[`` //Integer// ``..`` //Integer// ``]`` ``of`` //Type// 
   |  |  **|**  | ``(`` //Type// ``)`` 
-  | //FuncSyg// | -> | ``Function`` ``(`` //VarDeclarationLine// ``)`` ``:`` //Type// //VariableDeclaration// //Stmt2// 
   | //Type1// | -> | //Type2// 
   | //LitVal// | -> | //String// 
   |  |  **|**  | //Double// 

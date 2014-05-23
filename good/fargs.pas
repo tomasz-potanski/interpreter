@@ -17,6 +17,12 @@ proc
 		print <- (aa*10);
 	end
 
+	procedure wykonaj ( f : Function ( Integer) : Void; );
+	begin
+		f(10);
+		f(15);
+	end
+
 	function drukuj ( aa : Integer ; ) : Void;
 	begin
 		print <-- (aa);
@@ -50,13 +56,20 @@ proc
 		test := True;
 	end
 
+	
+
 begin
 	global := 8;
-
-	f:= zwroc("aaa");
-	f(10);
-	f:= zwroc("bbb");
-	f(10);
+	wykonaj (
+		function aa( x : Integer ;) : Void
+		var
+			c : String;
+		begin
+			c := "ala ma kota..";
+			print <-- (c);
+			print <-- (x);
+		end
+	);
 
 
 end.

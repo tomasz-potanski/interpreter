@@ -227,7 +227,7 @@ All other symbols are terminals.\\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{(}} {\nonterminal{Exp}} {\terminal{)}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{(}} {\nonterminal{BExp}} {\terminal{)}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{(}} {\nonterminal{String}} {\terminal{)}} {\terminal{;}}  \\
- & {\delimit}  &{\nonterminal{Ident}} {\terminal{(}} {\nonterminal{FuncSyg}} {\terminal{)}} {\terminal{;}}  \\
+ & {\delimit}  &{\nonterminal{Ident}} {\terminal{(}} {\nonterminal{FuncDeclLine}} {\terminal{)}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Stmt1}}  \\
 \end{tabular}\\
 
@@ -269,7 +269,7 @@ All other symbols are terminals.\\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{(}} {\nonterminal{Exp}} {\terminal{)}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{(}} {\nonterminal{BExp}} {\terminal{)}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{(}} {\nonterminal{String}} {\terminal{)}} {\terminal{;}}  \\
- & {\delimit}  &{\nonterminal{Ident}} {\terminal{(}} {\nonterminal{FuncSyg}} {\terminal{)}} {\terminal{;}}  \\
+ & {\delimit}  &{\nonterminal{Ident}} {\terminal{(}} {\nonterminal{FuncDeclLine}} {\terminal{)}} {\terminal{;}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
@@ -346,10 +346,6 @@ All other symbols are terminals.\\
 \begin{tabular}{lll}
 {\nonterminal{Type2}} & {\arrow}  &{\terminal{Array}} {\terminal{[}} {\nonterminal{Integer}} {\terminal{..}} {\nonterminal{Integer}} {\terminal{]}} {\terminal{of}} {\nonterminal{Type}}  \\
  & {\delimit}  &{\terminal{(}} {\nonterminal{Type}} {\terminal{)}}  \\
-\end{tabular}\\
-
-\begin{tabular}{lll}
-{\nonterminal{FuncSyg}} & {\arrow}  &{\terminal{Function}} {\terminal{(}} {\nonterminal{VarDeclarationLine}} {\terminal{)}} {\terminal{:}} {\nonterminal{Type}} {\nonterminal{VariableDeclaration}} {\nonterminal{Stmt2}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}
