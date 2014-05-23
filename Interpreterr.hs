@@ -832,7 +832,7 @@ sRunFunBExp (Ident x) bexp s@(extState, funcMap) = case (M.lookup x funcMap) of
 
 
 
-sPrintFunString (Ident x) str s@(extState, funcMap) = case (M.lookup x funcMap) of
+sRunFunString (Ident x) str s@(extState, funcMap) = case (M.lookup x funcMap) of
     Nothing -> error("Error - invalid function name!");
     Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
         let globals = M.intersection extState tStateOld
