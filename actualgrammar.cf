@@ -144,7 +144,7 @@ ProcCallId.		        Procc	::=	Ident "(" Ident ")" ";" ;
 ProcCallIdArray.	    Procc	::=	Ident "(" Ident "[" Integer "]" ")" ";" ;
 ProcCallExp.		    Procc	::=	Ident "(" Exp ")" ";" ;
 ProcCallBExp.		    Procc	::=	Ident "(" BExp ")" ";" ;
-ProcProcCallString.	    Procc	::=	Ident "(" String ")" ";" ;
+ProcCallString. 	    Procc	::=	Ident "(" String ")" ";" ;
 
 
 SProcCall.		    Stmt	::=	Ident "(" ")" ";" ;

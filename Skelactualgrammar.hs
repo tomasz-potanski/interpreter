@@ -152,7 +152,7 @@ transProcc x = case x of
   ProcCallIdArray id1 id2 n3  -> failure x
   ProcCallExp id exp  -> failure x
   ProcCallBExp id bexp  -> failure x
-  ProcProcCallString id str  -> failure x
+  ProcCallString id str  -> failure x
 
 
 transExp :: Exp -> Result

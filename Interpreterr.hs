@@ -143,7 +143,7 @@ proccToReturnType procc s@(extState, funcMap) = case procc of
     ProcCallBExp (Ident fid) bexp -> case (M.lookup fid funcMap) of
         Nothing -> error("Error - function: " ++ (show fid) ++ "has not been found!")
         Just (_, _, retTtypes, _) -> retTtypes
-    ProccProcCallString (Ident fid) str -> case (M.lookup fid funcMap) of
+    ProcCallString (Ident fid) str -> case (M.lookup fid funcMap) of
         Nothing -> error("Error - function: " ++ (show fid) ++ "has not been found!")
         Just (_, _, retTtypes, _) -> retTtypes
 
