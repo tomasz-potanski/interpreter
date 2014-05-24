@@ -1463,8 +1463,8 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 
     SProcCallId (Ident x) (Ident argIdent) -> case (M.lookup x funcMap) of
         Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
-        Just (stmt, varDeclarationLine, tTypes, tStateOld) -> case (M.lookup x extState) of
-            Nothing -> error("Error - function " ++ x ++ " does not exist or is out of range!")
+        Just (stmt, varDeclarationLine, tTypes, tStateOld) -> case (M.lookup ("#FUN" ++ x) extState) of
+            Nothing -> error("Error -# function " ++ x ++ " does not exist or is out of range!")
             Just cos ->
                 case cos of
                     (TTFuncDef fffuncDef) ->
@@ -1650,7 +1650,7 @@ addOneProc2 h state@(s, funcMap) = case h of
     PLineArg	(Ident x) args varDecls stmt  ->
         let tFunDef = (stmt, (NonEmptyArgs args), TTVoid, (fst (declareNewVariables varDecls (M.empty, M.empty))))
         in
-        ((M.insert x (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
+        ((M.insert ("#FUN" ++ x) (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
 
 
 addOneFunction :: FuncDeclLine -> TFuncMap -> TFuncMap
@@ -1673,20 +1673,20 @@ addOneFunction2 h state@(s, funcMap) = case h of
         VBDoesntExists ->
             let tFunDef = (stmt, EmptyArgs, (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):[])) (M.empty, M.empty))))
             in
-            ((M.insert x (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
+            ((M.insert ("#FUN" ++ x) (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
         VBExists listOfVarDecl ->
             let tFunDef = (stmt, EmptyArgs, (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):listOfVarDecl)) (M.empty, M.empty))))
             in
-            ((M.insert x (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
+            ((M.insert ("#FUN" ++ x) (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
     FLineArg	(Ident x) args typee varDecls stmt  -> case varDecls of
         VBDoesntExists ->
             let tFunDef = (stmt, (NonEmptyArgs args), (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):[])) (M.empty, M.empty))))
             in
-            ((M.insert x (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
+            ((M.insert ("#FUN" ++ x) (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
         VBExists listOfVarDecl ->
             let tFunDef = (stmt, (NonEmptyArgs args), (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):listOfVarDecl)) (M.empty, M.empty))))
             in
-            ((M.insert x (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
+            ((M.insert ("#FUN" ++ x) (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
 
 
 
