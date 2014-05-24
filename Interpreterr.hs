@@ -51,12 +51,12 @@ funcDeclTypeOK :: FuncDeclLine -> Type -> Bool
 funcDeclTypeOK fdec (TFunc argType retType) = case fdec of
     FLineNonArg (Ident x) fRetType fVarDec fStmt    ->
         if (argType /= TVoid) || (fRetType /= retType) then
-            False
+            error("Error -here!")
         else
             True
     FLineArg (Ident x) (DLList _ fArgType) fRetType fVarDec fStmt  ->
             if not (genericTypeCheck argType fArgType) || not (genericTypeCheck fRetType retType) then
-                error("Error -here!")
+                False
             else
                 True
 funcDeclTypeOK fdec _ = False
