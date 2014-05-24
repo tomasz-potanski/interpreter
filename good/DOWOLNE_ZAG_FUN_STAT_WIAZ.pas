@@ -5,8 +5,9 @@ var
 proc
 	procedure print3( x : Integer ;);
 	begin
-		print <- (3);
-		aa(3);
+		//print <- (3);
+		//aa(x);
+		druk(x);
 	end
 
 begin
@@ -19,12 +20,18 @@ begin
 	begin
 		x := 4;
 		a := x + a;
-		print <-- (a);
+		
+		function druk(co : Integer;) : Void;
+		begin
+			print <--(co);
+		end
+		
+		druk(co);
 	end;
 
 	
 	aa(xx);
 	print <-- (xx);
 
-	print3();
+	print3(xx);
 end.
