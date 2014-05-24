@@ -1449,15 +1449,22 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 
     SProcCallString (Ident x) strstr -> case (M.lookup x funcMap) of {
         Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!");
-        Just (stmt, varDeclarationLine, tTypes, tStateOld) -> let globals = M.intersection extState tStateOld in case varDeclarationLine of {;
-	            NonEmptyArgs v -> case v of {;;
-	                DLList identList@((Ident ident):_) typee -> case typee of {;;;
-	                    TString -> ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident (TTString strstr) (M.union tStateOld extState) , funcMap))) globals) extState, funcMap);;;;
-	                    otherwise -> error("Error - incorrect type") ;;;;
-	                };;;
-	            };;
-	            EmptyArgs -> error ("Error - arguments were given!") ;;
-	        };
+        Just (stmt, varDeclarationLine, tTypes, tStateOld) ->;
+            case (M.lookup ("#FUN" ++ x) extState) of {;
+                Nothing -> error("Error -# function " ++ x ++ " does not exist or is out of range!");;
+                Just cos ->;;
+                    case cos of;;
+                        (TTFuncDef fffuncDef) ->;;
+                            let globals = M.intersection extState tStateOld in case varDeclarationLine of {;;
+                                NonEmptyArgs v -> case v of {;;;
+                                    DLList identList@((Ident ident):_) typee -> case typee of {;;;;
+                                        TString -> ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident (TTString strstr) (M.union tStateOld extState) , funcMap))) globals) extState, funcMap);;;;;
+                                        otherwise -> error("Error - incorrect type") ;;;;;
+                                    };;;;
+                                };;;
+                                EmptyArgs -> error ("Error - arguments were given!") ;;;
+                            };;
+            };
 	 }
 
 
@@ -1546,23 +1553,27 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 
     SProcCallIdArray (Ident x) (Ident argIdent) int -> case (M.lookup x funcMap) of
         Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
-        Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
-            let globals = M.intersection extState tStateOld
-            in
-	        case varDeclarationLine of
-	            NonEmptyArgs v -> case v of
-	                DLList identList@((Ident ident):_) typee -> case (M.lookup argIdent extState) of
-	                    Nothing     -> error("Error - variable " ++ (show argIdent) ++ " has not been inicialized!")
-	                    Just (TTArray minn maxx ofType arrayMap)   ->
-	                        if genericTypeCheck ofType typee then
-	                            case (M.lookup int arrayMap) of
-	                                Nothing -> error("Error - variable out of bound or not declared")
-	                                Just nm -> case nm of
-	                                    TTFuncDef fDef -> ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , (M.insert ident fDef funcMap)))) globals) extState, funcMap)
-	                                    otherwise ->  ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident nm (M.union tStateOld extState) , funcMap))) globals) extState, funcMap)
-	                         else
-	                            error("Error - incorrect types!")
-	            EmptyArgs -> error ("Error - arguments were given!")
+        Just (stmt, varDeclarationLine, tTypes, tStateOld) -> case (M.lookup ("#FUN" ++ x) extState) of
+            Nothing -> error("Error -# function " ++ x ++ " does not exist or is out of range!")
+            Just cos ->
+                case cos of
+                    (TTFuncDef fffuncDef) ->
+                        let globals = M.intersection extState tStateOld
+                        in
+                        case varDeclarationLine of
+                            NonEmptyArgs v -> case v of
+                                DLList identList@((Ident ident):_) typee -> case (M.lookup argIdent extState) of
+                                    Nothing     -> error("Error - variable " ++ (show argIdent) ++ " has not been inicialized!")
+                                    Just (TTArray minn maxx ofType arrayMap)   ->
+                                        if genericTypeCheck ofType typee then
+                                            case (M.lookup int arrayMap) of
+                                                Nothing -> error("Error - variable out of bound or not declared")
+                                                Just nm -> case nm of
+                                                    TTFuncDef fDef -> ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , (M.insert ident fDef funcMap)))) globals) extState, funcMap)
+                                                    otherwise ->  ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident nm (M.union tStateOld extState) , funcMap))) globals) extState, funcMap)
+                                         else
+                                            error("Error - incorrect types!")
+                            EmptyArgs -> error ("Error - arguments were given!")
 
     SFuncDeclLine funcDeclLine -> addOneFunction2 funcDeclLine s
 
