@@ -6,5 +6,5 @@ var
 		RecEnd;
 
 begin
-	printf <- ("sdfsdf");
+	printf <-- ("sdfsdf");
 end.
