@@ -60,16 +60,16 @@ proc
 
 begin
 	global := 8;
-	wykonaj (
-		function aa( x : Integer ;) : Void;
-		var
-			c : String;
-		begin
-			c := "ala ma kota..";
-			print <-- (c);
-			print <-- (x);
-		end
-	);
+//	wykonaj (
+//		function aa( x : Integer ;) : Void;
+//		var
+//			c : String;
+//		begin
+//			c := "ala ma kota..";
+//			print <-- (c);
+//			print <-- (x);
+//		end
+//	);
 
 
 end.

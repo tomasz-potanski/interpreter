@@ -14,7 +14,6 @@ begin
 	print <- ("Ala ma kota!");
 	print <- (True);
 	print <- (False);
-	print <- (2<3);
 	x := 0;
 	y := "... ale Ola jest ladniejsza ;)";
 	z := True;
@@ -23,7 +22,7 @@ begin
 	print <-- (z);
 
 	a[1] := 0;
-	b[1] := "... ale Ola jest ladniejsza ;)";
+	b[1] := "... ale sdfkljsdaklfj ;)";
 	c[1] := 2 < 3;
 	print <-- (a[1]);
 	print <-- (b[1]);

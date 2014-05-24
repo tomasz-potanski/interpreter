@@ -47,15 +47,25 @@ isAFunctionType _ = False
 
 
 -----TODO
---funcDeclTypeOK :: FuncDeclLine -> Type -> Bool
---funcDeclTypeOK fdec (TFunc argType retType) = case fdec of
---    FLineNonArg (Ident x) fRetType fVarDec fStmt    ->
---        if argType <> TVoid then
---            False
---        else
---
---    FLineArg (Ident x) fArg fRetType fVarDec fStmt  ->
---funcDeclTypeOK fdec _ = false
+funcDeclTypeOK :: FuncDeclLine -> Type -> Bool
+funcDeclTypeOK fdec (TFunc argType retType) = case fdec of
+    FLineNonArg (Ident x) fRetType fVarDec fStmt    ->
+        if (argType <> TVoid) || (fRetType <> retType) then
+            False
+        else
+            True
+    FLineArg (Ident x) fArg fRetType fVarDec fStmt  -> case fArg of
+        EmptyArgs ->
+            if (argType <> TVoid) || (fRetType <> retType) then
+                False
+            else
+                True
+        NonEmptyArgs (DLList _ fArgType) ->
+            if (argType <> fArgType) || (fRetType <> retType) then
+                False
+            else
+                True
+funcDeclTypeOK fdec _ = TVoidalse
 
 insertVariable:: Ident -> (TTypes, TState3) -> TState3
 insertVariable (Ident x) (varTType, s@(extState, funcMap)) = case varTType of

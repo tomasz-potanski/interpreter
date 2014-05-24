@@ -71,8 +71,8 @@ Dwa sposór następujących
 -----------------------
 Wymagania na 20 puntków:
 1. Przesłanianie identyfikatorów ze statycznym 		OK (powiedziałbym, że 
-   ich wiązaniem					   działa - patrz: przesProc.pas -
-							  natiomiast nieprofesjonalnie)
+   ich wiązaniem					   działa - patrz: przesProc.pas)
+							  
 
 2. Statyczne typowanie					Brak
 3. Jawne obsłużenie dynamicznych błędów wykonania	OK
