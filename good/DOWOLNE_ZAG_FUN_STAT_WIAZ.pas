@@ -1,12 +1,9 @@
 begin
-	function aa ( a : Integer ;) : Void;
-	var
-		x : Integer;
+	function druk(a : Integer ;) : Integer;
 	begin
-		x := 4;
-		a := x + x;
-		print <-- (a);
+		print <- (a);
+		druk := 3;
 	end;
 
-	aa(6);
+	druk(6);
 end.
