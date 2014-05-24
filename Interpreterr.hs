@@ -65,7 +65,7 @@ funcDeclTypeOK fdec (TFunc argType retType) = case fdec of
                 False
             else
                 True
-funcDeclTypeOK fdec _ = TVoidalse
+funcDeclTypeOK fdec _ = False
 
 insertVariable:: Ident -> (TTypes, TState3) -> TState3
 insertVariable (Ident x) (varTType, s@(extState, funcMap)) = case varTType of
