@@ -11,6 +11,7 @@ import Printactualgrammar
 import ErrM
 
 import Interpreterr
+import Typechecker
 import qualified Data.Map as M
 
 
@@ -50,8 +51,9 @@ main = do
     	    Bad s -> do 
 		 hPutStrLn stderr "Error"
 		 hPutStrLn stderr s
---            Ok i -> return()
-            Ok i -> putStrLn (show (M.toList (fst (interpretFile i))))
+            Ok i -> case (M.lookup "#ERROR" (fst (typecheckFile i))) of
+                Nothing -> putStrLn (show (M.toList (fst (interpretFile i))))
+                Just vv -> error("Error - TYPECHECKER ERROR")
 
     else do
 	fileContent <- getContents

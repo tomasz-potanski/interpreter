@@ -92,7 +92,7 @@ Dwie dodatkowe rzeczy z listy:
 
 ------------------------
 Wymagania na 24 pkty:
-1. Dowolnie zagieżdżone definicje funkcji/procedur	Brak
+1. Dowolnie zagieżdżone definicje funkcji/procedur	++
    z zachowanie poprawności statycznego wiązania
    identyfikatorów (jak w Pascalu)
 2. Dodatko jedna lub dwie funkcjonalnosci z		++ (nawet więcej)

@@ -2,14 +2,6 @@ var
 	x : Integer;
 	xx : Integer;
 
-proc
-	procedure print3( x : Integer ;);
-	begin
-		//print <- (3);
-		//aa(x);
-		druk(x);
-	end
-
 begin
 	x := 80;	
 	xx := 6;
@@ -21,17 +13,23 @@ begin
 		x := 4;
 		a := x + a;
 		
-		function druk(co : Integer;) : Void;
+		function druk ( asd : Integer ; ) : Void;
 		begin
-			print <--(co);
-		end
+			print <-- (asd);
+		end;
+
+		function druk2(co : Integer;) : Void;
+		begin
+			druk(co);
+		end;
 		
-		druk(a);
+		druk2(a);
 	end;
 
 	
 	aa(xx);
 	print <-- (xx);
 
-	print3(xx);
+	//druk(xx); <-- FAILS
+	//druk2(xx); <-- FAILS
 end.
