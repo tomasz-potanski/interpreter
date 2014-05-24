@@ -1483,8 +1483,9 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                                     Just vvvv   -> if typeCheck vvvv typee then
                                                     case vvvv of
                                                         TTFuncDef ffDef -> ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident vvvv (M.union tStateOld extState) , (M.insert ident ffDef funcMap)))) globals) extState, funcMap)
-                                                        otherwise -> let stateAfterFunctionCall = (interpretStmt stmt (M.insert ident vvvv (M.union tStateOld extState) , funcMap))
-                                                        in
+                                                        otherwise ->
+                                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert ident vvvv (M.union tStateOld extState) , funcMap))
+                                                            in
                                                             ( M.union (M.intersection (fst stateAfterFuncitonCall) globals) extState, funcMap)
                                          else
                                             error("Error - incorrect types!")
