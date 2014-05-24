@@ -51,7 +51,7 @@ funcDeclTypeOK :: FuncDeclLine -> Type -> Bool
 funcDeclTypeOK fdec (TFunc argType retType) = case fdec of
     FLineNonArg (Ident x) fRetType fVarDec fStmt    ->
         if (argType /= TVoid) || (fRetType /= retType) then
-            error("Error -here!")
+            False
         else
             True
     FLineArg (Ident x) (DLList _ fArgType) fRetType fVarDec fStmt  ->
@@ -59,7 +59,7 @@ funcDeclTypeOK fdec (TFunc argType retType) = case fdec of
                 False
             else
                 True
-funcDeclTypeOK fdec _ = False
+funcDeclTypeOK fdec _ = error("Error - here!")
 
 insertVariable:: Ident -> (TTypes, TState3) -> TState3
 insertVariable (Ident x) (varTType, s@(extState, funcMap)) = case varTType of
