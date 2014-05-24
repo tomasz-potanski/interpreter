@@ -896,7 +896,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                 Nothing -> error("Error - variable " ++ (show x) ++ " has not been found!")
                 Just vv ->
                     case vv of
-                        TTRecord actRecMap -> (M.insert x (TTRecord (M.insert str val actRecMap)) extState, funcMap)
+                        TTRecord actRecMap -> (M.insert x (TTRecord (M.insert str (TTInt val) actRecMap)) extState, funcMap)
                         otherwise -> error("Error - variable " ++ (show x) ++ " is not a record!")
 
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
