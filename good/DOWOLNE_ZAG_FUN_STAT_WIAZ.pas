@@ -26,7 +26,7 @@ begin
 			print <--(co);
 		end
 		
-		druk(co);
+		druk(a);
 	end;
 
 	
