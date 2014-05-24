@@ -48,38 +48,40 @@ import ErrM
  'Boolean' { PT _ (TS _ 31) }
  'Char' { PT _ (TS _ 32) }
  'Double' { PT _ (TS _ 33) }
- 'False' { PT _ (TS _ 34) }
- 'Function' { PT _ (TS _ 35) }
- 'Integer' { PT _ (TS _ 36) }
- 'String' { PT _ (TS _ 37) }
- 'True' { PT _ (TS _ 38) }
- 'Void' { PT _ (TS _ 39) }
- '[' { PT _ (TS _ 40) }
- ']' { PT _ (TS _ 41) }
- 'begin' { PT _ (TS _ 42) }
- 'const' { PT _ (TS _ 43) }
- 'do' { PT _ (TS _ 44) }
- 'elif' { PT _ (TS _ 45) }
- 'else' { PT _ (TS _ 46) }
- 'end' { PT _ (TS _ 47) }
- 'endif' { PT _ (TS _ 48) }
- 'for' { PT _ (TS _ 49) }
- 'function' { PT _ (TS _ 50) }
- 'if' { PT _ (TS _ 51) }
- 'intToStr' { PT _ (TS _ 52) }
- 'of' { PT _ (TS _ 53) }
- 'print' { PT _ (TS _ 54) }
- 'proc' { PT _ (TS _ 55) }
- 'procedure' { PT _ (TS _ 56) }
- 'program' { PT _ (TS _ 57) }
- 'ref' { PT _ (TS _ 58) }
- 'return' { PT _ (TS _ 59) }
- 'strToInt' { PT _ (TS _ 60) }
- 'then' { PT _ (TS _ 61) }
- 'to' { PT _ (TS _ 62) }
- 'var' { PT _ (TS _ 63) }
- 'while' { PT _ (TS _ 64) }
- '||' { PT _ (TS _ 65) }
+ 'End.' { PT _ (TS _ 34) }
+ 'False' { PT _ (TS _ 35) }
+ 'Function' { PT _ (TS _ 36) }
+ 'Integer' { PT _ (TS _ 37) }
+ 'Record' { PT _ (TS _ 38) }
+ 'String' { PT _ (TS _ 39) }
+ 'True' { PT _ (TS _ 40) }
+ 'Void' { PT _ (TS _ 41) }
+ '[' { PT _ (TS _ 42) }
+ ']' { PT _ (TS _ 43) }
+ 'begin' { PT _ (TS _ 44) }
+ 'const' { PT _ (TS _ 45) }
+ 'do' { PT _ (TS _ 46) }
+ 'elif' { PT _ (TS _ 47) }
+ 'else' { PT _ (TS _ 48) }
+ 'end' { PT _ (TS _ 49) }
+ 'endif' { PT _ (TS _ 50) }
+ 'for' { PT _ (TS _ 51) }
+ 'function' { PT _ (TS _ 52) }
+ 'if' { PT _ (TS _ 53) }
+ 'intToStr' { PT _ (TS _ 54) }
+ 'of' { PT _ (TS _ 55) }
+ 'print' { PT _ (TS _ 56) }
+ 'proc' { PT _ (TS _ 57) }
+ 'procedure' { PT _ (TS _ 58) }
+ 'program' { PT _ (TS _ 59) }
+ 'ref' { PT _ (TS _ 60) }
+ 'return' { PT _ (TS _ 61) }
+ 'strToInt' { PT _ (TS _ 62) }
+ 'then' { PT _ (TS _ 63) }
+ 'to' { PT _ (TS _ 64) }
+ 'var' { PT _ (TS _ 65) }
+ 'while' { PT _ (TS _ 66) }
+ '||' { PT _ (TS _ 67) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -345,6 +347,7 @@ Type : 'Void' { TVoid }
   | 'Char' { TChar }
   | 'Double' { TDouble }
   | 'Function' '(' Type ')' ':' Type { TFunc $3 $6 }
+  | 'Record' ListVarDeclarationLine 'End.' { TRecord $2 }
   | Type1 { $1 }
 
 

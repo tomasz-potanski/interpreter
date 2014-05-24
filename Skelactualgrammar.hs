@@ -213,6 +213,7 @@ transType x = case x of
   TDouble  -> failure x
   TArray n1 n2 type'3  -> failure x
   TFunc type'1 type'2  -> failure x
+  TRecord vardeclarationlines  -> failure x
 
 
 transLitVal :: LitVal -> Result

@@ -183,6 +183,7 @@ data Type =
  | TDouble
  | TArray Integer Integer Type
  | TFunc Type Type
+ | TRecord [VarDeclarationLine]
   deriving (Eq,Ord,Show)
 
 data LitVal =

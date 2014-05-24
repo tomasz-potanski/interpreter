@@ -57,15 +57,16 @@ The reserved words used in actualgrammar are the following: \\
 \begin{tabular}{lll}
 {\reserved{Array}} &{\reserved{Boolean}} &{\reserved{Char}} \\
 {\reserved{Double}} &{\reserved{False}} &{\reserved{Function}} \\
-{\reserved{Integer}} &{\reserved{String}} &{\reserved{True}} \\
-{\reserved{Void}} &{\reserved{begin}} &{\reserved{const}} \\
-{\reserved{do}} &{\reserved{elif}} &{\reserved{else}} \\
-{\reserved{end}} &{\reserved{endif}} &{\reserved{for}} \\
-{\reserved{function}} &{\reserved{if}} &{\reserved{intToStr}} \\
-{\reserved{of}} &{\reserved{print}} &{\reserved{proc}} \\
-{\reserved{procedure}} &{\reserved{program}} &{\reserved{ref}} \\
-{\reserved{return}} &{\reserved{strToInt}} &{\reserved{then}} \\
-{\reserved{to}} &{\reserved{var}} &{\reserved{while}} \\
+{\reserved{Integer}} &{\reserved{Record}} &{\reserved{String}} \\
+{\reserved{True}} &{\reserved{Void}} &{\reserved{begin}} \\
+{\reserved{const}} &{\reserved{do}} &{\reserved{elif}} \\
+{\reserved{else}} &{\reserved{end}} &{\reserved{endif}} \\
+{\reserved{for}} &{\reserved{function}} &{\reserved{if}} \\
+{\reserved{intToStr}} &{\reserved{of}} &{\reserved{print}} \\
+{\reserved{proc}} &{\reserved{procedure}} &{\reserved{program}} \\
+{\reserved{ref}} &{\reserved{return}} &{\reserved{strToInt}} \\
+{\reserved{then}} &{\reserved{to}} &{\reserved{var}} \\
+{\reserved{while}} & & \\
 \end{tabular}\\
 
 The symbols used in actualgrammar are the following: \\
@@ -81,7 +82,7 @@ The symbols used in actualgrammar are the following: \\
 {\symb{/}} &{\symb{{$|$}{$|$}}} &{\symb{\&\&}} \\
 {\symb{.equals}} &{\symb{{$<$}}} &{\symb{{$<$}{$=$}}} \\
 {\symb{{$>$}}} &{\symb{{$>$}{$=$}}} &{\symb{{$=$}{$=$}}} \\
-{\symb{!{$=$}}} &{\symb{..}} & \\
+{\symb{!{$=$}}} &{\symb{..}} &{\symb{End.}} \\
 \end{tabular}\\
 
 \subsection*{Comments}
@@ -341,6 +342,7 @@ All other symbols are terminals.\\
  & {\delimit}  &{\terminal{Char}}  \\
  & {\delimit}  &{\terminal{Double}}  \\
  & {\delimit}  &{\terminal{Function}} {\terminal{(}} {\nonterminal{Type}} {\terminal{)}} {\terminal{:}} {\nonterminal{Type}}  \\
+ & {\delimit}  &{\terminal{Record}} {\nonterminal{ListVarDeclarationLine}} {\terminal{End.}}  \\
  & {\delimit}  &{\nonterminal{Type1}}  \\
 \end{tabular}\\
 

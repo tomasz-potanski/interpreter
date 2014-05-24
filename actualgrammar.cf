@@ -242,6 +242,7 @@ TChar.		Type	::=	"Char" ;
 TDouble.	Type 	::=	"Double" ;
 TArray.		Type2	::=	"Array" "[" Integer ".." Integer "]" "of" Type ;
 TFunc.      Type    ::= "Function" "(" Type ")" ":" Type ;
+TRecord.    Type    ::= "Record" [VarDeclarationLine] "End." ;
 --TFuncSyg.   FuncSyg ::= "Function" "(" VarDeclarationLine ")" ":" Type VariableDeclaration Stmt2 ;
 coercions Type 2 ;
 --tablica_imion : Array[1..10] of string;
