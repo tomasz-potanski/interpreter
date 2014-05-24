@@ -1447,7 +1447,10 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	            EmptyArgs -> error ("Error - arguments were given!")
 
 
-    SProcCallString (Ident x) strstr -> error("Error - not implemented!")
+    SProcCallString (Ident x) strstr ->
+        case (M.lookup x funcMap) of
+            Nothing -> error("Error - Function/proc. " ++ x ++ " has not been found!")
+            Just (stmt, varDeclarationLine, tTypes, tStateOld) -> error("sdfasd")
 
 --    SProcCallString (Ident x) strstr -> case (M.lookup x funcMap) of {
 --        Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!");
