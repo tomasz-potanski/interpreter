@@ -55,7 +55,7 @@ funcDeclTypeOK fdec (TFunc argType retType) = case fdec of
         else
             True
     FLineArg (Ident x) (DLList _ fArgType) fRetType fVarDec fStmt  ->
-            if not (genericTypeCheck aagType fArgType) || not (genericTypeCheck fRetType retType) then
+            if not (genericTypeCheck argType fArgType) || not (genericTypeCheck fRetType retType) then
                 False
             else
                 True
