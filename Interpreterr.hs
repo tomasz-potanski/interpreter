@@ -1530,7 +1530,9 @@ simpleAddOneRec :: Ident -> [VarDeclarationLine] -> TState3 -> TState3
 simpleAddOneRec (Ident x) [] s@(state, funcMap) = s
 simpleAddOneRec (Ident x) list@((DLList ((Ident xx):[]) typee):tl) s@(state, funcMap) = case (M.lookup x state) of
     Nothing -> simpleAddOneRec (Ident x) tl ((M.insert x (TTRecord (M.insert xx (typeToDefaultTType typee) M.empty)) state) , funcMap)
-    Just value -> error("Error - not implemented")
+    Just value -> case value of
+        TTRecord actRecMap -> simpleAddOneRec (Ident x) tl ((M.insert x (TTRecord (M.insert xx (typeToDefaultTType typee) actRecMap)) state) , funcMap)
+        otherwise -> error("Error - variable " ++ (show x) ++ "not a record!")
 
 --    case value of
 --        (TTRecord recMap) ->
