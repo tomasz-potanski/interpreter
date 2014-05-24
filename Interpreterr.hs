@@ -1455,7 +1455,12 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                     Nothing -> error("Error -# function " ++ x ++ " is probably out of range or does not exist!")
                     Just cos ->
                         case cos of
-                            TTFuncDef fffuncDef -> error("dfsd")
+                            TTFuncDef fffuncDef ->
+                                let globals = M.intersection extState tStateOld
+                                in
+                                case varDeclarationLine of
+                                    NonEmptyArgs v -> error("dsffd")
+                                    EmptyArgs -> error("Error - arguments were given!")
                             otherwise -> error("Error - out of ange?")
 
 --    SProcCallString (Ident x) strstr -> case (M.lookup x funcMap) of {
