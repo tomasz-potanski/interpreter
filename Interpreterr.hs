@@ -15,7 +15,6 @@ import System.IO
 import System.IO.Unsafe
 import Debug.Trace
 
-
 ----types-------------
 
 data TTypes =   TTInt Integer | TTBoolean Bool | TTVoid | TTString String |
@@ -1504,9 +1503,24 @@ simpleAddOneVar :: Ident -> TTypes -> TState3 -> TState3
 --simpleAddOneVar (Ident x) value (loc, env, funcMap) = ((M.insert loc), env, funcMap) 
 simpleAddOneVar (Ident x) value (state, funcMap) = ((M.insert x value state), funcMap)
 
+
+simpleAddOneRec :: Ident -> [VariableDeclarationList] -> TState3 -> TState3
+simpleAddOneRec (Ident x) [] s@(state, funcMap) = s
+simpleAddOneRec (Ident x) list@((DDList ((Ident xx):[]) typee):T) s@(state, funcMap) = case (M.lookup x state) of
+    Nothing -> ((M.insert x (TTRecord (M.insert xx (typeToDefaultTType typee) M.empty)) state) , funcMap)
+    Just value -> error("Error - not implemented")
+
+--    case value of
+--        (TTRecord recMap) ->
+--        otherwise -> error("Error - not a record ;)")
+
+
+--((M.insert x value state), funcMap)
+
 -------------------BEGINNING, DECLARATIONS, ...---------------
 addOneVariable :: Ident -> Type -> TState3 -> TState3
 addOneVariable (Ident ident) typee state@(tStateOld, funcMap) = case typee of
+		TRecord varDeclList  -> simpleAddOneRec (Ident ident) varDeclList state
 		TInt -> simpleAddOneVar (Ident ident) (TTInt 0) state
 		TVoid -> state
 		TBool -> simpleAddOneVar (Ident ident) (TTBoolean False) state
