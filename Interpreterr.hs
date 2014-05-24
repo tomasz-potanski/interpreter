@@ -983,7 +983,11 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 	Just vx -> if genericTTypeCheck vx (proccToReturnType procc s) then
                     case procc of
-                        ProcCall (Ident fid) -> (insertVariable (Ident x) (sRunFun (Ident fid) s))
+                        ProcCall (Ident fid) ->
+                            if checkIfFunctionIsInRange (Ident fid) s then
+                                True
+                            else
+                                (insertVariable (Ident x) (sRunFun (Ident fid) s))
                         ProcCallId (Ident fid) (Ident varId) -> (insertVariable (Ident x) (sRunFunId (Ident fid) (Ident varId) s))
                         ProcCallIdArray (Ident fid) (Ident arrayId) index -> (insertVariable (Ident x) (sRunFunIdArray (Ident fid) (Ident arrayId) index s))
                         ProcCallExp (Ident fid) exp -> (insertVariable (Ident x) (sRunFunExp (Ident fid) exp s))
