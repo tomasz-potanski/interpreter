@@ -132,7 +132,7 @@ SPrintExp.	Stmt	::=	"print" "<-" "(" Exp ")" ";" ;
 SPrintBExp.	Stmt	::=	"print" "<-" "(" BExp ")" ";" ;
 SPrintCharLit.	Stmt	::=	"print" "<-" "(" Char ")" ";" ;
 
---TODO - to full implement it : do similar for SPrintArray for records
+--TODO - to full implement it : do similar for SPrintArray for records && check types ;)
 SPrintIdRec.	Stmt	::=	"print" "<--" "(" Ident "." Ident ")" ";" ;
 
 SPrintFun.	    Stmt 	::=	"print" "<--" "(" Ident "(" ")" ")" ";" ;
@@ -169,6 +169,8 @@ SProcCallFuncSyg.	Stmt	::=	Ident "(" FuncDeclLine ")" ";" ;
 --TODO
 --to full implement ref do it for IdArray and bould ProcCallFunc Id and ArrayId
 SProcCallIdRef.		Stmt	::=	Ident "(" "ref" Ident ")" ";" ;
+
+SFuncDeclLine       Stmt    ::= FuncDeclLine ";" ;
 
 --SPrintId.	Stmt	::=	"print" Ident ";" ;
 --SPrintArray.	Stmt	::=	"print" Ident "[" Integer "]" ";" ;

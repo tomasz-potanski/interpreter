@@ -79,7 +79,7 @@ Wymagania na 20 puntków:
 4. Funkcje zwracające wartość				OK
 
 Dwie dodatkowe rzeczy z listy:
-1. rekordy						Brak
+1. rekordy						++
 2. tablice indeksowane int lub listy			OK
 3. tablice/slowniki indeksowane dowolnymi		Brak
    porównywalnymi wartościami; typ klucza
