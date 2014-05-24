@@ -53,13 +53,14 @@ The reserved words used in actualgrammar are the following:
 
 The symbols used in actualgrammar are the following:
   | . | ; | ( | )
-  | : | , | = | :=
-  | [ | ] | *= | /=
-  | += | -= | ++ | --
-  | <- | <-- | + | -
-  | * | / | || | &&
-  | .equals | < | <= | >
-  | >= | == | != | ..
+  | : | , | = | funcc;
+  | := | [ | ] | *=
+  | /= | += | -= | ++
+  | -- | <- | <-- | +
+  | - | * | / | ||
+  | && | .equals | < | <=
+  | > | >= | == | !=
+  | .. |  |  | 
 
 ===Comments===
 Single-line comments begin with //, #.Multiple-line comments are  enclosed with /* and */, { and }, {* and *}.
@@ -106,6 +107,7 @@ All other symbols are terminals.
   | //BoolLit// | -> | ``True`` 
   |  |  **|**  | ``False`` 
   | //Stmt// | -> | ``;`` 
+  |  |  **|**  | ``funcc;`` 
   |  |  **|**  | //Ident// ``:=`` //Ident// ``;`` 
   |  |  **|**  | //Ident// ``[`` //Integer// ``]`` ``:=`` //Ident// ``;`` 
   |  |  **|**  | //Ident// ``:=`` //Exp// ``;`` 

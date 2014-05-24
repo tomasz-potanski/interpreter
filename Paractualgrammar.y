@@ -66,22 +66,23 @@ import ErrM
  'end' { PT _ (TS _ 49) }
  'endif' { PT _ (TS _ 50) }
  'for' { PT _ (TS _ 51) }
- 'function' { PT _ (TS _ 52) }
- 'if' { PT _ (TS _ 53) }
- 'intToStr' { PT _ (TS _ 54) }
- 'of' { PT _ (TS _ 55) }
- 'print' { PT _ (TS _ 56) }
- 'proc' { PT _ (TS _ 57) }
- 'procedure' { PT _ (TS _ 58) }
- 'program' { PT _ (TS _ 59) }
- 'ref' { PT _ (TS _ 60) }
- 'return' { PT _ (TS _ 61) }
- 'strToInt' { PT _ (TS _ 62) }
- 'then' { PT _ (TS _ 63) }
- 'to' { PT _ (TS _ 64) }
- 'var' { PT _ (TS _ 65) }
- 'while' { PT _ (TS _ 66) }
- '||' { PT _ (TS _ 67) }
+ 'funcc;' { PT _ (TS _ 52) }
+ 'function' { PT _ (TS _ 53) }
+ 'if' { PT _ (TS _ 54) }
+ 'intToStr' { PT _ (TS _ 55) }
+ 'of' { PT _ (TS _ 56) }
+ 'print' { PT _ (TS _ 57) }
+ 'proc' { PT _ (TS _ 58) }
+ 'procedure' { PT _ (TS _ 59) }
+ 'program' { PT _ (TS _ 60) }
+ 'ref' { PT _ (TS _ 61) }
+ 'return' { PT _ (TS _ 62) }
+ 'strToInt' { PT _ (TS _ 63) }
+ 'then' { PT _ (TS _ 64) }
+ 'to' { PT _ (TS _ 65) }
+ 'var' { PT _ (TS _ 66) }
+ 'while' { PT _ (TS _ 67) }
+ '||' { PT _ (TS _ 68) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -193,6 +194,7 @@ BoolLit : 'True' { BoolLitTrue }
 
 Stmt :: { Stmt }
 Stmt : ';' { SBlank } 
+  | 'funcc;' { SFuncDeclLine }
   | Ident ':=' Ident ';' { SAttr $1 $3 }
   | Ident '[' Integer ']' ':=' Ident ';' { SAttrArray $1 $3 $6 }
   | Ident ':=' Exp ';' { SAss $1 $3 }
