@@ -1464,7 +1464,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
     SProcCallId (Ident x) (Ident argIdent) -> case (M.lookup x funcMap) of
         Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
         Just (stmt, varDeclarationLine, tTypes, tStateOld) -> case (M.lookup x extState) of
-            Nothing -> error("Error - funciton does not exist or is out of range!")
+            Nothing -> error("Error - function " ++ (show x) ++ " does not exist or is out of range!")
             Just cos ->
                 case cos of
                     (TTFuncDef fffuncDef) ->
