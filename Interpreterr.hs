@@ -1447,26 +1447,28 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	            EmptyArgs -> error ("Error - arguments were given!")
 
 
-    SProcCallString (Ident x) strstr -> case (M.lookup x funcMap) of {
-        Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!");
-        Just (stmt, varDeclarationLine, tTypes, tStateOld) -> case (M.lookup ("#FUN" ++ x) extState) of {;
-                Nothing -> error("Error -# function " ++ x ++ " does not exist or is out of range!");;
-                Just cos -> ;;
-                    case cos of ;;
-                        (TTFuncDef fffuncDef) -> ;;
-                            let globals = M.intersection extState tStateOld in ;;
-                            case varDeclarationLine of {;;
-                                NonEmptyArgs v -> case v of {;;;
-                                    DLList identList@((Ident ident):_) typee -> case typee of {;;;;
-                                        TString -> ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident (TTString strstr) (M.union tStateOld extState) , funcMap))) globals) extState, funcMap);;;;;
-                                        otherwise -> error("Error - incorrect type");;;;;
-                                    };;;;
-                                };;;
-                                EmptyArgs -> error ("Error - arguments were given!") ;;;
-                            };;
-                        otherwise -> error("Error - out of rang?");;
-            };
-	 }
+    SProcCallString (Ident x) strstr -> error("Error - not implemented!")
+
+--    SProcCallString (Ident x) strstr -> case (M.lookup x funcMap) of {
+--        Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!");
+--        Just (stmt, varDeclarationLine, tTypes, tStateOld) -> case (M.lookup ("#FUN" ++ x) extState) of {;
+--                Nothing -> error("Error -# function " ++ x ++ " does not exist or is out of range!");;
+--                Just cos -> ;;
+--                    case cos of ;;
+--                        (TTFuncDef fffuncDef) -> ;;
+--                            let globals = M.intersection extState tStateOld in ;;
+--                            case varDeclarationLine of {;;
+--                                NonEmptyArgs v -> case v of {;;;
+--                                    DLList identList@((Ident ident):_) typee -> case typee of {;;;;
+--                                        TString -> ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident (TTString strstr) (M.union tStateOld extState) , funcMap))) globals) extState, funcMap);;;;;
+--                                        otherwise -> error("Error - incorrect type");;;;;
+--                                    };;;;
+--                                };;;
+--                                EmptyArgs -> error ("Error - arguments were given!") ;;;
+--                            };;
+--                        otherwise -> error("Error - out of rang?");;
+--            };
+--	 }
 
 
     SProcCallId (Ident x) (Ident argIdent) -> case (M.lookup x funcMap) of
