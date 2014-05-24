@@ -72,6 +72,8 @@ BoolLitFalse.	BoolLit	::=	"False" ;
 SBlank.     Stmt    ::= ";" ;
 SBlock.		Stmt2	::=	"begin" [Stmt] "end" ;
 
+SFuncDeclLine       Stmt    ::= "funcc" ";" ;
+
 SAttr.      Stmt    ::= Ident ":=" Ident ";";
 SAttrArray.	Stmt	::=	Ident "[" Integer "]" ":=" Ident ";" ;
 
@@ -170,7 +172,6 @@ SProcCallFuncSyg.	Stmt	::=	Ident "(" FuncDeclLine ")" ";" ;
 --to full implement ref do it for IdArray and bould ProcCallFunc Id and ArrayId
 SProcCallIdRef.		Stmt	::=	Ident "(" "ref" Ident ")" ";" ;
 
-SFuncDeclLine       Stmt    ::= "funcc" ";" ;
 
 --SPrintId.	Stmt	::=	"print" Ident ";" ;
 --SPrintArray.	Stmt	::=	"print" Ident "[" Integer "]" ";" ;
