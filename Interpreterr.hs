@@ -1640,6 +1640,13 @@ addOneProc h funcMap = case h of
     PLineNonArg (Ident x) varDecls stmt  -> M.insert x (stmt, EmptyArgs, TTVoid, (fst (declareNewVariables varDecls (M.empty, M.empty)))) funcMap 
     PLineArg	(Ident x) args varDecls stmt  -> M.insert x (stmt, (NonEmptyArgs args), TTVoid, (fst (declareNewVariables varDecls (M.empty, M.empty)))) funcMap 
 
+
+addOneProc2 :: ProcDeclLine -> TState3 -> TState3
+addOneProc h state@(s, funcMap) = case h of
+    PLineNonArg (Ident x) varDecls stmt  -> (s, M.insert x (stmt, EmptyArgs, TTVoid, (fst (declareNewVariables varDecls (M.empty, M.empty)))) funcMap)
+    PLineArg	(Ident x) args varDecls stmt  -> (s, M.insert x (stmt, (NonEmptyArgs args), TTVoid, (fst (declareNewVariables varDecls (M.empty, M.empty)))) funcMap)
+
+
 addOneFunction :: FuncDeclLine -> TFuncMap -> TFuncMap
 addOneFunction h funcMap = case h of
     FLineNonArg (Ident x) typee varDecls stmt  -> case varDecls of
@@ -1652,6 +1659,21 @@ addOneFunction h funcMap = case h of
             M.insert x (stmt, (NonEmptyArgs args), (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):[])) (M.empty, M.empty)))) funcMap
         VBExists listOfVarDecl ->
             M.insert x (stmt, (NonEmptyArgs args), (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):listOfVarDecl)) (M.empty, M.empty)))) funcMap
+
+
+addOneFunction2 :: FuncDeclLine -> TState3 -> TState3
+addOneFunction2 h state@(s, funcMap) = case h of
+    FLineNonArg (Ident x) typee varDecls stmt  -> case varDecls of
+        VBDoesntExists ->
+            (s, M.insert x (stmt, EmptyArgs, (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):[])) (M.empty, M.empty)))) funcMap)
+        VBExists listOfVarDecl ->
+            (s, M.insert x (stmt, EmptyArgs, (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):listOfVarDecl)) (M.empty, M.empty)))) funcMap)
+    FLineArg	(Ident x) args typee varDecls stmt  -> case varDecls of
+        VBDoesntExists ->
+            (s, M.insert x (stmt, (NonEmptyArgs args), (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):[])) (M.empty, M.empty)))) funcMap)
+        VBExists listOfVarDecl ->
+            (s, M.insert x (stmt, (NonEmptyArgs args), (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):listOfVarDecl)) (M.empty, M.empty)))) funcMap)
+
 
 
 prepareFunctions :: ProcDeclaration -> TState3 -> TState3
@@ -1675,8 +1697,26 @@ prepareFunctions funs state@(s, funcMap) = case funs of
     PFExists listOfProcDecl@(hp:tlp) listOfFuncDecl@(hf:tlf) ->
             prepareFunctions (PFExists tlp listOfFuncDecl) (s, addOneProc hp funcMap)
 
+
+prepareFunctions2 :: ProcDeclaration -> TState3 -> TState3
+prepareFunctions2 funs state@(s, funcMap) = case funs of
+    PDoesntExist -> state
+    PExists [] -> state
+    PExists listOfProcDecl@(h:tl) ->
+            prepareFunctions (PExists tl) (addOneProc2 h state)
+    FExists [] -> state
+    PFExists [] [] -> state
+    FExists listOfFuncDecl@(h:tl) ->
+            prepareFunctions (FExists tl) (addOneFunction2 h state)
+    PFExists [] listOfFuncDecl@(hf:tlf) ->
+            prepareFunctions (PFExists [] tlf) (addOneFunction2 hf state)
+    PFExists listOfProcDecl@(hp:tlp) [] ->
+            prepareFunctions (PFExists tlp []) (addOneProc2 hp state)
+    PFExists listOfProcDecl@(hp:tlp) listOfFuncDecl@(hf:tlf) ->
+            prepareFunctions (PFExists tlp listOfFuncDecl) (addOneProc2 hp state)
+
 -------------INTERPRET FILE------------
 interpretFile :: Program -> TState3
 --interpretFile (Programm programNameHeader (Blockk variableDeclaration stmts)) = interpretStmt stmts (declareNewVariables variableDeclaration (M.empty, M.empty, M.empty))
-interpretFile (Programm programNameHeader (Blockk variableDeclaration procDecl stmts)) = interpretStmt stmts (prepareFunctions procDecl (declareNewVariables variableDeclaration (M.empty, M.empty)))
+interpretFile (Programm programNameHeader (Blockk variableDeclaration procDecl stmts)) = interpretStmt stmts (prepareFunctions2 procDecl (declareNewVariables variableDeclaration (M.empty, M.empty)))
 --interpretFile :: Program -> TState
