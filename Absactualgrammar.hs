@@ -75,6 +75,7 @@ data Stmt =
  | SAssArray Ident Integer Exp
  | SAssRec Ident Ident Exp
  | SAssRecBool Ident Ident BExp
+ | SAssRecString Ident Ident String
  | SAssBool Ident BExp
  | SAssBoolLit Ident BoolLit
  | SReturn Integer

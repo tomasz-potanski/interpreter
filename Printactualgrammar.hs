@@ -183,6 +183,7 @@ instance Print Stmt where
    SAssArray id n exp -> prPrec i 0 (concatD [prt 0 id , doc (showString "[") , prt 0 n , doc (showString "]") , doc (showString ":=") , prt 0 exp , doc (showString ";")])
    SAssRec id0 id exp -> prPrec i 0 (concatD [prt 0 id0 , doc (showString ".") , prt 0 id , doc (showString ":=") , prt 0 exp , doc (showString ";")])
    SAssRecBool id0 id bexp -> prPrec i 0 (concatD [prt 0 id0 , doc (showString ".") , prt 0 id , doc (showString ":=") , prt 0 bexp , doc (showString ";")])
+   SAssRecString id0 id str -> prPrec i 0 (concatD [prt 0 id0 , doc (showString ".") , prt 0 id , doc (showString ":=") , prt 0 str , doc (showString ";")])
    SAssBool id bexp -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 bexp , doc (showString ";")])
    SAssBoolLit id boollit -> prPrec i 0 (concatD [prt 0 id , doc (showString ":=") , prt 0 boollit , doc (showString ";")])
    SReturn n -> prPrec i 0 (concatD [doc (showString "return") , prt 0 n , doc (showString ";") , doc (showString ";")])

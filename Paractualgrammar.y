@@ -199,6 +199,7 @@ Stmt : ';' { SBlank }
   | Ident '[' Integer ']' ':=' Exp ';' { SAssArray $1 $3 $6 }
   | Ident '.' Ident ':=' Exp ';' { SAssRec $1 $3 $5 }
   | Ident '.' Ident ':=' BExp ';' { SAssRecBool $1 $3 $5 }
+  | Ident '.' Ident ':=' String ';' { SAssRecString $1 $3 $5 }
   | Ident ':=' BExp ';' { SAssBool $1 $3 }
   | Ident ':=' BoolLit ';' { SAssBoolLit $1 $3 }
   | 'return' Integer ';' ';' { SReturn $2 }
