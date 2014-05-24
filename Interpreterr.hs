@@ -1134,15 +1134,17 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	    Just rec -> case rec of
 	        TTRec recMap -> case (M.lookup str recMap) of
 	            Nothing -> error("Error - variable " ++ str ++ "has not been found in record " ++ (show x) ++ "!")
-	            Just mm -> case mm of
-                    TTint val -> (showToUser (intToStr val) s)
-                    TTBoolean val -> case val of
-                        True -> (showToUser "True" s)
-                        False -> (showToUser "False" s)
-                    TTString val -> (showToUser val s)
-                    TTFuncDef TFunDef@(stmts, argss, returnType, ooooldState) -> (showToUser ("funcitonn: " ++ (show tfundef) ++ "\n\n") s)
+	            Just mm ->
+	                case mm of
+                        TTInt val -> (showToUser (intToStr val) s)
+                        TTBoolean val ->
+                            case val of
+                                True -> (showToUser "True" s)
+                                False -> (showToUser "False" s)
+                        TTString val -> (showToUser val s)
+                        TTFuncDef TFunDef@(stmts, argss, returnType, ooooldState) -> (showToUser ("funcitonn: " ++ (show tfundef) ++ "\n\n") s)
         --		    error("error - variable: " ++ (show x) ++ " represents function and is unprintable ;) " ++ (show stmts))
-                    otherwise -> error("error - variable: " ++ (show x) ++ " is unprintable!")
+                        otherwise -> error("error - variable: " ++ (show x) ++ " is unprintable!")
             otherwise -> error("Error - variable is not a record!")
 	    Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 	False -> case (M.lookup x funcMap) of
