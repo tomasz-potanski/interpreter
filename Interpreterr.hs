@@ -1394,20 +1394,21 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 
 
 ----TODO
---	SProcCallFuncSyg (Ident x) funcDeclLine -> case (M.lookup x funcMap) of
---	    Nothing -> error("Error - function " ++ (show x) ++ "could not be found!")
---	    Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
---	        let globals = M.intersection extState tStateOld
---	        in
---	        case varDeclarationLine of
---	            EmptyArgs -> error("Error - function " ++ (show x) ++ " is supposed to be given arguments.")
---	            NonEmptyArgs identList@((Ident identArg):_) typee ->
---	                if not(isAFunctionType(typee)) then
---	                    error("Error - function " ++ (show x) ++ " is suppose to take a function.")
---	                else
---	                    if (funcDeclTypeOK funcDeclLine typee) then
---	                        error("Error --- type mismatch!")
---	                    else
+	SProcCallFuncSyg (Ident x) funcDeclLine -> case (M.lookup x funcMap) of
+	    Nothing -> error("Error - function " ++ (show x) ++ "could not be found!")
+	    Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
+	        let globals = M.intersection extState tStateOld
+	        in
+	        case varDeclarationLine of
+	            EmptyArgs -> error("Error - function " ++ (show x) ++ " is supposed to be given arguments.")
+	            NonEmptyArgs identList@((Ident identArg):_) typee ->
+	                if not(isAFunctionType(typee)) then
+	                    error("Error - function " ++ (show x) ++ " is suppose to take a function.")
+	                else
+	                    if (funcDeclTypeOK funcDeclLine typee) then
+	                        error("Error --- type mismatch!")
+	                    else
+	                        ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , (addOneFunciton funcDeclLine funcMap)))) globals) extState, funcMap)
 
 
 
