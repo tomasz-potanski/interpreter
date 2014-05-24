@@ -50,7 +50,7 @@ isAFunctionType _ = False
 changeFNameInDecl :: FuncDeclLine -> Ident -> FuncDeclLine
 changeFNameInDecl fded (Ident newId) = case fded of
     FLineNonArg (Ident fId) typee varDecl stmt -> FLineNonArg (Ident newId) typee varDecl stmt
-    FLineArg (ident fId) varDecl typee varDecl2 stmt -> FLineArg (ident newId) varDecl typee varDecl2 stmt
+    FLineArg (Ident fId) varDecl typee varDecl2 stmt -> FLineArg (ident newId) varDecl typee varDecl2 stmt
 
 funcDeclTypeOK :: FuncDeclLine -> Type -> Bool
 funcDeclTypeOK fdec (TFunc argType retType) = case fdec of
