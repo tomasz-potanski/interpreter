@@ -66,7 +66,7 @@ Dwa sposór następujących
 6. Operatory preinkrementacji, +=, -=, /= itp.		OK 	
 7. Pętla for						OK
 8. String, literały napisowe, rzutowanie napis <> int	OK
-9. Dwa sposoby przekazywa param (zmienna/wartosc)	Brak
+9. Dwa sposoby przekazywa param (zmienna/wartosc)	++
 
 -----------------------
 Wymagania na 20 puntków:

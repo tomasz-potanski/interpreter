@@ -159,6 +159,8 @@ SProcCallString.	Stmt	::=	Ident "(" String ")" ";" ;
 SProcCallFuncSyg.	Stmt	::=	Ident "(" FuncDeclLine ")" ";" ;
 
 
+--TODO
+--to full implement ref do it for IdArray and bould ProcCallFunc Id and ArrayId
 SProcCallIdRef.		Stmt	::=	Ident "(" "ref" Ident ")" ";" ;
 
 --SPrintId.	Stmt	::=	"print" Ident ";" ;
