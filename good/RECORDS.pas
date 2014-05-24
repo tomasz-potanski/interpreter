@@ -6,5 +6,5 @@ var
 		RecEnd;
 
 begin
-	print <-- (rec . tytul);
+	print <-- (rec.cena);
 end.
