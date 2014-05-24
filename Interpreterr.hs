@@ -1643,7 +1643,10 @@ addOneProc h funcMap = case h of
 
 addOneProc2 :: ProcDeclLine -> TState3 -> TState3
 addOneProc2 h state@(s, funcMap) = case h of
-    PLineNonArg (Ident x) varDecls stmt  -> (s, M.insert x (stmt, EmptyArgs, TTVoid, (fst (declareNewVariables varDecls (M.empty, M.empty)))) funcMap)
+    PLineNonArg (Ident x) varDecls stmt  ->
+        let tFunDef = (stmt, EmptyArgs, TTVoid, (fst (declareNewVariables varDecls (M.empty, M.empty))))
+        in
+        ((M.insert x (TTFunDef tFunDef) s), (M.insert x tFunDef funcMap))
     PLineArg	(Ident x) args varDecls stmt  -> (s, M.insert x (stmt, (NonEmptyArgs args), TTVoid, (fst (declareNewVariables varDecls (M.empty, M.empty)))) funcMap)
 
 
