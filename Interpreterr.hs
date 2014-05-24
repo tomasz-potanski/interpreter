@@ -1682,7 +1682,7 @@ addOneFunction2 h state@(s, funcMap) = case h of
         VBDoesntExists ->
             let tFunDef = (stmt, (NonEmptyArgs args), (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):[])) (M.empty, M.empty))))
             in
-            ((M.insert x tFunDef s), (M.insert x tFunDef funcMap))
+            ((M.insert x (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
         VBExists listOfVarDecl ->
             let tFunDef = (stmt, (NonEmptyArgs args), (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):listOfVarDecl)) (M.empty, M.empty))))
             in
