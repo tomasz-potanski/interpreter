@@ -1321,7 +1321,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	        in
 	        case varDeclarationLine of
 	            EmptyArgs -> error("Error - function " ++ (show x) ++ " is supposed to be given arguments.")
-	            NonEmptyArgs identList@((Ident identArg):_) typee ->
+	            NonEmptyArgs (DLList ((Ident identArg):_) typee) ->
 	                if not(isAFunctionType(typee)) then
 	                    error("Error - function " ++ (show x) ++ " is suppose to take a function.")
 	                else
