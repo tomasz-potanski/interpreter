@@ -59,7 +59,7 @@ funcDeclTypeOK fdec (TFunc argType retType) = case fdec of
                 False
             else
                 True
-funcDeclTypeOK fdec _ = error("Error - here!")
+funcDeclTypeOK fdec _ = False
 
 insertVariable:: Ident -> (TTypes, TState3) -> TState3
 insertVariable (Ident x) (varTType, s@(extState, funcMap)) = case varTType of
@@ -1326,7 +1326,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	                    error("Error - function " ++ (show x) ++ " is suppose to take a function.")
 	                else
 	                    if (funcDeclTypeOK funcDeclLine typee) then
-	                        error("Error --- type mismatch!")
+	                        error("Error -++-- type mismatch!")
 	                    else
 	                        ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , (addOneFunction funcDeclLine funcMap)))) globals) extState, funcMap)
 
