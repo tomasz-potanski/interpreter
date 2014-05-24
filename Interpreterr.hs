@@ -1408,7 +1408,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	                    if (funcDeclTypeOK funcDeclLine typee) then
 	                        error("Error --- type mismatch!")
 	                    else
-	                        ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , (addOneFunciton funcDeclLine funcMap)))) globals) extState, funcMap)
+	                        ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , (addOneFunction funcDeclLine funcMap)))) globals) extState, funcMap)
 
 
 
