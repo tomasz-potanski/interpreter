@@ -42,7 +42,7 @@ The set of reserved words is the set of terminals appearing in the grammar. Thos
 
 The reserved words used in actualgrammar are the following:
   | ``Array`` | ``Boolean`` | ``Char`` | ``Double``
-  | ``End`` | ``False`` | ``Function`` | ``Integer``
+  | ``False`` | ``Function`` | ``Integer`` | ``RecEnd``
   | ``Record`` | ``String`` | ``True`` | ``Void``
   | ``begin`` | ``const`` | ``do`` | ``elif``
   | ``else`` | ``end`` | ``endif`` | ``for``
@@ -215,7 +215,7 @@ All other symbols are terminals.
   |  |  **|**  | ``Char`` 
   |  |  **|**  | ``Double`` 
   |  |  **|**  | ``Function`` ``(`` //Type// ``)`` ``:`` //Type// 
-  |  |  **|**  | ``Record`` //[VarDeclarationLine]// ``End`` 
+  |  |  **|**  | ``Record`` //[VarDeclarationLine]// ``RecEnd`` 
   |  |  **|**  | //Type1// 
   | //Type2// | -> | ``Array`` ``[`` //Integer// ``..`` //Integer// ``]`` ``of`` //Type// 
   |  |  **|**  | ``(`` //Type// ``)`` 

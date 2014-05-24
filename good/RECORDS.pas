@@ -3,7 +3,7 @@ var
 			tytul : String;
 			cena : Integer;
 			dostepna : Boolean;		
-		End.
+		RecEnd;
 
 begin
 	printf <- ("sdfsdf");

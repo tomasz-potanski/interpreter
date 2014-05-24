@@ -48,10 +48,10 @@ import ErrM
  'Boolean' { PT _ (TS _ 31) }
  'Char' { PT _ (TS _ 32) }
  'Double' { PT _ (TS _ 33) }
- 'End' { PT _ (TS _ 34) }
- 'False' { PT _ (TS _ 35) }
- 'Function' { PT _ (TS _ 36) }
- 'Integer' { PT _ (TS _ 37) }
+ 'False' { PT _ (TS _ 34) }
+ 'Function' { PT _ (TS _ 35) }
+ 'Integer' { PT _ (TS _ 36) }
+ 'RecEnd' { PT _ (TS _ 37) }
  'Record' { PT _ (TS _ 38) }
  'String' { PT _ (TS _ 39) }
  'True' { PT _ (TS _ 40) }
@@ -347,7 +347,7 @@ Type : 'Void' { TVoid }
   | 'Char' { TChar }
   | 'Double' { TDouble }
   | 'Function' '(' Type ')' ':' Type { TFunc $3 $6 }
-  | 'Record' ListVarDeclarationLine 'End' { TRecord $2 }
+  | 'Record' ListVarDeclarationLine 'RecEnd' { TRecord $2 }
   | Type1 { $1 }
 
 
