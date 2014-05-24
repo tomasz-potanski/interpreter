@@ -78,6 +78,8 @@ SAttrArray.	Stmt	::=	Ident "[" Integer "]" ":=" Ident ";" ;
 SAss.		Stmt	::=	Ident ":=" Exp ";" ;
 SAssArray.	Stmt	::=	Ident "[" Integer "]" ":=" Exp ";" ;
 
+SAssRec.	Stmt	::=	Ident "." Ident ":=" Exp ";" ;
+
 SAssBool.		Stmt	::=	Ident ":=" BExp ";" ;
 SAssBoolLit.		Stmt	::=	Ident ":=" BoolLit ";" ;
 
@@ -128,7 +130,7 @@ SPrintExp.	Stmt	::=	"print" "<-" "(" Exp ")" ";" ;
 SPrintBExp.	Stmt	::=	"print" "<-" "(" BExp ")" ";" ;
 SPrintCharLit.	Stmt	::=	"print" "<-" "(" Char ")" ";" ;
 
-
+--TODO - to full implement it : do similar for SPrintArray for records
 SPrintIdRec.	Stmt	::=	"print" "<--" "(" Ident "." Ident ")" ";" ;
 
 SPrintFun.	    Stmt 	::=	"print" "<--" "(" Ident "(" ")" ")" ";" ;

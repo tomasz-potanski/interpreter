@@ -6,5 +6,6 @@ var
 		RecEnd;
 
 begin
+	rec.cena := 55;
 	print <-- (rec.cena);
 end.

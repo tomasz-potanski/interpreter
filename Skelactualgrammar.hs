@@ -97,6 +97,7 @@ transStmt x = case x of
   SAttrArray id1 n2 id3  -> failure x
   SAss id exp  -> failure x
   SAssArray id n exp  -> failure x
+  SAssRec id1 id2 exp3  -> failure x
   SAssBool id bexp  -> failure x
   SAssBoolLit id boollit  -> failure x
   SReturn n  -> failure x
