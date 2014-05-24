@@ -1400,7 +1400,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	                    else
 	                        let newDeclLine = changeFNameInDecl funcDeclLine (Ident identArg)
 	                        in
-	                        ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , (addOneFunction newDeclLine funcMap)))) globals) extState, funcMap)
+	                        ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , (addOneFunctionOld newDeclLine funcMap)))) globals) extState, funcMap)
 
 
     SProcCall (Ident x) -> case (M.lookup x funcMap) of
