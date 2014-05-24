@@ -206,7 +206,7 @@ instance Print Stmt where
    SPrintExp exp -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<-") , doc (showString "(") , prt 0 exp , doc (showString ")") , doc (showString ";")])
    SPrintBExp bexp -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<-") , doc (showString "(") , prt 0 bexp , doc (showString ")") , doc (showString ";")])
    SPrintCharLit c -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<-") , doc (showString "(") , prt 0 c , doc (showString ")") , doc (showString ";")])
-   SPrintIdRec id str -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<--") , doc (showString "(") , prt 0 id , doc (showString ".") , prt 0 str , doc (showString ")") , doc (showString ";")])
+   SPrintIdRec id0 id -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<--") , doc (showString "(") , prt 0 id0 , doc (showString ".") , prt 0 id , doc (showString ")") , doc (showString ";")])
    SPrintFun id -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<--") , doc (showString "(") , prt 0 id , doc (showString "(") , doc (showString ")") , doc (showString ")") , doc (showString ";")])
    SPrintFunExp id exp -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<--") , doc (showString "(") , prt 0 id , doc (showString "(") , prt 0 exp , doc (showString ")") , doc (showString ")") , doc (showString ";")])
    SPrintFunBExp id bexp -> prPrec i 0 (concatD [doc (showString "print") , doc (showString "<--") , doc (showString "(") , prt 0 id , doc (showString "(") , prt 0 bexp , doc (showString ")") , doc (showString ")") , doc (showString ";")])

@@ -98,7 +98,7 @@ data Stmt =
  | SPrintExp Exp
  | SPrintBExp BExp
  | SPrintCharLit Char
- | SPrintIdRec Ident String
+ | SPrintIdRec Ident Ident
  | SPrintFun Ident
  | SPrintFunExp Ident Exp
  | SPrintFunBExp Ident BExp

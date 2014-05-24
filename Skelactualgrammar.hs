@@ -122,7 +122,7 @@ transStmt x = case x of
   SPrintExp exp  -> failure x
   SPrintBExp bexp  -> failure x
   SPrintCharLit c  -> failure x
-  SPrintIdRec id str  -> failure x
+  SPrintIdRec id1 id2  -> failure x
   SPrintFun id  -> failure x
   SPrintFunExp id exp  -> failure x
   SPrintFunBExp id bexp  -> failure x

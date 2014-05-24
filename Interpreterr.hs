@@ -1129,7 +1129,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	    Just cos -> showToUser ("Function: " ++ (show cos) ++ "\n\n") s
 
 
-    SPrintIdRec (Ident x) str -> case (checkifVarExists (Ident x) s) of
+    SPrintIdRec (Ident x) (Ident str) -> case (checkifVarExists (Ident x) s) of
 	True -> case (M.lookup x extState) of
 	    Just rec -> case rec of
 	        TTRecord recMap -> case (M.lookup str recMap) of
