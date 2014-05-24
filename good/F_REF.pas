@@ -8,7 +8,7 @@ proc
 		print <-- (a);
 	end
 
-	procedure zwieksz2( ref a : Integer ;);
+	procedure zwieksz2( a : Integer ;);
 	begin
 		a := a + 7;
 		print <-- (a);
@@ -19,7 +19,7 @@ begin
 	zwieksz(x);
 	print <-- (x);
 
-	zwieksz2(x);
+	zwieksz2(ref x);
 	print <-- (x);
 	
 end.
