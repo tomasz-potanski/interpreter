@@ -170,7 +170,7 @@ SProcCallFuncSyg.	Stmt	::=	Ident "(" FuncDeclLine ")" ";" ;
 --to full implement ref do it for IdArray and bould ProcCallFunc Id and ArrayId
 SProcCallIdRef.		Stmt	::=	Ident "(" "ref" Ident ")" ";" ;
 
-SFuncDeclLine       Stmt    ::= FuncDeclLine ";" ;
+SFuncDeclLine       Stmt    ::= "func" ";" ;
 
 --SPrintId.	Stmt	::=	"print" Ident ";" ;
 --SPrintArray.	Stmt	::=	"print" Ident "[" Integer "]" ";" ;
