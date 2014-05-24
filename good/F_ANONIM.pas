@@ -19,7 +19,7 @@ proc
 
 	function wykonaj ( f : Function ( Integer) : Void; ) : Void;
 	begin
-		print <-- (f);
+		//print <-- (f);
 		f(10);
 		f(15);
 	end
