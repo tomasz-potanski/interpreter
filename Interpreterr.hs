@@ -1431,8 +1431,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 ----TODO
     SProcCallFuncSyg (Ident x) funcDeclLine -> case (M.lookup x funcMap) of
 	    Nothing -> error("Error - function " ++ (show x) ++ "could not be found!")
-	    Just (stmt, varDeclarationLine, tTypes, tStateOld)  ->
-            case (M.lookup ("#FUN" ++ x) extState) of
+	    Just (stmt, varDeclarationLine, tTypes, tStateOld) -> case (M.lookup ("#FUN" ++ x) extState) of
                 Nothing -> error("Error -# function " ++ x ++ " is probably out of range or does not exist!")
                 Just cos ->
                     case cos of
