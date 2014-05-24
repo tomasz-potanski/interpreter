@@ -813,7 +813,7 @@ sRunFunIdArray :: Ident -> Ident -> Integer -> TState3 -> (TTypes, TState3)
 sRunFunIdArray (Ident x) (Ident argIdent) int s@(extState, funcMap) = case (M.lookup x funcMap) of
     Nothing -> error("Error - invalid function name!");
     Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
-        if checkIfFunctionIsInRange (ident x) s then
+        if checkIfFunctionIsInRange (Ident x) s then
             let globals = M.intersection extState tStateOld
             in
             case varDeclarationLine of
