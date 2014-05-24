@@ -1333,7 +1333,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	                    if not (funcDeclTypeOK funcDeclLine typee) then
 	                        error("Error --- type mismatch!")
 	                    else
-	                        let newDeclLine = changeFNameInDecl funcDeclLine identArg
+	                        let newDeclLine = changeFNameInDecl funcDeclLine (Ident identArg)
 	                        in
 	                        ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , (addOneFunction newDeclLine funcMap)))) globals) extState, funcMap)
 
