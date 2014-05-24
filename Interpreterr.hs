@@ -1325,8 +1325,8 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	                if not(isAFunctionType(typee)) then
 	                    error("Error - function " ++ (show x) ++ " is suppose to take a function.")
 	                else
-	                    if (funcDeclTypeOK funcDeclLine typee) then
-	                        error("Error -++-- type mismatch!")
+	                    if not (funcDeclTypeOK funcDeclLine typee) then
+	                        error("Error --- type mismatch!")
 	                    else
 	                        ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , (addOneFunction funcDeclLine funcMap)))) globals) extState, funcMap)
 
