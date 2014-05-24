@@ -1560,7 +1560,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	                            error("Error - incorrect types!")
 	            EmptyArgs -> error ("Error - arguments were given!")
 
-    SFuncDeclLine funcDeclLine -> (extState, (addOneFunction funcDeclLine funcMap))
+    SFuncDeclLine funcDeclLine -> addOneFunction s
 
 -----------------------------------------
 --type TFuncDef = (Stmt, VarDeclarationLine, TTypes, TStateOld)
