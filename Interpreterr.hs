@@ -1311,6 +1311,30 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 --                    showToUser (identToString (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
 --               NonEmptyArgs _ -> error("Error - function/procedure needs arguemnt")
 
+
+
+----TODO
+	SProcCallFuncSyg (Ident x) fffuncDeclLine -> s --error("Error - not implemented!")
+
+	--case (M.lookup x funcMap) of
+--	    Nothing -> error("Error - function " ++ (show x) ++ "could not be found!")
+--	    Just aaa -> error("Not implemented yet!")
+
+
+--	        let globals = M.intersection extState tStateOld
+--	        in
+--	        case varDeclarationLine of
+--	            EmptyArgs -> error("Error - function " ++ (show x) ++ " is supposed to be given arguments.")
+--	            NonEmptyArgs identList@((Ident identArg):_) typee ->
+--	                if not(isAFunctionType(typee)) then
+--	                    error("Error - function " ++ (show x) ++ " is suppose to take a function.")
+--	                else
+--	                    if (funcDeclTypeOK funcDeclLine typee) then
+--	                        error("Error --- type mismatch!")
+--	                    else
+--	                        ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , (addOneFunction funcDeclLine funcMap)))) globals) extState, funcMap)
+
+
     SProcCall (Ident x) -> case (M.lookup x funcMap) of
         Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
         Just (stmt, varDeclarationLine, tTypes, tStateOld) -> 
@@ -1368,27 +1392,6 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	        };
 	 }
 
-
-----TODO
---	SProcCallFuncSyg (Ident x) fffuncDeclLine -> s --error("Error - not implemented!")
-
-	--case (M.lookup x funcMap) of
---	    Nothing -> error("Error - function " ++ (show x) ++ "could not be found!")
---	    Just aaa -> error("Not implemented yet!")
-
-
---	        let globals = M.intersection extState tStateOld
---	        in
---	        case varDeclarationLine of
---	            EmptyArgs -> error("Error - function " ++ (show x) ++ " is supposed to be given arguments.")
---	            NonEmptyArgs identList@((Ident identArg):_) typee ->
---	                if not(isAFunctionType(typee)) then
---	                    error("Error - function " ++ (show x) ++ " is suppose to take a function.")
---	                else
---	                    if (funcDeclTypeOK funcDeclLine typee) then
---	                        error("Error --- type mismatch!")
---	                    else
---	                        ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , (addOneFunction funcDeclLine funcMap)))) globals) extState, funcMap)
 
     SProcCallId (Ident x) (Ident argIdent) -> case (M.lookup x funcMap) of
         Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
