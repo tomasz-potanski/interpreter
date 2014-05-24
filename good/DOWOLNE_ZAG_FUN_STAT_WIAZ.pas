@@ -1,3 +1,3 @@
 begin
-	funcc;
+	funcc ;
 end.
