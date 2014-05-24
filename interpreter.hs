@@ -51,9 +51,11 @@ main = do
     	    Bad s -> do 
 		 hPutStrLn stderr "Error"
 		 hPutStrLn stderr s
-            Ok i -> case (M.lookup "#ERROR" (fst (typecheckFile i))) of
-                Nothing -> putStrLn (show (M.toList (fst (interpretFile i))))
-                Just vv -> error("Error - TYPECHECKER ERROR")
+            Ok i ->
+                --case (M.lookup "#ERROR" (fst (typecheckFile i))) of
+                    --Nothing ->
+                        putStrLn (show (M.toList (fst (interpretFile i))))
+                    --Just vv -> error("Error - TYPECHECKER ERROR")
 
     else do
 	fileContent <- getContents
