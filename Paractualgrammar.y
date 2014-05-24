@@ -220,6 +220,7 @@ Stmt : ';' { SBlank }
   | 'print' '<-' '(' Exp ')' ';' { SPrintExp $4 }
   | 'print' '<-' '(' BExp ')' ';' { SPrintBExp $4 }
   | 'print' '<-' '(' Char ')' ';' { SPrintCharLit $4 }
+  | 'print' '<--' '(' Ident '.' String ')' ';' { SPrintIdRec $4 $6 }
   | 'print' '<--' '(' Ident '(' ')' ')' ';' { SPrintFun $4 }
   | 'print' '<--' '(' Ident '(' Exp ')' ')' ';' { SPrintFunExp $4 $6 }
   | 'print' '<--' '(' Ident '(' BExp ')' ')' ';' { SPrintFunBExp $4 $6 }

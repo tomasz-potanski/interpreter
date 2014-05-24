@@ -6,5 +6,5 @@ var
 		RecEnd;
 
 begin
-	print <- ("sdfsdf");
+	print <-- (rec.tytul);
 end.
