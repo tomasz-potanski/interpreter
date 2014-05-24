@@ -1394,9 +1394,9 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 
 
 ----TODO
-	SProcCallFuncSyg (Ident x) funcDeclLine -> case (M.lookup x funcMap) of
+	SProcCallFuncSyg (Ident x) fffuncDeclLine -> case (M.lookup x funcMap) of
 	    Nothing -> error("Error - function " ++ (show x) ++ "could not be found!")
-	    Just aa -> error("Not implemented yet!")
+	    Just (stmt, varDeclarationLine, tTypes, tStateOld) -> error("Not implemented yet!")
 --	        let globals = M.intersection extState tStateOld
 --	        in
 --	        case varDeclarationLine of
