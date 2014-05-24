@@ -7,17 +7,17 @@ var
 	tab : Array[0..10] of Function ( Integer) : Void;
 
 proc
-	procedure wart ( g : Function ( Integer) : Void; ) ;
+	function wart ( g : Function ( Integer) : Void; ) : Void;
 	begin
 		g(global+1);
 	end
 
-	procedure drukuj10 ( aa : Integer ; );
+	function drukuj10 ( aa : Integer ; ) : Void;
 	begin
 		print <- (aa*10);
 	end
 
-	procedure wykonaj ( f : Function ( Integer) : Void; );
+	function wykonaj ( f : Function ( Integer) : Void; ) : Void;
 	begin
 		f(10);
 		f(15);

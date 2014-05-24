@@ -1543,7 +1543,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
         Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
         Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
             case (M.lookup ("#FUN" ++ x) extState) of
-                Nothing -> error("Error -# function " ++ x ++ " is probably out of range or does not exist!")
+                Nothing -> error("Error -### function " ++ x ++ " is probably out of range or does not exist!")
                 Just cos ->
                     case cos of
                         TTFuncDef fffuncDef ->
