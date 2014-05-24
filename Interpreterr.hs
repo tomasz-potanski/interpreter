@@ -875,7 +875,7 @@ sRunFunExp (Ident x) exp s@(extState, funcMap) = case (M.lookup x funcMap) of
 sRunFunBExp (Ident x) bexp s@(extState, funcMap) = case (M.lookup x funcMap) of
     Nothing -> error("Error - invalid function name!");
     Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
-        if checkIfFunctionIsInRange x s then
+        if checkIfFunctionIsInRange (Ident x) s then
             let globals = M.intersection extState tStateOld
             in
             case varDeclarationLine of
@@ -905,7 +905,7 @@ sRunFunBExp (Ident x) bexp s@(extState, funcMap) = case (M.lookup x funcMap) of
 sRunFunString (Ident x) str s@(extState, funcMap) = case (M.lookup x funcMap) of
     Nothing -> error("Error - invalid function name!");
     Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
-        if checkIfFunctionIsInRange x s then
+        if checkIfFunctionIsInRange (Ident x) s then
             let globals = M.intersection extState tStateOld
             in
             case varDeclarationLine of
