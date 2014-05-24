@@ -902,7 +902,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
 
-    SAssRec (Ident x) (Ident str) bexp -> case (checkifVarExists (Ident x) s) of
+    SAssRecBool (Ident x) (Ident str) bexp -> case (checkifVarExists (Ident x) s) of
 	True ->
         	let val = (interpretBExp bexp s)
         	in

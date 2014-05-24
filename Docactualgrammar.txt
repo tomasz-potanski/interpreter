@@ -111,6 +111,7 @@ All other symbols are terminals.
   |  |  **|**  | //Ident// ``:=`` //Exp// ``;`` 
   |  |  **|**  | //Ident// ``[`` //Integer// ``]`` ``:=`` //Exp// ``;`` 
   |  |  **|**  | //Ident// ``.`` //Ident// ``:=`` //Exp// ``;`` 
+  |  |  **|**  | //Ident// ``.`` //Ident// ``:=`` //BExp// ``;`` 
   |  |  **|**  | //Ident// ``:=`` //BExp// ``;`` 
   |  |  **|**  | //Ident// ``:=`` //BoolLit// ``;`` 
   |  |  **|**  | ``return`` //Integer// ``;`` ``;`` 

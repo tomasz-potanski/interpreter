@@ -78,7 +78,8 @@ SAttrArray.	Stmt	::=	Ident "[" Integer "]" ":=" Ident ";" ;
 SAss.		Stmt	::=	Ident ":=" Exp ";" ;
 SAssArray.	Stmt	::=	Ident "[" Integer "]" ":=" Exp ";" ;
 
-SAssRec.	Stmt	::=	Ident "." Ident ":=" Exp ";" ;
+SAssRec.	    Stmt	::=	Ident "." Ident ":=" Exp ";" ;
+SAssRecBool.	Stmt	::=	Ident "." Ident ":=" BExp ";" ;
 
 SAssBool.		Stmt	::=	Ident ":=" BExp ";" ;
 SAssBoolLit.		Stmt	::=	Ident ":=" BoolLit ";" ;
