@@ -1509,7 +1509,9 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                                         else
                                             let newDeclLine = changeFNameInDecl funcDeclLine (Ident identArg)
                                             in
-                                            ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , (addOneFunctionOld newDeclLine funcMap)))) globals) extState, funcMap)
+                                            let stateAfterFunctionCall = (interpretStmt stmt ((M.union tStateOld extState) , funcMap))
+                                            in
+                                            addOneFunction2 newDeclLine ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                         otherwise -> error("Error - out of the range?")
 
     SProcCall (Ident x) -> case (M.lookup x funcMap) of
