@@ -1442,7 +1442,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	                                        otherwise ->
 	                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert ident vvvv (M.union tStateOld extState) , funcMap))
 	                                            in
-	                                            case (M.lookup ident stateAfterFunctionCall) of
+	                                            case (M.lookup ident (fst stateAfterFunctionCall)) of
 	                                            Nothing -> error("Error - if you see it you have real problem ;)")
 	                                            Just newVal -> (M.insert argIdent newVal (M.union (M.intersection (fst stateAfterFunctionCall) globals) extState), funcMap)
 	                         else
