@@ -1451,7 +1451,9 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
         Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!");
         Just (stmt, varDeclarationLine, tTypes, tStateOld) -> case (M.lookup ("#FUN" ++ x) extState) of {;
                 Nothing -> error("Error -# function " ++ x ++ " does not exist or is out of range!");;
-                Just cos -> case cos of (TTFuncDef fffuncDef) ->;;
+                Just cos -> ;;
+                    case cos of ;;
+                        (TTFuncDef fffuncDef) -> ;;
                             let globals = M.intersection extState tStateOld in ;;
                             case varDeclarationLine of {;;
                                 NonEmptyArgs v -> case v of {;;;
