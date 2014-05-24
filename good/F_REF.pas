@@ -1,6 +1,7 @@
 var
 	x : Integer;
 
+proc
 	procedure zwieksz( a : Integer ;);
 	begin
 		a := a + 7;
