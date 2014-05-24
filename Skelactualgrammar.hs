@@ -93,7 +93,7 @@ transStmt :: Stmt -> Result
 transStmt x = case x of
   SBlank  -> failure x
   SBlock stmts  -> failure x
-  SFuncDeclLine  -> failure x
+  SFuncDeclLine funcdeclline  -> failure x
   SAttr id1 id2  -> failure x
   SAttrArray id1 n2 id3  -> failure x
   SAss id exp  -> failure x

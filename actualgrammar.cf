@@ -72,7 +72,7 @@ BoolLitFalse.	BoolLit	::=	"False" ;
 SBlank.     Stmt    ::= ";" ;
 SBlock.		Stmt2	::=	"begin" [Stmt] "end" ;
 
-SFuncDeclLine.       Stmt    ::= "funcc;" ;
+SFuncDeclLine.       Stmt    ::= FuncDeclLine ";" ;
 
 SAttr.      Stmt    ::= Ident ":=" Ident ";";
 SAttrArray.	Stmt	::=	Ident "[" Integer "]" ":=" Ident ";" ;

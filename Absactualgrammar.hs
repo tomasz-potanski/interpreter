@@ -69,7 +69,7 @@ data BoolLit =
 data Stmt =
    SBlank
  | SBlock [Stmt]
- | SFuncDeclLine
+ | SFuncDeclLine FuncDeclLine
  | SAttr Ident Ident
  | SAttrArray Ident Integer Ident
  | SAss Ident Exp
