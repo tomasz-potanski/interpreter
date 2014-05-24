@@ -915,13 +915,13 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
-    SAssRecString (Ident x) (Ident str) str -> case (checkifVarExists (Ident x) s) of
+    SAssRecString (Ident x) (Ident str) str2 -> case (checkifVarExists (Ident x) s) of
 	True ->
         	case (M.lookup x extState) of
                 Nothing -> error("Error - variable " ++ (show x) ++ " has not been found!")
                 Just vv ->
                     case vv of
-                        TTRecord actRecMap -> (M.insert x (TTRecord (M.insert str (TTString str) actRecMap)) extState, funcMap)
+                        TTRecord actRecMap -> (M.insert x (TTRecord (M.insert str (TTString str2) actRecMap)) extState, funcMap)
                         otherwise -> error("Error - variable " ++ (show x) ++ " is not a record!")
 
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
