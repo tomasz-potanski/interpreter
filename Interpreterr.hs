@@ -53,7 +53,7 @@ isAFunctionType _ = False
 checkIfFunctionIsInRange :: Ident -> TState3 -> Bool
 checkIfFunctionIsInRange (Ident x) s@(extState, funcMap) =
     case (M.lookup ("#FUN" ++ x) extState) of
-        Nothing -> error("Error -# function " ++ x ++ " is probably out of range or does not exist!")
+        Nothing -> error("Error -#ch function " ++ x ++ " is probably out of range or does not exist!")
         Just cos ->
             case cos of
                 TTFuncDef fffuncDef -> True
