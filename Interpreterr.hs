@@ -46,7 +46,12 @@ isAFunctionType (TFunc _ _) = True
 isAFunctionType _ = False
 
 
------TODO
+
+changeFNameInDecl :: FuncDeclLine -> Ident -> FuncDeclLine
+changeFNameInDecl fded (Ident newId) = case fded of
+    FLineNonArg (Ident fId) typee varDecl stmt -> FLineNonArg (Ident newId) typee varDecl stmt
+    FLineArg (ident fId) varDecl typee varDecl2 stmt -> FLineArg (ident newId) varDecl typee varDecl2 stmt
+
 funcDeclTypeOK :: FuncDeclLine -> Type -> Bool
 funcDeclTypeOK fdec (TFunc argType retType) = case fdec of
     FLineNonArg (Ident x) fRetType fVarDec fStmt    ->
@@ -1328,7 +1333,9 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	                    if not (funcDeclTypeOK funcDeclLine typee) then
 	                        error("Error --- type mismatch!")
 	                    else
-	                        ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , (addOneFunction funcDeclLine funcMap)))) globals) extState, funcMap)
+	                        let newDeclLine = changeFNameInDecl funcDeclLine identArg
+	                        in
+	                        ( M.union (M.intersection (fst (interpretStmt stmt ((M.union tStateOld extState) , (addOneFunction newDeclLine funcMap)))) globals) extState, funcMap)
 
 
     SProcCall (Ident x) -> case (M.lookup x funcMap) of
