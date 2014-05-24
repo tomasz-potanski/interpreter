@@ -42,14 +42,14 @@ The set of reserved words is the set of terminals appearing in the grammar. Thos
 
 The reserved words used in actualgrammar are the following:
   | ``Array`` | ``Boolean`` | ``Char`` | ``Double``
-  | ``False`` | ``Function`` | ``Integer`` | ``Record``
-  | ``String`` | ``True`` | ``Void`` | ``begin``
-  | ``const`` | ``do`` | ``elif`` | ``else``
-  | ``end`` | ``endif`` | ``for`` | ``function``
-  | ``if`` | ``intToStr`` | ``of`` | ``print``
-  | ``proc`` | ``procedure`` | ``program`` | ``ref``
-  | ``return`` | ``strToInt`` | ``then`` | ``to``
-  | ``var`` | ``while`` |  | 
+  | ``End`` | ``False`` | ``Function`` | ``Integer``
+  | ``Record`` | ``String`` | ``True`` | ``Void``
+  | ``begin`` | ``const`` | ``do`` | ``elif``
+  | ``else`` | ``end`` | ``endif`` | ``for``
+  | ``function`` | ``if`` | ``intToStr`` | ``of``
+  | ``print`` | ``proc`` | ``procedure`` | ``program``
+  | ``ref`` | ``return`` | ``strToInt`` | ``then``
+  | ``to`` | ``var`` | ``while`` | 
 
 The symbols used in actualgrammar are the following:
   | . | ; | ( | )
@@ -60,7 +60,6 @@ The symbols used in actualgrammar are the following:
   | * | / | || | &&
   | .equals | < | <= | >
   | >= | == | != | ..
-  | End. |  |  | 
 
 ===Comments===
 Single-line comments begin with //, #.Multiple-line comments are  enclosed with /* and */, { and }, {* and *}.
@@ -216,7 +215,7 @@ All other symbols are terminals.
   |  |  **|**  | ``Char`` 
   |  |  **|**  | ``Double`` 
   |  |  **|**  | ``Function`` ``(`` //Type// ``)`` ``:`` //Type// 
-  |  |  **|**  | ``Record`` //[VarDeclarationLine]// ``End.`` 
+  |  |  **|**  | ``Record`` //[VarDeclarationLine]// ``End`` 
   |  |  **|**  | //Type1// 
   | //Type2// | -> | ``Array`` ``[`` //Integer// ``..`` //Integer// ``]`` ``of`` //Type// 
   |  |  **|**  | ``(`` //Type// ``)`` 

@@ -300,7 +300,7 @@ instance Print Type where
    TDouble  -> prPrec i 0 (concatD [doc (showString "Double")])
    TArray n0 n type' -> prPrec i 2 (concatD [doc (showString "Array") , doc (showString "[") , prt 0 n0 , doc (showString "..") , prt 0 n , doc (showString "]") , doc (showString "of") , prt 0 type'])
    TFunc type'0 type' -> prPrec i 0 (concatD [doc (showString "Function") , doc (showString "(") , prt 0 type'0 , doc (showString ")") , doc (showString ":") , prt 0 type'])
-   TRecord vardeclarationlines -> prPrec i 0 (concatD [doc (showString "Record") , prt 0 vardeclarationlines , doc (showString "End.")])
+   TRecord vardeclarationlines -> prPrec i 0 (concatD [doc (showString "Record") , prt 0 vardeclarationlines , doc (showString "End")])
 
 
 instance Print LitVal where

@@ -6,5 +6,5 @@ var
 		End.
 
 begin
-
+	printf <- ("sdfsdf");
 end.
