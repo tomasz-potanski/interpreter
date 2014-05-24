@@ -1449,8 +1449,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 
     SProcCallString (Ident x) strstr -> case (M.lookup x funcMap) of {
         Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!");
-        Just (stmt, varDeclarationLine, tTypes, tStateOld) ->;
-            case (M.lookup ("#FUN" ++ x) extState) of {;
+        Just (stmt, varDeclarationLine, tTypes, tStateOld) -> case (M.lookup ("#FUN" ++ x) extState) of {;
                 Nothing -> error("Error -# function " ++ x ++ " does not exist or is out of range!");;
                 Just cos ->;;
                     case cos of;;
