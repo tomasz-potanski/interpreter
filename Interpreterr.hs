@@ -1132,7 +1132,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
     SPrintIdRec (Ident x) str -> case (checkifVarExists (Ident x) s) of
 	True -> case (M.lookup x extState) of
 	    Just rec -> case rec of
-	        TTRec recMap -> case (M.lookup str recMap)
+	        TTRec recMap -> case (M.lookup str recMap) of
 	            Nothing -> error("Error - variable " ++ str ++ "has not been found in record " ++ (show x) ++ "!")
 	            Just mm -> case mm of
                     TTint val -> (showToUser (intToStr val) s)
