@@ -1394,7 +1394,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 
 
 ----TODO
---	SProcCallFuncSyg (Ident x) fffuncDeclLine -> error("Error - not implemented!")
+	SProcCallFuncSyg (Ident x) fffuncDeclLine -> error("Error - not implemented!")
 
 	--case (M.lookup x funcMap) of
 --	    Nothing -> error("Error - function " ++ (show x) ++ "could not be found!")
