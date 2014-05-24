@@ -1671,7 +1671,9 @@ addOneFunction2 :: FuncDeclLine -> TState3 -> TState3
 addOneFunction2 h state@(s, funcMap) = case h of
     FLineNonArg (Ident x) typee varDecls stmt  -> case varDecls of
         VBDoesntExists ->
-            (s, M.insert x (stmt, EmptyArgs, (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):[])) (M.empty, M.empty)))) funcMap)
+            let tFunDef = (stmt, EmptyArgs, (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):[])) (M.empty, M.empty))))
+            in
+            ((M.insert x (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
         VBExists listOfVarDecl ->
             (s, M.insert x (stmt, EmptyArgs, (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):listOfVarDecl)) (M.empty, M.empty)))) funcMap)
     FLineArg	(Ident x) args typee varDecls stmt  -> case varDecls of
