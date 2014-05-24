@@ -1506,7 +1506,7 @@ simpleAddOneVar (Ident x) value (state, funcMap) = ((M.insert x value state), fu
 
 simpleAddOneRec :: Ident -> [VarDeclarationLine] -> TState3 -> TState3
 simpleAddOneRec (Ident x) [] s@(state, funcMap) = s
-simpleAddOneRec (Ident x) list@((DLList ((Ident xx):[]) typee):T) s@(state, funcMap) = case (M.lookup x state) of
+simpleAddOneRec (Ident x) list@((DLList ((Ident xx):[]) typee):_) s@(state, funcMap) = case (M.lookup x state) of
     Nothing -> ((M.insert x (TTRecord (M.insert xx (typeToDefaultTType typee) M.empty)) state) , funcMap)
     Just value -> error("Error - not implemented")
 
