@@ -8,4 +8,6 @@ var
 begin
 	rec.cena := 55;
 	print <-- (rec.cena);
+	rec.dostepna := 1 < 3;
+	print <-- (rec.dostepna);
 end.

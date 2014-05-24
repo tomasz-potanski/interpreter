@@ -901,6 +901,20 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
+
+    SAssRec (Ident x) (Ident str) bexp -> case (checkifVarExists (Ident x) s) of
+	True ->
+        	let val = (interpretBExp bexp s)
+        	in
+        	case (M.lookup x extState) of
+                Nothing -> error("Error - variable " ++ (show x) ++ " has not been found!")
+                Just vv ->
+                    case vv of
+                        TTRecord actRecMap -> (M.insert x (TTRecord (M.insert str (TTBoolean val) actRecMap)) extState, funcMap)
+                        otherwise -> error("Error - variable " ++ (show x) ++ " is not a record!")
+
+	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
+
     SAssStrToInt (Ident x) str -> case (checkifVarExists (Ident x) s) of  
 	True -> let val = (strToInt str)
         	in 
