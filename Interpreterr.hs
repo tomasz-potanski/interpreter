@@ -1489,7 +1489,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                                                             ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                                          else
                                             error("Error - incorrect types!")
-                                EmptyArgs -> error ("Error - arguments were given!")
+                            EmptyArgs -> error ("Error - arguments were given!")
                     otherwise -> error("Error - reference name " ++ (show x) ++ "probably does not represent funciton/proc in this range!")
 
 
