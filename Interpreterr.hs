@@ -985,14 +985,34 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                     case procc of
                         ProcCall (Ident fid) ->
                             if checkIfFunctionIsInRange (Ident fid) s then
-                                True
-                            else
                                 (insertVariable (Ident x) (sRunFun (Ident fid) s))
-                        ProcCallId (Ident fid) (Ident varId) -> (insertVariable (Ident x) (sRunFunId (Ident fid) (Ident varId) s))
-                        ProcCallIdArray (Ident fid) (Ident arrayId) index -> (insertVariable (Ident x) (sRunFunIdArray (Ident fid) (Ident arrayId) index s))
-                        ProcCallExp (Ident fid) exp -> (insertVariable (Ident x) (sRunFunExp (Ident fid) exp s))
-                        ProcCallBExp (Ident fid) bexp -> (insertVariable (Ident x) (sRunFunBExp (Ident fid) bexp s))
-                        ProcCallString (Ident fid) str -> (insertVariable (Ident x) (sRunFunString (Ident fid) str s))
+                            else
+                                error("Error - funciton out of rangoe")
+                        ProcCallId (Ident fid) (Ident varId) ->
+                            if checkIfFunctionIsInRange (Ident fid) s then
+                                (insertVariable (Ident x) (sRunFunId (Ident fid) (Ident varId) s))
+                            else
+                                error("Error - function OOR.")
+                        ProcCallIdArray (Ident fid) (Ident arrayId) index ->
+                            if checkIfFunctionIsInRange (Ident fid) s then
+                                (insertVariable (Ident x) (sRunFunIdArray (Ident fid) (Ident arrayId) index s))
+                            else
+                                error("Error - F OOR.")
+                        ProcCallExp (Ident fid) exp ->
+                            if checkIfFunctionIsInRange (Ident fid) s then
+                                (insertVariable (Ident x) (sRunFunExp (Ident fid) exp s))
+                            else
+                                error("Error - F OUR.")
+                        ProcCallBExp (Ident fid) bexp ->
+                            if checkIfFunctionIsInRange (Ident fid) s then
+                                (insertVariable (Ident x) (sRunFunBExp (Ident fid) bexp s))
+                            else
+                                error("Error - F OOR")
+                        ProcCallString (Ident fid) str ->
+                            if checkIfFunctionIsInRange (Ident fid) s then
+                                (insertVariable (Ident x) (sRunFunString (Ident fid) str s))
+                            else
+                                error("Error - F OOR")
 	           else
 	                error("Error - type mismatch")
 
