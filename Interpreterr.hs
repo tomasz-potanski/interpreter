@@ -54,13 +54,7 @@ funcDeclTypeOK fdec (TFunc argType retType) = case fdec of
             False
         else
             True
-    FLineArg (Ident x) fArg fRetType fVarDec fStmt  -> case fArg of
-        EmptyArgs ->
-            if (argType /= TVoid) || (fRetType /= retType) then
-                False
-            else
-                True
-        NonEmptyArgs (DLList _ fArgType) ->
+    FLineArg (Ident x) (DLList _ fArgType) fRetType fVarDec fStmt  -> case fArg of
             if (argType /= fArgType) || (fRetType /= retType) then
                 False
             else
