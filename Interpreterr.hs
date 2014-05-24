@@ -1504,7 +1504,7 @@ simpleAddOneVar :: Ident -> TTypes -> TState3 -> TState3
 simpleAddOneVar (Ident x) value (state, funcMap) = ((M.insert x value state), funcMap)
 
 
-simpleAddOneRec :: Ident -> [VariableDeclarationList] -> TState3 -> TState3
+simpleAddOneRec :: Ident -> [VariableDeclarationLine] -> TState3 -> TState3
 simpleAddOneRec (Ident x) [] s@(state, funcMap) = s
 simpleAddOneRec (Ident x) list@((DDList ((Ident xx):[]) typee):T) s@(state, funcMap) = case (M.lookup x state) of
     Nothing -> ((M.insert x (TTRecord (M.insert xx (typeToDefaultTType typee) M.empty)) state) , funcMap)
