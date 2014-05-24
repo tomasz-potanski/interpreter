@@ -15,4 +15,5 @@ proc
 begin
 	a := 10;
 	druk(a);
+	drukx2(a);
 end.

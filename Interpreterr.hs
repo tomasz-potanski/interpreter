@@ -1496,31 +1496,35 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 
     SProcCallIdRef (Ident x) (Ident argIdent) -> case (M.lookup x funcMap) of
         Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
-        Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
-            let globals = M.intersection extState tStateOld
-            in
-	        case varDeclarationLine of
-	            NonEmptyArgs v -> case v of
-	                DLList identList@((Ident ident):_) typee -> case (M.lookup argIdent extState) of
-	                    Nothing     -> case (M.lookup argIdent funcMap) of
-	                            Nothing -> error("Error -- variable " ++ (argIdent) ++ " has not been inicialized!")
-	                            Just myFun ->  if typeCheck (TTFuncDef myFun) typee then
-	                                            ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident (TTFuncDef myFun) (M.union tStateOld extState) , (M.insert ident myFun funcMap)))) globals) extState, funcMap)
+        Just (stmt, varDeclarationLine, tTypes, tStateOld) -> case (M.lookup ("#FUN" ++ x) extState) of
+            Nothing -> error("Error -# function " ++ x ++ " does not exist or is out of range!")
+            Just cos ->
+                case cos of
+                    (TTFuncDef fffuncDef) ->
+                        let globals = M.intersection extState tStateOld
+                        in
+                        case varDeclarationLine of
+                            NonEmptyArgs v -> case v of
+                                DLList identList@((Ident ident):_) typee -> case (M.lookup argIdent extState) of
+                                    Nothing     -> case (M.lookup argIdent funcMap) of
+                                            Nothing -> error("Error -- variable " ++ (argIdent) ++ " has not been inicialized!")
+                                            Just myFun ->  if typeCheck (TTFuncDef myFun) typee then
+                                                            ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident (TTFuncDef myFun) (M.union tStateOld extState) , (M.insert ident myFun funcMap)))) globals) extState, funcMap)
+                                                     else
+                                                        error("Error - incorrect types!")
+
+                                    Just vvvv   -> if typeCheck vvvv typee then
+                                                    case vvvv of
+                                                        TTFuncDef ffDef -> ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident vvvv (M.union tStateOld extState) , (M.insert ident ffDef funcMap)))) globals) extState, funcMap)
+                                                        otherwise ->
+                                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert ident vvvv (M.union tStateOld extState) , funcMap))
+                                                            in
+                                                            case (M.lookup ident (fst stateAfterFunctionCall)) of
+                                                            Nothing -> error("Error - if you see it you have real problem ;)")
+                                                            Just newVal -> (M.insert argIdent newVal (M.union (M.intersection (fst stateAfterFunctionCall) globals) extState), funcMap)
                                          else
                                             error("Error - incorrect types!")
-
-	                    Just vvvv   -> if typeCheck vvvv typee then
-	                                    case vvvv of
-	                                        TTFuncDef ffDef -> ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident vvvv (M.union tStateOld extState) , (M.insert ident ffDef funcMap)))) globals) extState, funcMap)
-	                                        otherwise ->
-	                                            let stateAfterFunctionCall = (interpretStmt stmt (M.insert ident vvvv (M.union tStateOld extState) , funcMap))
-	                                            in
-	                                            case (M.lookup ident (fst stateAfterFunctionCall)) of
-	                                            Nothing -> error("Error - if you see it you have real problem ;)")
-	                                            Just newVal -> (M.insert argIdent newVal (M.union (M.intersection (fst stateAfterFunctionCall) globals) extState), funcMap)
-	                         else
-	                            error("Error - incorrect types!")
-	            EmptyArgs -> error ("Error - arguments were given!")
+                            EmptyArgs -> error ("Error - arguments were given!")
 
 
 --    SProcCallIdFunc (Ident x) (Ident functionNameArg) -> case (M.lookup x funcMap) of

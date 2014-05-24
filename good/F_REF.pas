@@ -54,7 +54,7 @@ proc
 	end
 
 begin
-/*	x := 10;
+	x := 10;
 	zwieksz(x);
 	print <-- (x);
 
@@ -80,6 +80,6 @@ begin
 	print <-- (tab[1]);
 
 	zwiekszA(ref tab);
-	print <-- (tab[1]);*/
+	print <-- (tab[1]);
 	
 end.
