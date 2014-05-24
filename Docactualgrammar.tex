@@ -63,9 +63,9 @@ The reserved words used in actualgrammar are the following: \\
 {\reserved{end}} &{\reserved{endif}} &{\reserved{for}} \\
 {\reserved{function}} &{\reserved{if}} &{\reserved{intToStr}} \\
 {\reserved{of}} &{\reserved{print}} &{\reserved{proc}} \\
-{\reserved{procedure}} &{\reserved{program}} &{\reserved{return}} \\
-{\reserved{strToInt}} &{\reserved{then}} &{\reserved{to}} \\
-{\reserved{var}} &{\reserved{while}} & \\
+{\reserved{procedure}} &{\reserved{program}} &{\reserved{ref}} \\
+{\reserved{return}} &{\reserved{strToInt}} &{\reserved{then}} \\
+{\reserved{to}} &{\reserved{var}} &{\reserved{while}} \\
 \end{tabular}\\
 
 The symbols used in actualgrammar are the following: \\
@@ -228,6 +228,7 @@ All other symbols are terminals.\\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{(}} {\nonterminal{BExp}} {\terminal{)}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{(}} {\nonterminal{String}} {\terminal{)}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Ident}} {\terminal{(}} {\nonterminal{FuncDeclLine}} {\terminal{)}} {\terminal{;}}  \\
+ & {\delimit}  &{\nonterminal{Ident}} {\terminal{(}} {\terminal{ref}} {\nonterminal{Ident}} {\terminal{)}} {\terminal{;}}  \\
  & {\delimit}  &{\nonterminal{Stmt1}}  \\
 \end{tabular}\\
 

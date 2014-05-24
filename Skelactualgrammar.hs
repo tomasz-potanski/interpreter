@@ -136,6 +136,7 @@ transStmt x = case x of
   SProcCallBExp id bexp  -> failure x
   SProcCallString id str  -> failure x
   SProcCallFuncSyg id funcdeclline  -> failure x
+  SProcCallIdRef id1 id2  -> failure x
 
 
 transIfStmt :: IfStmt -> Result

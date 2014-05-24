@@ -112,6 +112,7 @@ data Stmt =
  | SProcCallBExp Ident BExp
  | SProcCallString Ident String
  | SProcCallFuncSyg Ident FuncDeclLine
+ | SProcCallIdRef Ident Ident
   deriving (Eq,Ord,Show)
 
 data IfStmt =

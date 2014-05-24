@@ -47,8 +47,9 @@ The reserved words used in actualgrammar are the following:
   | ``do`` | ``elif`` | ``else`` | ``end``
   | ``endif`` | ``for`` | ``function`` | ``if``
   | ``intToStr`` | ``of`` | ``print`` | ``proc``
-  | ``procedure`` | ``program`` | ``return`` | ``strToInt``
-  | ``then`` | ``to`` | ``var`` | ``while``
+  | ``procedure`` | ``program`` | ``ref`` | ``return``
+  | ``strToInt`` | ``then`` | ``to`` | ``var``
+  | ``while`` |  |  | 
 
 The symbols used in actualgrammar are the following:
   | . | ; | ( | )
@@ -146,6 +147,7 @@ All other symbols are terminals.
   |  |  **|**  | //Ident// ``(`` //BExp// ``)`` ``;`` 
   |  |  **|**  | //Ident// ``(`` //String// ``)`` ``;`` 
   |  |  **|**  | //Ident// ``(`` //FuncDeclLine// ``)`` ``;`` 
+  |  |  **|**  | //Ident// ``(`` ``ref`` //Ident// ``)`` ``;`` 
   |  |  **|**  | //Stmt1// 
   | //Stmt2// | -> | ``begin`` //[Stmt]// ``end`` 
   |  |  **|**  | ``(`` //Stmt// ``)`` 

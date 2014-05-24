@@ -147,6 +147,7 @@ ProcCallBExp.		    Procc	::=	Ident "(" BExp ")" ";" ;
 ProcCallString. 	    Procc	::=	Ident "(" String ")" ";" ;
 ProcCallFuncSyg. 	    Procc	::=	Ident "(" FuncDeclLine ")" ";" ;
 
+--ProcCallIdRef.	        Procc	::=	Ident "(" Ident ")" ";" ;
 
 SProcCall.		    Stmt	::=	Ident "(" ")" ";" ;
 --SProcCallInteger.	Stmt	::=	Ident "(" Integer ")" ";" ;
@@ -156,6 +157,9 @@ SProcCallExp.		Stmt	::=	Ident "(" Exp ")" ";" ;
 SProcCallBExp.		Stmt	::=	Ident "(" BExp ")" ";" ;
 SProcCallString.	Stmt	::=	Ident "(" String ")" ";" ;
 SProcCallFuncSyg.	Stmt	::=	Ident "(" FuncDeclLine ")" ";" ;
+
+
+SProcCallIdRef.		Stmt	::=	Ident "(" "ref" Ident ")" ";" ;
 
 --SPrintId.	Stmt	::=	"print" Ident ";" ;
 --SPrintArray.	Stmt	::=	"print" Ident "[" Integer "]" ";" ;

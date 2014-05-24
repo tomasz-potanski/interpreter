@@ -72,13 +72,14 @@ import ErrM
  'proc' { PT _ (TS _ 55) }
  'procedure' { PT _ (TS _ 56) }
  'program' { PT _ (TS _ 57) }
- 'return' { PT _ (TS _ 58) }
- 'strToInt' { PT _ (TS _ 59) }
- 'then' { PT _ (TS _ 60) }
- 'to' { PT _ (TS _ 61) }
- 'var' { PT _ (TS _ 62) }
- 'while' { PT _ (TS _ 63) }
- '||' { PT _ (TS _ 64) }
+ 'ref' { PT _ (TS _ 58) }
+ 'return' { PT _ (TS _ 59) }
+ 'strToInt' { PT _ (TS _ 60) }
+ 'then' { PT _ (TS _ 61) }
+ 'to' { PT _ (TS _ 62) }
+ 'var' { PT _ (TS _ 63) }
+ 'while' { PT _ (TS _ 64) }
+ '||' { PT _ (TS _ 65) }
 
 L_ident  { PT _ (TV $$) }
 L_integ  { PT _ (TI $$) }
@@ -231,6 +232,7 @@ Stmt : ';' { SBlank }
   | Ident '(' BExp ')' ';' { SProcCallBExp $1 $3 }
   | Ident '(' String ')' ';' { SProcCallString $1 $3 }
   | Ident '(' FuncDeclLine ')' ';' { SProcCallFuncSyg $1 $3 }
+  | Ident '(' 'ref' Ident ')' ';' { SProcCallIdRef $1 $4 }
   | Stmt1 { $1 }
 
 

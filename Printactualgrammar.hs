@@ -220,6 +220,7 @@ instance Print Stmt where
    SProcCallBExp id bexp -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 bexp , doc (showString ")") , doc (showString ";")])
    SProcCallString id str -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 str , doc (showString ")") , doc (showString ";")])
    SProcCallFuncSyg id funcdeclline -> prPrec i 0 (concatD [prt 0 id , doc (showString "(") , prt 0 funcdeclline , doc (showString ")") , doc (showString ";")])
+   SProcCallIdRef id0 id -> prPrec i 0 (concatD [prt 0 id0 , doc (showString "(") , doc (showString "ref") , prt 0 id , doc (showString ")") , doc (showString ";")])
 
   prtList es = case es of
    [] -> (concatD [])
