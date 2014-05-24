@@ -18,7 +18,12 @@ import Debug.Trace
 
 ----types-------------
 
-data TTypes = TTInt Integer | TTBoolean Bool | TTVoid | TTString String | TTArray Integer Integer Type (M.Map Integer TTypes) | TTTuple Integer (M.Map Integer TTypes) | TTFuncDef TFuncDef deriving (Eq, Show)
+data TTypes =   TTInt Integer | TTBoolean Bool | TTVoid | TTString String |
+                TTArray Integer Integer Type (M.Map Integer TTypes) |
+                TTTuple Integer (M.Map Integer TTypes) | TTFuncDef TFuncDef
+                TTRecord (M.Map String TTypes) deriving (Eq, Show)
+
+                
 -- nazwa zmiennej -> wartosc
 type TStateOld = M.Map String TTypes
 type TState2 = (TLoc, TEnv, TFuncMap)
