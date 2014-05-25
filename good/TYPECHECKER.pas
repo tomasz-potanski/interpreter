@@ -1,0 +1,3 @@
+begin
+	print <-- (x);
+end.
