@@ -1,3 +1,12 @@
+var
+	b : Boolean;
+	s : String;
+
 begin
-	print <-- (x);
+	s := "AA";
+	if False then
+		print <-- (x);
+	endif
+
+
 end.

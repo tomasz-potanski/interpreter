@@ -16,10 +16,14 @@ begin
 		function druk ( asd : Integer ; ) : Void;
 		begin
 			print <-- (asd);
+			print <-- (x); //stat 4
 		end;
 
 		function druk2(co : Integer;) : Void;
+		var
+			x : Integer;
 		begin
+			x := 17;
 			druk(co);
 		end;
 		
@@ -30,6 +34,6 @@ begin
 	aa(xx);
 	print <-- (xx);
 
-	//druk(xx); <-- FAILS
+	//druk(xx); //<-- FAILS
 	//druk2(xx); <-- FAILS
 end.

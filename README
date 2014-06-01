@@ -74,7 +74,7 @@ Wymagania na 20 puntków:
    ich wiązaniem					   działa - patrz: przesProc.pas)
 							  
 
-2. Statyczne typowanie					Brak
+2. Statyczne typowanie					++
 3. Jawne obsłużenie dynamicznych błędów wykonania	OK
 4. Funkcje zwracające wartość				OK
 
@@ -97,3 +97,6 @@ Wymagania na 24 pkty:
    identyfikatorów (jak w Pascalu)
 2. Dodatko jedna lub dwie funkcjonalnosci z		++ (nawet więcej)
    listy na 20 pktów
+
+
+POPRAWIĆ - BĘDZIE 21/22 -> 24
