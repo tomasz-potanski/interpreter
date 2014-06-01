@@ -1657,7 +1657,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                                                         otherwise ->
                                                             let stateAfterFunctionCall = (interpretStmt stmt (M.insert ident vvvv (M.union tStateOld extState) , funcMap))
                                                             in
-                                                            showToUser ("\n\n-------\n\n" ++ (show (M.toList tStateOld)) ++ "\n\n-------\n\n") ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+                                                            showToUser ("\n\n-------\n\n" ++ x ++ (show (M.toList tStateOld)) ++ "\n\n-------\n\n") ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                                          else
                                             error("Error - incorrect types!")
                             EmptyArgs -> error ("Error - arguments were given!")
