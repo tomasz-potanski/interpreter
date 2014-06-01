@@ -1829,11 +1829,11 @@ addOneProcOld h funcMap = case h of
 addOneProc2 :: ProcDeclLine -> TState3 -> TState3
 addOneProc2 h state@(s, funcMap) = case h of
     PLineNonArg (Ident x) varDecls stmt  ->
-        let tFunDef = (stmt, EmptyArgs, TTVoid, (fst (declareNewVariables varDecls (M.empty, M.empty))))
+        let tFunDef = (stmt, EmptyArgs, TTVoid, (fst (declareNewVariables varDecls (s, funcMap))))
         in
         ((M.insert ("#FUN" ++ x) (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
     PLineArg	(Ident x) args varDecls stmt  ->
-        let tFunDef = (stmt, (NonEmptyArgs args), TTVoid, (fst (declareNewVariables varDecls (M.empty, M.empty))))
+        let tFunDef = (stmt, (NonEmptyArgs args), TTVoid, (fst (declareNewVariables varDecls (s, funcMap))))
         in
         ((M.insert ("#FUN" ++ x) (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
 
@@ -1856,11 +1856,11 @@ addOneFunction2 :: FuncDeclLine -> TState3 -> TState3
 addOneFunction2 h state@(s, funcMap) = case h of
     FLineNonArg (Ident x) typee varDecls stmt  -> case varDecls of
         VBDoesntExists ->
-            let tFunDef = (stmt, EmptyArgs, (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):[])) (M.empty, M.empty))))
+            let tFunDef = (stmt, EmptyArgs, (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):[])) (s, funcMap))))
             in
             ((M.insert ("#FUN" ++ x) (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
         VBExists listOfVarDecl ->
-            let tFunDef = (stmt, EmptyArgs, (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):listOfVarDecl)) (M.empty, M.empty))))
+            let tFunDef = (stmt, EmptyArgs, (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):listOfVarDecl)) (s, funcMap))))
             in
             ((M.insert ("#FUN" ++ x) (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
     FLineArg	(Ident x) args typee varDecls stmt  -> case varDecls of
@@ -1869,9 +1869,10 @@ addOneFunction2 h state@(s, funcMap) = case h of
             in
             let tFunDef = (stmt, (NonEmptyArgs args), (typeToDefaultTType typee), nds)
             in
-            showToUser ("------\n" ++ x ++ "\n" ++ (show (M.toList nds)) ++ "\n-----------\n") ((M.insert ("#FUN" ++ x) (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
+--            showToUser ("------\n" ++ x ++ "\n" ++ (show (M.toList nds)) ++ "\n-----------\n") ((M.insert ("#FUN" ++ x) (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
+             ((M.insert ("#FUN" ++ x) (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
         VBExists listOfVarDecl ->
-            let tFunDef = (stmt, (NonEmptyArgs args), (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):listOfVarDecl)) (M.empty, M.empty))))
+            let tFunDef = (stmt, (NonEmptyArgs args), (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):listOfVarDecl)) (s, funcMap))))
             in
             ((M.insert ("#FUN" ++ x) (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
 
