@@ -59,7 +59,7 @@ isAFunctionType _ = False
 
 
 filterX :: [(String, TTypes)] -> [(String, TTypes)]
-filterX list = filterX2 list []
+filterX list = filter2X list []
 
 filter2X :: [(String, TTypes)] -> [(String, TTypes)] -> [(String, TTypes)]
 filter2X [] list = list
