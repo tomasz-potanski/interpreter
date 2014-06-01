@@ -58,6 +58,19 @@ isAFunctionType (TFunc _ _) = True
 isAFunctionType _ = False
 
 
+filterX :: [(String, TTypes)] -> [(String, TTypes)]
+filterX list = filterX2 list []
+
+filter2X :: [(String, TTypes)] -> [(String, TTypes)] -> [(String, TTypes)]
+filter2X [] list = list
+filter2X ((key, ttype):T) acc =
+    if key == "x" then
+        filter2X T ((key, ttype):acc)
+    else
+        filter2X T acc
+
+
+
 checkIfFunctionIsInRange :: Ident -> TState3 -> Bool
 checkIfFunctionIsInRange (Ident x) s@(extState, funcMap) =
     case (M.lookup ("#FUN" ++ x) extState) of
@@ -1657,7 +1670,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                                                         otherwise ->
                                                             let stateAfterFunctionCall = (interpretStmt stmt (M.insert ident vvvv (M.union tStateOld extState) , funcMap))
                                                             in
-                                                            showToUser ("\n\n-------\n\n" ++ x ++ "\n" ++ (show (M.toList tStateOld)) ++ "\n\n" ++ (show (M.toList extState)) ++ "\n\n-------\n\n") ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+                                                            showToUser ("\n\n-------\n\n" ++ x ++ "\n" ++ (show (filterX (M.toList tStateOld))) ++ "\n\n" ++ (show (M.toList extState)) ++ "\n\n-------\n\n") ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
 --                                                            ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                                          else
                                             error("Error - incorrect types!")
