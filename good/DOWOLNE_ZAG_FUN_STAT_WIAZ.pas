@@ -15,7 +15,7 @@ begin
 		
 		function druk ( asd : Integer ; ) : Void;
 		begin
-			print <-- (asd);
+			//print <-- (asd);
 			print <-- (x); //stat 4
 		end;
 
@@ -25,6 +25,7 @@ begin
 		begin
 			x := 17;
 			druk(co);
+			print <--(x);
 		end;
 		
 		druk2(a);
@@ -32,7 +33,7 @@ begin
 
 	
 	aa(xx);
-	print <-- (xx);
+	//print <-- (xx);
 
 	//druk(xx); //<-- FAILS
 	//druk2(xx); <-- FAILS
