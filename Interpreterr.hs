@@ -63,11 +63,11 @@ filterX list = filter2X list []
 
 filter2X :: [(String, TTypes)] -> [(String, TTypes)] -> [(String, TTypes)]
 filter2X [] list = list
-filter2X ((key, ttype):T) acc =
+filter2X ((key, ttype):taill) acc =
     if key == "x" then
-        filter2X T ((key, ttype):acc)
+        filter2X taill ((key, ttype):acc)
     else
-        filter2X T acc
+        filter2X taill acc
 
 
 
