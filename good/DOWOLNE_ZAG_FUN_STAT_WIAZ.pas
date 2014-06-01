@@ -21,11 +21,11 @@ begin
 
 		function druk2(co : Integer;) : Void;
 		var
-			x : Integer;
+			x2 : Integer;
 		begin
-			x := 17;
+			x2 := 17;
 			druk(co);
-			print <--(x);
+			print <--(x2);
 		end;
 		
 		druk2(a);
