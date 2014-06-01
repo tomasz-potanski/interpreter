@@ -1657,7 +1657,8 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                                                         otherwise ->
                                                             let stateAfterFunctionCall = (interpretStmt stmt (M.insert ident vvvv (M.union tStateOld extState) , funcMap))
                                                             in
-                                                            showToUser ("\n\n-------\n\n" ++ x ++ "\n" ++ (show (M.toList tStateOld)) ++ "\n\n" ++ (show (M.toList extState)) ++ "\n\n-------\n\n") ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+--                                                            showToUser ("\n\n-------\n\n" ++ x ++ "\n" ++ (show (M.toList tStateOld)) ++ "\n\n" ++ (show (M.toList extState)) ++ "\n\n-------\n\n") ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+                                                            ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                                          else
                                             error("Error - incorrect types!")
                             EmptyArgs -> error ("Error - arguments were given!")
@@ -1864,9 +1865,9 @@ addOneFunction2 h state@(s, funcMap) = case h of
             ((M.insert ("#FUN" ++ x) (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
     FLineArg	(Ident x) args typee varDecls stmt  -> case varDecls of
         VBDoesntExists ->
-            let tFunDef = (stmt, (NonEmptyArgs args), (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):[])) (M.empty, M.empty))))
+            let tFunDef = (stmt, (NonEmptyArgs args), (typeToDefaultTType typee), nds@(fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):[])) (M.empty, M.empty))))
             in
-            ((M.insert ("#FUN" ++ x) (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
+            showToUser ("------\n" ++ x ++ "\n" ++ (show (M.toList nds)) ++ "-----------\n") ((M.insert ("#FUN" ++ x) (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
         VBExists listOfVarDecl ->
             let tFunDef = (stmt, (NonEmptyArgs args), (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):listOfVarDecl)) (M.empty, M.empty))))
             in
