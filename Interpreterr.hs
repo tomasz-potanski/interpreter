@@ -45,6 +45,14 @@ type TStore = M.Map TLoc TTypes
 --idAndTypeToVarDecl (Ident x) typee
 
 
+--mapToString :: [(String, TTypes)] -> [Char]
+--mapToString list = mapToString2 list ""
+--
+--mapToString2 :: [(String, TTypes)] -> [Char] -> [Char]
+--mapToString2 [] str = str
+--
+--mapToString2 ((ss, ttypes):T) str = mapToString2 T (str ++ "\n" ++ ss ++ () + "\n")
+
 isAFunctionType :: Type -> Bool
 isAFunctionType (TFunc _ _) = True
 isAFunctionType _ = False
@@ -1649,7 +1657,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                                                         otherwise ->
                                                             let stateAfterFunctionCall = (interpretStmt stmt (M.insert ident vvvv (M.union tStateOld extState) , funcMap))
                                                             in
-                                                            showToUser (show "\n\n-------\n\n" ++ (M.toList tStateOld) ++ "\n\n-------\n\n") ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
+                                                            showToUser ("\n\n-------\n\n" ++ (show (M.toList tStateOld)) ++ "\n\n-------\n\n") ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                                          else
                                             error("Error - incorrect types!")
                             EmptyArgs -> error ("Error - arguments were given!")
