@@ -11,7 +11,7 @@ eters, IO, loops, lambda abstractions etc.). Created interpreter that verifies a
 grams.
 
 ORININAL TASK DESCRIPTION BELOW [Polish]
->>>>>>>>>>-----------<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>>
 
 
 Jezyki i paradygmaty programowania
