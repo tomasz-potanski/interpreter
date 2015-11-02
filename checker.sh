@@ -23,7 +23,6 @@ echo "||| Those files should be vaild:"
 for file in ./good/*pas
 do
 
-#echo "$file"
 	echo "||| $file:"
 	if [ `./verifier $file 2>&1 | grep "Parse Successful!" | wc -l` = 1 ]
 	then
@@ -58,7 +57,6 @@ echo "||| Those files should NOT be vaild:"
 for file in ./bad/*pas
 do
 
-#echo "$file"
 	echo "||| $file:"
 	if [ `./verifier $file | grep "Parse Successful!" | wc -l` = 1 ]
 	then
@@ -84,8 +82,8 @@ echo "|||--------------------------------"
 if [ $errors -gt 0 ]
 then
 	echo "$bldred"
-	echo ">>> Ilosc bledow: $errors <<<$reset"
+	echo ">>> Amount of errors: $errors <<<$reset"
 else 
 	echo "$bldgreen"
-	echo ">>> Testy OK <<<$reset"
+	echo ">>> Tests OK <<<$reset"
 fi

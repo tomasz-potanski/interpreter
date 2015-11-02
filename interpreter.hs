@@ -16,23 +16,6 @@ import qualified Data.Map as M
 
 
 
---main = do
---  interact calc
---  putStrLn ""
-
---calc s = 
---  let Ok e = pExp (myLexer s) 
---  in show (interpretFile e)
-
---getFileContent :: [String] -> String
---getFileContent (filePath:_) = do
---    fileHandler <- openFile filePath ReadMode
---    fileContent <- hGetContents fileHandler
---    return fileContent
---getFileContent [] = do
---	c <- getContents
---	return c
-
 isNotNull :: [a] -> Bool
 isNotNull [] = False
 isNotNull (h:_) = True
@@ -48,7 +31,7 @@ main = do
     	fileHandler <- openFile filePath ReadMode
     	fileContent <- hGetContents fileHandler
     	case pProgram (myLexer fileContent) of
-    	    Bad s -> do 
+    	    Bad s -> do
 		 hPutStrLn stderr "Error"
 		 hPutStrLn stderr s
             Ok i ->
@@ -60,8 +43,7 @@ main = do
     else do
 	fileContent <- getContents
     	case pProgram (myLexer fileContent) of
-    	    Bad s -> do 
+    	    Bad s -> do
 		 hPutStrLn stderr "Error"
 		 hPutStrLn stderr s
---            Ok i -> return()
             Ok i -> putStrLn (show (M.toList (fst (interpretFile i))))

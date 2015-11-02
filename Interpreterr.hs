@@ -41,18 +41,6 @@ type TStore = M.Map TLoc TTypes
 ---------helpful funcitons--------
 
 
---idAndTypeToVarDecl :: Ident -> Type ->
---idAndTypeToVarDecl (Ident x) typee
-
-
---mapToString :: [(String, TTypes)] -> [Char]
---mapToString list = mapToString2 list ""
---
---mapToString2 :: [(String, TTypes)] -> [Char] -> [Char]
---mapToString2 [] str = str
---
---mapToString2 ((ss, ttypes):T) str = mapToString2 T (str ++ "\n" ++ ss ++ () + "\n")
-
 isAFunctionType :: Type -> Bool
 isAFunctionType (TFunc _ _) = True
 isAFunctionType _ = False
@@ -102,7 +90,6 @@ funcDeclTypeOK fdec _ = False
 
 insertVariable:: Ident -> (TTypes, TState3) -> TState3
 insertVariable (Ident x) (varTType, s@(extState, funcMap)) = case varTType of
---    TTFuncDef tFuncDef -> showToUser ((show tFuncDef ++ "\n\n")) ((M.insert x varTType extState) , (M.insert x tFuncDef funcMap))
     TTFuncDef tFuncDef ->  ((M.insert x varTType extState) , (M.insert x tFuncDef funcMap))
     otherwise -> ((M.insert x varTType extState) , funcMap)
 
@@ -125,7 +112,6 @@ ttypeToType typee = case typee of
     TTInt _ -> TInt
     TTBoolean _ -> TBool
     TTString _ -> TString
---    TArray minn maxx ofType -> TTArray minn maxx ofType M.empty
     TTArray _ _ ofType _ -> TArray 0 10 ofType
     TTFuncDef (_, argType, retType, _ ) -> case argType of
         EmptyArgs -> TFunc TVoid (ttypeToType retType)
@@ -232,7 +218,6 @@ typeCheck ttype typee = case ttype of
         otherwise -> False
     TTFuncDef defOfFun@(stmts, funcArg, tTypes, tStateOldFunc) -> case typee of
         TFunc argType retType -> if (tTypes == (typeToDefaultTType retType)) then
---                                    True --TODO - wpradz typ argumentu
                                     (checkArgTypes2 funcArg argType)
                                  else False
         otherwise -> False
@@ -283,7 +268,7 @@ strToInt s = read s :: Integer
 variableValueBool :: Ident -> TState3 -> Bool
 variableValueBool (Ident x) (s, funcMap) = case M.lookup x s of
 	Just n 	-> (extractBool n) 
-	Nothing	-> error ("Error - Variable: " ++ (show x) ++ " has not been declared!") -- !!rzuc blad
+	Nothing	-> error ("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
 variableValueInt :: Ident -> TState3 -> Integer
 variableValueInt (Ident x) (s, funcMap) = case M.lookup x s of
@@ -292,24 +277,12 @@ variableValueInt (Ident x) (s, funcMap) = case M.lookup x s of
 		TTBoolean b -> case b of
 			False -> 0
 			True -> 1
-	Nothing	-> error ("Error - Variable: " ++ (show x) ++ " has not been declared!") -- !!rzuc blad
+	Nothing	-> error ("Error - Variable: " ++ (show x) ++ " has not been declared!")
      
 
 extractArray :: TTypes -> (Integer, Integer, Type, (M.Map Integer TTypes))
 extractArray (TTArray minn maxx typee mapp) = (minn, maxx, typee, mapp)
 
---extractString :: TTypes -> String
---extractString (TTString a) = a
-
---extractChar :: TTypes -> Char
---extractChar (TTChar a) = a
-
---extractDouble :: TTypes -> Double
---extractDouble (TTDouble a) = a
-
-
---import Control.Monad.State
---import Control.Monad.Error
 
 checkifVarExists :: Ident -> TState3 -> Bool
 checkifVarExists (Ident ident) (state, funcMap) = case M.lookup ident state of
@@ -331,7 +304,6 @@ putIO msg = do
 showToUser :: String -> a -> a
 showToUser string expr = unsafePerformIO $ do
 	putIO string
---	putStrLn string
 	return expr
 
 
@@ -345,7 +317,7 @@ interpretExp x s@(state, funcMap) = case x of
   EDiv exp0 exp  -> let r = (interpretExp exp s) in
 			case r of
 				0 -> error("Division by zero!")
-				otherwise -> (interpretExp exp0 s) `div` r -- !! SPRAWDZ DZIELENIE PRZEZ ZERO
+				otherwise -> (interpretExp exp0 s) `div` r
   EInt n  -> n
   EId (Ident x) -> case M.lookup x state of
 	Just n 	-> case n of
@@ -355,7 +327,7 @@ interpretExp x s@(state, funcMap) = case x of
 			True -> 1
 		TTString _ -> 0
 		TTArray _ _ _ _ -> 0
-	Nothing	-> error ("Error - Variable: " ++ (show x) ++ " has not been declared!") -- !!rzuc blad
+	Nothing	-> error ("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
   EFunNonArg (Ident x) -> case (M.lookup x funcMap) of
     Nothing -> error("Error - invalid function name!");
@@ -373,35 +345,12 @@ interpretExp x s@(state, funcMap) = case x of
                         let stateAfterFunctionCall = (interpretStmt stmt ((M.union tStateOld state) , funcMap))
                         in
                         (identToInt (Ident x) stateAfterFunctionCall)
-    --              Sorry for the code repetition, I don't know how to handle it better ;)
                     TTBoolean _ ->
                         let stateAfterFunctionCall = (interpretStmt stmt ((M.union tStateOld state) , funcMap))
                         in
                         (identToInt (Ident x) stateAfterFunctionCall)
         else
             error("Error - F OOR")
-
---  EFunInteger (Ident x) int -> case (M.lookup x funcMap) of
---    Nothing -> error("Error - invalid function name!");
---    Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
---        let globals = M.intersection state tStateOld
---        in
---        case varDeclarationLine of
---            NonEmptyArgs v -> case v of
---	                DLList identList@((Ident identArg):_) typee -> case tTypes of
---                            TTVoid -> error("Error - function must return Int or Boolean...")
---                            TTString _ -> error("Error - function must return Int or Boolean...")
---                            TTArray _ _ _ _ -> error("Error - function must return Int or Boolean...")
---                            TTInt _ ->
---                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt int) (M.union tStateOld state) , funcMap))
---                                in
---                                (identToInt (Ident x) stateAfterFunctionCall)
---            --              Sorry for the code repetition, I don't know how to handle it better ;)
---                            TTBoolean _ ->
---                                let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt int) (M.union tStateOld state) , funcMap))
---                                in
---                                (identToInt (Ident x) stateAfterFunctionCall)
---            EmptyArgs -> error("Error - function/procedure need argument")
 
 
   EFunString (Ident x) str -> case (M.lookup x funcMap) of
@@ -420,7 +369,6 @@ interpretExp x s@(state, funcMap) = case x of
                                     let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTString str) (M.union tStateOld state) , funcMap))
                                     in
                                     (identToInt (Ident x) stateAfterFunctionCall)
-                --              Sorry for the code repetition, I don't know how to handle it better ;)
                                 TTBoolean _ ->
                                     let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTString str) (M.union tStateOld state) , funcMap))
                                     in
@@ -450,7 +398,6 @@ interpretExp x s@(state, funcMap) = case x of
                                             let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (interpretExp exp s)) (M.union tStateOld state) , funcMap))
                                             in
                                             (identToInt (Ident x) stateAfterFunctionCall)
-                        --              Sorry for the code repetition, I don't know how to handle it better ;)
                                         TTBoolean _ ->
                                             let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (interpretExp exp s)) (M.union tStateOld state) , funcMap))
                                             in
@@ -463,7 +410,6 @@ interpretExp x s@(state, funcMap) = case x of
                                             let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTBoolean (intToBool (interpretExp exp s))) (M.union tStateOld state) , funcMap))
                                             in
                                             (identToInt (Ident x) stateAfterFunctionCall)
-                        --              Sorry for the code repetition, I don't know how to handle it better ;)
                                         TTBoolean _ ->
                                             let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTBoolean (intToBool (interpretExp exp s))) (M.union tStateOld state) , funcMap))
                                             in
@@ -493,7 +439,6 @@ interpretExp x s@(state, funcMap) = case x of
                                                 let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (boolToInt(interpretBExp bexp s))) (M.union tStateOld state) , funcMap))
                                                 in
                                                 (identToInt (Ident x) stateAfterFunctionCall)
-                            --              Sorry for the code repetition, I don't know how to handle it better ;)
                                             TTBoolean _ ->
                                                 let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTInt (boolToInt (interpretBExp bexp s))) (M.union tStateOld state) , funcMap))
                                                 in
@@ -506,7 +451,6 @@ interpretExp x s@(state, funcMap) = case x of
                                                 let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTBoolean (interpretBExp bexp s)) (M.union tStateOld state) , funcMap))
                                                 in
                                                 (identToInt (Ident x) stateAfterFunctionCall)
-                            --              Sorry for the code repetition, I don't know how to handle it better ;)
                                             TTBoolean _ ->
                                                 let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg (TTBoolean (interpretBExp bexp s)) (M.union tStateOld state) , funcMap))
                                                 in
@@ -535,7 +479,6 @@ interpretExp x s@(state, funcMap) = case x of
                                                 let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg vvvv (M.union tStateOld state) , funcMap))
                                                 in
                                                 (identToInt (Ident x) stateAfterFunctionCall)
-                            --              Sorry for the code repetition, I don't know how to handle it better ;)
                                             TTBoolean _ ->
                                                 let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg vvvv (M.union tStateOld state) , funcMap))
                                                 in
@@ -546,7 +489,6 @@ interpretExp x s@(state, funcMap) = case x of
         else
             error("Error - F OOR")
 
---	                            ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident vvvv (M.union tStateOld extState) , funcMap))) globals) extState, funcMap)
 
 
 
@@ -573,7 +515,6 @@ interpretExp x s@(state, funcMap) = case x of
                                                         let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg vvvv (M.union tStateOld state) , funcMap))
                                                         in
                                                         (identToInt (Ident x) stateAfterFunctionCall)
-                                    --              Sorry for the code repetition, I don't know how to handle it better ;)
                                                     TTBoolean _ ->
                                                         let stateAfterFunctionCall = (interpretStmt stmt (M.insert identArg vvvv (M.union tStateOld state) , funcMap))
                                                         in
@@ -583,7 +524,6 @@ interpretExp x s@(state, funcMap) = case x of
                 EmptyArgs -> error("Error - function/procedure need argument")
         else
             error("Error - F OOR")
---	                            ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident vvvv (M.union tStateOld extState) , funcMap))) globals) extState, funcMap)
 
 
   EArray (Ident x) index -> case (M.lookup x state) of
@@ -714,31 +654,6 @@ interpretBExp b s@(state, funcMap) = case b of
 			};;
 		};
 	}
-
---	BStringRel3 (Ident x) (Ident y) -> case (checkifVarExists (Ident x) s) of
---		False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
---		True -> case (M.lookup x state) of
---		    Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
---		    Just n ->
---		        case n of {
---                    TTBoolean _ -> error("Error - type mismatch");
---                    TTInt _ -> error("Error - type mismatch");
---                    TTVoid -> error("Error - type mismatch");
---                    TTArray _ _ _ _ -> error("Error - type mismatch");
---                    TTString str2 -> case (checkifVarExists (Ident x) s) of {
---                        False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!");
---                        True -> case (M.lookup x state) of {
---                            Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!");
---                            Just n -> case n of {
---                                TTBoolean _ -> error("Error - type mismatch");
---                                TTInt _ -> error("Error - type mismatch");
---                                TTVoid -> error("Error - type mismatch");
---                                TTArray _ _ _ _ -> error("Error - type mismatch");
---                                TTString str ->	if str == str2 then True else False;
---                            }
---                        }
---                    }
---                }
 
 
 	BExpArray (Ident x) index -> case (checkifVarExistsAndIsArray (Ident x) s) of
@@ -1003,7 +918,6 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 					((M.insert x (TTBoolean (intToBool val)) extState), funcMap) else s
 				otherwise -> error("Error - incorrect types")
 			Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
-	 -- s@extState, funcMap()> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 
     SBlank -> s
 
@@ -1013,7 +927,6 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	    Nothing -> case (M.lookup y funcMap) of
 	        Nothing -> error("Error - Variable: " ++ (show y) ++ " has not been declared!")
 	        Just fvy -> if genericTTypeCheck (TTFuncDef fvy) vx then
---	                        error("Error - not implemented yet")
                             ((M.insert x (TTFuncDef fvy) extState), (M.insert x fvy funcMap))
 	                    else
 	                        error("Error - type mismatch!")
@@ -1030,7 +943,6 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 	Just vx@(TTArray minn maxx arrayType arrayMap) -> case (M.lookup y extState) of {
             Nothing -> case (M.lookup y funcMap) of {;
                 Nothing -> error("Error - Variable or funciton: " ++ (show y) ++ " has not been declared!");;
---                Just fvy -> if genericTTypeCheck (TTFuncDef fvy) vxx then ((extState), (M.insert x (TTArray minn maxx arrayType (M.insert  index fvy arrayMap)) funcMap)) else error("Error - type mismatch!");;
                 Just fvy -> if genericTTypeCheck (TTFuncDef fvy) (typeToDefaultTType arrayType) then ((M.insert x (TTArray minn maxx arrayType (M.insert index (TTFuncDef fvy) arrayMap)) extState), funcMap) else error("Error +- type mismatch: "++ (show vx) ++ "; " ++ (show fvy));;
             };
             Just vy -> if genericTTypeCheck (typeToDefaultTType arrayType) vy then ((M.insert x (TTArray minn maxx arrayType (M.insert index vy arrayMap)) extState), funcMap) else error("Error -+ type mismatch: " ++ (show vx) ++ "; " ++ (show vy));
@@ -1166,7 +1078,7 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 		in let valL = (variableValueInt (Ident x) s)
 		in (M.insert x (TTInt (valL*valR)) extState, funcMap)
 	False -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
-    SAssDiv (Ident x) exp -> case (checkifVarExists (Ident x) s) of                -- !! SPRAWDZ DZIELENIE PRZEZ ZERO
+    SAssDiv (Ident x) exp -> case (checkifVarExists (Ident x) s) of
 	True ->
 		let valR = (interpretExp exp s)
 		in let valL = (variableValueInt (Ident x) s)
@@ -1234,7 +1146,6 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
     SBlock [] -> s
     SBlock (i:is) -> 
         (interpretStmts is (interpretStmt i s))
-	-- !! ZROBIĆ PRINT INACZEJ
     SPrintString str -> showToUser str s
     SPrintBLit bLit -> case bLit of
 	BoolLitTrue -> showToUser "True" s
@@ -1252,7 +1163,6 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 		TTFuncDef tFunDef@(stmts, argss, returnType, ooooldState) -> case (M.lookup ("#FUN" ++ x) extState) of
 		    Nothing ->   (showToUser ("Funcitonn: " ++ (show tFunDef) ++ "\n\n" ++ "#FUN" ++ x ++": ") s)
 		    Just zxc ->   (showToUser ("Funcitonn: " ++ (show tFunDef) ++ "\n\n" ++ "#FUN" ++ x ++": " ++ (show zxc)) s)
---		    error("Error - variable: " ++ (show x) ++ " represents function and is unprintable ;) " ++ (show stmts))
 		otherwise -> error("Error - Variable: " ++ (show x) ++ " is unprintable!")
 	    Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
 	False -> case (M.lookup x funcMap) of
@@ -1274,7 +1184,6 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                                 False -> (showToUser "False" s)
                         TTString val -> (showToUser val s)
                         TTFuncDef tFunDef@(stmts, argss, returnType, ooooldState) -> (showToUser ("funcitonn: " ++ (show tFunDef) ++ "\n\n") s)
-        --		    error("error - variable: " ++ (show x) ++ " represents function and is unprintable ;) " ++ (show stmts))
                         otherwise -> error("error - variable: " ++ (show x) ++ " is unprintable!")
             otherwise -> error("Error - variable is not a record!")
 	    Nothing -> error("Error - Variable: " ++ (show x) ++ " has not been declared!")
@@ -1333,22 +1242,6 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                                         in
                                         showToUser (identToString (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
                         otherwise -> error("Error - out of the range/")
---                        error("Not implemented yet!")
-
-
---    SPrintFunExp (Ident x) exp -> case (M.lookup x funcMap) of
---        Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
---        Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
---            let globals = M.intersection extState tStateOld
---            in
---            case varDeclarationLine of
---                NonEmptyArgs _ -> error("Error - function/procedure need argument")
---                EmptyArgs -> case tTypes of
---                    TTVoid -> error("Error - function must return sth...")
---                    otherwise ->
---                        let stateAfterFunctionCall = (interpretStmt stmt (M.insert (M.union tStateOld extState) , funcMap))
---                        in
---                        showToUser (identToString (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
 
     SPrintFunExp (Ident x) exp -> case (M.lookup x funcMap) of
         Nothing -> error("Error - invalid function name!");
@@ -1496,22 +1389,9 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                         otherwise -> error("Error - out of the range?")
 
 
---	SPrintFun (Ident x) -> case (M.lookup x funcMap) of
---	    Nothing -> error("Error - funciton: " ++ (show x) ++ " does not exist!")
---	    Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
---            let globals = M.intersection extState tStateOld
---            in
---            case varDeclarationLine of
---               EmptyArgs -> case tTypes of
---                    TTVoid -> error("Error - function must return sth...")
---                    otherwise -> let stateAfterFunctionCall = (interpretStmt stmt ((M.union tStateOld extState) , funcMap))
---                    in
---                    showToUser (identToString (Ident x) stateAfterFunctionCall) ( M.union (M.intersection (fst stateAfterFunctionCall) globals) extState, funcMap)
---               NonEmptyArgs _ -> error("Error - function/procedure needs arguemnt")
 
 
 
-----TODO
     SProcCallFuncSyg (Ident x) funcDeclLine -> case (M.lookup x funcMap) of
 	    Nothing -> error("Error - function " ++ (show x) ++ "could not be found!")
 	    Just (stmt, varDeclarationLine, tTypes, tStateOld) -> case (M.lookup ("#FUN" ++ x) extState) of
@@ -1552,15 +1432,6 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                                NonEmptyArgs _ -> error("Error - function/procedure needs arguemnt")
                         otherwise -> error("Error - out of the range?")
 
---    SProcCallInteger (Ident x) int -> case (M.lookup x funcMap) of
---        Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
---        Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
---            let globals = M.intersection extState tStateOld
---            in
---	        case varDeclarationLine of
---	            NonEmptyArgs v -> case v of
---	                DLList identList@((Ident ident):_) typee -> ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident (TTInt int) (M.union tStateOld extState) , funcMap))) globals) extState, funcMap)
---	            EmptyArgs -> error ("Error - arguments were given!")
 
     SProcCallExp (Ident x) exp -> case (M.lookup x funcMap) of
         Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
@@ -1623,26 +1494,6 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                                     EmptyArgs -> error("Error - arguments were given!")
                             otherwise -> error("Error - out of ange?")
 
---    SProcCallString (Ident x) strstr -> case (M.lookup x funcMap) of {
---        Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!");
---        Just (stmt, varDeclarationLine, tTypes, tStateOld) -> case (M.lookup ("#FUN" ++ x) extState) of {;
---                Nothing -> error("Error -# function " ++ x ++ " does not exist or is out of range!");;
---                Just cos -> ;;
---                    case cos of ;;
---                        (TTFuncDef fffuncDef) -> ;;
---                            let globals = M.intersection extState tStateOld in ;;
---                            case varDeclarationLine of {;;
---                                NonEmptyArgs v -> case v of {;;;
---                                    DLList identList@((Ident ident):_) typee -> case typee of {;;;;
---                                        TString -> ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident (TTString strstr) (M.union tStateOld extState) , funcMap))) globals) extState, funcMap);;;;;
---                                        otherwise -> error("Error - incorrect type");;;;;
---                                    };;;;
---                                };;;
---                                EmptyArgs -> error ("Error - arguments were given!") ;;;
---                            };;
---                        otherwise -> error("Error - out of rang?");;
---            };
---	 }
 
 
     SProcCallId (Ident x) (Ident argIdent) -> case (M.lookup x funcMap) of
@@ -1670,7 +1521,6 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                                                         otherwise ->
                                                             let stateAfterFunctionCall = (interpretStmt stmt (M.insert ident vvvv (M.union tStateOld extState) , funcMap))
                                                             in
---                                                            showToUser ("\n\n-------\n\n" ++ x ++ "\n" ++ (show (filterX (M.toList tStateOld))) ++ "\n\n" ++ (show (filterX (M.toList extState))) ++ "\n\n-------\n\n") ( M.union (M.intersection globals (fst stateAfterFunctionCall)) extState, funcMap)
                                                             ( M.union (M.intersection globals (fst stateAfterFunctionCall)) extState, funcMap)
                                          else
                                             error("Error - incorrect types!")
@@ -1713,22 +1563,6 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
                     otherwise -> error("Error - out of range?")
 
 
---    SProcCallIdFunc (Ident x) (Ident functionNameArg) -> case (M.lookup x funcMap) of
---        Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
---        Just (stmt, varDeclarationLine, tTypes, tStateOld) ->
---            let globals = M.intersection extState tStateOld
---            in
---	        case varDeclarationLine of
---	            NonEmptyArgs v -> case v of
---	                DLList identList@((Ident ident):_) typee -> case (M.lookup functionNameArg funcMap) of
---	                    Nothing     -> error("Error - function has not been inicialized!")
---	                    Just secFun@(stmts, funcArg@(NonEmptyArgs varDeclarationLine2@(DLList identList@((Ident ident2):_) typee2 )), tTypes, tOldStateFromFunction)   -> case (M.lookup argIdent extState) of
---                            Nothing     -> error("Error - varibable has not been inicialized!")
---	                        Just vvvv   -> if typeCheck vvvv typee2 then
---	                            ( M.union (M.intersection (fst (interpretStmt stmt (M.insert ident vvvv (M.union tStateOld extState) , M.insert ident secFun funcMap))) globals) extState, funcMap)
---	                         else
---	                            error("Error - incorrect types!")
---	            EmptyArgs -> error ("Error - arguments were given!")
 
     SProcCallIdArray (Ident x) (Ident argIdent) int -> case (M.lookup x funcMap) of
         Nothing -> error("Error - Functin/procedure: "++ (show x)++" has not been found!")
@@ -1757,17 +1591,11 @@ interpretStmt stmt s@(extState, funcMap) = case stmt of
 
     SFuncDeclLine funcDeclLine -> addOneFunction2 funcDeclLine s
 
------------------------------------------
---type TFuncDef = (Stmt, VarDeclarationLine, TTypes, TStateOld)
---type TFuncMap = M.Map String TFuncDef
-
---type TState2 = (TLoc, TEnv, TFuncMap)
 
 changeStateToSecond :: TStateOld -> TStateOld -> TStateOld
 changeStateToSecond _ a = a
 
 simpleAddOneVar :: Ident -> TTypes -> TState3 -> TState3
---simpleAddOneVar (Ident x) value (loc, env, funcMap) = ((M.insert loc), env, funcMap) 
 simpleAddOneVar (Ident x) value (state, funcMap) = ((M.insert x value state), funcMap)
 
 
@@ -1779,12 +1607,6 @@ simpleAddOneRec (Ident x) list@((DLList ((Ident xx):[]) typee):tl) s@(state, fun
         TTRecord actRecMap -> simpleAddOneRec (Ident x) tl ((M.insert x (TTRecord (M.insert xx (typeToDefaultTType typee) actRecMap)) state) , funcMap)
         otherwise -> error("Error - variable " ++ (show x) ++ "not a record!")
 
---    case value of
---        (TTRecord recMap) ->
---        otherwise -> error("Error - not a record ;)")
-
-
---((M.insert x value state), funcMap)
 
 -------------------BEGINNING, DECLARATIONS, ...---------------
 addOneVariable :: Ident -> Type -> TState3 -> TState3
@@ -1793,7 +1615,6 @@ addOneVariable (Ident ident) typee state@(tStateOld, funcMap) = case typee of
 		TInt -> simpleAddOneVar (Ident ident) (TTInt 0) state
 		TVoid -> state
 		TBool -> simpleAddOneVar (Ident ident) (TTBoolean False) state
---		TFunc argType retType -> (tStateOld, addOneFunction (FLineArg (Ident ident) (DLList [] ) retType VariableDeclaration []) funcMap)
 		TFunc argType retType -> simpleAddOneVar (Ident ident) (TTFuncDef (SBlank, (NonEmptyArgs (DLList ((Ident "arg"):[]) argType)), (typeToDefaultTType retType), M.empty)) state
 		TString -> simpleAddOneVar (Ident ident) (TTString "") state
 		TArray minn maxx typee -> 
@@ -1801,17 +1622,6 @@ addOneVariable (Ident ident) typee state@(tStateOld, funcMap) = case typee of
 				simpleAddOneVar (Ident ident) (TTArray minn maxx typee M.empty) state
 			else 
 				error("Error - incorrect table index range!")	
-
---addOneVariable (Ident ident) typee state = case typee of
---		TInt -> M.insert ident (TTInt 0) state
---		TBool -> M.insert ident (TTBoolean False) state
---		TString -> M.insert ident (TTString "") state
---		TArray minn maxx typee -> 
---			if (minn < maxx) && (minn >= 0) then 
---				M.insert ident (TTArray minn maxx typee M.empty) state
---			else 
---				error("Error - incorrect table index range!")	
-
 
 
 addManyVariables :: [Ident] -> Type -> TState3 -> TState3
@@ -1827,10 +1637,6 @@ declareNewVariables vars state = case vars of
 		let s = addManyVariables idents typee state
 		in
 			declareNewVariables (VBExists tl) s
-
--------DEFS....
---type TFuncDef = (Stmt, VarDeclarationLine, TTypes, TStateOld)
---type TFuncMap = M.Map String TFuncDef
 
 
 addOneProcOld :: ProcDeclLine -> TFuncMap -> TFuncMap
@@ -1882,7 +1688,6 @@ addOneFunction2 h state@(s, funcMap) = case h of
             in
             let tFunDef = (stmt, (NonEmptyArgs args), (typeToDefaultTType typee), nds)
             in
---            showToUser ("------\n" ++ x ++ "\n" ++ (show (M.toList nds)) ++ "\n-----------\n") ((M.insert ("#FUN" ++ x) (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
              ((M.insert ("#FUN" ++ x) (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
         VBExists listOfVarDecl ->
             let tFunDef = (stmt, (NonEmptyArgs args), (typeToDefaultTType typee), (fst (declareNewVariables (VBExists ((DLList ((Ident x):[]) typee):listOfVarDecl)) (s, funcMap))))
@@ -1890,27 +1695,6 @@ addOneFunction2 h state@(s, funcMap) = case h of
             ((M.insert ("#FUN" ++ x) (TTFuncDef tFunDef) s), (M.insert x tFunDef funcMap))
 
 
-
---prepareFunctions :: ProcDeclaration -> TState3 -> TState3
---prepareFunctions funs state@(s, funcMap) = case funs of
-----    PDoesntExist -> state
-----    PExists [] -> state
-----    PExists listOfProcDecl@(h:tl) ->
-----            prepareFunctions (PExists tl) (s, addOneProc h funcMap)
---    PDoesntExist -> state
---    PExists [] -> state
---    PExists listOfProcDecl@(h:tl) ->
---            prepareFunctions (PExists tl) (s, addOneProc h funcMap)
---    FExists [] -> state
---    PFExists [] [] -> state
---    FExists listOfFuncDecl@(h:tl) ->
---            prepareFunctions (FExists tl) (s, addOneFunction h funcMap)
---    PFExists [] listOfFuncDecl@(hf:tlf) ->
---            prepareFunctions (PFExists [] tlf) (s, addOneFunction hf funcMap)
---    PFExists listOfProcDecl@(hp:tlp) [] ->
---            prepareFunctions (PFExists tlp []) (s, addOneProc hp funcMap)
---    PFExists listOfProcDecl@(hp:tlp) listOfFuncDecl@(hf:tlf) ->
---            prepareFunctions (PFExists tlp listOfFuncDecl) (s, addOneProc hp funcMap)
 
 
 prepareFunctions2 :: ProcDeclaration -> TState3 -> TState3
@@ -1932,6 +1716,4 @@ prepareFunctions2 funs state@(s, funcMap) = case funs of
 
 -------------INTERPRET FILE------------
 interpretFile :: Program -> TState3
---interpretFile (Programm programNameHeader (Blockk variableDeclaration stmts)) = interpretStmt stmts (declareNewVariables variableDeclaration (M.empty, M.empty, M.empty))
 interpretFile (Programm programNameHeader (Blockk variableDeclaration procDecl stmts)) = interpretStmt stmts (prepareFunctions2 procDecl (declareNewVariables variableDeclaration (M.empty, M.empty)))
---interpretFile :: Program -> TState
