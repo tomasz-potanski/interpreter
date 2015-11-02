@@ -1,3 +1,18 @@
+#Interpreter of my own programming language
+#####An university project build in Haskell.
+---
+- **Technologies**: Haskell
+- **Date**: May, 2014
+- **Assessment**: 22/24 (24 was the maximum)
+- **GitHub**: https://github.com/tomasz-potanski/interpreter
+
+Designed simplistic programming language (OO, statically-typed, recursive, functions as param-
+eters, IO, loops, lambda abstractions etc.). Created interpreter that verifies and executes pro-
+grams.
+
+ORININAL TASK DESCRIPTION BELOW [Polish]
+>>>>>>>>>>-----------<<<<<<<<<<
+
 
 Jezyki i paradygmaty programowania
 Zad 2 (lab), interpreter
@@ -97,6 +112,3 @@ Wymagania na 24 pkty:
    identyfikatorów (jak w Pascalu)
 2. Dodatko jedna lub dwie funkcjonalnosci z		++ (nawet więcej)
    listy na 20 pktów
-
-
-POPRAWIĆ - BĘDZIE 21/22 -> 24
