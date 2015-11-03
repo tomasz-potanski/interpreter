@@ -6,9 +6,8 @@
 - **Assessment**: 22/24 (24 was the maximum)
 - **GitHub**: https://github.com/tomasz-potanski/interpreter
 
-Designed simplistic programming language (OO, statically-typed, recursive, functions as param-
-eters, IO, loops, lambda abstractions etc.). Created interpreter that verifies and executes pro-
-grams.
+Designed simplistic programming language (OO, statically-typed, recursive, functions as parameters,
+IO, loops, lambda abstractions etc.). Created interpreter that verifies and executes programs.
 
 ORIGINAL TASK DESCRIPTION BELOW [Polish]
 >>>>>>>>>>>>>>>>>>>>>>>
