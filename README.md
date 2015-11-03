@@ -10,7 +10,7 @@ Designed simplistic programming language (OO, statically-typed, recursive, funct
 eters, IO, loops, lambda abstractions etc.). Created interpreter that verifies and executes pro-
 grams.
 
-ORININAL TASK DESCRIPTION BELOW [Polish]
+ORIGINAL TASK DESCRIPTION BELOW [Polish]
 >>>>>>>>>>>>>>>>>>>>>>>
 
 
