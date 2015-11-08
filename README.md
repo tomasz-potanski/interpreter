@@ -9,6 +9,8 @@
 Designed simplistic programming language (OO, statically-typed, recursive, functions as parameters,
 IO, loops, lambda abstractions etc.). Created interpreter that verifies and executes programs.
 
+folder: good contains exemples of valid programs in this language.
+
 ORIGINAL TASK DESCRIPTION BELOW [Polish]
 >>>>>>>>>>>>>>>>>>>>>>>
 
